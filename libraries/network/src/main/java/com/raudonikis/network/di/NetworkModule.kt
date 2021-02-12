@@ -1,8 +1,8 @@
 package com.raudonikis.network.di
 
-import com.raudonikis.network.EXAMPLE_API_BASE_URL
-import com.raudonikis.network.ExampleApi
-import com.raudonikis.network.ExampleApiInterceptor
+import com.raudonikis.network.igdb.IgdbApi
+import com.raudonikis.network.igdb.IgdbApiInterceptor
+import com.raudonikis.network.igdb.IgdbApiConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,20 +18,20 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieApiService(
+    fun provideIgdbApi(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
-    ): ExampleApi {
+    ): IgdbApi {
         return Retrofit.Builder()
-            .baseUrl(EXAMPLE_API_BASE_URL)
+            .baseUrl(IgdbApiConstants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
-            .create(ExampleApi::class.java)
+            .create(IgdbApi::class.java)
     }
 
     @Provides
-    internal fun provideOkHttpClient(interceptor: ExampleApiInterceptor): OkHttpClient {
+    internal fun provideOkHttpClient(interceptor: IgdbApiInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()

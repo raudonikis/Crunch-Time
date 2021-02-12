@@ -1,17 +1,34 @@
 package com.raudonikis.home
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
-import dagger.assisted.Assisted
+import com.raudonikis.network.igdb.IgdbApi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
-class HomeViewModel constructor(
+class HomeViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    @Assisted private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+    private val igdbApi: IgdbApi,
+) : ViewModel(), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = SupervisorJob() + Dispatchers.IO
+
+    fun getGames() {
+        launch {
+            igdbApi.getGames().map {
+                Timber.d(it.toString())
+            }
+        }
+    }
 
     fun navigateToDashboard() {
         navigationDispatcher.navigate(NavigationGraph.Dashboard)

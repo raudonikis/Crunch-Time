@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.mappers
 
-import com.raudonikis.data.entities.ExampleEntity
+import com.raudonikis.data.database.entities.ExampleEntity
 import com.raudonikis.data_domain.models.ExampleModel
 import com.raudonikis.network.responses.ExampleResponse
 

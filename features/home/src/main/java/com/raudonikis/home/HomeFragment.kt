@@ -28,6 +28,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             buttonToHomeNext.setOnClickListener {
                 viewModel.navigateToHomeNext()
             }
+            buttonGetGames.setOnClickListener {
+                viewModel.getGames()
+            }
         }
     }
 }

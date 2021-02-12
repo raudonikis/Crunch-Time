@@ -1,4 +1,4 @@
-package com.raudonikis.data.entities
+package com.raudonikis.data.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

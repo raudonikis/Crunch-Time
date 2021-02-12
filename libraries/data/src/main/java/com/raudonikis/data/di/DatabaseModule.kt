@@ -2,8 +2,8 @@ package com.raudonikis.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.raudonikis.data.ExampleDatabase
-import com.raudonikis.data.daos.ExampleDao
+import com.raudonikis.data.database.ExampleDatabase
+import com.raudonikis.data.database.daos.ExampleDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

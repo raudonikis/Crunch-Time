@@ -21,8 +21,17 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
+    }
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
+    lintOptions {
+        isCheckReleaseBuilds = false
     }
 }
 
@@ -33,8 +42,8 @@ dependencies {
     implementation(project(Modules.Features.dashboard))
     // Hilt
     implementation(Dependencies.hilt)
+    implementation(Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltCompiler)
-    implementation (Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltLifecycleCompiler)
     // Testing
     testImplementation(Dependencies.jUnit)

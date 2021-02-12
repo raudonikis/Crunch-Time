@@ -1,7 +1,7 @@
-package com.raudonikis.data.daos
+package com.raudonikis.data.database.daos
 
 import androidx.room.*
-import com.raudonikis.data.entities.ExampleEntity
+import com.raudonikis.data.database.entities.ExampleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

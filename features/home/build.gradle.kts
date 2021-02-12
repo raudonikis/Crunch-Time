@@ -13,6 +13,7 @@ android {
 dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.navigation))
+    implementation(project(Modules.Libraries.network))
     implementation(project(Modules.Libraries.dataDomain))
     // Hilt
     implementation(Dependencies.hilt)
