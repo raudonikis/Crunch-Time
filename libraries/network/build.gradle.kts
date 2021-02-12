@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(Modules.Libraries.common))
-    api(project(Modules.Libraries.data))
+    implementation(project(Modules.Libraries.data))
     // Networking
     api(Dependencies.retrofit)
     api(Dependencies.moshi)
