@@ -2,6 +2,7 @@ package com.raudonikis.network.igdb
 
 import com.raudonikis.network.igdb.responses.GameResponse
 import com.raudonikis.network.igdb.responses.IgdbTokenResponse
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.http.Url
@@ -9,7 +10,7 @@ import retrofit2.http.Url
 interface IgdbApi {
 
     @POST("games")
-    suspend fun getGames(): List<GameResponse>
+    suspend fun getGames(@Body requestBody: String = "fields name; limit 10;"): List<GameResponse>
 
     @POST
     suspend fun authorize(

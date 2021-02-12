@@ -1,9 +1,9 @@
 package com.raudonikis.home
 
 import androidx.lifecycle.ViewModel
+import com.raudonikis.data_domain.repo.IgdbRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
-import com.raudonikis.network.igdb.IgdbApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    private val igdbApi: IgdbApi,
+    private val igdbRepository: IgdbRepository,
 ) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
@@ -24,7 +24,8 @@ class HomeViewModel @Inject constructor(
 
     fun getGames() {
         launch {
-            igdbApi.getGames().map {
+            igdbRepository.updateAccessToken()
+            igdbRepository.getGames().map {
                 Timber.d(it.toString())
             }
         }
