@@ -14,8 +14,10 @@ class IgdbRepository @Inject constructor(
 ) {
 
     suspend fun updateAccessToken() {
-        igdbApi.authorize().also {
-            userPreferences.accessToken = it.accessToken
+        withContext(Dispatchers.IO) {
+            igdbApi.authorize().also { response ->
+                userPreferences.accessToken = response.accessToken
+            }
         }
     }
 
