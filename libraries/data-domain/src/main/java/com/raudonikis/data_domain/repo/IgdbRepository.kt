@@ -3,6 +3,10 @@ package com.raudonikis.data_domain.repo
 import com.raudonikis.data.sharedpreferences.UserPreferences
 import com.raudonikis.data_domain.mappers.GameModelMapper
 import com.raudonikis.data_domain.models.GameModel
+import com.raudonikis.network.extensions.onNetworkError
+import com.raudonikis.network.extensions.onServerError
+import com.raudonikis.network.extensions.onSuccess
+import com.raudonikis.network.extensions.onUnknownError
 import com.raudonikis.network.igdb.IgdbApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,14 +20,30 @@ class IgdbRepository @Inject constructor(
     suspend fun updateAccessToken() {
         withContext(Dispatchers.IO) {
             igdbApi.authorize().also { response ->
-                userPreferences.accessToken = response.accessToken
+                response
+                    .onSuccess {
+                        userPreferences.accessToken = it.accessToken
+                    }
+                    .onNetworkError {
+
+                    }
+                    .onServerError {
+
+                    }
+                    .onUnknownError {
+
+                    }
             }
         }
     }
 
     suspend fun getGames(): List<GameModel> {
         return withContext(Dispatchers.IO) {
-            GameModelMapper.fromGameResponseList(igdbApi.getGames())
+            igdbApi.getGames()
+                .onSuccess {
+                    GameModelMapper.fromGameResponseList(it)
+                }
+            emptyList() //todo handle errors
         }
     }
 }

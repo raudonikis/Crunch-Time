@@ -13,6 +13,7 @@ dependencies {
     implementation(Dependencies.moshiConverter)
     implementation(Dependencies.scalarsConverter)
     implementation(Dependencies.okHttp)
+    api(Dependencies.networkResponseAdapter)
     // Hilt
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)

@@ -1,5 +1,6 @@
 package com.raudonikis.network.di
 
+import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.raudonikis.network.igdb.IgdbApi
 import com.raudonikis.network.igdb.IgdbApiInterceptor
 import com.raudonikis.network.igdb.IgdbApiConstants
@@ -26,10 +27,12 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory,
         scalarsConverterFactory: ScalarsConverterFactory,
+        networkResponseAdapterFactory: NetworkResponseAdapterFactory,
     ): IgdbApi {
         return Retrofit.Builder()
             .baseUrl(IgdbApiConstants.BASE_URL)
             .client(okHttpClient)
+            .addCallAdapterFactory(networkResponseAdapterFactory)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -50,6 +53,11 @@ object NetworkModule {
     @Provides
     internal fun provideHtppLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+    }
+
+    @Provides
+    internal fun provideNetworkResponseAdapterFactory(): NetworkResponseAdapterFactory {
+        return NetworkResponseAdapterFactory()
     }
 
     @Provides
