@@ -20,13 +20,8 @@ internal class IgdbApiInterceptor @Inject constructor(
         get() = mapOf()
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        with(
-            chain.request().apply {
-                addHeaders(this)
-            }) {
-            url().apply {
-                addQueries(this)
-            }
+        with(addHeaders(chain.request())) {
+            addQueries(url)
                 .also { url ->
                     return chain.proceed(
                         newBuilder()

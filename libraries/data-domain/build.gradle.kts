@@ -9,6 +9,8 @@ dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.data))
     implementation(project(Modules.Libraries.network))
+    // Serialization
+    implementation(Dependencies.moshi)
     // DI
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)

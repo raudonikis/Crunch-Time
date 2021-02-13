@@ -8,8 +8,11 @@ dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.data))
     // Networking
-    api(Dependencies.retrofit)
-    api(Dependencies.moshi)
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.moshi)
+    implementation(Dependencies.moshiConverter)
+    implementation(Dependencies.scalarsConverter)
+    implementation(Dependencies.okHttp)
     // Hilt
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)
