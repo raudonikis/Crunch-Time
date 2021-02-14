@@ -1,3 +1,4 @@
+include(":features:login")
 include(":libraries:data-domain")
 include(":features:dashboard")
 include(":features:home")

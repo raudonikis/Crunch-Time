@@ -63,6 +63,7 @@ object Modules {
     object Features {
         const val home = ":features:home"
         const val dashboard = ":features:dashboard"
+        const val login = ":features:login"
     }
 }
 

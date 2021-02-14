@@ -40,6 +40,7 @@ dependencies {
     implementation(project(Modules.Libraries.navigation))
     implementation(project(Modules.Features.home))
     implementation(project(Modules.Features.dashboard))
+    implementation(project(Modules.Features.login))
     // Hilt
     implementation(Dependencies.hilt)
     implementation(Dependencies.hiltLifecycle)
