@@ -1,4 +1,4 @@
-package com.raudonikis.common
+package com.raudonikis.common_ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

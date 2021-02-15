@@ -26,6 +26,9 @@ object Versions {
     // Support
     const val appCompat = "1.2.0"
 
+    // Material
+    const val material = "1.3.0"
+
     // Kotlin
     const val ktxCore = "1.3.2"
     const val kotlin = "1.4.20"
@@ -56,6 +59,7 @@ object Modules {
     object Libraries {
         const val network = ":libraries:network"
         const val common = ":libraries:common"
+        const val commonUi = ":libraries:common-ui"
         const val data = ":libraries:data"
         const val dataDomain = ":libraries:data-domain"
         const val navigation = ":libraries:navigation"
@@ -93,6 +97,8 @@ object Dependencies {
     // Networking - adapters
     const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:${Versions.networkResponseAdapter}"
 
+    // Material
+    const val material = "com.google.android.material:material:${Versions.material}"
 
     // Room database
     const val room = "androidx.room:room-runtime:${Versions.room}"
