@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <!-- Text Size -->
+        <attr name="textSizeTiny" format="reference" />
+        <attr name="textSizeSmall" format="reference" />
+        <attr name="textSizeNormal" format="reference" />
+        <attr name="textSizeNormalExtended" format="reference" />
+        <attr name="textSizeMedium" format="reference" />
+        <attr name="textSizeLarge" format="reference" />
+        <attr name="textSizeHuge" format="reference" />
+        <!-- Spacing -->
+        <attr name="spacingTiny" format="reference" />
+        <attr name="spacingSmall" format="reference" />
+        <attr name="spacingSmallExtended" format="reference" />
+        <attr name="spacingNormal" format="reference" />
+        <attr name="spacingNormalExtended" format="reference" />
+        <attr name="spacingMedium" format="reference" />
+        <attr name="spacingMediumExtended" format="reference" />
+        <attr name="spacingLarge" format="reference" />
+        <attr name="spacingLargeExtended" format="reference" />
+        <attr name="spacingHuge" format="reference" />
+    </declare-styleable>
+</resources>
