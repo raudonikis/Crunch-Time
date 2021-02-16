@@ -3,10 +3,6 @@ plugins {
     kotlin("android")
 }
 
-android {
-    buildFeatures.viewBinding = true
-}
-
 dependencies {
     // Support
     api(Dependencies.constraintLayout)

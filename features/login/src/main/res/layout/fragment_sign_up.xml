@@ -73,7 +73,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button_login"
+        android:id="@+id/button_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
@@ -86,7 +86,7 @@
 
 
     <TextView
-        android:id="@+id/text_sign_up"
+        android:id="@+id/text_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingMedium"
@@ -94,17 +94,17 @@
         android:text="Already have an account?"
         android:textSize="?textSizeSmall"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_login" />
+        app:layout_constraintTop_toBottomOf="@id/button_sign_up" />
 
     <TextView
-        android:id="@+id/button_sign_up"
+        android:id="@+id/button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingTiny"
         android:text="Login"
         android:textColor="@color/colorPrimary"
         android:textSize="?textSizeSmall"
-        app:layout_constraintStart_toEndOf="@id/text_sign_up"
-        app:layout_constraintTop_toTopOf="@id/text_sign_up" />
+        app:layout_constraintStart_toEndOf="@id/text_login"
+        app:layout_constraintTop_toTopOf="@id/text_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
