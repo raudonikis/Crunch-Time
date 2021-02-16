@@ -27,6 +27,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
             buttonLogin.setOnClickListener {
                 //todo
+                viewModel.navigateToHome()
             }
         }
     }

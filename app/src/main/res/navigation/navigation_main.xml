@@ -24,4 +24,9 @@
     <action
         android:id="@+id/action_global_navigation_login"
         app:destination="@id/navigation_login" />
+    <action
+        android:id="@+id/action_global_navigation_home_inclusive"
+        app:destination="@id/navigation_home"
+        app:popUpTo="@id/navigation_main"
+        app:popUpToInclusive="true" />
 </navigation>
