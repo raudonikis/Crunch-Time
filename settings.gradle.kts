@@ -1,3 +1,4 @@
+include(":features:discover")
 include(":libraries:common-ui")
 include(":features:login")
 include(":libraries:data-domain")
