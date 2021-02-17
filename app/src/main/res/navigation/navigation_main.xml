@@ -11,6 +11,14 @@
     <include
         android:id="@+id/navigation_login"
         app:graph="@navigation/navigation_login" />
+
+    <include
+        android:id="@+id/navigation_discover"
+        app:graph="@navigation/navigation_discover" />
+
+    <action
+        android:id="@+id/action_global_navigation_discover"
+        app:destination="@id/navigation_discover" />
     <action
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_home" />

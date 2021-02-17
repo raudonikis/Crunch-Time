@@ -22,7 +22,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setUpListeners() {
         binding.apply {
-            buttonToDashboard.setOnClickListener {
+            buttonToDiscover.setOnClickListener {
+                viewModel.navigateToDiscover()
             }
             buttonToHomeNext.setOnClickListener {
                 viewModel.navigateToHomeNext()

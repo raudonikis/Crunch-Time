@@ -45,6 +45,9 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
                     false -> R.id.action_global_navigation_home
                 }
             }
+            is NavigationGraph.Discover -> {
+                R.id.action_global_navigation_discover
+            }
         }
         navController.navigate(destination)
     }

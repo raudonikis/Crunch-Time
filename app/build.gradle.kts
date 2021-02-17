@@ -33,6 +33,7 @@ android {
     lintOptions {
         isCheckReleaseBuilds = false
     }
+    buildFeatures.viewBinding = true
 }
 
 dependencies {
