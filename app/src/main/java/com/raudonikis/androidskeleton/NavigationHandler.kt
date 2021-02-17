@@ -45,7 +45,6 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
                     false -> R.id.action_global_navigation_home
                 }
             }
-            is NavigationGraph.Dashboard -> R.id.action_global_navigation_dashboard
         }
         navController.navigate(destination)
     }

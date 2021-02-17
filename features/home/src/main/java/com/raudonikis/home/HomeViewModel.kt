@@ -25,10 +25,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun navigateToDashboard() {
-        navigationDispatcher.navigate(NavigationGraph.Dashboard)
-    }
-
     fun navigateToHomeNext() {
         navigationDispatcher.navigate(HomeRouter.homeToHomeNext())
     }

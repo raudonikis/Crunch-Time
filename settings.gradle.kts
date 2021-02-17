@@ -1,7 +1,6 @@
 include(":libraries:common-ui")
 include(":features:login")
 include(":libraries:data-domain")
-include(":features:dashboard")
 include(":features:home")
 include(":libraries:navigation")
 include(":libraries:data")
