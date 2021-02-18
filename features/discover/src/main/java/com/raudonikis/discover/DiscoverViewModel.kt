@@ -8,4 +8,12 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-) : ViewModel()
+) : ViewModel() {
+
+    var searchQuery = ""
+        private set
+
+    fun search(query: String) {
+        searchQuery = query
+    }
+}

@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var binding: FragmentLoginBinding
+    private var binding: FragmentLoginBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,7 +21,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun setUpListeners() {
-        binding.apply {
+        binding?.apply {
             buttonSignUp.setOnClickListener {
                 viewModel.navigateToSignUp()
             }
@@ -30,5 +30,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.navigateToHome()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }
