@@ -6,19 +6,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.raudonikis.androidskeleton.databinding.ActivityMainBinding
 import com.raudonikis.bottomnavigation.NavigationHandler
+import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     @Inject
     lateinit var navigationHandler: NavigationHandler
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         setUpNavigation()
     }
 

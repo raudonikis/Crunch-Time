@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.raudonikis.bottomnavigation.databinding.FragmentBottomNavigationBinding
 import com.raudonikis.navigation.BackButtonBehaviour
 import com.raudonikis.navigation.setupWithNavController
+import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -15,14 +16,13 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
 
     private val bottomNavSelectedItemIdKey = "BOTTOM_NAV_SELECTED_ITEM_ID_KEY"
     private var bottomNavSelectedItemId = R.id.navigation_home // Must be your starting destination
-    private var binding: FragmentBottomNavigationBinding? = null
+    private val binding: FragmentBottomNavigationBinding by viewBinding()
 
     @Inject
     lateinit var navigationHandler: NavigationHandler
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBottomNavigationBinding.bind(view)
         savedInstanceState?.apply {
             bottomNavSelectedItemId =
                 savedInstanceState.getInt(bottomNavSelectedItemIdKey, bottomNavSelectedItemId)
@@ -37,7 +37,7 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
     }
 
     private fun setUpBottomNavigation() {
-        binding?.apply {
+        binding.apply {
             val navGraphIds = listOf(R.navigation.navigation_home, R.navigation.navigation_discover)
             bottomNavView.selectedItemId = bottomNavSelectedItemId
             val controller = bottomNavView.setupWithNavController(
@@ -55,10 +55,5 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
                 navigationHandler.setNavigationController(navController)
             })
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

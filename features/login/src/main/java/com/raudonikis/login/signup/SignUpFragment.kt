@@ -6,22 +6,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentSignUpBinding
+import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private val viewModel: SignUpViewModel by viewModels()
-    private var binding: FragmentSignUpBinding? = null
+    private val binding: FragmentSignUpBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSignUpBinding.bind(view)
         setUpListeners()
     }
 
     private fun setUpListeners() {
-        binding?.apply {
+        binding.apply {
             buttonLogin.setOnClickListener {
                 viewModel.navigateToLogin()
             }
@@ -29,10 +29,5 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 //todo
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }
