@@ -44,7 +44,7 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
                 navGraphIds = navGraphIds,
                 backButtonBehaviour = BackButtonBehaviour.POP_HOST_FRAGMENT,
                 containerId = R.id.bottom_nav_container,
-                firstItemId = R.id.home, // Must be the same as bottomNavSelectedItemId
+                firstItemId = R.id.navigation_home, // Must be the same as bottomNavSelectedItemId
                 intent = requireActivity().intent
             )
 
