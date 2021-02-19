@@ -1,13 +1,14 @@
-package com.raudonikis.androidskeleton
+package com.raudonikis.bottomnavigation
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.raudonikis.androidskeleton.databinding.FragmentBottomNavigationBinding
+import com.raudonikis.bottomnavigation.databinding.FragmentBottomNavigationBinding
 import com.raudonikis.navigation.BackButtonBehaviour
 import com.raudonikis.navigation.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {

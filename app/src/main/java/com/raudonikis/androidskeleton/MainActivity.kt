@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.raudonikis.androidskeleton.databinding.ActivityMainBinding
+import com.raudonikis.bottomnavigation.NavigationHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

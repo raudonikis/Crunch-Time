@@ -1,4 +1,4 @@
-package com.raudonikis.androidskeleton
+package com.raudonikis.bottomnavigation
 
 import androidx.navigation.NavController
 import com.raudonikis.navigation.NavigationCommand
