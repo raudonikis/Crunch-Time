@@ -3,6 +3,10 @@ object Versions {
     const val constraintLayout = "2.0.4"
     const val recyclerView = "1.0.0"
     const val preferences = "1.1.1"
+    const val viewBindingKtx = "1.1.1"
+
+    // Lifecycle
+    const val lifecycle = "2.3.0"
 
     // DI
     const val hilt = "2.32-alpha"
@@ -68,6 +72,7 @@ object Modules {
         const val home = ":features:home"
         const val discover = ":features:discover"
         const val login = ":features:login"
+        const val bottomNavigation = ":features:bottomnavigation"
     }
 }
 
@@ -77,6 +82,7 @@ object Dependencies {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val preferences = "androidx.preference:preference:${Versions.preferences}"
+    const val viewBindingKtx = "com.github.wada811:ViewBinding-ktx:${Versions.viewBindingKtx}"
 
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
@@ -116,6 +122,9 @@ object Dependencies {
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktxCore}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
+    // Lifecycle
+    const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
 
     // Testing
     const val jUnit = "junit:junit:${Versions.jUnit}"
