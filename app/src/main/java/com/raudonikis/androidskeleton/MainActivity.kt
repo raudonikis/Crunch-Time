@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.raudonikis.androidskeleton.databinding.ActivityMainBinding
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,20 +26,9 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             navigationHandler.setUpNavigation(navController)
         }
-        NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.loginFragment, R.id.signUpFragment -> {
-                    binding.bottomNavigation.hide()
-                }
-                else -> {
-                    binding.bottomNavigation.show()
-                }
-            }
-        }
     }
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         val navController = findNavController(R.id.nav_host_fragment)
         when (navController.currentDestination?.parent?.id) {
             R.id.navigation_home -> {
@@ -59,5 +45,5 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigation.selectedItemId = R.id.navigation_home
             }
         }
-    }
+    }*/
 }

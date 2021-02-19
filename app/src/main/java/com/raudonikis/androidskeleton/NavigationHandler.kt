@@ -13,33 +13,48 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class NavigationHandler @Inject constructor(private val navigationDispatcher: NavigationDispatcher) {
 
+    private lateinit var rootNavigationController: NavController
+    private lateinit var currentNavigationController: NavController
+
+    private fun setRootNavigationController(navController: NavController) {
+        rootNavigationController = navController
+        currentNavigationController = navController
+    }
+
+    fun setNavigationController(navController: NavController) {
+        currentNavigationController = navController
+    }
+
     suspend fun setUpNavigation(navController: NavController) {
+        setRootNavigationController(navController)
         navigationDispatcher.getNavigationCommands()
             .onEach { navigationCommand ->
                 Timber.d("NavigationCommand -> $navigationCommand")
-                when (navigationCommand) {
-                    is NavigationCommand.ToGraph -> {
-                        onGraphNavigation(navController, navigationCommand.graph)
-                    }
-                    is NavigationCommand.To -> {
-                        navController.navigate(navigationCommand.directions)
-                    }
-                    is NavigationCommand.Back -> {
-                        navController.popBackStack()
-                    }
-                    is NavigationCommand.BackTo -> {
-                        navController.popBackStack(navigationCommand.destinationId, true)
-                    }
-                    is NavigationCommand.ToRoot -> {
-                        // TODO
+                currentNavigationController.apply {
+                    when (navigationCommand) {
+                        is NavigationCommand.ToGraph -> {
+                            onGraphNavigation(navigationCommand.graph)
+                        }
+                        is NavigationCommand.To -> {
+                            navigate(navigationCommand.directions)
+                        }
+                        is NavigationCommand.Back -> {
+                            popBackStack()
+                        }
+                        is NavigationCommand.BackTo -> {
+                            popBackStack(navigationCommand.destinationId, true)
+                        }
+                        is NavigationCommand.ToRoot -> {
+                            // TODO
+                        }
                     }
                 }
             }.collect()
     }
 
-    private fun onGraphNavigation(navController: NavController, graph: NavigationGraph) {
+    private fun onGraphNavigation(graph: NavigationGraph) {
         val destination = when (graph) {
-            is NavigationGraph.Home -> {
+            /*is NavigationGraph.Home -> {
                 when (graph.inclusive) {
                     true -> R.id.action_global_navigation_home_inclusive
                     false -> R.id.action_global_navigation_home
@@ -47,8 +62,14 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
             }
             is NavigationGraph.Discover -> {
                 R.id.action_global_navigation_discover
+            }*/
+            is NavigationGraph.BottomNavigation -> {
+                when (graph.inclusive) {
+                    true -> R.id.action_global_bottomNavigationFragment_inclusive
+                    false -> R.id.action_global_bottomNavigationFragment
+                }
             }
         }
-        navController.navigate(destination)
+        rootNavigationController.navigate(destination)
     }
 }

@@ -17,6 +17,6 @@ class LoginViewModel @Inject constructor(
     }
 
     fun navigateToHome() {
-        navigationDispatcher.navigate(NavigationGraph.Home(true))
+        navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true))
     }
 }
