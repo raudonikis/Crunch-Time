@@ -54,15 +54,6 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
 
     private fun onGraphNavigation(graph: NavigationGraph) {
         val destination = when (graph) {
-            /*is NavigationGraph.Home -> {
-                when (graph.inclusive) {
-                    true -> R.id.action_global_navigation_home_inclusive
-                    false -> R.id.action_global_navigation_home
-                }
-            }
-            is NavigationGraph.Discover -> {
-                R.id.action_global_navigation_discover
-            }*/
             is NavigationGraph.BottomNavigation -> {
                 when (graph.inclusive) {
                     true -> R.id.action_global_bottomNavigationFragment_inclusive

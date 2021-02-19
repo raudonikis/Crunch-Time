@@ -27,23 +27,4 @@ class MainActivity : AppCompatActivity() {
             navigationHandler.setUpNavigation(navController)
         }
     }
-
-    /*override fun onBackPressed() {
-        val navController = findNavController(R.id.nav_host_fragment)
-        when (navController.currentDestination?.parent?.id) {
-            R.id.navigation_home -> {
-                if (navController.currentDestination?.id == R.id.homeFragment) {
-                    finish()
-                } else {
-                    super.onBackPressed()
-                }
-            }
-            R.id.navigation_login -> {
-                super.onBackPressed()
-            }
-            else -> {
-                binding.bottomNavigation.selectedItemId = R.id.navigation_home
-            }
-        }
-    }*/
 }

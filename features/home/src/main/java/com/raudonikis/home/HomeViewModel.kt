@@ -28,8 +28,4 @@ class HomeViewModel @Inject constructor(
     fun navigateToHomeNext() {
         navigationDispatcher.navigate(HomeRouter.homeToHomeNext())
     }
-
-    fun navigateToDiscover() {
-        navigationDispatcher.navigate(NavigationGraph.Discover)
-    }
 }
