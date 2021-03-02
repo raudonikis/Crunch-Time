@@ -5,7 +5,10 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.raudonikis.common.extensions.hide
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.clearError
+import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.text
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
@@ -36,18 +39,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.loginStateObservable().observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
                 is LoginState.Loading -> {
-                    //todo show loading indicator
+                    binding.progressBarLogin.show()
                 }
                 is LoginState.LoginSuccess -> {
-                    //todo navigate to main screen
-                    // disable loading indicator
+                    binding.progressBarLogin.hide()
                 }
                 is LoginState.LoginFailure -> {
-                    //todo show error message
-                    // disable loading indicator
+                    binding.progressBarLogin.hide()
+                    //todo improve error message
+                    showLongSnackbar("Login failed")
                 }
                 is LoginState.InvalidInputs -> {
-                    //todo show error message
+                    binding.progressBarLogin.hide()
+                    //todo improve error message
+                    showLongSnackbar("Invalid inputs")
                 }
             }
         }
