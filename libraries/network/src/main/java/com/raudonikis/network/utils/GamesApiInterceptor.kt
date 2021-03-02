@@ -1,4 +1,4 @@
-package com.raudonikis.network.igdb
+package com.raudonikis.network.utils
 
 import com.raudonikis.data.sharedpreferences.UserPreferences
 import okhttp3.HttpUrl
@@ -7,14 +7,14 @@ import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 
-internal class IgdbApiInterceptor @Inject constructor(
+internal class GamesApiInterceptor @Inject constructor(
     private val userPreferences: UserPreferences
 ) : Interceptor {
 
     private val headers: Map<String, String>
         get() = mapOf(
-            IgdbApiConstants.Authorization.Header.KEY_CLIENT_ID to IgdbApiConstants.Authorization.Header.VALUE_CLIENT_ID,
-            IgdbApiConstants.Authorization.Header.KEY_AUTHORIZATION to "${IgdbApiConstants.Authorization.Header.VALUE_AUTHORIZATION}${userPreferences.accessToken}"
+            GamesApiConstants.Authorization.Header.KEY_CLIENT_ID to GamesApiConstants.Authorization.Header.VALUE_CLIENT_ID,
+            GamesApiConstants.Authorization.Header.KEY_AUTHORIZATION to "${GamesApiConstants.Authorization.Header.VALUE_AUTHORIZATION}${userPreferences.accessToken}"
         )
     private val queries: Map<String, String>
         get() = mapOf()

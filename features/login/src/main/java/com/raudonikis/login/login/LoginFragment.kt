@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.raudonikis.common_ui.extensions.clearError
+import com.raudonikis.common_ui.extensions.text
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
 import com.raudonikis.login.validation.EmailValidationResult
@@ -18,30 +20,42 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModels()
     private val binding: FragmentLoginBinding by viewBinding()
 
+    /**
+     * Lifecycle hooks
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpListeners()
         setUpObservers()
-        setUpInputValidations()
     }
 
-    private fun setUpInputValidations() {
-        binding.apply {
-            textFieldEmail.editText?.doOnTextChanged { email, _, _, _ ->
-                viewModel.onEmailChanged(email.toString())
-            }
-            textFieldPassword.editText?.doOnTextChanged { password, _, _, _ ->
-                viewModel.onPasswordChanged(password.toString())
+    /**
+     * Observers
+     */
+    private fun setUpObservers() {
+        viewModel.loginStateObservable().observe(viewLifecycleOwner) { loginState ->
+            when (loginState) {
+                is LoginState.Loading -> {
+                    //todo show loading indicator
+                }
+                is LoginState.LoginSuccess -> {
+                    //todo navigate to main screen
+                    // disable loading indicator
+                }
+                is LoginState.LoginFailure -> {
+                    //todo show error message
+                    // disable loading indicator
+                }
+                is LoginState.InvalidInputs -> {
+                    //todo show error message
+                }
             }
         }
-    }
-
-    private fun setUpObservers() {
         viewModel.emailStateObservable().observe(viewLifecycleOwner) { emailState ->
             when (emailState) {
                 EmailValidationResult.EMAIL_INITIAL,
                 EmailValidationResult.EMAIL_VALID -> {
-                    binding.textFieldEmail.error = ""
+                    binding.textFieldEmail.clearError()
                 }
                 else -> {
                     binding.textFieldEmail.error = emailState.name
@@ -52,7 +66,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (passwordState) {
                 PasswordValidationResult.PASSWORD_INITIAL,
                 PasswordValidationResult.PASSWORD_VALID -> {
-                    binding.textFieldPassword.error = ""
+                    binding.textFieldPassword.clearError()
                 }
                 else -> {
                     binding.textFieldPassword.error = passwordState.name
@@ -61,17 +75,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+    /**
+     * Listeners
+     */
     private fun setUpListeners() {
         binding.apply {
             buttonSignUp.setOnClickListener {
                 viewModel.navigateToSignUp()
             }
             buttonLogin.setOnClickListener {
-                //todo
                 viewModel.login(
-                    textFieldEmail.editText?.text?.toString(),
-                    textFieldPassword.editText?.text?.toString()
+                    textFieldEmail.text,
+                    textFieldPassword.text
                 )
+            }
+        }
+        setUpInputListeners()
+    }
+
+    private fun setUpInputListeners() {
+        binding.apply {
+            textFieldEmail.editText?.doOnTextChanged { email, _, _, _ ->
+                viewModel.onEmailChanged(email.toString())
+            }
+            textFieldPassword.editText?.doOnTextChanged { password, _, _, _ ->
+                viewModel.onPasswordChanged(password.toString())
             }
         }
     }

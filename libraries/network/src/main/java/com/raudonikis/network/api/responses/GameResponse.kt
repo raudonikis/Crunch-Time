@@ -1,4 +1,4 @@
-package com.raudonikis.network.igdb.responses
+package com.raudonikis.network.api.responses
 
 import com.squareup.moshi.Json
 

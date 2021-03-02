@@ -1,11 +1,9 @@
 package com.raudonikis.network.di
 
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
-import com.raudonikis.network.igdb.IgdbApi
-import com.raudonikis.network.igdb.IgdbApiInterceptor
-import com.raudonikis.network.igdb.IgdbApiConstants
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.raudonikis.network.GamesApi
+import com.raudonikis.network.utils.GamesApiInterceptor
+import com.raudonikis.network.utils.GamesApiConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,29 +21,29 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideIgdbApi(
+    fun provideGamesApi(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory,
         scalarsConverterFactory: ScalarsConverterFactory,
         networkResponseAdapterFactory: NetworkResponseAdapterFactory,
-    ): IgdbApi {
+    ): GamesApi {
         return Retrofit.Builder()
-            .baseUrl(IgdbApiConstants.BASE_URL)
+            .baseUrl(GamesApiConstants.BASE_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(networkResponseAdapterFactory)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(moshiConverterFactory)
             .build()
-            .create(IgdbApi::class.java)
+            .create(GamesApi::class.java)
     }
 
     @Provides
     internal fun provideOkHttpClient(
-        igdbApiInterceptor: IgdbApiInterceptor,
+        gamesApiInterceptor: GamesApiInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(igdbApiInterceptor)
+            .addInterceptor(gamesApiInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
@@ -53,25 +51,5 @@ object NetworkModule {
     @Provides
     internal fun provideHtppLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-    }
-
-    @Provides
-    internal fun provideNetworkResponseAdapterFactory(): NetworkResponseAdapterFactory {
-        return NetworkResponseAdapterFactory()
-    }
-
-    @Provides
-    internal fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {
-        return MoshiConverterFactory.create(moshi)
-    }
-
-    @Provides
-    internal fun provideScalarsConverterFactory(): ScalarsConverterFactory {
-        return ScalarsConverterFactory.create()
-    }
-
-    @Provides
-    internal fun provideMoshi(): Moshi {
-        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 }

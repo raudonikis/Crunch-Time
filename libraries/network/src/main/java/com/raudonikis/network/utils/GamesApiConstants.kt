@@ -1,8 +1,8 @@
-package com.raudonikis.network.igdb
+package com.raudonikis.network.utils
 
-object IgdbApiConstants {
+object GamesApiConstants {
 
-    const val BASE_URL = "https://api.igdb.com/v4/"
+    const val BASE_URL = "http://45.9.191.248/"
 
     object Authorization {
         object Endpoints {

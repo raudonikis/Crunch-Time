@@ -1,7 +1,7 @@
 package com.raudonikis.data_domain.mappers
 
 import com.raudonikis.data_domain.models.GameModel
-import com.raudonikis.network.igdb.responses.GameResponse
+import com.raudonikis.network.api.responses.GameResponse
 
 object GameModelMapper {
 

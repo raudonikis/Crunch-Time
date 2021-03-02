@@ -3,23 +3,39 @@ package com.raudonikis.data_domain.repo
 import com.raudonikis.data.sharedpreferences.UserPreferences
 import com.raudonikis.data_domain.mappers.GameModelMapper
 import com.raudonikis.data_domain.models.GameModel
-import com.raudonikis.network.extensions.onNetworkError
-import com.raudonikis.network.extensions.onServerError
+import com.raudonikis.network.GamesApi
 import com.raudonikis.network.extensions.onSuccess
-import com.raudonikis.network.extensions.onUnknownError
-import com.raudonikis.network.igdb.IgdbApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
-class IgdbRepository @Inject constructor(
-    private val igdbApi: IgdbApi,
+class AuthenticationRepository @Inject constructor(
+    private val gamesApi: GamesApi,
     private val userPreferences: UserPreferences,
 ) {
 
+    /**
+     * todo: return wrapper for error handling
+     * todo: for now return [true] if success, [false] if failed
+     */
+    suspend fun login(email: String, password: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                val loginResponse = gamesApi.login(email, password)
+                Timber.v("Logged in -> $loginResponse")
+                userPreferences.accessToken = loginResponse.accessToken
+                true
+            } catch (e: Exception) {
+                Timber.e("Unable to login -> ${e.message}")
+                false
+            }
+        }
+    }
+
     suspend fun updateAccessToken() {
-        withContext(Dispatchers.IO) {
-            igdbApi.authorize().also { response ->
+        /*withContext(Dispatchers.IO) {
+            gamesApi.authorize().also { response ->
                 response
                     .onSuccess {
                         userPreferences.accessToken = it.accessToken
@@ -34,12 +50,12 @@ class IgdbRepository @Inject constructor(
 
                     }
             }
-        }
+        }*/
     }
 
     suspend fun getGames(): List<GameModel> {
         return withContext(Dispatchers.IO) {
-            igdbApi.getGames()
+            gamesApi.getGames()
                 .onSuccess {
                     GameModelMapper.fromGameResponseList(it)
                 }
