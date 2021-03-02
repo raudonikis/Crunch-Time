@@ -3,7 +3,7 @@ package com.raudonikis.login.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.raudonikis.data_domain.repo.AuthenticationRepository
+import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.LoginRouter
 import com.raudonikis.login.validation.EmailValidationResult
 import com.raudonikis.login.validation.PasswordValidationResult

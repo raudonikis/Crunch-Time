@@ -1,10 +1,7 @@
-package com.raudonikis.data_domain.repo
+package com.raudonikis.data_domain.auth
 
 import com.raudonikis.data.sharedpreferences.UserPreferences
-import com.raudonikis.data_domain.mappers.GameModelMapper
-import com.raudonikis.data_domain.models.GameModel
 import com.raudonikis.network.GamesApi
-import com.raudonikis.network.extensions.onSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -53,7 +50,7 @@ class AuthenticationRepository @Inject constructor(
         }*/
     }
 
-    suspend fun getGames(): List<GameModel> {
+    /*suspend fun getGames(): List<GameModel> {
         return withContext(Dispatchers.IO) {
             gamesApi.getGames()
                 .onSuccess {
@@ -61,5 +58,5 @@ class AuthenticationRepository @Inject constructor(
                 }
             emptyList() //todo handle errors
         }
-    }
+    }*/
 }

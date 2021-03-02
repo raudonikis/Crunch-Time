@@ -1,9 +1,8 @@
 package com.raudonikis.network.di
 
-import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.raudonikis.network.GamesApi
-import com.raudonikis.network.utils.GamesApiInterceptor
 import com.raudonikis.network.utils.GamesApiConstants
+import com.raudonikis.network.utils.GamesApiInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,12 +24,11 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory,
         scalarsConverterFactory: ScalarsConverterFactory,
-        networkResponseAdapterFactory: NetworkResponseAdapterFactory,
     ): GamesApi {
         return Retrofit.Builder()
             .baseUrl(GamesApiConstants.BASE_URL)
             .client(okHttpClient)
-            .addCallAdapterFactory(networkResponseAdapterFactory)
+//            .addCallAdapterFactory(networkResponseAdapterFactory)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(moshiConverterFactory)
             .build()

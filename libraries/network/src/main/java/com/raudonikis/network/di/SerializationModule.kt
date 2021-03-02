@@ -1,6 +1,5 @@
 package com.raudonikis.network.di
 
-import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -14,10 +13,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 @InstallIn(SingletonComponent::class)
 object SerializationModule {
 
-    @Provides
+    /*@Provides
     internal fun provideNetworkResponseAdapterFactory(): NetworkResponseAdapterFactory {
         return NetworkResponseAdapterFactory()
-    }
+    }*/
 
     @Provides
     internal fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {

@@ -13,7 +13,6 @@ internal class GamesApiInterceptor @Inject constructor(
 
     private val headers: Map<String, String>
         get() = mapOf(
-            GamesApiConstants.Authorization.Header.KEY_CLIENT_ID to GamesApiConstants.Authorization.Header.VALUE_CLIENT_ID,
             GamesApiConstants.Authorization.Header.KEY_AUTHORIZATION to "${GamesApiConstants.Authorization.Header.VALUE_AUTHORIZATION}${userPreferences.accessToken}"
         )
     private val queries: Map<String, String>
