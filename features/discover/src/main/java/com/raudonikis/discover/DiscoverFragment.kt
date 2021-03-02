@@ -10,6 +10,7 @@ import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
+import com.raudonikis.discover.databinding.ItemGameBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -21,24 +22,31 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val binding: FragmentDiscoverBinding by viewBinding()
-//    private val searchResultsAdapter = RecyclerAdapter<String, FragmentDiscoverBinding>(
-//        onInflate = {
-//
-//        },
-//        onBind = {
-//
-//        },
-//        onClick = {}
-//    )
+    private val searchResultsAdapter = RecyclerAdapter<String, ItemGameBinding>(
+        onInflate = { inflater, parent ->
+            ItemGameBinding.inflate(inflater, parent, false)
+        },
+        onBind = { game ->
+            this.labelName.text = game
+        },
+        onClick = {}
+    )
 
     /**
      * Lifecycle hooks
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textFieldSearch.editText?.setText(viewModel.searchQuery)
+        setUpSearch()
         setUpListeners()
         setUpObservers()
+    }
+
+    private fun setUpSearch() {
+        binding.apply {
+            textFieldSearch.editText?.setText(viewModel.searchQuery)
+            recyclerSearchResults.adapter = searchResultsAdapter
+        }
     }
 
     /**
@@ -54,12 +62,15 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             when (discoverState) {
                 is DiscoverState.Loading -> {
                     binding.progressBarSearch.show()
+                    searchResultsAdapter.submitList(emptyList())
                 }
                 is DiscoverState.SearchSuccess -> {
                     binding.progressBarSearch.hide()
+                    searchResultsAdapter.submitList(discoverState.results)
                 }
                 is DiscoverState.SearchFailure -> {
                     binding.progressBarSearch.hide()
+                    searchResultsAdapter.submitList(emptyList())
                 }
             }
         }

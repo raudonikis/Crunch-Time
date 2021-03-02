@@ -36,20 +36,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.loginStateObservable().observe(viewLifecycleOwner) { loginState ->
+        viewModel.loginEventObservable().observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
-                is LoginState.Loading -> {
+                is LoginEvent.Loading -> {
                     binding.progressBarLogin.show()
                 }
-                is LoginState.LoginSuccess -> {
+                is LoginEvent.LoginSuccess -> {
                     binding.progressBarLogin.hide()
                 }
-                is LoginState.LoginFailure -> {
+                is LoginEvent.LoginFailure -> {
                     binding.progressBarLogin.hide()
                     //todo improve error message
                     showLongSnackbar("Login failed")
                 }
-                is LoginState.InvalidInputs -> {
+                is LoginEvent.InvalidInputs -> {
                     binding.progressBarLogin.hide()
                     //todo improve error message
                     showLongSnackbar("Invalid inputs")

@@ -8,7 +8,7 @@ plugins {
 dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.data))
-    implementation(project(Modules.Libraries.network))
+    api(project(Modules.Libraries.network))
     // Serialization
     implementation(Dependencies.moshi)
     // DI

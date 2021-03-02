@@ -11,6 +11,7 @@ import com.raudonikis.login.validation.ValidationUtils
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,46 +23,52 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * States
+     * States/Events
      */
     private val emailState: MutableStateFlow<EmailValidationResult> =
         MutableStateFlow(EmailValidationResult.EMAIL_INITIAL)
     private val passwordState: MutableStateFlow<PasswordValidationResult> =
         MutableStateFlow(PasswordValidationResult.PASSWORD_INITIAL)
-    private val loginState: MutableStateFlow<LoginState> =
-        MutableStateFlow(LoginState.Initial)
+    private val loginEvent: MutableSharedFlow<LoginEvent> =
+        MutableSharedFlow()
 
     /**
      * Observables
      */
     fun emailStateObservable() = emailState.asLiveData(viewModelScope.coroutineContext)
     fun passwordStateObservable() = passwordState.asLiveData(viewModelScope.coroutineContext)
-    fun loginStateObservable() = loginState.asLiveData(viewModelScope.coroutineContext)
+    fun loginEventObservable() = loginEvent.asLiveData(viewModelScope.coroutineContext)
 
     /**
      * Login
      */
     fun login(email: String, password: String) {
-        if (emailState.value.isValid() && passwordState.value.isValid()) {
-            // try to login
-            loginState.value = LoginState.Loading
-            viewModelScope.launch {
+        viewModelScope.launch {
+            if (emailState.value.isValid() && passwordState.value.isValid()) {
+
+                loginEvent.emit(LoginEvent.Loading)
                 val loginSuccess = authenticationRepository.login(email, password)
                 if (loginSuccess) {
                     onLoginSuccess()
                 } else {
-                    loginState.value = LoginState.LoginFailure
+                    loginEvent.emit(LoginEvent.LoginFailure)
                 }
+            } else {
+                loginEvent.emit(LoginEvent.InvalidInputs)
             }
-        } else {
-            // Invalid inputs
-            loginState.value = LoginState.InvalidInputs
         }
     }
 
     private fun onLoginSuccess() {
-        loginState.value = LoginState.LoginSuccess
+        viewModelScope.launch {
+            loginEvent.emit(LoginEvent.LoginSuccess)
+        }
         navigateToBottomNavigation()
+    }
+
+    private fun resetStates() {
+        emailState.value = EmailValidationResult.EMAIL_INITIAL
+        passwordState.value = PasswordValidationResult.PASSWORD_INITIAL
     }
 
     /**
@@ -79,10 +86,11 @@ class LoginViewModel @Inject constructor(
      * Navigation
      */
     fun navigateToSignUp() {
+        resetStates()
         navigationDispatcher.navigate(LoginRouter.loginToSignUp())
     }
 
-    fun navigateToBottomNavigation() {
+    private fun navigateToBottomNavigation() {
         navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true))
     }
 }
