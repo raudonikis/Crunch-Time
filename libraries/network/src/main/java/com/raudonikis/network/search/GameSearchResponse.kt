@@ -6,11 +6,11 @@ data class GameSearchResponse(
     /*@Json(name = "category")
     val category: Int,
     @Json(name = "collection")
-    val collection: Int,
+    val collection: Int,*/
     @Json(name = "cover")
-    val cover: Cover,*/
+    val cover: GameCoverResponse?,
     @Json(name = "first_release_date")
-    val releaseDate: String,
+    val releaseDate: String?,
     /*@Json(name = "genres")
     val genres: List<Genre>,*/
     @Json(name = "id")
@@ -20,7 +20,7 @@ data class GameSearchResponse(
     val name: String,
 //    val platforms: List<Platform>,
     @Json(name = "summary")
-    val summary: String,
+    val summary: String?,
 )
 
 /**

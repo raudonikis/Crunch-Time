@@ -15,7 +15,7 @@ import javax.inject.Inject
 class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
 
     private val bottomNavSelectedItemIdKey = "BOTTOM_NAV_SELECTED_ITEM_ID_KEY"
-    private var bottomNavSelectedItemId = R.id.navigation_home // Must be your starting destination
+    private var bottomNavSelectedItemId = R.id.navigation_discover // Must be your starting destination
     private val binding: FragmentBottomNavigationBinding by viewBinding()
 
     @Inject
@@ -45,7 +45,7 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
                 navGraphIds = navGraphIds,
                 backButtonBehaviour = BackButtonBehaviour.POP_HOST_FRAGMENT,
                 containerId = R.id.bottom_nav_container,
-                firstItemId = R.id.navigation_home, // Must be the same as bottomNavSelectedItemId
+                firstItemId = R.id.navigation_discover, // Must be the same as bottomNavSelectedItemId
                 intent = requireActivity().intent
             )
 

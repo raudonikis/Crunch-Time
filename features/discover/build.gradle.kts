@@ -20,4 +20,6 @@ dependencies {
     implementation(Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
+    // Images
+    kapt(Dependencies.glideAnnotation)
 }

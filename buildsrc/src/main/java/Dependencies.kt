@@ -5,6 +5,9 @@ object Versions {
     const val preferences = "1.1.1"
     const val viewBindingKtx = "1.1.1"
 
+    // UI
+    const val glide = "4.12.0"
+
     // Lifecycle
     const val lifecycle = "2.3.0"
 
@@ -83,6 +86,10 @@ object Dependencies {
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val preferences = "androidx.preference:preference:${Versions.preferences}"
     const val viewBindingKtx = "com.github.wada811:ViewBinding-ktx:${Versions.viewBindingKtx}"
+
+    // UI
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideAnnotation = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"

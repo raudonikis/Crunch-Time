@@ -34,11 +34,15 @@ class DiscoverViewModel @Inject constructor(
      */
     fun search(query: String) {
         searchQuery = query
+        if (query.isBlank()) {
+            discoverState.value = DiscoverState.SearchSuccess(emptyList())
+            return
+        }
         discoverState.value = DiscoverState.Loading
         viewModelScope.launch {
             gamesRepository.search(query)
                 .onSuccess {
-                    discoverState.value = DiscoverState.SearchSuccess(it.map { it.name })
+                    discoverState.value = DiscoverState.SearchSuccess(it)
                 }
                 .onEmpty {
                     discoverState.value = DiscoverState.SearchFailure

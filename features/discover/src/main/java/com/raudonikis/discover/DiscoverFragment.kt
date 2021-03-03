@@ -5,10 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.raudonikis.common.extensions.asFlow
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.show
+import com.bumptech.glide.Glide
+import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.RecyclerAdapter
+import com.raudonikis.data_domain.games.models.GameModel
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
 import com.raudonikis.discover.databinding.ItemGameBinding
 import com.wada811.viewbinding.viewBinding
@@ -22,12 +22,20 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val binding: FragmentDiscoverBinding by viewBinding()
-    private val searchResultsAdapter = RecyclerAdapter<String, ItemGameBinding>(
+    private val searchResultsAdapter = RecyclerAdapter<GameModel, ItemGameBinding>(
         onInflate = { inflater, parent ->
             ItemGameBinding.inflate(inflater, parent, false)
         },
         onBind = { game ->
-            this.labelName.text = game
+            this.gameTitle.text = game.name
+            this.gameDescription.text = game.description.limit(100)
+            game.coverUrl?.let { url ->
+                Glide
+                    .with(this.root)
+                    .load(url.prefixHttps())
+                    .centerCrop()
+                    .into(this.gameCover)
+            }
         },
         onClick = {}
     )

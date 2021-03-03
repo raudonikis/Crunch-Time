@@ -9,6 +9,8 @@ object GameModelMapper {
         return GameModel(
             id = gameSearchResponse.id,
             name = gameSearchResponse.name,
+            description = gameSearchResponse.summary ?: "",
+            coverUrl = gameSearchResponse.cover?.url
         )
     }
 
