@@ -28,7 +28,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         },
         onBind = { game ->
             this.gameTitle.text = game.name
-            this.gameDescription.text = game.description.limit(100)
+            this.gameDescription.text = game.description
             game.coverUrl?.let { url ->
                 Glide
                     .with(this.root)
