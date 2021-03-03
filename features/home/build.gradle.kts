@@ -1,9 +1,9 @@
 plugins {
     id("com.android.library")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs")
     kotlin("android")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

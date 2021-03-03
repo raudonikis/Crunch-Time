@@ -1,3 +1,4 @@
+include(":features:details")
 include(":features:bottomnavigation")
 include(":features:discover")
 include(":libraries:common-ui")

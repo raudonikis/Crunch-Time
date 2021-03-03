@@ -28,7 +28,7 @@ object Versions {
     const val room = "2.2.5"
 
     // Navigation
-    const val navigation = "2.3.1"
+    const val navigation = "2.3.3"
 
     // Support
     const val appCompat = "1.2.0"
@@ -74,6 +74,7 @@ object Modules {
     object Features {
         const val home = ":features:home"
         const val discover = ":features:discover"
+        const val details = ":features:details"
         const val login = ":features:login"
         const val bottomNavigation = ":features:bottomnavigation"
     }

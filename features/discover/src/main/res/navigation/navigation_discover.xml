@@ -9,5 +9,14 @@
         android:id="@+id/discoverFragment"
         android:name="com.raudonikis.discover.DiscoverFragment"
         android:label="DiscoverFragment"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_discover">
+        <action
+            android:id="@+id/action_discoverFragment_to_navigation_details"
+            app:destination="@id/navigation_details">
+            <argument
+                android:name="game"
+                app:argType="com.raudonikis.data_domain.games.models.GameModel" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/navigation_details" />
 </navigation>

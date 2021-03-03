@@ -1,8 +1,8 @@
 plugins {
     id("com.android.library")
-    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -14,12 +14,12 @@ dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.commonUi))
     implementation(project(Modules.Libraries.navigation))
-    implementation(project(Modules.Features.home))
-    implementation(project(Modules.Features.discover))
-    implementation(project(Modules.Features.login))
+    implementation(project(Modules.Libraries.dataDomain))
     // Hilt
     implementation(Dependencies.hilt)
     implementation(Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
+    // Images
+    kapt(Dependencies.glideAnnotation)
 }

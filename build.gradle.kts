@@ -14,7 +14,7 @@ buildscript {
         // Hilt
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
         // Navigation
-        classpath("android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

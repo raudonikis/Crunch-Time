@@ -37,7 +37,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     .into(this.gameCover)
             }
         },
-        onClick = {}
+        onClick = { viewModel.navigateToDetails(this) }
     )
 
     /**
@@ -46,7 +46,6 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpSearch()
-        setUpListeners()
         setUpObservers()
     }
 
@@ -82,11 +81,5 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 }
             }
         }
-    }
-
-    /**
-     * Listeners
-     */
-    private fun setUpListeners() {
     }
 }

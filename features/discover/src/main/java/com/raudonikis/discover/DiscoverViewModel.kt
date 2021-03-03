@@ -3,6 +3,7 @@ package com.raudonikis.discover
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.data_domain.games.models.GameModel
 import com.raudonikis.data_domain.games.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,4 +57,7 @@ class DiscoverViewModel @Inject constructor(
     /**
      * Navigation
      */
+    fun navigateToDetails(game: GameModel) {
+        navigationDispatcher.navigate(DiscoverRouter.discoverToDetails(game))
+    }
 }
