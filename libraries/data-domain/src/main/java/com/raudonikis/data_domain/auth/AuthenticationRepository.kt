@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.auth
 
-import com.raudonikis.data.sharedpreferences.UserPreferences
+import com.raudonikis.data.UserPreferences
 import com.raudonikis.network.GamesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,6 +22,7 @@ class AuthenticationRepository @Inject constructor(
                 val loginResponse = gamesApi.login(email, password)
                 Timber.v("Logged in -> $loginResponse")
                 userPreferences.accessToken = loginResponse.accessToken
+                userPreferences.userEmail = email
                 true
             } catch (e: Exception) {
                 Timber.e("Unable to login -> ${e.message}")

@@ -1,6 +1,6 @@
 package com.raudonikis.network.utils
 
-import com.raudonikis.data.sharedpreferences.UserPreferences
+import com.raudonikis.data.UserPreferences
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request

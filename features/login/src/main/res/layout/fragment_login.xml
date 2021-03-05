@@ -55,6 +55,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/checkbox_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingSmall"
+        android:text="Remember me"
+        app:layout_constraintStart_toStartOf="@id/text_field_password"
+        app:layout_constraintTop_toBottomOf="@id/text_field_password" />
+
     <ProgressBar
         android:id="@+id/progress_bar_login"
         android:layout_width="wrap_content"
@@ -63,20 +72,20 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_field_password" />
+        app:layout_constraintTop_toBottomOf="@id/checkbox_remember_me" />
 
     <Button
         android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
-        android:layout_marginTop="?spacingMedium"
+        android:layout_marginTop="?spacingNormal"
         android:text="@string/action_login"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_bar_login"
-        app:layout_goneMarginTop="?spacingMedium" />
+        app:layout_goneMarginTop="?spacingSmall" />
 
 
     <TextView
