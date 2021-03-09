@@ -59,14 +59,14 @@ class LoginViewModel @Inject constructor(
     fun login(email: String, password: String) {
         viewModelScope.launch {
             if (emailState.value.isValid() && passwordState.value.isValid()) {
-
                 loginEvent.emit(LoginEvent.Loading)
-                val loginSuccess = authenticationRepository.login(email, password)
-                if (loginSuccess) {
-                    onLoginSuccess()
-                } else {
-                    loginEvent.emit(LoginEvent.LoginFailure)
-                }
+                authenticationRepository.login(email, password)
+                    .onSuccess {
+                        onLoginSuccess()
+                    }
+                    .onFailure {
+                        loginEvent.emit(LoginEvent.LoginFailure)
+                    }
             } else {
                 loginEvent.emit(LoginEvent.InvalidInputs)
             }

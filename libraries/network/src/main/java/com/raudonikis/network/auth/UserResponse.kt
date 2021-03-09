@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class UserResponse(
     @Json(name = "id")
-    val id: Long,
+    val id: Long?,
     @Json(name = "uuid")
     val uuid: String,
     @Json(name = "name")

@@ -20,7 +20,7 @@ interface GamesApi {
     suspend fun login(
         @Query("email") email: String,
         @Query("password") password: String
-    ): LoginResponse
+    ): NetworkResponse<LoginResponse>
 
     /*@POST
     suspend fun authorize(

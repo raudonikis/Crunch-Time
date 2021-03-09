@@ -2,6 +2,8 @@ package com.raudonikis.data_domain.auth
 
 import com.raudonikis.data.UserPreferences
 import com.raudonikis.network.GamesApi
+import com.raudonikis.network.auth.LoginResponse
+import com.raudonikis.network.utils.NetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -12,22 +14,19 @@ class AuthenticationRepository @Inject constructor(
     private val userPreferences: UserPreferences,
 ) {
 
-    /**
-     * todo: return wrapper for error handling
-     * todo: for now return [true] if success, [false] if failed
-     */
-    suspend fun login(email: String, password: String): Boolean {
+    suspend fun login(email: String, password: String): NetworkResponse<LoginResponse> {
         return withContext(Dispatchers.IO) {
-            try {
-                val loginResponse = gamesApi.login(email, password)
-                Timber.v("Logged in -> $loginResponse")
-                userPreferences.accessToken = loginResponse.accessToken
-                userPreferences.userEmail = email
-                true
-            } catch (e: Exception) {
-                Timber.e("Unable to login -> ${e.message}")
-                false
+            val networkResponse = gamesApi.login(email, password)
+            Timber.v("Logged in -> $networkResponse")
+            networkResponse.onSuccess { loginResponse ->
+                userPreferences.apply {
+                    accessToken = loginResponse.accessToken
+                    userEmail = email
+                }
+            }.onFailure {
+                Timber.e("Unable to login -> onFailure")
             }
+            return@withContext networkResponse
         }
     }
 
