@@ -18,4 +18,10 @@ class GamesRepository @Inject constructor(private val gamesApi: GamesApi) {
                 }
         }
     }
+
+    suspend fun updateGameStatus(game: Game): NetworkResponse<Unit> {
+        return withContext(Dispatchers.IO) {
+            gamesApi.updateGameStatus(game.id, game.status.toJson())
+        }
+    }
 }

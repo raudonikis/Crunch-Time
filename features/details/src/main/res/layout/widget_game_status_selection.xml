@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/layout_status_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#d8d8d8"
+        android:orientation="vertical"
+        android:paddingHorizontal="?spacingSmall"
+        android:paddingVertical="?spacingSmall"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/status_played"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Played"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/status_want"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Want to play"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_played" />
+
+        <TextView
+            android:id="@+id/status_playing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Playing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_want" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/button_game_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="?spacingNormal"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_status_selection"
+        app:layout_goneMarginStart="0dp"
+        tools:text="Playing" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

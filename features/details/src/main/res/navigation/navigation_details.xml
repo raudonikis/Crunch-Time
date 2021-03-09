@@ -12,6 +12,6 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="game"
-            app:argType="com.raudonikis.data_domain.games.models.GameModel" />
+            app:argType="com.raudonikis.data_domain.games.models.Game" />
     </fragment>
 </navigation>

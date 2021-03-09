@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <ImageView
         android:id="@+id/game_cover"
@@ -40,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/game_title" />
 
     <Button
-        android:id="@+id/game_status_played"
+        android:id="@+id/button_played"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingSmall"
@@ -50,24 +51,24 @@
         app:layout_constraintTop_toBottomOf="@id/game_status" />
 
     <Button
-        android:id="@+id/game_status_want"
+        android:id="@+id/button_want"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingSmall"
         android:text="Want"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/game_status_played" />
+        app:layout_constraintTop_toBottomOf="@id/button_played" />
 
     <Button
-        android:id="@+id/game_status_playing"
+        android:id="@+id/button_playing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingSmall"
         android:text="Playing"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/game_status_want" />
+        app:layout_constraintTop_toBottomOf="@id/button_want" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
