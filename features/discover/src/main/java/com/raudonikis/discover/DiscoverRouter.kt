@@ -1,7 +1,7 @@
 package com.raudonikis.discover
 
-import com.raudonikis.data_domain.games.models.GameModel
+import com.raudonikis.data_domain.games.models.Game
 
 object DiscoverRouter {
-    fun discoverToDetails(game: GameModel) = DiscoverFragmentDirections.actionDiscoverFragmentToNavigationDetails(game)
+    fun discoverToDetails(game: Game) = DiscoverFragmentDirections.actionDiscoverFragmentToNavigationDetails(game)
 }

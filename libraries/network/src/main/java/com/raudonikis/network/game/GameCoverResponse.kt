@@ -1,4 +1,4 @@
-package com.raudonikis.network.search
+package com.raudonikis.network.game
 
 import com.squareup.moshi.Json
 

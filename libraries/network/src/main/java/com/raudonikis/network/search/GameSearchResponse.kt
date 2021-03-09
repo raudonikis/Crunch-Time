@@ -1,5 +1,6 @@
 package com.raudonikis.network.search
 
+import com.raudonikis.network.game.GameCoverResponse
 import com.squareup.moshi.Json
 
 data class GameSearchResponse(
@@ -21,6 +22,8 @@ data class GameSearchResponse(
 //    val platforms: List<Platform>,
     @Json(name = "summary")
     val summary: String?,
+    @Json(name = "game_status")
+    val gameStatus: String?,
 )
 
 /**

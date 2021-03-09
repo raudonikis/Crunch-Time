@@ -29,34 +29,4 @@ class AuthenticationRepository @Inject constructor(
             return@withContext networkResponse
         }
     }
-
-    suspend fun updateAccessToken() {
-        /*withContext(Dispatchers.IO) {
-            gamesApi.authorize().also { response ->
-                response
-                    .onSuccess {
-                        userPreferences.accessToken = it.accessToken
-                    }
-                    .onNetworkError {
-
-                    }
-                    .onServerError {
-
-                    }
-                    .onUnknownError {
-
-                    }
-            }
-        }*/
-    }
-
-    /*suspend fun getGames(): List<GameModel> {
-        return withContext(Dispatchers.IO) {
-            gamesApi.getGames()
-                .onSuccess {
-                    GameModelMapper.fromGameResponseList(it)
-                }
-            emptyList() //todo handle errors
-        }
-    }*/
 }

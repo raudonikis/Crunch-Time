@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.RecyclerAdapter
-import com.raudonikis.data_domain.games.models.GameModel
+import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
 import com.raudonikis.discover.databinding.ItemGameBinding
 import com.wada811.viewbinding.viewBinding
@@ -22,7 +22,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val binding: FragmentDiscoverBinding by viewBinding()
-    private val searchResultsAdapter = RecyclerAdapter<GameModel, ItemGameBinding>(
+    private val searchResultsAdapter = RecyclerAdapter<Game, ItemGameBinding>(
         onInflate = { inflater, parent ->
             ItemGameBinding.inflate(inflater, parent, false)
         },
