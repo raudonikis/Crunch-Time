@@ -21,12 +21,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setUpListeners() {
         binding.apply {
-            buttonToHomeNext.setOnClickListener {
-                viewModel.navigateToHomeNext()
-            }
-            buttonGetGames.setOnClickListener {
-                viewModel.getGames()
-            }
         }
     }
 }
