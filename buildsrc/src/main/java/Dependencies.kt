@@ -74,6 +74,7 @@ object Modules {
     object Features {
         const val home = ":features:home"
         const val discover = ":features:discover"
+        const val profile = ":features:profile"
         const val details = ":features:details"
         const val login = ":features:login"
         const val bottomNavigation = ":features:bottomnavigation"

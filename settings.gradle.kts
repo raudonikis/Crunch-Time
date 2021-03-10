@@ -1,3 +1,4 @@
+include(":features:profile")
 include(":features:details")
 include(":features:bottomnavigation")
 include(":features:discover")
