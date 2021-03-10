@@ -1,8 +1,6 @@
 package com.raudonikis.details
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
@@ -11,6 +9,7 @@ import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,24 +22,36 @@ class DetailsViewModel @Inject constructor(
     /**
      * States
      */
-    private val detailsState: MutableStateFlow<DetailsState> =
+    private val _detailsState: MutableStateFlow<DetailsState> =
         MutableStateFlow(DetailsState.Initial)
+    private val _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
 
     /**
      * Observables
      */
-    val detailsStateLiveData: LiveData<DetailsState> = detailsState.asLiveData(viewModelScope.coroutineContext)
+    val detailsState: StateFlow<DetailsState> = _detailsState
+    val currentGame: StateFlow<Game> = _currentGame
 
     fun updateGameStatus(game: Game, status: GameStatus) {
-        detailsState.value = DetailsState.StatusUpdating
+        _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.updateGameStatus(game.copy(status = status))
+            val updatedGame = game.copy(status = status)
+            _currentGame.value = updatedGame
+            /*gamesRepository.updateGameStatus(updatedGame)
                 .onSuccess {
-                    detailsState.value = DetailsState.StatusUpdateSuccess
+                    _detailsState.value = DetailsState.StatusUpdateSuccess
+                    currentGame = updatedGame
                 }
                 .onFailure {
-                    detailsState.value = DetailsState.StatusUpdateFailure
-                }
+                    _detailsState.value = DetailsState.StatusUpdateFailure
+                }*/
         }
+    }
+
+    /**
+     * Initialisation
+     */
+    fun onCreate(game: Game) {
+        _currentGame.value = game
     }
 }

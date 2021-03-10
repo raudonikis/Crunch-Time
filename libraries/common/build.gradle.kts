@@ -15,5 +15,5 @@ dependencies {
     // Logging
     api(Dependencies.timber)
     // Lifecycle
-    api(Dependencies.livedata)
+    api(Dependencies.lifecycle)
 }

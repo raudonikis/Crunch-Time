@@ -8,6 +8,8 @@ android {
 }
 
 dependencies {
+    // Projects
+    implementation(project(Modules.Libraries.common))
     // Support
     api(Dependencies.constraintLayout)
     api(Dependencies.recyclerView)

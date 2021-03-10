@@ -133,6 +133,8 @@ object Dependencies {
 
     // Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+
 
     // Testing
     const val jUnit = "junit:junit:${Versions.jUnit}"

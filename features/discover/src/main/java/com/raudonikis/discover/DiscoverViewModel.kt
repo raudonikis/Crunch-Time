@@ -1,13 +1,13 @@
 package com.raudonikis.discover
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class DiscoverViewModel @Inject constructor(
     /**
      * States
      */
-    private val discoverState: MutableStateFlow<DiscoverState> =
+    private val _discoverState: MutableStateFlow<DiscoverState> =
         MutableStateFlow(DiscoverState.Initial)
     var searchQuery: String = ""
         private set
@@ -28,7 +28,7 @@ class DiscoverViewModel @Inject constructor(
     /**
      * Observables
      */
-    fun discoverStateObservable() = discoverState.asLiveData(viewModelScope.coroutineContext)
+    val discoverState: StateFlow<DiscoverState> = _discoverState
 
     /**
      * Search
@@ -36,20 +36,20 @@ class DiscoverViewModel @Inject constructor(
     fun search(query: String) {
         searchQuery = query
         if (query.isBlank()) {
-            discoverState.value = DiscoverState.SearchSuccess(emptyList())
+            _discoverState.value = DiscoverState.SearchSuccess(emptyList())
             return
         }
-        discoverState.value = DiscoverState.Loading
+        _discoverState.value = DiscoverState.Loading
         viewModelScope.launch {
             gamesRepository.search(query)
                 .onSuccess {
-                    discoverState.value = DiscoverState.SearchSuccess(it)
+                    _discoverState.value = DiscoverState.SearchSuccess(it)
                 }
                 .onEmpty {
-                    discoverState.value = DiscoverState.SearchFailure
+                    _discoverState.value = DiscoverState.SearchFailure
                 }
                 .onFailure {
-                    discoverState.value = DiscoverState.SearchFailure
+                    _discoverState.value = DiscoverState.SearchFailure
                 }
         }
     }
