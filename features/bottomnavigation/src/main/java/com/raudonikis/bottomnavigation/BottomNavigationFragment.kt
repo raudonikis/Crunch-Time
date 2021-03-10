@@ -38,7 +38,7 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
 
     private fun setUpBottomNavigation() {
         binding.apply {
-            val navGraphIds = listOf(R.navigation.navigation_home, R.navigation.navigation_discover)
+            val navGraphIds = listOf(R.navigation.navigation_home, R.navigation.navigation_discover, R.navigation.navigation_profile)
             bottomNavView.selectedItemId = bottomNavSelectedItemId
             val controller = bottomNavView.setupWithNavController(
                 fragmentManager = childFragmentManager,

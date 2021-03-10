@@ -10,7 +10,7 @@
         android:title="Discover" />
     <!-- todo -->
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_search"
         android:title="Profile" />
 </menu>
