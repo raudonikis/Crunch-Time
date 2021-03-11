@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingHorizontal="?spacingNormal"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="?spacingNormal">
 
     <TextView
         android:id="@+id/title_discover"
@@ -15,5 +15,105 @@
         android:textSize="?textSizeLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingMediumExtended"
+        android:text="Collections"
+        android:textSize="?textSizeMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_discover" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_playing"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="?spacingNormal"
+        android:backgroundTint="?colorPrimary"
+        app:cardCornerRadius="?spacingSmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_collection">
+
+        <LinearLayout
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="?spacingSmall">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="Playing now" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_played"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="?spacingSmall"
+        android:layout_marginTop="?spacingNormal"
+        android:backgroundTint="?colorPrimary"
+        app:cardCornerRadius="?spacingSmall"
+        app:layout_constraintStart_toEndOf="@id/card_playing"
+        app:layout_constraintTop_toBottomOf="@id/title_collection">
+
+        <LinearLayout
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="?spacingSmall">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="Played" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_want"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="?spacingSmall"
+        android:layout_marginTop="?spacingNormal"
+        android:backgroundTint="?colorPrimary"
+        app:cardCornerRadius="?spacingSmall"
+        app:layout_constraintStart_toEndOf="@id/card_played"
+        app:layout_constraintTop_toBottomOf="@id/title_collection">
+
+        <LinearLayout
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="?spacingSmall">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="Want to play" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/title_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingNormal"
+        android:text="Activity"
+        android:textSize="?textSizeMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_played" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
