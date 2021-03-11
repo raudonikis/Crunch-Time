@@ -11,7 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,7 +37,6 @@ class GameCollectionViewModel @Inject constructor(
      */
     fun onCreate(gameStatus: GameStatus) {
         currentGameStatus = gameStatus
-        Timber.d("Game status -> $gameStatus")
         updateGameCollection()
     }
 
@@ -55,13 +53,23 @@ class GameCollectionViewModel @Inject constructor(
                 .onFailure {
                     _gameCollectionState.value = GameCollectionState.Failure
                 }
+                .onEmpty {
+                    _gameCollectionState.value = GameCollectionState.Failure
+                }
         }
+    }
+
+    /**
+     * Events
+     */
+    fun onGameClick(game: Game) {
+        navigateToDetails(game)
     }
 
     /**
      * Navigation
      */
-    fun navigateToDetails(game: Game) {
+    private fun navigateToDetails(game: Game) {
         navigationDispatcher.navigate(ProfileRouter.gameCollectionToDetails(game))
     }
 }

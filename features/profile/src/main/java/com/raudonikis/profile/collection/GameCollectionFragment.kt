@@ -31,17 +31,17 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
             ItemGameBinding.inflate(inflater, parent, false)
         },
         onBind = { game ->
-            this.gameTitle.text = game.name
-            this.gameDescription.text = game.description
+            gameTitle.text = game.name
+            gameDescription.text = game.description
             game.coverUrl?.let { url ->
                 Glide
-                    .with(this.root)
+                    .with(root)
                     .load(url.prefixHttps())
                     .centerCrop()
-                    .into(this.gameCover)
+                    .into(gameCover)
             }
         },
-        onClick = { viewModel.navigateToDetails(this) }
+        onClick = { viewModel.onGameClick(this) }
     )
 
     /**
@@ -83,7 +83,7 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
                     is GameCollectionState.Success -> {
                         binding.progressCollection.hide()
                         gameCollectionAdapter.submitList(state.games)
-                        binding.apply {
+                        with(binding) {
                             titleCollection.text = args.gameStatus.toString().capitalize()
                             collectionSize.text = "${state.games.size} games"
                         }
