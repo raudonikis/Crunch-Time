@@ -37,9 +37,9 @@
         app:layout_constraintTop_toBottomOf="@id/title_collection">
 
         <LinearLayout
-            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
             android:paddingBottom="?spacingSmall">
 
             <TextView
@@ -64,9 +64,9 @@
         app:layout_constraintTop_toBottomOf="@id/title_collection">
 
         <LinearLayout
-            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
             android:paddingBottom="?spacingSmall">
 
             <TextView
@@ -91,9 +91,9 @@
         app:layout_constraintTop_toBottomOf="@id/title_collection">
 
         <LinearLayout
-            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
             android:paddingBottom="?spacingSmall">
 
             <TextView
@@ -115,5 +115,18 @@
         android:textSize="?textSizeMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_played" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingNormal"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_activity"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_activity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.raudonikis.network
 
+import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.game.GameStatusResponse
 import com.raudonikis.network.search.GameSearchResponse
@@ -16,6 +17,9 @@ interface GamesApi {
         @Path("id") id: Long,
         @Body statusJson: String,
     ): NetworkResponse<GameStatusResponse>
+
+    @GET("api/v1/activities")
+    suspend fun getUserActivities(): NetworkResponse<List<UserActivityResponse>>
 
     @POST("api/user/login")
     suspend fun login(
