@@ -1,8 +1,5 @@
 package com.raudonikis.data_domain.games.models
 
-import com.raudonikis.network.game.GameStatusRequestBody
-import com.squareup.moshi.Moshi
-
 enum class GameStatus {
     PLAYED,
     WANT,
@@ -16,14 +13,6 @@ enum class GameStatus {
             PLAYING -> KEY_PLAYING
             EMPTY -> KEY_EMPTY
         }
-    }
-
-    //todo: dont initialize new moshi every time
-    fun toJson(): String {
-        val moshi = Moshi.Builder().build()
-        val adapter = moshi.adapter(GameStatusRequestBody::class.java)
-        val gameStatusRequestBody = GameStatusRequestBody(this.toString())
-        return adapter.toJson(gameStatusRequestBody)
     }
 
     companion object {

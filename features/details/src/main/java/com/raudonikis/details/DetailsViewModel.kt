@@ -36,15 +36,14 @@ class DetailsViewModel @Inject constructor(
         _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
             val updatedGame = game.copy(status = status)
-            _currentGame.value = updatedGame
-            /*gamesRepository.updateGameStatus(updatedGame)
+            gamesRepository.updateGameStatus(updatedGame)
                 .onSuccess {
                     _detailsState.value = DetailsState.StatusUpdateSuccess
-                    currentGame = updatedGame
+                    _currentGame.value = updatedGame
                 }
                 .onFailure {
                     _detailsState.value = DetailsState.StatusUpdateFailure
-                }*/
+                }
         }
     }
 
