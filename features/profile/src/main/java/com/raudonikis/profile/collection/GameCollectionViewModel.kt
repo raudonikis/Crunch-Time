@@ -6,6 +6,7 @@ import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.data_domain.games.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.profile.ProfileRouter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -61,6 +62,6 @@ class GameCollectionViewModel @Inject constructor(
      * Navigation
      */
     fun navigateToDetails(game: Game) {
-//        navigationDispatcher.navigate()
+        navigationDispatcher.navigate(ProfileRouter.gameCollectionToDetails(game))
     }
 }
