@@ -1,6 +1,10 @@
 package com.raudonikis.data_domain.games.models
 
-enum class GameStatus {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class GameStatus : Parcelable {
     PLAYED,
     WANT,
     PLAYING,

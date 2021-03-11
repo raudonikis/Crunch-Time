@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,13 +26,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setUpListeners() {
         binding.apply {
             cardPlayed.setOnClickListener {
-
+                viewModel.navigateToGameCollection(GameStatus.PLAYED)
             }
             cardPlaying.setOnClickListener {
-
+                viewModel.navigateToGameCollection(GameStatus.PLAYING)
             }
             cardWant.setOnClickListener {
-
+                viewModel.navigateToGameCollection(GameStatus.WANT)
             }
         }
     }

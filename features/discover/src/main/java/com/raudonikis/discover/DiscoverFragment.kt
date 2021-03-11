@@ -10,10 +10,10 @@ import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.RecyclerAdapter
+import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.observeInLifecycle
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
-import com.raudonikis.discover.databinding.ItemGameBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce

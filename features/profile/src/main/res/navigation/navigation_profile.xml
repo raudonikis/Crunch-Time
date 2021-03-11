@@ -9,5 +9,18 @@
         android:id="@+id/profileFragment"
         android:name="com.raudonikis.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_gameCollectionFragment"
+            app:destination="@id/gameCollectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameCollectionFragment"
+        android:name="com.raudonikis.profile.collection.GameCollectionFragment"
+        android:label="GameCollectionFragment"
+        tools:layout="@layout/fragment_game_collection">
+        <argument
+            android:name="gameStatus"
+            app:argType="com.raudonikis.data_domain.games.models.GameStatus" />
+    </fragment>
 </navigation>
