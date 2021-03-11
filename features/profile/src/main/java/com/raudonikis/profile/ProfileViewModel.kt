@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.repo.ActivitiesRepository
 import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.games.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.profile.activity.ActivitiesState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val activitiesRepository: ActivitiesRepository,
+    private val gamesRepository: GamesRepository,
 ) : ViewModel() {
 
     /**
@@ -40,7 +42,7 @@ class ProfileViewModel @Inject constructor(
     /**
      * Events
      */
-    fun onActivityClick(activity: UserActivity) {
+    fun onUserActivityClick(activity: UserActivity) {
         // todo
     }
 

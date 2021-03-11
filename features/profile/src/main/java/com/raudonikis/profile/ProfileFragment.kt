@@ -2,7 +2,6 @@ package com.raudonikis.profile
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -24,7 +23,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
     private val binding: FragmentProfileBinding by viewBinding()
 
-    private val activityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
+    private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
         onInflate = { inflater, parent ->
             ItemActivityBinding.inflate(inflater, parent, false)
         },
@@ -37,10 +36,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     .into(activityImage)
             }
         },
-        onClick = {
-            viewModel.onActivityClick(this)
-            Toast.makeText(requireContext(), this.gameId.toString(), Toast.LENGTH_SHORT).show()
-        }
+        onClick = { viewModel.onUserActivityClick(this) }
     )
 
     /**
@@ -58,7 +54,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpViews() {
         with(binding) {
-            recyclerActivity.adapter = activityAdapter
+            recyclerActivity.adapter = userActivityAdapter
         }
     }
 
@@ -85,7 +81,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setUpObservers() {
         viewModel.activitiesState
             .onEach { state ->
-                when(state) {
+                when (state) {
                     is ActivitiesState.Initial -> {
 
                     }
@@ -93,7 +89,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                     }
                     is ActivitiesState.Success -> {
-                        activityAdapter.submitList(state.activities)
+                        userActivityAdapter.submitList(state.activities)
                     }
                     is ActivitiesState.Failure -> {
 

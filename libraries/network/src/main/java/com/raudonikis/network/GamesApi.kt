@@ -12,6 +12,9 @@ interface GamesApi {
     @GET("api/v1/games/search")
     suspend fun search(@Query("name") name: String): NetworkResponse<List<GameSearchResponse>>
 
+    @GET("api/v1/game/{id}")
+    suspend fun getGame(@Path("id") id: Long): NetworkResponse<GameSearchResponse>//todo
+
     @POST("api/v1/game/{id}/status")
     suspend fun updateGameStatus(
         @Path("id") id: Long,
