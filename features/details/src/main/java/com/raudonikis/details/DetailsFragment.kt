@@ -35,66 +35,24 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
         setUpListeners()
         setUpObservers()
     }
+
+    /**
+     * Initialisation
+     */
 
     /**
      * Observers
      */
     private fun setUpObservers() {
         viewModel.detailsState
-            .onEach { state ->
-                when (state) {
-                    is DetailsState.StatusUpdating -> {
-                        binding.buttonPlayed.disable()
-                        binding.buttonPlaying.disable()
-                        binding.buttonWant.disable()
-                    }
-                    is DetailsState.StatusUpdateSuccess -> {
-                        binding.buttonPlayed.enable()
-                        binding.buttonPlaying.enable()
-                        binding.buttonWant.enable()
-                        Timber.d("Status update success")
-                    }
-                    is DetailsState.StatusUpdateFailure -> {
-                        binding.buttonPlayed.enable()
-                        binding.buttonPlaying.enable()
-                        binding.buttonWant.enable()
-                        Timber.d("Status update failure")
-                    }
-                }
-            }
+            .onEach { updateDetailsState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.currentGame
             .onEach { updateGameDetails(it) }
             .observeInLifecycle(viewLifecycleOwner)
-    }
-
-    /**
-     * Initialisation
-     */
-    private fun setUpViews() {
-        binding.apply {
-            args.game.let { game ->
-                gameTitle.text = game.name
-                gameStatus.text = game.status.toString()
-                game.coverUrl?.let { url ->
-                    Glide
-                        .with(this.root)
-                        .load(url.prefixHttps())
-                        .centerCrop()
-                        .into(this.gameCover)
-                }
-            }
-        }
-    }
-
-    private fun updateGameDetails(game: Game) {
-        binding.apply {
-            gameStatus.text = game.status.toString()
-        }
     }
 
     /**
@@ -110,6 +68,51 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
             buttonPlaying.setOnClickListener {
                 viewModel.updateGameStatus(args.game, GameStatus.PLAYING)
+            }
+        }
+    }
+
+    /**
+     * Details functionality
+     */
+    private fun updateGameDetails(game: Game) {
+        binding.apply {
+            gameTitle.text = game.name
+            gameStatus.text = game.status.toString()
+            game.coverUrl?.let { url ->
+                Glide
+                    .with(this.root)
+                    .load(url.prefixHttps())
+                    .centerCrop()
+                    .into(this.gameCover)
+            }
+        }
+    }
+
+    private fun updateDetailsState(detailsState: DetailsState) {
+        when (detailsState) {
+            is DetailsState.StatusUpdating -> {
+                binding.buttonPlayed.disable()
+                binding.buttonPlaying.disable()
+                binding.buttonWant.disable()
+            }
+            is DetailsState.StatusUpdateSuccess -> {
+                binding.buttonPlayed.enable()
+                binding.buttonPlaying.enable()
+                binding.buttonWant.enable()
+                Timber.d("Status update success")
+            }
+            is DetailsState.StatusUpdateFailure -> {
+                binding.buttonPlayed.enable()
+                binding.buttonPlaying.enable()
+                binding.buttonWant.enable()
+                Timber.d("Status update failure")
+            }
+            is DetailsState.DetailsUpdating -> {
+            }
+            is DetailsState.DetailsUpdateSuccess -> {
+            }
+            is DetailsState.DetailsUpdateFailure -> {
             }
         }
     }

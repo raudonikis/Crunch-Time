@@ -5,7 +5,7 @@ import com.raudonikis.data_domain.games.mappers.GameStatusMapper
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.network.GamesApi
-import com.raudonikis.network.game.GameStatusResponse
+import com.raudonikis.network.gamestatus.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
@@ -29,8 +29,15 @@ class GamesRepository @Inject constructor(
         }
     }
 
-    suspend fun getGameDetails(game: Game) {
-
+    suspend fun getGameDetails(game: Game): NetworkResponse<Game> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.getGame(game.id)
+                    .map {
+                        GameMapper.fromGameResponse(it)
+                    }
+            }
+        }
     }
 
     suspend fun updateGameStatus(game: Game): NetworkResponse<GameStatusResponse> {

@@ -32,6 +32,19 @@ class DetailsViewModel @Inject constructor(
     val detailsState: StateFlow<DetailsState> = _detailsState
     val currentGame: StateFlow<Game> = _currentGame
 
+    /**
+     * Initialisation
+     */
+    fun onCreate(game: Game) {
+        _currentGame.value = game
+        if (game.isUpdateNeeded) {
+            updateGameDetails()
+        }
+    }
+
+    /**
+     * Details functionality
+     */
     fun updateGameStatus(game: Game, status: GameStatus) {
         _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
@@ -44,20 +57,26 @@ class DetailsViewModel @Inject constructor(
                 .onFailure {
                     _detailsState.value = DetailsState.StatusUpdateFailure
                 }
+                .onEmpty {
+                    _detailsState.value = DetailsState.StatusUpdateFailure
+                }
         }
     }
 
-    fun updateGameDetails() {
-
-    }
-
-    /**
-     * Initialisation
-     */
-    fun onCreate(game: Game) {
-        _currentGame.value = game
-        if (game.isUpdateNeeded) {
-            updateGameDetails()
+    private fun updateGameDetails() {
+        _detailsState.value = DetailsState.DetailsUpdating
+        viewModelScope.launch {
+            gamesRepository.getGameDetails(currentGame.value)
+                .onSuccess {
+                    _currentGame.value = it
+                    _detailsState.value = DetailsState.DetailsUpdateSuccess
+                }
+                .onFailure {
+                    _detailsState.value = DetailsState.DetailsUpdateFailure
+                }
+                .onEmpty {
+                    _detailsState.value = DetailsState.DetailsUpdateFailure
+                }
         }
     }
 }

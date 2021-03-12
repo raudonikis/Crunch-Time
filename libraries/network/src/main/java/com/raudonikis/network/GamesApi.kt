@@ -2,7 +2,8 @@ package com.raudonikis.network
 
 import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.auth.LoginResponse
-import com.raudonikis.network.game.GameStatusResponse
+import com.raudonikis.network.game.GameResponse
+import com.raudonikis.network.gamestatus.GameStatusResponse
 import com.raudonikis.network.search.GameSearchResponse
 import com.raudonikis.network.utils.NetworkResponse
 import retrofit2.http.*
@@ -13,7 +14,7 @@ interface GamesApi {
     suspend fun search(@Query("name") name: String): NetworkResponse<List<GameSearchResponse>>
 
     @GET("api/v1/game/{id}")
-    suspend fun getGame(@Path("id") id: Long): NetworkResponse<GameSearchResponse>//todo
+    suspend fun getGame(@Path("id") id: Long): NetworkResponse<GameResponse>
 
     @POST("api/v1/game/{id}/status")
     suspend fun updateGameStatus(

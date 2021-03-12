@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.repo.ActivitiesRepository
+import com.raudonikis.data_domain.games.mappers.GameMapper
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.data_domain.games.repo.GamesRepository
@@ -43,8 +44,8 @@ class ProfileViewModel @Inject constructor(
     /**
      * Events
      */
-    fun onUserActivityClick(activity: UserActivity) {
-        val game = Game(id = activity.gameId, isUpdateNeeded = true)
+    fun onUserActivityClick(userActivity: UserActivity) {
+        val game = GameMapper.fromUserActivity(userActivity)
         navigateToDetails(game)
     }
 
