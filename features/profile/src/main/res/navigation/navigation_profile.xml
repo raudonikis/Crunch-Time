@@ -13,6 +13,13 @@
         <action
             android:id="@+id/action_profileFragment_to_gameCollectionFragment"
             app:destination="@id/gameCollectionFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_navigation_details"
+            app:destination="@id/navigation_details">
+            <argument
+                android:name="game"
+                app:argType="com.raudonikis.data_domain.games.models.Game" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/gameCollectionFragment"

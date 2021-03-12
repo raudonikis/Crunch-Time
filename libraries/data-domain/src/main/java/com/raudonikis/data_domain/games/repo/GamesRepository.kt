@@ -7,6 +7,7 @@ import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
+import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -19,17 +20,25 @@ class GamesRepository @Inject constructor(
 
     suspend fun search(name: String): NetworkResponse<List<Game>> {
         return withContext(Dispatchers.IO) {
-            gamesApi.search(name)
-                .map {
-                    GameMapper.fromGameSearchResponseList(it)
-                }
+            safeNetworkResponse {
+                gamesApi.search(name)
+                    .map {
+                        GameMapper.fromGameSearchResponseList(it)
+                    }
+            }
         }
+    }
+
+    suspend fun getGameDetails(game: Game) {
+
     }
 
     suspend fun updateGameStatus(game: Game): NetworkResponse<GameStatusResponse> {
         return withContext(Dispatchers.IO) {
             val gameStatus = gameStatusMapper.toJson(game.status)
-            gamesApi.updateGameStatus(game.id, gameStatus)
+            safeNetworkResponse {
+                gamesApi.updateGameStatus(game.id, gameStatus)
+            }
         }
     }
 

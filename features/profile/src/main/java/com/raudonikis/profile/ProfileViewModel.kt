@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.repo.ActivitiesRepository
+import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
 import com.raudonikis.data_domain.games.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
@@ -43,7 +44,8 @@ class ProfileViewModel @Inject constructor(
      * Events
      */
     fun onUserActivityClick(activity: UserActivity) {
-        // todo
+        val game = Game(id = activity.gameId, isUpdateNeeded = true)
+        navigateToDetails(game)
     }
 
     fun onCollectionClicked(gameStatus: GameStatus) {
@@ -74,5 +76,9 @@ class ProfileViewModel @Inject constructor(
      */
     private fun navigateToGameCollection(gameStatus: GameStatus) {
         navigationDispatcher.navigate(ProfileRouter.profileToGameCollection(gameStatus))
+    }
+
+    private fun navigateToDetails(game: Game) {
+        navigationDispatcher.navigate(ProfileRouter.profileToDetails(game))
     }
 }

@@ -4,6 +4,7 @@ import com.raudonikis.data.UserPreferences
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.utils.NetworkResponse
+import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -16,7 +17,7 @@ class AuthenticationRepository @Inject constructor(
 
     suspend fun login(email: String, password: String): NetworkResponse<LoginResponse> {
         return withContext(Dispatchers.IO) {
-            val networkResponse = gamesApi.login(email, password)
+            val networkResponse = safeNetworkResponse { gamesApi.login(email, password) }
             Timber.v("Logged in -> $networkResponse")
             networkResponse.onSuccess { loginResponse ->
                 userPreferences.apply {

@@ -10,4 +10,5 @@ data class Game(
     val description: String = "",
     val coverUrl: String? = null,
     val status: GameStatus = GameStatus.EMPTY,
+    val isUpdateNeeded: Boolean = false,
 ) : Parcelable

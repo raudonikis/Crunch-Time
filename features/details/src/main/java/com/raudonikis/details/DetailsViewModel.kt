@@ -47,10 +47,17 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+    fun updateGameDetails() {
+
+    }
+
     /**
      * Initialisation
      */
     fun onCreate(game: Game) {
         _currentGame.value = game
+        if (game.isUpdateNeeded) {
+            updateGameDetails()
+        }
     }
 }

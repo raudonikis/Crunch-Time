@@ -8,11 +8,11 @@ data class NetworkResponse<T>(
     val status: Int,*/
     @Json(name = "success")
     //todo make it not nullable when backend is fixed
-    val success: Boolean?,
+    val success: Boolean? = null,
     @Json(name = "data")
-    val data: T?,
+    val data: T? = null,
     @Json(name = "error")
-    val error: NetworkErrorResponse?
+    val error: NetworkErrorResponse? = null
 ) {
 
     fun isSuccess(): Boolean {
