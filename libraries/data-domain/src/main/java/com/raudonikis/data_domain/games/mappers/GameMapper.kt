@@ -17,6 +17,7 @@ object GameMapper {
             name = gameSearchResponse.name,
             description = gameSearchResponse.summary ?: "",
             coverUrl = gameSearchResponse.cover?.url,
+            screenshotUrls = gameSearchResponse.screenshots.map { it.url },
             status = GameStatus.fromString(gameSearchResponse.gameStatus)
         )
     }
@@ -31,6 +32,7 @@ object GameMapper {
             name = gameResponse.attributes.name,
             description = gameResponse.attributes.summary,
             coverUrl = gameResponse.relations.cover.url,
+            screenshotUrls = gameResponse.relations.screenshots.map { it.url },
             status = GameStatus.fromString(gameResponse.attributes.gameStatus),
         )
     }

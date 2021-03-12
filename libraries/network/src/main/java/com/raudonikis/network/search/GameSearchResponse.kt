@@ -1,6 +1,7 @@
 package com.raudonikis.network.search
 
 import com.raudonikis.network.game.GameCoverResponse
+import com.raudonikis.network.game.GameScreenshotResponse
 import com.squareup.moshi.Json
 
 data class GameSearchResponse(
@@ -12,6 +13,10 @@ data class GameSearchResponse(
     val cover: GameCoverResponse?,
     @Json(name = "first_release_date")
     val releaseDate: String?,
+    @Json(name = "aggregated_rating")
+    val rating: Double?,
+    @Json(name = "screenshots")
+    val screenshots: List<GameScreenshotResponse>,
     /*@Json(name = "genres")
     val genres: List<Genre>,*/
     @Json(name = "id")

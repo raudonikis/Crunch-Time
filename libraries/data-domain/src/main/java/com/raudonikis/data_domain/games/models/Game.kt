@@ -9,6 +9,7 @@ data class Game(
     val name: String = "",
     val description: String = "",
     val coverUrl: String? = null,
+    val screenshotUrls: List<String> = listOf(),
     val status: GameStatus = GameStatus.EMPTY,
     val isUpdateNeeded: Boolean = false,
 ) : Parcelable

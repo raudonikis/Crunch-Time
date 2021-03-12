@@ -11,7 +11,7 @@ class RecyclerAdapter<ITEM, BINDING : ViewBinding>(
     //TODO: look for a way to remove the onInflate lambda in favor of generics
     private val onInflate: (inflater: LayoutInflater, parent: ViewGroup) -> BINDING,
     private val onBind: BINDING.(item: ITEM) -> Unit,
-    private val onClick: ITEM.() -> Unit = {},
+    private val onClick: (ITEM.() -> Unit)? = null,
     compareItems: (oldItem: ITEM, newItem: ITEM) -> Boolean = { oldItem, newItem -> oldItem == newItem },
     compareContents: (oldItem: ITEM, newItem: ITEM) -> Boolean = { oldItem, newItem -> oldItem == newItem }
 ) : ListAdapter<ITEM, RecyclerAdapter<ITEM, BINDING>.ItemViewHolder>(
@@ -24,8 +24,10 @@ class RecyclerAdapter<ITEM, BINDING : ViewBinding>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = onInflate(LayoutInflater.from(parent.context), parent)
         return ItemViewHolder(binding).apply {
-            binding.root.setOnClickListener {
-                onClick(getItem(adapterPosition))
+            onClick?.let { onClick ->
+                binding.root.setOnClickListener {
+                    onClick(getItem(adapterPosition))
+                }
             }
         }
     }
