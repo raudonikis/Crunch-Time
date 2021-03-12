@@ -4,6 +4,7 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.mappers.UserActivityMapper
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.NetworkResponse
+import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -14,10 +15,12 @@ class ActivitiesRepository @Inject constructor(
 
     suspend fun getUserActivities(): NetworkResponse<List<UserActivity>> {
         return withContext(Dispatchers.IO) {
-            gamesApi.getUserActivities()
-                .map {
-                    UserActivityMapper.fromUserActivityResponseList(it)
-                }
+            safeNetworkResponse {
+                gamesApi.getUserActivities()
+                    .map {
+                        UserActivityMapper.fromUserActivityResponseList(it)
+                    }
+            }
         }
     }
 }
