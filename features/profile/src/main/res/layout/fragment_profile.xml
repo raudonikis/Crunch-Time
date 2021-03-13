@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingMediumExtended"
         android:text="Profile"
-        android:textSize="?textSizeLarge"
+        style="?textAppearanceHeadline1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingMediumExtended"
         android:text="Collections"
-        android:textSize="?textSizeMedium"
+        style="?textAppearanceHeadline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_discover" />
 
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingNormal"
         android:text="Activity"
-        android:textSize="?textSizeMedium"
+        style="?textAppearanceHeadline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_played" />
 

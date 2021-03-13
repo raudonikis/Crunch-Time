@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingHorizontal="?spacingNormal"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="?spacingNormal">
 
     <TextView
         android:id="@+id/title_discover"
+        style="?textAppearanceHeadline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingMediumExtended"
         android:text="Discover"
-        android:textSize="?textSizeLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,10 +42,10 @@
         android:layout_marginTop="?spacingNormal"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_field_search"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="6"
         tools:listitem="@layout/item_game" />
 

@@ -44,6 +44,7 @@ private fun FragmentDetailsBinding.bindGameGenres(context: Context, game: Game) 
         val chip =
             LayoutInflater.from(context).inflate(R.layout.chip_genre, chipsGenres, false) as Chip
         chip.text = genre.name
+        chip.setTextAppearance(R.style.TextAppearance_Body)
         chipsGenres.addView(chip)
     }
 }

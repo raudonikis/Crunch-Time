@@ -49,13 +49,11 @@
 
         <TextView
             android:id="@+id/label_title"
+            style="?textAppearanceHeadline3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingMedium"
-            android:textColor="@color/black"
-            android:textSize="?textSizeMedium"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/card_image_cover"
             app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
@@ -63,10 +61,10 @@
 
         <TextView
             android:id="@+id/text_release_date"
+            style="?textAppearanceCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/label_title"
@@ -74,11 +72,11 @@
 
         <TextView
             android:id="@+id/label_developer"
+            style="?textAppearanceCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
             android:text="Developer"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/text_release_date"
@@ -101,10 +99,10 @@
 
         <TextView
             android:id="@+id/text_description"
+            style="?textAppearanceCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_cover_with_description"
@@ -112,9 +110,10 @@
 
         <TextView
             android:id="@+id/text_read_more"
+            style="?textAppearanceCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="read more..."
+            android:text="@string/action_read_more"
             android:textColor="?colorAccent"
             android:textStyle="bold"
             android:visibility="gone"
@@ -146,13 +145,11 @@
 
         <TextView
             android:id="@+id/label_genres"
+            style="@style/TextAppearance.Headline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_genres"
-            android:textColor="@color/black"
-            android:textSize="?textSizeMedium"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_description_with_genres" />
 
@@ -176,13 +173,11 @@
 
         <TextView
             android:id="@+id/label_screenshots"
+            style="@style/TextAppearance.Headline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_screenshots"
-            android:textColor="@color/black"
-            android:textSize="?textSizeMedium"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_genres_with_screenshots" />
 
@@ -210,13 +205,11 @@
 
         <TextView
             android:id="@+id/label_videos"
+            style="@style/TextAppearance.Headline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_videos"
-            android:textColor="@color/black"
-            android:textSize="?textSizeMedium"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_screenshots_with_videos" />
 
