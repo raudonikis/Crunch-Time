@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common_ui.observeInLifecycle
+import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.wada811.viewbinding.viewBinding

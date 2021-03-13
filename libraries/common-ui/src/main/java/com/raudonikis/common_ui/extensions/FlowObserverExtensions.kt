@@ -1,4 +1,4 @@
-package com.raudonikis.common_ui
+package com.raudonikis.common_ui.extensions
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
