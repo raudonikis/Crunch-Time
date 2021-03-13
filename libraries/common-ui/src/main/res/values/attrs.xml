@@ -20,5 +20,18 @@
         <attr name="spacingLarge" format="reference" />
         <attr name="spacingLargeExtended" format="reference" />
         <attr name="spacingHuge" format="reference" />
+        <!-- Text styles -->
+        <attr name="textAppearanceHeadline1" format="reference" />
+        <attr name="textAppearanceHeadline1Inverted" format="reference" />
+        <attr name="textAppearanceHeadline2" format="reference" />
+        <attr name="textAppearanceHeadline2Inverted" format="reference" />
+        <attr name="textAppearanceHeadline3" format="reference" />
+        <attr name="textAppearanceHeadline3Inverted" format="reference" />
+        <attr name="textAppearanceBody" format="reference" />
+        <attr name="textAppearanceBodyInverted" format="reference" />
+        <attr name="textAppearanceButton" format="reference" />
+        <attr name="textAppearanceButtonInverted" format="reference" />
+        <attr name="textAppearanceCaption" format="reference" />
+        <attr name="textAppearanceCaptionInverted" format="reference" />
     </declare-styleable>
 </resources>

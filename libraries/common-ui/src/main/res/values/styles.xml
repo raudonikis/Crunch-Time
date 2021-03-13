@@ -25,5 +25,8 @@
         <item name="spacingLarge">@dimen/spacing_large</item>
         <item name="spacingLargeExtended">@dimen/spacing_large_extended</item>
         <item name="spacingHuge">@dimen/spacing_huge</item>
+        <!-- Text styles -->
+        <item name="textAppearanceHeadline1"></item>
+        <item name="textAppearanceHeadline1Inverted"></item>
     </style>
 </resources>
