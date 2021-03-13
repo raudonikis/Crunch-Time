@@ -20,6 +20,7 @@ object GameMapper {
             description = gameSearchResponse.summary ?: "",
             coverUrl = gameSearchResponse.cover?.url,
             releaseDate = gameSearchResponse.releaseDate ?: "",
+            gameGenres = GameGenreMapper.fromGameGenreResponseList(gameSearchResponse.genres),
             screenshots = ScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
             status = GameStatus.fromString(gameSearchResponse.gameStatus)
         )
