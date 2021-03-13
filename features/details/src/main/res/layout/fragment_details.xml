@@ -15,8 +15,8 @@
         <ImageView
             android:id="@+id/image_wallpaper"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent=".3"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:background="#808080" />
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".2" />
+            app:layout_constraintGuide_begin="150dp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_image_cover"
@@ -41,8 +41,9 @@
 
             <ImageView
                 android:id="@+id/image_cover"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
 
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
             android:text="2017, February 28"
+            android:textColor="#000"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/label_title"
@@ -77,10 +79,41 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
             android:text="Guerilla Games"
+            android:textColor="#000"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/label_release_date"
             tools:text="Guerilla Games" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="label_developer,card_image_cover" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:textColor="#000"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/barrier_description"
+            tools:text="..." />
+
+        <TextView
+            android:id="@+id/text_read_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="read more..."
+            android:textColor="?colorAccent"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/text_description" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_change_status"
@@ -100,12 +133,13 @@
             android:id="@+id/label_screenshots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingNormal"
+            android:layout_marginTop="?spacingSmall"
             android:text="Screenshots"
+            android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/card_image_cover" />
+            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_screenshots"

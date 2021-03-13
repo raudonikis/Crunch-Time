@@ -8,7 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.observeInLifecycle
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.details.databinding.FragmentDetailsBinding
@@ -88,6 +88,25 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun updateGameDetails(game: Game) {
         binding.apply {
             labelTitle.text = game.name
+            //todo extract read more logic
+            if (game.description.isLongerThan(100)) {
+                textDescription.text = game.description.limit(100)
+                textReadMore.show()
+            } else {
+                textDescription.text = game.description
+            }
+            textReadMore.setOnClickListener {
+                textDescription.text = when (textDescription.text.toString().isLongerThan(103)) {
+                    true -> {
+                        textReadMore.text = "read more..."
+                        game.description.limit(100)
+                    }
+                    else -> {
+                        textReadMore.text = "read less..."
+                        game.description
+                    }
+                }
+            }
 //            gameStatus.text = game.status.toString()
             game.coverUrl?.let { url ->
                 Glide
