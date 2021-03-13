@@ -1,7 +1,7 @@
-package com.raudonikis.data_domain.screenshots.mappers
+package com.raudonikis.data_domain.game_screenshot.mappers
 
-import com.raudonikis.data_domain.screenshots.Screenshot
-import com.raudonikis.network.game.GameScreenshotResponse
+import com.raudonikis.data_domain.game_screenshot.Screenshot
+import com.raudonikis.network.game_screenshot.GameScreenshotResponse
 
 object ScreenshotMapper {
 

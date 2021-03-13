@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.repo.ActivitiesRepository
-import com.raudonikis.data_domain.games.mappers.GameMapper
-import com.raudonikis.data_domain.games.models.Game
-import com.raudonikis.data_domain.games.models.GameStatus
-import com.raudonikis.data_domain.games.repo.GamesRepository
+import com.raudonikis.data_domain.game.mappers.GameMapper
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.profile.activity.ActivitiesState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,7 +1,7 @@
 package com.raudonikis.profile
 
-import com.raudonikis.data_domain.games.models.Game
-import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.profile.collection.GameCollectionFragmentDirections
 
 /**

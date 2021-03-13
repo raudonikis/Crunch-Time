@@ -1,11 +1,11 @@
-package com.raudonikis.data_domain.games.repo
+package com.raudonikis.data_domain.game.repo
 
-import com.raudonikis.data_domain.games.mappers.GameMapper
-import com.raudonikis.data_domain.games.mappers.GameStatusMapper
-import com.raudonikis.data_domain.games.models.Game
-import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.game.mappers.GameMapper
+import com.raudonikis.data_domain.game.mappers.GameStatusMapper
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.network.GamesApi
-import com.raudonikis.network.gamestatus.GameStatusResponse
+import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.common.extensions.prefixHttps
-import com.raudonikis.data_domain.screenshots.Screenshot
+import com.raudonikis.data_domain.game_screenshot.Screenshot
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.ItemScreenshotBinding
 

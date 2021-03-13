@@ -12,7 +12,7 @@ import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.observeInLifecycle
-import com.raudonikis.data_domain.games.models.Game
+import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.profile.R
 import com.raudonikis.profile.databinding.FragmentGameCollectionBinding
 import com.wada811.viewbinding.viewBinding

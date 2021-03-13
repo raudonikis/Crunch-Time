@@ -3,8 +3,8 @@ package com.raudonikis.network
 import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.game.GameResponse
-import com.raudonikis.network.gamestatus.GameStatusResponse
-import com.raudonikis.network.search.GameSearchResponse
+import com.raudonikis.network.game_status.GameStatusResponse
+import com.raudonikis.network.game_search.GameSearchResponse
 import com.raudonikis.network.utils.NetworkResponse
 import retrofit2.http.*
 

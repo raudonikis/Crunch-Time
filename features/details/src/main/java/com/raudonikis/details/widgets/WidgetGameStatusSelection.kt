@@ -3,7 +3,7 @@ package com.raudonikis.details.widgets
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.WidgetGameStatusSelectionBinding
 

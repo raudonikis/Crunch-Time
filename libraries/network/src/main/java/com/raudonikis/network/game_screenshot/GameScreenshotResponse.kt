@@ -1,4 +1,4 @@
-package com.raudonikis.network.game
+package com.raudonikis.network.game_screenshot
 
 import com.squareup.moshi.Json
 

@@ -1,16 +1,17 @@
-package com.raudonikis.data_domain.games.mappers
+package com.raudonikis.data_domain.game.mappers
 
 import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.games.models.Game
-import com.raudonikis.data_domain.games.models.GameStatus
-import com.raudonikis.data_domain.screenshots.mappers.ScreenshotMapper
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
+import com.raudonikis.data_domain.game_screenshot.mappers.ScreenshotMapper
 import com.raudonikis.network.game.GameResponse
-import com.raudonikis.network.search.GameSearchResponse
+import com.raudonikis.network.game_search.GameSearchResponse
 
 object GameMapper {
 
     /**
-     * To [Game]
+     * From [GameSearchResponse] to [Game]
      */
     private fun fromGameSearchResponse(gameSearchResponse: GameSearchResponse): Game {
         return Game(
@@ -23,10 +24,16 @@ object GameMapper {
         )
     }
 
+    /**
+     * From [List<GameSearchResponse>] to [List<Game>]
+     */
     fun fromGameSearchResponseList(gameSearchResponseList: List<GameSearchResponse>): List<Game> {
         return gameSearchResponseList.map { fromGameSearchResponse(it) }
     }
 
+    /**
+     * From [GameResponse] to [Game]
+     */
     fun fromGameResponse(gameResponse: GameResponse): Game {
         return Game(
             id = gameResponse.attributes.id,
@@ -34,10 +41,14 @@ object GameMapper {
             description = gameResponse.attributes.summary,
             coverUrl = gameResponse.relations.cover.url,
             screenshots = ScreenshotMapper.fromScreenshotResponseList(gameResponse.relations.screenshots),
+            gameGenres = GameGenreMapper.fromGameGenreResponseList(gameResponse.relations.genres),
             status = GameStatus.fromString(gameResponse.attributes.gameStatus),
         )
     }
 
+    /**
+     * From [UserActivity] to [Game]
+     */
     fun fromUserActivity(userActivity: UserActivity): Game {
         return Game(
             id = userActivity.gameId,

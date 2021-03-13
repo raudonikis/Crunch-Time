@@ -1,7 +1,7 @@
-package com.raudonikis.data_domain.games.mappers
+package com.raudonikis.data_domain.game.mappers
 
-import com.raudonikis.data_domain.games.models.GameStatus
-import com.raudonikis.network.gamestatus.GameStatusRequestBody
+import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.network.game_status.GameStatusRequestBody
 import com.squareup.moshi.Moshi
 import javax.inject.Inject
 

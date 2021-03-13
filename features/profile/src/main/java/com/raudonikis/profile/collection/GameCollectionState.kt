@@ -1,6 +1,6 @@
 package com.raudonikis.profile.collection
 
-import com.raudonikis.data_domain.games.models.Game
+import com.raudonikis.data_domain.game.models.Game
 
 sealed class GameCollectionState {
     object Initial : GameCollectionState()

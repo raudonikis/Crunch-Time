@@ -18,7 +18,7 @@
             app:destination="@id/navigation_details">
             <argument
                 android:name="game"
-                app:argType="com.raudonikis.data_domain.games.models.Game" />
+                app:argType="com.raudonikis.data_domain.game.models.Game" />
         </action>
     </fragment>
     <fragment
@@ -28,13 +28,13 @@
         tools:layout="@layout/fragment_game_collection">
         <argument
             android:name="gameStatus"
-            app:argType="com.raudonikis.data_domain.games.models.GameStatus" />
+            app:argType="com.raudonikis.data_domain.game.models.GameStatus" />
         <action
             android:id="@+id/action_gameCollectionFragment_to_navigation_details"
             app:destination="@id/navigation_details">
             <argument
                 android:name="game"
-                app:argType="com.raudonikis.data_domain.games.models.Game" />
+                app:argType="com.raudonikis.data_domain.game.models.Game" />
         </action>
     </fragment>
     <include app:graph="@navigation/navigation_details" />

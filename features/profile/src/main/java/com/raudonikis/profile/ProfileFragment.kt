@@ -10,7 +10,7 @@ import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemActivityBinding
 import com.raudonikis.common_ui.observeInLifecycle
 import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.profile.activity.ActivitiesState
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding

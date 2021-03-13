@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.observeInLifecycle
-import com.raudonikis.data_domain.games.models.Game
+import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.screenshots.ScreenshotItem
 import com.raudonikis.details.screenshots.mappers.ScreenshotItemMapper
@@ -106,6 +107,12 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                         game.description
                     }
                 }
+            }
+            chipsGenres.removeAllViews()
+            game.gameGenres.forEach { genre ->
+                val chip = layoutInflater.inflate(R.layout.chip_genre, chipsGenres, false) as Chip
+                chip.text = genre.name
+                chipsGenres.addView(chip)
             }
 //            gameStatus.text = game.status.toString()
             game.coverUrl?.let { url ->

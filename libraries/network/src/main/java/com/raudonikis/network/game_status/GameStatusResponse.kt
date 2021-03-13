@@ -1,4 +1,4 @@
-package com.raudonikis.network.gamestatus
+package com.raudonikis.network.game_status
 
 import com.squareup.moshi.Json
 

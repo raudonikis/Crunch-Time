@@ -1,6 +1,6 @@
 package com.raudonikis.discover
 
-import com.raudonikis.data_domain.games.models.Game
+import com.raudonikis.data_domain.game.models.Game
 
 sealed class DiscoverState {
     object Initial : DiscoverState()

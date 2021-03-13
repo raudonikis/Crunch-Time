@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#e5e5e5"
+    android:background="@color/light_gray"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="#808080" />
+            tools:background="@color/gray" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_cover_top"
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
-            android:layout_marginTop="?spacingNormal"
+            android:layout_marginTop="?spacingMedium"
             android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="#d3d3d3"
+            android:background="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/barrier_cover_with_description" />
 
         <TextView
@@ -105,19 +105,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
-            android:textColor="#000"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_cover_with_description"
             tools:text="..." />
-
-        <View
-            android:id="@+id/divider_description_with_screenshots"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="#d3d3d3"
-            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <TextView
             android:id="@+id/text_read_more"
@@ -145,17 +137,56 @@
             app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
             app:maxImageSize="?spacingMedium" />
 
+        <View
+            android:id="@+id/divider_description_with_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="?spacingSmall"
+            android:layout_marginTop="?spacingNormal"
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
+
+        <TextView
+            android:id="@+id/label_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Genres"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/divider_description_with_genres" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:orientation="horizontal"
+            app:chipSpacing="?spacingSmall"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/label_genres">
+        </com.google.android.material.chip.ChipGroup>
+
+        <View
+            android:id="@+id/divider_genres_with_screenshots"
+            android:layout_width="wrap_content"
+            android:layout_height="?spacingSmall"
+            android:layout_marginTop="?spacingNormal"
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
+
         <TextView
             android:id="@+id/label_screenshots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:text="Screenshots"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider_description_with_screenshots" />
+            app:layout_constraintTop_toBottomOf="@id/divider_genres_with_screenshots" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_screenshots"
@@ -176,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="#d3d3d3"
+            android:background="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/recycler_screenshots" />
 
         <TextView
@@ -185,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:text="Videos"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"

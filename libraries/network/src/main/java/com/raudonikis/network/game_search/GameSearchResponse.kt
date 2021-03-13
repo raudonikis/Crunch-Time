@@ -1,7 +1,7 @@
-package com.raudonikis.network.search
+package com.raudonikis.network.game_search
 
 import com.raudonikis.network.game.GameCoverResponse
-import com.raudonikis.network.game.GameScreenshotResponse
+import com.raudonikis.network.game_screenshot.GameScreenshotResponse
 import com.squareup.moshi.Json
 
 data class GameSearchResponse(
