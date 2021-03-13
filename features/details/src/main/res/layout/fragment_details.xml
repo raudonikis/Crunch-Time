@@ -86,11 +86,19 @@
             tools:text="Guerilla Games" />
 
         <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_description"
+            android:id="@+id/barrier_cover_with_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="label_developer,card_image_cover" />
+
+        <View
+            android:id="@+id/divider_cover_with_description"
+            android:layout_width="wrap_content"
+            android:layout_height="?spacingSmall"
+            android:layout_marginTop="?spacingNormal"
+            android:background="#d3d3d3"
+            app:layout_constraintTop_toBottomOf="@id/barrier_cover_with_description" />
 
         <TextView
             android:id="@+id/text_description"
@@ -100,8 +108,16 @@
             android:textColor="#000"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/barrier_description"
+            app:layout_constraintTop_toBottomOf="@id/divider_cover_with_description"
             tools:text="..." />
+
+        <View
+            android:id="@+id/divider_description_with_screenshots"
+            android:layout_width="wrap_content"
+            android:layout_height="?spacingSmall"
+            android:layout_marginTop="?spacingNormal"
+            android:background="#d3d3d3"
+            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <TextView
             android:id="@+id/text_read_more"
@@ -139,10 +155,44 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
+            app:layout_constraintTop_toBottomOf="@id/divider_description_with_screenshots" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_screenshots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingNormal"
+            android:orientation="horizontal"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_screenshots"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_screenshot" />
+
+        <View
+            android:id="@+id/divider_screenshots_with_videos"
+            android:layout_width="wrap_content"
+            android:layout_height="?spacingSmall"
+            android:layout_marginTop="?spacingNormal"
+            android:background="#d3d3d3"
+            app:layout_constraintTop_toBottomOf="@id/recycler_screenshots" />
+
+        <TextView
+            android:id="@+id/label_videos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Videos"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/divider_screenshots_with_videos" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_videos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingNormal"
