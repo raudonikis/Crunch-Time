@@ -8,7 +8,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.isLongerThan
 import com.raudonikis.common.extensions.limit
 import com.raudonikis.common.extensions.prefixHttps
-import com.raudonikis.common.extensions.show
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_release_date.GameDateUtils
 import com.raudonikis.details.databinding.FragmentDetailsBinding
@@ -22,7 +22,7 @@ fun FragmentDetailsBinding.bindGame(
 ) {
     bindGameTitle(game)
     bindGameReleaseDate(game)
-    bindGameDescription(game)
+    bindGameDescription(context, game)
     bindGameGenres(context, game)
     bindGameStatus(game)
     bindGameCover(game)
@@ -82,24 +82,23 @@ private fun FragmentDetailsBinding.bindGameScreenshots(
     }
 }
 
-private fun FragmentDetailsBinding.bindGameDescription(game: Game) {
-    //todo extract read more logic
-    if (game.description.isLongerThan(100)) {
-        textDescription.text = game.description.limit(100)
-        textReadMore.show()
-    } else {
-        textDescription.text = game.description
-    }
+private fun FragmentDetailsBinding.bindGameDescription(context: Context, game: Game) {
+    val maxCharacterCount = 120
+    var isShowingMore = false
     textReadMore.setOnClickListener {
-        textDescription.text = when (textDescription.text.toString().isLongerThan(103)) {
+        textDescription.text = when (isShowingMore) {
             true -> {
-                textReadMore.text = "read more..."
-                game.description.limit(100)
+                textReadMore.text = context.getString(R.string.action_read_more)
+                isShowingMore = false
+                game.description.limit(maxCharacterCount)
             }
             else -> {
-                textReadMore.text = "read less..."
+                textReadMore.text = context.getString(R.string.action_read_less)
+                isShowingMore = true
                 game.description
             }
         }
     }
+    textDescription.text = game.description.limit(maxCharacterCount)
+    textReadMore.showIf { game.description.isLongerThan(maxCharacterCount) }
 }
