@@ -9,7 +9,7 @@ object ScreenshotMapper {
         return Screenshot(screenshotResponse.url)
     }
 
-    fun fromScreenshotResponseList(screenshotResponses: List<GameScreenshotResponse>): List<Screenshot> {
-        return screenshotResponses.map { fromScreenshotResponse(it) }
+    fun fromScreenshotResponseList(screenshotResponses: List<GameScreenshotResponse>?): List<Screenshot> {
+        return screenshotResponses?.map { fromScreenshotResponse(it) } ?: emptyList()
     }
 }

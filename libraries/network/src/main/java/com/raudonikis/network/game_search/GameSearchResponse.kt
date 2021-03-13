@@ -17,7 +17,7 @@ data class GameSearchResponse(
     @Json(name = "aggregated_rating")
     val rating: Double?,
     @Json(name = "screenshots")
-    val screenshots: List<GameScreenshotResponse>,
+    val screenshots: List<GameScreenshotResponse>?,
     @Json(name = "genres")
     val genres: List<GameGenreResponse>,
     @Json(name = "id")
