@@ -1,6 +1,7 @@
 package com.raudonikis.data_domain.games.models
 
 import android.os.Parcelable
+import com.raudonikis.data_domain.screenshots.Screenshot
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -9,7 +10,7 @@ data class Game(
     val name: String = "",
     val description: String = "",
     val coverUrl: String? = null,
-    val screenshotUrls: List<String> = listOf(),
+    val screenshots: List<Screenshot> = listOf(),
     val status: GameStatus = GameStatus.EMPTY,
     val isUpdateNeeded: Boolean = false,
 ) : Parcelable

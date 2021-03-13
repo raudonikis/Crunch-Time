@@ -16,6 +16,8 @@ dependencies {
     api(Dependencies.viewBindingKtx)
     // Material
     api(Dependencies.material)
-    // Images
+    // UI
     api(Dependencies.glide)
+    api(Dependencies.fastAdapter)
+    api(Dependencies.fastAdapterViewBinding)
 }

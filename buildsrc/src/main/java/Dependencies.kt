@@ -7,6 +7,7 @@ object Versions {
 
     // UI
     const val glide = "4.12.0"
+    const val fastAdapter = "5.3.5"
 
     // Lifecycle
     const val lifecycle = "2.3.0"
@@ -71,6 +72,7 @@ object Modules {
         const val dataDomain = ":libraries:data-domain"
         const val navigation = ":libraries:navigation"
     }
+
     object Features {
         const val home = ":features:home"
         const val discover = ":features:discover"
@@ -92,6 +94,8 @@ object Dependencies {
     // UI
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideAnnotation = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val fastAdapter = "com.mikepenz:fastadapter:${Versions.fastAdapter}"
+    const val fastAdapterViewBinding = "com.mikepenz:fastadapter-extensions-binding:${Versions.fastAdapter}"
 
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
@@ -99,18 +103,21 @@ object Dependencies {
     const val hiltLifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltAndroidx}"
     const val hiltLifecycleCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltAndroidx}"
 
-    //Logging
+    // Logging
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
     // Networking
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val okHttp = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+
     // Networking - converters
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     const val moshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     const val scalarsConverter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
+
     // Networking - adapters
-    const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:${Versions.networkResponseAdapter}"
+    const val networkResponseAdapter =
+        "com.github.haroldadmin:NetworkResponseAdapter:${Versions.networkResponseAdapter}"
 
     // Material
     const val material = "com.google.android.material:material:${Versions.material}"
@@ -121,7 +128,8 @@ object Dependencies {
     const val roomExtensions = "androidx.room:room-ktx:${Versions.room}"
 
     // Navigation
-    const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
     // Support
@@ -130,7 +138,8 @@ object Dependencies {
     // Kotlin
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktxCore}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val kotlinCoroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     // Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"

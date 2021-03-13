@@ -3,6 +3,7 @@ package com.raudonikis.data_domain.games.mappers
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.games.models.Game
 import com.raudonikis.data_domain.games.models.GameStatus
+import com.raudonikis.data_domain.screenshots.mappers.ScreenshotMapper
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.search.GameSearchResponse
 
@@ -17,7 +18,7 @@ object GameMapper {
             name = gameSearchResponse.name,
             description = gameSearchResponse.summary ?: "",
             coverUrl = gameSearchResponse.cover?.url,
-            screenshotUrls = gameSearchResponse.screenshots.map { it.url },
+            screenshots = ScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
             status = GameStatus.fromString(gameSearchResponse.gameStatus)
         )
     }
@@ -32,7 +33,7 @@ object GameMapper {
             name = gameResponse.attributes.name,
             description = gameResponse.attributes.summary,
             coverUrl = gameResponse.relations.cover.url,
-            screenshotUrls = gameResponse.relations.screenshots.map { it.url },
+            screenshots = ScreenshotMapper.fromScreenshotResponseList(gameResponse.relations.screenshots),
             status = GameStatus.fromString(gameResponse.attributes.gameStatus),
         )
     }

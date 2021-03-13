@@ -114,7 +114,6 @@
             android:layout_marginTop="?spacingNormal"
             android:orientation="horizontal"
             android:overScrollMode="ifContentScrolls"
-            android:paddingStart="?spacingNormal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
