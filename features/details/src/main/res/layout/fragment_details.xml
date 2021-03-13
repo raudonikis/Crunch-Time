@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/light_gray"
+    android:background="@color/background"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/gray" />
+            tools:background="?colorAccent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_cover_top"
@@ -37,7 +37,7 @@
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/guideline_cover_top"
-            tools:backgroundTint="#8080ff">
+            tools:backgroundTint="?colorPrimary">
 
             <ImageView
                 android:id="@+id/image_cover"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingMedium"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
@@ -66,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
-            android:textColor="#000"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/label_title"
@@ -77,8 +77,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
-            android:text="Guerilla Games"
-            android:textColor="#000"
+            android:text="Developer"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/text_release_date"
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="@color/gray"
+            android:background="@color/background_divider"
             app:layout_constraintTop_toBottomOf="@id/barrier_cover_with_description" />
 
         <TextView
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="@color/gray"
+            android:background="@color/background_divider"
             app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <TextView
@@ -164,15 +164,14 @@
             android:orientation="horizontal"
             app:chipSpacing="?spacingSmall"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/label_genres">
-        </com.google.android.material.chip.ChipGroup>
+            app:layout_constraintTop_toBottomOf="@id/label_genres" />
 
         <View
             android:id="@+id/divider_genres_with_screenshots"
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="@color/gray"
+            android:background="@color/background_divider"
             app:layout_constraintTop_toBottomOf="@id/chips_genres" />
 
         <TextView
@@ -206,7 +205,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingNormal"
-            android:background="@color/gray"
+            android:background="@color/background_divider"
             app:layout_constraintTop_toBottomOf="@id/recycler_screenshots" />
 
         <TextView
