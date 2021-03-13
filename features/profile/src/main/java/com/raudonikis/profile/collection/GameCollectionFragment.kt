@@ -11,7 +11,7 @@ import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
-import com.raudonikis.common_ui.observeInLifecycle
+import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.profile.R
 import com.raudonikis.profile.databinding.FragmentGameCollectionBinding

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemActivityBinding
-import com.raudonikis.common_ui.observeInLifecycle
+import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.profile.activity.ActivitiesState
