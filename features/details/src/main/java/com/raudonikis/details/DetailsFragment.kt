@@ -5,17 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.google.android.material.chip.Chip
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.observeInLifecycle
-import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game_release_date.GameDateUtils
 import com.raudonikis.details.databinding.FragmentDetailsBinding
-import com.raudonikis.details.screenshots.ScreenshotItem
-import com.raudonikis.details.screenshots.mappers.ScreenshotItemMapper
+import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -63,7 +57,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             .onEach { updateDetailsState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.currentGame
-            .onEach { updateGameDetails(it) }
+            .onEach { game ->
+                binding.bindGame(requireContext(), game, screenshotAdapter)
+            }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
@@ -87,54 +83,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     /**
      * Details functionality
      */
-    private fun updateGameDetails(game: Game) {
-        binding.apply {
-            labelTitle.text = game.name
-            textReleaseDate.text = GameDateUtils.fromStringToFormattedString(game.releaseDate)
-            //todo extract read more logic
-            if (game.description.isLongerThan(100)) {
-                textDescription.text = game.description.limit(100)
-                textReadMore.show()
-            } else {
-                textDescription.text = game.description
-            }
-            textReadMore.setOnClickListener {
-                textDescription.text = when (textDescription.text.toString().isLongerThan(103)) {
-                    true -> {
-                        textReadMore.text = "read more..."
-                        game.description.limit(100)
-                    }
-                    else -> {
-                        textReadMore.text = "read less..."
-                        game.description
-                    }
-                }
-            }
-            chipsGenres.removeAllViews()
-            game.gameGenres.forEach { genre ->
-                val chip = layoutInflater.inflate(R.layout.chip_genre, chipsGenres, false) as Chip
-                chip.text = genre.name
-                chipsGenres.addView(chip)
-            }
-//            gameStatus.text = game.status.toString()
-            game.coverUrl?.let { url ->
-                Glide
-                    .with(root)
-                    .load(url.prefixHttps())
-                    .centerCrop()
-                    .into(imageCover)
-            }
-            if (game.screenshots.isNotEmpty()) {
-                Glide
-                    .with(root)
-                    .load(game.screenshots.first().url.prefixHttps())
-                    .centerCrop()
-                    .into(imageWallpaper)
-            }
-            screenshotAdapter.clear()
-            screenshotAdapter.add(ScreenshotItemMapper.fromScreenshotList(game.screenshots))
-        }
-    }
 
     private fun updateDetailsState(detailsState: DetailsState) {
         when (detailsState) {

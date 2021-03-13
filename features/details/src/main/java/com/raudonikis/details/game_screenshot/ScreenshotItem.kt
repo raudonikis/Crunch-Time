@@ -1,4 +1,4 @@
-package com.raudonikis.details.screenshots
+package com.raudonikis.details.game_screenshot
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

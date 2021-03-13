@@ -1,7 +1,7 @@
-package com.raudonikis.details.screenshots.mappers
+package com.raudonikis.details.game_screenshot.mappers
 
 import com.raudonikis.data_domain.game_screenshot.Screenshot
-import com.raudonikis.details.screenshots.ScreenshotItem
+import com.raudonikis.details.game_screenshot.ScreenshotItem
 
 object ScreenshotItemMapper {
 
