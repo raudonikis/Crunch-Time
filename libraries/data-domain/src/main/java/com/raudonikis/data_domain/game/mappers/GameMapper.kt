@@ -19,6 +19,7 @@ object GameMapper {
             name = gameSearchResponse.name,
             description = gameSearchResponse.summary ?: "",
             coverUrl = gameSearchResponse.cover?.url,
+            releaseDate = gameSearchResponse.releaseDate ?: "",
             screenshots = ScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
             status = GameStatus.fromString(gameSearchResponse.gameStatus)
         )
@@ -42,6 +43,7 @@ object GameMapper {
             coverUrl = gameResponse.relations.cover.url,
             screenshots = ScreenshotMapper.fromScreenshotResponseList(gameResponse.relations.screenshots),
             gameGenres = GameGenreMapper.fromGameGenreResponseList(gameResponse.relations.genres),
+            releaseDate = gameResponse.attributes.releaseDate ?: "",
             status = GameStatus.fromString(gameResponse.attributes.gameStatus),
         )
     }

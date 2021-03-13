@@ -14,5 +14,6 @@ data class Game(
     val screenshots: List<Screenshot> = listOf(),
     val status: GameStatus = GameStatus.EMPTY,
     val gameGenres: List<GameGenre> = listOf(),
+    val releaseDate: String = "",
     val isUpdateNeeded: Boolean = false,
 ) : Parcelable

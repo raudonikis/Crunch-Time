@@ -62,11 +62,10 @@
             tools:text="Game title" />
 
         <TextView
-            android:id="@+id/label_release_date"
+            android:id="@+id/text_release_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
-            android:text="2017, February 28"
             android:textColor="#000"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
@@ -82,7 +81,7 @@
             android:textColor="#000"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
-            app:layout_constraintTop_toBottomOf="@id/label_release_date"
+            app:layout_constraintTop_toBottomOf="@id/text_release_date"
             tools:text="Guerilla Games" />
 
         <androidx.constraintlayout.widget.Barrier

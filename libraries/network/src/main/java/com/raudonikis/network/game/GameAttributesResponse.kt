@@ -11,6 +11,8 @@ data class GameAttributesResponse(
     val summary: String,
     @Json(name = "game_status")
     val gameStatus: String,
+    @Json(name = "first_release_date")
+    val releaseDate: String?,
 )
 /**
 "attributes": {

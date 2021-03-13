@@ -12,6 +12,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.observeInLifecycle
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game_release_date.GameDateUtils
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.screenshots.ScreenshotItem
 import com.raudonikis.details.screenshots.mappers.ScreenshotItemMapper
@@ -89,6 +90,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun updateGameDetails(game: Game) {
         binding.apply {
             labelTitle.text = game.name
+            textReleaseDate.text = GameDateUtils.fromStringToFormattedString(game.releaseDate)
             //todo extract read more logic
             if (game.description.isLongerThan(100)) {
                 textDescription.text = game.description.limit(100)
