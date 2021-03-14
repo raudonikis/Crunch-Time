@@ -5,13 +5,19 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.IAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common_ui.HorizontalPaddingItemDecoration
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemActivityBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.profile.activity.ActivitiesState
+import com.raudonikis.profile.collection.GameCoverItem
+import com.raudonikis.profile.collection.mappers.GameCoverItemMapper
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +28,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModels()
     private val binding: FragmentProfileBinding by viewBinding()
+    private val gameCollectionItemAdapter = ItemAdapter<GameCoverItem>()
+    private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
 
     private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
         onInflate = { inflater, parent ->
@@ -48,6 +56,40 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         setUpListeners()
         setUpViews()
         setUpObservers()
+        val games = listOf(
+            Game(
+                name = "Game 1",
+                description = "Game 1 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+            Game(
+                name = "Game 2",
+                description = "Game 2 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+            Game(
+                name = "Game 3",
+                description = "Game 3 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+            Game(
+                name = "Game 4",
+                description = "Game 4 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+            Game(
+                name = "Game 5",
+                description = "Game 5 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+            Game(
+                name = "Game 6",
+                description = "Game 6 description",
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            ),
+        )
+        gameCollectionItemAdapter.clear()
+        gameCollectionItemAdapter.add(GameCoverItemMapper.fromGameList(games))
     }
 
     /**
@@ -56,6 +98,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setUpViews() {
         with(binding) {
             recyclerActivity.adapter = userActivityAdapter
+            recyclerGameCollection.apply {
+                adapter = gameCollectionAdapter
+                addItemDecoration(HorizontalPaddingItemDecoration(context, R.dimen.spacing_small))
+            }
         }
     }
 
@@ -63,6 +109,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      * Listeners
      */
     private fun setUpListeners() {
+        gameCollectionAdapter.onClickListener =
+            { _: View?, _: IAdapter<GameCoverItem>, gameCoverItem: GameCoverItem, _: Int ->
+                viewModel.onGameClicked(gameCoverItem.game)
+                false
+            }
         with(binding) {
             /*cardPlayed.setOnClickListener {
                 viewModel.onCollectionClicked(GameStatus.PLAYED)

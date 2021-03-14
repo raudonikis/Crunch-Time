@@ -116,120 +116,19 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <!--<com.google.android.material.tabs.TabLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_game_collection"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="?spacingNormal"
-            android:background="@color/background"
+            android:layout_marginHorizontal="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_profile"
-            app:tabMode="scrollable">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activity" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Playing" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Played" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Want" />
-        </com.google.android.material.tabs.TabLayout>-->
-
-
-        <!--<androidx.cardview.widget.CardView
-            android:id="@+id/card_playing"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="?spacingNormal"
-            android:layout_marginTop="?spacingNormal"
-            android:backgroundTint="?colorPrimary"
-            app:cardCornerRadius="?spacingSmall"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_group_collections">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:paddingBottom="?spacingSmall">
-
-                <TextView
-                    style="?textAppearanceCaption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:text="Playing now" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_played"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:backgroundTint="?colorPrimary"
-            app:cardCornerRadius="?spacingSmall"
-            app:layout_constraintStart_toEndOf="@id/card_playing"
-            app:layout_constraintTop_toBottomOf="@id/chip_group_collections">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:paddingBottom="?spacingSmall">
-
-                <TextView
-                    style="?textAppearanceCaption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:text="Played" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_want"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:backgroundTint="?colorPrimary"
-            app:cardCornerRadius="?spacingSmall"
-            app:layout_constraintStart_toEndOf="@id/card_played"
-            app:layout_constraintTop_toBottomOf="@id/chip_group_collections">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:paddingBottom="?spacingSmall">
-
-                <TextView
-                    style="?textAppearanceCaption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:text="Want to play" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>-->
+            app:layout_constraintTop_toBottomOf="@id/chip_group_collections"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_game_cover" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

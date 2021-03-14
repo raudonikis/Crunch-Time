@@ -49,8 +49,8 @@ class ProfileViewModel @Inject constructor(
         navigateToDetails(game)
     }
 
-    fun onCollectionClicked(gameStatus: GameStatus) {
-        navigateToGameCollection(gameStatus)
+    fun onGameClicked(game: Game) {
+        navigateToDetails(game)
     }
 
     /**
