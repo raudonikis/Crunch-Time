@@ -22,7 +22,8 @@ object GameMapper {
             releaseDate = gameSearchResponse.releaseDate ?: "",
             gameGenres = GameGenreMapper.fromGameGenreResponseList(gameSearchResponse.genres),
             screenshots = ScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
-            status = GameStatus.fromString(gameSearchResponse.gameStatus)
+            status = GameStatus.fromString(gameSearchResponse.gameStatus),
+            isUpdateNeeded = true
         )
     }
 

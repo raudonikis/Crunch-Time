@@ -7,6 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common.extensions.hide
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
@@ -104,10 +106,13 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 Timber.d("Status update failure")
             }*/
             is DetailsState.DetailsUpdating -> {
+                binding.progressUpdatingDetails.show()
             }
             is DetailsState.DetailsUpdateSuccess -> {
+                binding.progressUpdatingDetails.hide()
             }
             is DetailsState.DetailsUpdateFailure -> {
+                binding.progressUpdatingDetails.hide()
             }
         }
     }
