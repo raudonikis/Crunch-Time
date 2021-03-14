@@ -32,6 +32,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 Glide
                     .with(root)
                     .load(url.prefixHttps())
+                    .placeholder(R.drawable.game_placeholder)
                     .centerCrop()
                     .into(activityImage)
             }
@@ -63,7 +64,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpListeners() {
         with(binding) {
-            cardPlayed.setOnClickListener {
+            /*cardPlayed.setOnClickListener {
                 viewModel.onCollectionClicked(GameStatus.PLAYED)
             }
             cardPlaying.setOnClickListener {
@@ -71,7 +72,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
             cardWant.setOnClickListener {
                 viewModel.onCollectionClicked(GameStatus.WANT)
-            }
+            }*/
         }
     }
 

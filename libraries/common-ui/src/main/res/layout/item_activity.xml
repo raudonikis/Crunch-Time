@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="?spacingNormal"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="?spacingSmall"
-        tools:backgroundTint="@color/colorAccent">
+        app:cardCornerRadius="?spacingSmall">
 
         <ImageView
             android:id="@+id/activity_image"
             android:layout_width="120dp"
-            android:layout_height="160dp" />
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/game_placeholder" />
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
