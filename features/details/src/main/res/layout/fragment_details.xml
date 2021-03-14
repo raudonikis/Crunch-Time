@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_wallpaper_height"
             android:scaleType="centerCrop"
+            android:src="@drawable/game_placeholder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="?colorAccent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_cover_top"
@@ -32,9 +32,7 @@
             android:id="@+id/card_image_cover"
             android:layout_width="@dimen/game_cover_width"
             android:layout_height="@dimen/game_cover_height"
-            android:elevation="0dp"
             app:cardCornerRadius="?spacingSmall"
-            app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/guideline_cover_top"
             tools:backgroundTint="?colorPrimary">
@@ -43,7 +41,8 @@
                 android:id="@+id/image_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/game_placeholder" />
 
         </androidx.cardview.widget.CardView>
 
