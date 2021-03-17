@@ -14,7 +14,7 @@ object UserActivityMapper {
             name = userActivityResponse.data.gameName,
             gameId = userActivityResponse.gameId,
             status = GameStatus.fromString(userActivityResponse.data.status),
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
         )
     }
 

@@ -60,32 +60,32 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             Game(
                 name = "Game 1",
                 description = "Game 1 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
             Game(
                 name = "Game 2",
                 description = "Game 2 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
             Game(
                 name = "Game 3",
                 description = "Game 3 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
             Game(
                 name = "Game 4",
                 description = "Game 4 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
             Game(
                 name = "Game 5",
                 description = "Game 5 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
             Game(
                 name = "Game 6",
                 description = "Game 6 description",
-                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc5pqn.jpg"
+                coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
             ),
         )
         gameCollectionItemAdapter.clear()
@@ -97,7 +97,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpViews() {
         with(binding) {
-            recyclerActivity.adapter = userActivityAdapter
+            recyclerActivity.apply {
+                adapter = userActivityAdapter
+                addItemDecoration(HorizontalPaddingItemDecoration(context, R.dimen.spacing_small))
+            }
             recyclerGameCollection.apply {
                 adapter = gameCollectionAdapter
                 addItemDecoration(HorizontalPaddingItemDecoration(context, R.dimen.spacing_small))
