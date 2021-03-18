@@ -69,17 +69,24 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         viewModel.discoverState
             .onEach { discoverState ->
                 when (discoverState) {
+                    is DiscoverState.Initial -> {
+                        binding.textNoResults.show()
+                    }
                     is DiscoverState.Loading -> {
                         binding.progressBarSearch.show()
+                        binding.textNoResults.hide()
                         searchResultsAdapter.submitList(emptyList())
                     }
                     is DiscoverState.SearchSuccess -> {
                         binding.progressBarSearch.hide()
+                        binding.textNoResults.hide()
                         searchResultsAdapter.submitList(discoverState.results)
                     }
                     is DiscoverState.SearchFailure -> {
                         binding.progressBarSearch.hide()
+                        binding.textNoResults.show()
                         searchResultsAdapter.submitList(emptyList())
+                        binding.textNoResults.show()
                     }
                 }
             }
