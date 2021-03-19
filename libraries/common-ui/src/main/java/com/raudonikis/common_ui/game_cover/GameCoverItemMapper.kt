@@ -1,7 +1,6 @@
-package com.raudonikis.profile.collection.mappers
+package com.raudonikis.common_ui.game_cover
 
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.profile.collection.GameCoverItem
 
 object GameCoverItemMapper {
 

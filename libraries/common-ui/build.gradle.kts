@@ -10,6 +10,7 @@ android {
 dependencies {
     // Projects
     implementation(project(Modules.Libraries.common))
+    implementation(project(Modules.Libraries.dataDomain))
     // Support
     api(Dependencies.constraintLayout)
     api(Dependencies.recyclerView)

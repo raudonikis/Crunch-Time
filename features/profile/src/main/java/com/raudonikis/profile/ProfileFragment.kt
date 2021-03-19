@@ -17,8 +17,8 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.profile.activity.ActivitiesState
-import com.raudonikis.profile.collection.GameCoverItem
-import com.raudonikis.profile.collection.mappers.GameCoverItemMapper
+import com.raudonikis.common_ui.game_cover.GameCoverItem
+import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint

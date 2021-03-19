@@ -10,6 +10,9 @@ import retrofit2.http.*
 
 interface GamesApi {
 
+    /**
+     * Game
+     */
     @GET("api/v1/games/search")
     suspend fun search(@Query("name") name: String): NetworkResponse<List<GameSearchResponse>>
 
@@ -22,9 +25,21 @@ interface GamesApi {
         @Body statusJson: String,
     ): NetworkResponse<GameStatusResponse>
 
+    /**
+     * Popular/Trending lists
+     */
+    @GET("api/v1/games/popular")
+    suspend fun getPopularGames(): NetworkResponse<List<GameResponse>>
+
+    /**
+     * Activity
+     */
     @GET("api/v1/activities")
     suspend fun getUserActivities(): NetworkResponse<List<UserActivityResponse>>
 
+    /**
+     * Authentication
+     */
     @POST("api/user/login")
     suspend fun login(
         @Query("email") email: String,

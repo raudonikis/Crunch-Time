@@ -34,4 +34,8 @@
         <attr name="textAppearanceCaption" format="reference" />
         <attr name="textAppearanceCaptionInverted" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="HorizontalGameList">
+        <attr name="hgl_title" format="string"/>
+    </declare-styleable>
 </resources>

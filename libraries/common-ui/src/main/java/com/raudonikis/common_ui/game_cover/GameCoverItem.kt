@@ -1,13 +1,13 @@
-package com.raudonikis.profile.collection
+package com.raudonikis.common_ui.game_cover
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common_ui.R
+import com.raudonikis.common_ui.databinding.ItemGameCoverBinding
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.profile.R
-import com.raudonikis.profile.databinding.ItemGameCoverBinding
 
 class GameCoverItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>() {
 

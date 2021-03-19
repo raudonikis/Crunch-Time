@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.asFlow
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
@@ -12,7 +14,11 @@ import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.onClick
+import com.raudonikis.common_ui.game_cover.GameCoverItem
+import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +30,22 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val binding: FragmentDiscoverBinding by viewBinding()
+
+    /**
+     * Popular games
+     */
+    private val popularGamesItemAdapter = ItemAdapter<GameCoverItem>()
+    private val popularGamesAdapter = FastAdapter.with(popularGamesItemAdapter)
+
+    /**
+     * Trending games
+     */
+    private val trendingGamesItemAdapter = ItemAdapter<GameCoverItem>()
+    private val trendingGamesAdapter = FastAdapter.with(trendingGamesItemAdapter)
+
+    /**
+     * Search results
+     */
     private val searchResultsAdapter = RecyclerAdapter<Game, ItemGameBinding>(
         onInflate = { inflater, parent ->
             ItemGameBinding.inflate(inflater, parent, false)
@@ -48,6 +70,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpSearch()
+        setUpGameLists()
         setUpObservers()
     }
 
@@ -55,6 +78,61 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         binding.apply {
             textFieldSearch.editText?.setText(viewModel.searchQuery)
             recyclerSearchResults.adapter = searchResultsAdapter
+        }
+    }
+
+    private fun setUpGameLists() {
+        binding.apply {
+            popularGames.setAdapter(popularGamesAdapter)
+            popularGamesAdapter.onClick {
+                viewModel.navigateToDetails(it.game)
+            }
+            trendingGames.setAdapter(trendingGamesAdapter)
+            trendingGamesAdapter.onClick {
+                viewModel.navigateToDetails(it.game)
+            }
+            val games = listOf(
+                Game(
+                    name = "Game 1",
+                    description = "Game 1 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYING,
+                ),
+                Game(
+                    name = "Game 2",
+                    description = "Game 2 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYED,
+                ),
+                Game(
+                    name = "Game 3",
+                    description = "Game 3 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYING,
+                ),
+                Game(
+                    name = "Game 4",
+                    description = "Game 4 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYING,
+                ),
+                Game(
+                    name = "Game 5",
+                    description = "Game 5 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYING,
+                ),
+                Game(
+                    name = "Game 6",
+                    description = "Game 6 description",
+                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
+                    status = GameStatus.PLAYING,
+                ),
+            )
+            popularGamesItemAdapter.clear()
+            popularGamesItemAdapter.add(GameCoverItemMapper.fromGameList(games))
+            trendingGamesItemAdapter.clear()
+            trendingGamesItemAdapter.add(GameCoverItemMapper.fromGameList(games))
         }
     }
 
