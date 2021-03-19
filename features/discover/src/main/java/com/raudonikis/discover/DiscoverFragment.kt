@@ -75,9 +75,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     private fun setUpSearch() {
-        binding.apply {
+        binding.apply {/*
             textFieldSearch.editText?.setText(viewModel.searchQuery)
-            recyclerSearchResults.adapter = searchResultsAdapter
+            recyclerSearchResults.adapter = searchResultsAdapter*/
         }
     }
 
@@ -140,29 +140,29 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
      * Observers
      */
     private fun setUpObservers() {
-        binding.textFieldSearch.editText.asFlow()
+        /*binding.textFieldSearch.editText.asFlow()
             .debounce(800)
             .onEach { viewModel.search(it) }
-            .observeInLifecycle(viewLifecycleOwner)
+            .observeInLifecycle(viewLifecycleOwner)*/
         viewModel.discoverState
             .onEach { discoverState ->
                 when (discoverState) {
                     is DiscoverState.Initial -> {
-                        binding.textNoResults.show()
+//                        binding.textNoResults.show()
                     }
                     is DiscoverState.Loading -> {
                         binding.progressBarSearch.show()
-                        binding.textNoResults.hide()
+//                        binding.textNoResults.hide()
                         searchResultsAdapter.submitList(emptyList())
                     }
                     is DiscoverState.SearchSuccess -> {
                         binding.progressBarSearch.hide()
-                        binding.textNoResults.hide()
+//                        binding.textNoResults.hide()
                         searchResultsAdapter.submitList(discoverState.results)
                     }
                     is DiscoverState.SearchFailure -> {
                         binding.progressBarSearch.hide()
-                        binding.textNoResults.show()
+//                        binding.textNoResults.show()
                         searchResultsAdapter.submitList(emptyList())
                         binding.textNoResults.show()
                     }

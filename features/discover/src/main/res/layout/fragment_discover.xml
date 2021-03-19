@@ -8,11 +8,21 @@
     android:paddingHorizontal="0dp">
 
     <include
+        android:id="@+id/layout_header"
         layout="@layout/layout_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/text_field_search"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_header_bottom"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/guideline_header_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="?spacingNormal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
 
     <TextView
         android:id="@+id/text_no_results"
@@ -36,7 +46,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <com.raudonikis.common_ui.components.SearchLayout
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_discover" />
+
+    <!--<com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_field_search"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -54,7 +72,7 @@
             android:layout_height="wrap_content"
             android:inputType="text" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_search_results"
@@ -67,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_field_search"
+        app:layout_constraintTop_toBottomOf="@id/layout_header"
         tools:itemCount="6"
         tools:listitem="@layout/item_game" />
 
@@ -80,7 +98,7 @@
         app:hgl_title="Popular games"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_field_search" />
+        app:layout_constraintTop_toBottomOf="@id/layout_header" />
 
     <com.raudonikis.discover.components.HorizontalGameList
         android:id="@+id/trending_games"
@@ -101,6 +119,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_field_search" />
+        app:layout_constraintTop_toBottomOf="@id/layout_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
