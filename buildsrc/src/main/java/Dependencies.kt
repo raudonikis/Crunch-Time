@@ -16,8 +16,9 @@ object Versions {
     const val lifecycle = "2.3.0"
 
     // DI
-    const val hilt = "2.32-alpha"
-    const val hiltAndroidx = "1.0.0-alpha03"
+    const val hilt = "2.33-beta"
+    const val hiltAndroidx = "1.0.0-beta01"
+    const val hiltLifecycle = "1.0.0-alpha03"
 
     // Logging
     const val timber = "4.7.1"
@@ -46,7 +47,7 @@ object Versions {
     const val coroutines = "1.4.2"
 
     // Testing
-    const val jUnit = "4.13.1"
+    const val jUnit = "4.13.2"
     const val jUnitTest = "1.1.2"
     const val espresso = "3.3.0"
 
@@ -107,7 +108,7 @@ object Dependencies {
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
-    const val hiltLifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltAndroidx}"
+    const val hiltLifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLifecycle}"
     const val hiltLifecycleCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltAndroidx}"
 
     // Logging
