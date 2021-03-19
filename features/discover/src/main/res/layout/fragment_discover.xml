@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingHorizontal="?spacingNormal">
+    android:paddingHorizontal="0dp">
+
+    <include
+        layout="@layout/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/text_field_search"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_no_results"
@@ -23,6 +30,7 @@
         style="?textAppearanceHeadline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?spacingNormal"
         android:layout_marginTop="?spacingMediumExtended"
         android:text="Discover"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +41,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?spacingNormal"
         android:layout_marginTop="?spacingNormal"
         android:hint="Search"
         app:layout_constraintEnd_toEndOf="parent"
