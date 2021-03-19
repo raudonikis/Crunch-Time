@@ -4,6 +4,7 @@ import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.mappers.GameStatusMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.testGames
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
@@ -20,12 +21,14 @@ class GamesRepository @Inject constructor(
 
     suspend fun search(name: String): NetworkResponse<List<Game>> {
         return withContext(Dispatchers.IO) {
-            safeNetworkResponse {
+            /*safeNetworkResponse {
                 gamesApi.search(name)
                     .map {
                         GameMapper.fromGameSearchResponseList(it)
                     }
-            }
+            }*/
+            delay(6000)
+            NetworkResponse(success = true, data = testGames) //todo remove test data
         }
     }
 

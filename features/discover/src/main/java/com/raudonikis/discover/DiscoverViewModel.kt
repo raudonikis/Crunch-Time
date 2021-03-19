@@ -6,6 +6,7 @@ import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,9 +22,14 @@ class DiscoverViewModel @Inject constructor(
      * States
      */
     private val _discoverState: MutableStateFlow<DiscoverState> =
-        MutableStateFlow(DiscoverState.Initial)
+        MutableStateFlow(DiscoverState.Discover)
+
+    /**
+     * Search data
+     */
     var searchQuery: String = ""
         private set
+    var searchJob: Job? = null
 
     /**
      * Observables
@@ -35,12 +41,13 @@ class DiscoverViewModel @Inject constructor(
      */
     fun search(query: String) {
         searchQuery = query
+        searchJob?.cancel()
         if (query.isBlank()) {
-            _discoverState.value = DiscoverState.SearchSuccess(emptyList())
+            _discoverState.value = DiscoverState.Discover
             return
         }
-        _discoverState.value = DiscoverState.Loading
-        viewModelScope.launch {
+        _discoverState.value = DiscoverState.Searching
+        searchJob = viewModelScope.launch {
             gamesRepository.search(query)
                 .onSuccess {
                     _discoverState.value = DiscoverState.SearchSuccess(it)
@@ -52,6 +59,15 @@ class DiscoverViewModel @Inject constructor(
                     _discoverState.value = DiscoverState.SearchFailure
                 }
         }
+    }
+
+    /**
+     * Events
+     */
+    fun onSearchQueryCleared() {
+        searchQuery = ""
+        searchJob?.cancel()
+        _discoverState.value = DiscoverState.Discover
     }
 
     /**

@@ -2,12 +2,12 @@ package com.raudonikis.discover
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.asFlow
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
@@ -15,10 +15,11 @@ import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
+import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.game_cover.GameItem
 import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,9 +76,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     private fun setUpSearch() {
-        binding.apply {/*
-            textFieldSearch.editText?.setText(viewModel.searchQuery)
-            recyclerSearchResults.adapter = searchResultsAdapter*/
+        binding.apply {
+            recyclerSearchResults.adapter = searchResultsAdapter
+            search.setSearchQuery(viewModel.searchQuery)
+            search.setOnClearClick { viewModel.onSearchQueryCleared() }
         }
     }
 
@@ -91,48 +93,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             trendingGamesAdapter.onClick {
                 viewModel.navigateToDetails(it.game)
             }
-            val games = listOf(
-                Game(
-                    name = "Game 1",
-                    description = "Game 1 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYING,
-                ),
-                Game(
-                    name = "Game 2",
-                    description = "Game 2 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYED,
-                ),
-                Game(
-                    name = "Game 3",
-                    description = "Game 3 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.WANT,
-                ),
-                Game(
-                    name = "Game 4",
-                    description = "Game 4 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYING,
-                ),
-                Game(
-                    name = "Game 5",
-                    description = "Game 5 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.WANT,
-                ),
-                Game(
-                    name = "Game 6",
-                    description = "Game 6 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.EMPTY,
-                ),
-            )
-            popularGamesItemAdapter.clear()
-            popularGamesItemAdapter.add(GameCoverItemMapper.fromGameList(games))
-            trendingGamesItemAdapter.clear()
-            trendingGamesItemAdapter.add(GameCoverItemMapper.fromGameList(games))
+            val gameItems = GameCoverItemMapper.fromGameList(testGames)
+            popularGamesItemAdapter.update(gameItems)
+            trendingGamesItemAdapter.update(gameItems)
         }
     }
 
@@ -140,31 +103,55 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
      * Observers
      */
     private fun setUpObservers() {
-        /*binding.textFieldSearch.editText.asFlow()
+        binding.search.asFlow()
             .debounce(800)
             .onEach { viewModel.search(it) }
-            .observeInLifecycle(viewLifecycleOwner)*/
+            .observeInLifecycle(viewLifecycleOwner)
         viewModel.discoverState
             .onEach { discoverState ->
                 when (discoverState) {
-                    is DiscoverState.Initial -> {
-//                        binding.textNoResults.show()
+                    is DiscoverState.Discover -> {
+                        binding.apply {
+                            popularGames.show()
+                            trendingGames.show()
+                            recyclerSearchResults.hide()
+                            loadingSearch.hide()
+                            loadingSearch.cancelAnimation()
+                            textLoading.hide()
+                        }
                     }
-                    is DiscoverState.Loading -> {
-                        binding.progressBarSearch.show()
-//                        binding.textNoResults.hide()
-                        searchResultsAdapter.submitList(emptyList())
+                    is DiscoverState.Searching -> {
+                        binding.apply {
+                            popularGames.hide()
+                            trendingGames.hide()
+                            recyclerSearchResults.hide()
+                            textLoading.show()
+                            loadingSearch.show()
+                            loadingSearch.playAnimation()
+                        }
                     }
                     is DiscoverState.SearchSuccess -> {
-                        binding.progressBarSearch.hide()
-//                        binding.textNoResults.hide()
+                        binding.apply {
+                            popularGames.hide()
+                            trendingGames.hide()
+                            recyclerSearchResults.show()
+                            loadingSearch.hide()
+                            loadingSearch.cancelAnimation()
+                            textLoading.hide()
+                        }
                         searchResultsAdapter.submitList(discoverState.results)
                     }
                     is DiscoverState.SearchFailure -> {
-                        binding.progressBarSearch.hide()
-//                        binding.textNoResults.show()
+                        binding.apply {
+                            popularGames.show()
+                            trendingGames.show()
+                            recyclerSearchResults.hide()
+                            loadingSearch.hide()
+                            loadingSearch.cancelAnimation()
+                            textLoading.hide()
+                        }
                         searchResultsAdapter.submitList(emptyList())
-                        binding.textNoResults.show()
+                        Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

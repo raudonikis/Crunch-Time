@@ -21,4 +21,6 @@ dependencies {
     api(Dependencies.glide)
     api(Dependencies.fastAdapter)
     api(Dependencies.fastAdapterViewBinding)
+    // Animations
+    api(Dependencies.lottie)
 }
