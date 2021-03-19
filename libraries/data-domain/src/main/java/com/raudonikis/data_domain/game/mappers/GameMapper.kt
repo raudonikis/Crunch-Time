@@ -4,7 +4,8 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
-import com.raudonikis.data_domain.game_screenshot.mappers.ScreenshotMapper
+import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
+import com.raudonikis.data_domain.game_video.mappers.GameVideoMapper
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_search.GameSearchResponse
 
@@ -21,7 +22,7 @@ object GameMapper {
             coverUrl = gameSearchResponse.cover?.url,
             releaseDate = gameSearchResponse.releaseDate ?: "",
             gameGenres = GameGenreMapper.fromGameGenreResponseList(gameSearchResponse.genres),
-            screenshots = ScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
+            screenshots = GameScreenshotMapper.fromScreenshotResponseList(gameSearchResponse.screenshots),
             status = GameStatus.fromString(gameSearchResponse.gameStatus),
             isUpdateNeeded = true
         )
@@ -43,7 +44,8 @@ object GameMapper {
             name = gameResponse.attributes.name,
             description = gameResponse.attributes.summary,
             coverUrl = gameResponse.relations.cover.url,
-            screenshots = ScreenshotMapper.fromScreenshotResponseList(gameResponse.relations.screenshots),
+            screenshots = GameScreenshotMapper.fromScreenshotResponseList(gameResponse.relations.screenshots),
+            videos = GameVideoMapper.fromGameVideResponseList(gameResponse.relations.videos),
             gameGenres = GameGenreMapper.fromGameGenreResponseList(gameResponse.relations.genres),
             releaseDate = gameResponse.attributes.releaseDate ?: "",
             status = GameStatus.fromString(gameResponse.attributes.gameStatus),

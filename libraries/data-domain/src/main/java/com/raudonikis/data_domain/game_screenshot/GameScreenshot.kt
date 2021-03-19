@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Screenshot(
+data class GameScreenshot(
     val url: String
 ) : Parcelable
