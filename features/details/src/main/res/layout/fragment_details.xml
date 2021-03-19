@@ -15,8 +15,8 @@
         <ProgressBar
             android:id="@+id/progress_updating_details"
             android:layout_width="wrap_content"
-            android:visibility="gone"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -221,60 +221,6 @@
             android:text="@string/label_videos"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/divider_screenshots_with_videos" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_videos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingNormal"
-            android:orientation="horizontal"
-            android:overScrollMode="ifContentScrolls"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_screenshots"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_screenshot" />
-
-        <!--<TextView
-            android:id="@+id/game_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:text="Game status ->"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/recycler_screenshots" />
-
-        <Button
-            android:id="@+id/button_played"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:text="Played"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/game_status" />
-
-        <Button
-            android:id="@+id/button_want"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:text="Want"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/button_played" />
-
-        <Button
-            android:id="@+id/button_playing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:text="Playing"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/button_want" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"

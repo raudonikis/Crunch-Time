@@ -23,7 +23,12 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val binding: FragmentDetailsBinding by viewBinding()
     private val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
-    private val screenshotAdapter = ItemAdapter<ScreenshotItem>()
+
+    /**
+     * Screenshots
+     */
+    private val screenshotItemAdapter = ItemAdapter<ScreenshotItem>()
+    private val screenshotAdapter = FastAdapter.with(screenshotItemAdapter)
 
     /**
      * Lifecycle hooks
@@ -46,9 +51,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun setUpViews() {
         with(binding) {
-            recyclerScreenshots.apply {
-                adapter = FastAdapter.with(screenshotAdapter)
-            }
+            recyclerScreenshots.adapter = screenshotAdapter
         }
     }
 
@@ -61,7 +64,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.currentGame
             .onEach { game ->
-                binding.bindGame(requireContext(), game, screenshotAdapter)
+                binding.bindGame(requireContext(), game, screenshotItemAdapter)
             }
             .observeInLifecycle(viewLifecycleOwner)
     }
@@ -76,15 +79,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     setGameStatus(viewModel.currentGame.value.status)
                 }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
             }
-            /*buttonWant.setOnClickListener {
-                viewModel.updateGameStatus(args.game, GameStatus.WANT)
-            }
-            buttonPlayed.setOnClickListener {
-                viewModel.updateGameStatus(args.game, GameStatus.PLAYED)
-            }
-            buttonPlaying.setOnClickListener {
-                viewModel.updateGameStatus(args.game, GameStatus.PLAYING)
-            }*/
         }
     }
 
