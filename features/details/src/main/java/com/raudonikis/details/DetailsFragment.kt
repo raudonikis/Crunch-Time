@@ -12,6 +12,7 @@ import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
+import com.raudonikis.details.game_status.GameStatusSelectDialogFragment
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -70,6 +71,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
      */
     private fun setUpListeners() {
         binding.apply {
+            buttonChangeStatus.setOnClickListener {
+                GameStatusSelectDialogFragment().apply {
+                    setGameStatus(viewModel.currentGame.value.status)
+                }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
+            }
             /*buttonWant.setOnClickListener {
                 viewModel.updateGameStatus(args.game, GameStatus.WANT)
             }
@@ -85,7 +91,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     /**
      * Details functionality
      */
-
     private fun updateDetailsState(detailsState: DetailsState) {
         when (detailsState) {
             /*is DetailsState.StatusUpdating -> {
