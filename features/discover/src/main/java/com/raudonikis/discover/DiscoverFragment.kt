@@ -11,6 +11,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
@@ -108,53 +109,77 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             .onEach { viewModel.search(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.discoverState
-            .onEach { discoverState ->
-                when (discoverState) {
-                    is DiscoverState.Discover -> {
-                        binding.apply {
-                            popularGames.show()
-                            trendingGames.show()
-                            recyclerSearchResults.hide()
-                            loadingSearch.hide()
-                            loadingSearch.cancelAnimation()
-                            textLoading.hide()
-                        }
-                    }
-                    is DiscoverState.Searching -> {
-                        binding.apply {
-                            popularGames.hide()
-                            trendingGames.hide()
-                            recyclerSearchResults.hide()
-                            textLoading.show()
-                            loadingSearch.show()
-                            loadingSearch.playAnimation()
-                        }
-                    }
-                    is DiscoverState.SearchSuccess -> {
-                        binding.apply {
-                            popularGames.hide()
-                            trendingGames.hide()
-                            recyclerSearchResults.show()
-                            loadingSearch.hide()
-                            loadingSearch.cancelAnimation()
-                            textLoading.hide()
-                        }
-                        searchResultsAdapter.submitList(discoverState.results)
-                    }
-                    is DiscoverState.SearchFailure -> {
-                        binding.apply {
-                            popularGames.show()
-                            trendingGames.show()
-                            recyclerSearchResults.hide()
-                            loadingSearch.hide()
-                            loadingSearch.cancelAnimation()
-                            textLoading.hide()
-                        }
-                        searchResultsAdapter.submitList(emptyList())
-                        Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+            .onEach { updateDiscoverState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    private fun updateDiscoverState(state: DiscoverState) {
+        when (state) {
+            is DiscoverState.Discover -> {
+                updateGameListsVisibility(true)
+                updateLoadingVisibility(false)
+                updateSearchVisibility(false)
+            }
+            is DiscoverState.Searching -> {
+                updateGameListsVisibility(false)
+                updateLoadingVisibility(true)
+                updateSearchVisibility(false)
+            }
+            is DiscoverState.SearchSuccess -> {
+                updateGameListsVisibility(false)
+                updateLoadingVisibility(false)
+                updateSearchVisibility(true)
+                searchResultsAdapter.submitList(state.results)
+            }
+            is DiscoverState.SearchFailure -> {
+                updateGameListsVisibility(true)
+                updateLoadingVisibility(false)
+                updateSearchVisibility(false)
+                searchResultsAdapter.submitList(emptyList())
+                Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    /**
+     * Update the visibility of every game list
+     * GameLists affected -> [popularGamesAdapter], [trendingGamesAdapter]
+     */
+    private fun updateGameListsVisibility(isShown: Boolean) {
+        binding.apply {
+            if (isShown) {
+                popularGames.show()
+                trendingGames.show()
+            } else {
+                popularGames.hide()
+                trendingGames.hide()
+            }
+        }
+    }
+
+    /**
+     * Update the visibility of loading indicators
+     */
+    private fun updateLoadingVisibility(isShown: Boolean) {
+        binding.apply {
+            if (isShown) {
+                textLoading.show()
+                loadingSearch.show()
+                loadingSearch.playAnimation()
+            } else {
+                loadingSearch.hide()
+                loadingSearch.cancelAnimation()
+                textLoading.hide()
+            }
+        }
+    }
+
+    /**
+     * Update the visibility of search results
+     */
+    private fun updateSearchVisibility(isShown: Boolean) {
+        binding.apply {
+            recyclerSearchResults.showIf { isShown }
+        }
     }
 }
