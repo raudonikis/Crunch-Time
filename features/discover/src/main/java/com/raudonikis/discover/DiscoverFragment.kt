@@ -15,7 +15,7 @@ import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
-import com.raudonikis.common_ui.game_cover.GameCoverItem
+import com.raudonikis.common_ui.game_cover.GameItem
 import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
@@ -34,13 +34,13 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     /**
      * Popular games
      */
-    private val popularGamesItemAdapter = ItemAdapter<GameCoverItem>()
+    private val popularGamesItemAdapter = ItemAdapter<GameItem>()
     private val popularGamesAdapter = FastAdapter.with(popularGamesItemAdapter)
 
     /**
      * Trending games
      */
-    private val trendingGamesItemAdapter = ItemAdapter<GameCoverItem>()
+    private val trendingGamesItemAdapter = ItemAdapter<GameItem>()
     private val trendingGamesAdapter = FastAdapter.with(trendingGamesItemAdapter)
 
     /**
@@ -108,7 +108,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     name = "Game 3",
                     description = "Game 3 description",
                     coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYING,
+                    status = GameStatus.WANT,
                 ),
                 Game(
                     name = "Game 4",
@@ -120,13 +120,13 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     name = "Game 5",
                     description = "Game 5 description",
                     coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYING,
+                    status = GameStatus.WANT,
                 ),
                 Game(
                     name = "Game 6",
                     description = "Game 6 description",
                     coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
-                    status = GameStatus.PLAYING,
+                    status = GameStatus.EMPTY,
                 ),
             )
             popularGamesItemAdapter.clear()

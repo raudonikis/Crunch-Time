@@ -5,16 +5,16 @@ import com.raudonikis.data_domain.game.models.Game
 object GameCoverItemMapper {
 
     /**
-     * From [Game] to [GameCoverItem]
+     * From [Game] to [GameItem]
      */
-    fun fromGame(game: Game): GameCoverItem {
-        return GameCoverItem(game)
+    fun fromGame(game: Game): GameItem {
+        return GameItem(game)
     }
 
     /**
-     * From [Game] list to [GameCoverItem] list
+     * From [Game] list to [GameItem] list
      */
-    fun fromGameList(games: List<Game>): List<GameCoverItem> {
+    fun fromGameList(games: List<Game>): List<GameItem> {
         return games.map { fromGame(it) }
     }
 }

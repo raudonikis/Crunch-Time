@@ -17,7 +17,7 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.profile.activity.ActivitiesState
-import com.raudonikis.common_ui.game_cover.GameCoverItem
+import com.raudonikis.common_ui.game_cover.GameItem
 import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
@@ -29,7 +29,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModels()
     private val binding: FragmentProfileBinding by viewBinding()
-    private val gameCollectionItemAdapter = ItemAdapter<GameCoverItem>()
+    private val gameCollectionItemAdapter = ItemAdapter<GameItem>()
     private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
 
     private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
@@ -120,8 +120,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpListeners() {
         gameCollectionAdapter.onClickListener =
-            { _: View?, _: IAdapter<GameCoverItem>, gameCoverItem: GameCoverItem, _: Int ->
-                viewModel.onGameClicked(gameCoverItem.game)
+            { _: View?, _: IAdapter<GameItem>, gameItem: GameItem, _: Int ->
+                viewModel.onGameClicked(gameItem.game)
                 false
             }
         with(binding) {

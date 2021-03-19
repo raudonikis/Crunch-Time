@@ -9,10 +9,10 @@ import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.ItemGameCoverBinding
 import com.raudonikis.data_domain.game.models.Game
 
-class GameCoverItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>() {
+class GameItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>() {
 
     override val type: Int
-        get() = R.id.adapter_game_cover_id
+        get() = R.id.adapter_game_id
 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): ItemGameCoverBinding {
         return ItemGameCoverBinding.inflate(inflater, parent, false)
@@ -27,6 +27,7 @@ class GameCoverItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>(
                     .centerCrop()
                     .into(imageGameCover)
             }
+            gameStatus.setGameStatus(game.status)
         }
     }
 }

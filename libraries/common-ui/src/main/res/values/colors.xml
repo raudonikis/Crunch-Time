@@ -9,8 +9,13 @@
     <color name="yellow_light">#fffe53</color>
     <color name="yellow_dark">#bf9b00</color>
     <color name="green">#06d6a0</color>
+    <color name="green.8">#CC06d6a0</color>
     <color name="green_light">#63ffd1</color>
     <color name="green_dark">#00a371</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="blue_light">#48cae4</color>
+    <color name="blue_light.8">#CC48cae4</color>
+    <color name="orange">#f77f00</color>
+    <color name="orange.8">#CCf77f00</color>
 </resources>
