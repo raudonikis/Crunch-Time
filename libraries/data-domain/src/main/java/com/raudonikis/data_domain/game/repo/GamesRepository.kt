@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class GamesRepository @Inject constructor(
     private val gamesApi: GamesApi,
-    private val gameStatusMapper: GameStatusMapper,
 ) {
 
     /**
@@ -54,7 +53,7 @@ class GamesRepository @Inject constructor(
      */
     suspend fun updateGameStatus(game: Game): NetworkResponse<GameStatusResponse> {
         return withContext(Dispatchers.IO) {
-            val gameStatus = gameStatusMapper.toGameStatusRequestBody(game.status)
+            val gameStatus = GameStatusMapper.toGameStatusRequestBody(game.status)
             safeNetworkResponse {
                 gamesApi.updateGameStatus(game.id, gameStatus)
             }
