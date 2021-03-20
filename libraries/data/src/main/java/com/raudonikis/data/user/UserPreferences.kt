@@ -1,4 +1,4 @@
-package com.raudonikis.data
+package com.raudonikis.data.user
 
 import android.content.SharedPreferences
 import com.raudonikis.common.extensions.get

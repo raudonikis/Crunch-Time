@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.auth
 
-import com.raudonikis.data.UserPreferences
+import com.raudonikis.data.user.UserPreferences
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.utils.NetworkResponse
