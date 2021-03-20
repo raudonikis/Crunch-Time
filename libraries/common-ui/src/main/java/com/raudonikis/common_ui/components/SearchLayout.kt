@@ -26,6 +26,10 @@ class SearchLayout(context: Context, attributeSet: AttributeSet) :
         binding.searchField.editText?.setText(query)
     }
 
+    fun setSearchHint(hint: String?) {
+        binding.searchField.hint = hint
+    }
+
     fun setOnClearClick(onClick: () -> Unit) {
         binding.searchField.setEndIconOnClickListener {
             binding.searchField.editText?.setText("")

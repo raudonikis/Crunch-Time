@@ -41,5 +41,6 @@
     <declare-styleable name="HeaderLayout">
         <attr name="header_title" format="string"/>
         <attr name="header_search_enabled" format="boolean"/>
+        <attr name="header_search_hint" format="string"/>
     </declare-styleable>
 </resources>

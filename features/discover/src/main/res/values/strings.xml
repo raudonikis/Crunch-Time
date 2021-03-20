@@ -3,4 +3,5 @@
     <string name="label_view_all">View all</string>
     <string name="label_loading">Loading...</string>
     <string name="title_discover">Discover</string>
+    <string name="hint_search_games">Search games...</string>
 </resources>

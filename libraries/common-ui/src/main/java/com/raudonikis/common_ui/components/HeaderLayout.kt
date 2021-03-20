@@ -26,12 +26,18 @@ class HeaderLayout(context: Context, attributeSet: AttributeSet) :
         val titleText = attributes.getString(R.styleable.HeaderLayout_header_title)
         val isSearchEnabled =
             attributes.getBoolean(R.styleable.HeaderLayout_header_search_enabled, false)
+        val searchHintText = attributes.getString(R.styleable.HeaderLayout_header_search_hint)
         setTitle(titleText)
+        setSearchHint(searchHintText)
         enableSearch(isSearchEnabled)
     }
 
     private fun setTitle(title: String?) {
         binding.textTitle.text = title
+    }
+
+    private fun setSearchHint(hint: String?) {
+        binding.layoutSearch.setSearchHint(hint)
     }
 
     private fun enableSearch(isEnabled: Boolean) {
