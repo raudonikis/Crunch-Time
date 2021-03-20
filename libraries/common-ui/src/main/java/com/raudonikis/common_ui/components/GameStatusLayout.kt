@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.raudonikis.common.extensions.hide
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.LayoutGameStatusBinding
 import com.raudonikis.data_domain.game.models.GameStatus
@@ -21,6 +22,7 @@ class GameStatusLayout(context: Context, attributeSet: AttributeSet) :
 
     fun setGameStatus(gameStatus: GameStatus) {
         binding.apply {
+            layoutRoot.show()
             val backgroundColor = when (gameStatus) {
                 GameStatus.PLAYED -> ContextCompat.getColor(context, R.color.game_status_played)
                 GameStatus.PLAYING -> ContextCompat.getColor(context, R.color.game_status_playing)
