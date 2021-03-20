@@ -79,6 +79,7 @@ object Modules {
 
     object Features {
         const val home = ":features:home"
+        const val activity = ":features:activity"
         const val discover = ":features:discover"
         const val profile = ":features:profile"
         const val details = ":features:details"

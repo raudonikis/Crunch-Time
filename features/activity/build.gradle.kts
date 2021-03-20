@@ -14,11 +14,7 @@ dependencies {
     implementation(project(Modules.Libraries.common))
     implementation(project(Modules.Libraries.commonUi))
     implementation(project(Modules.Libraries.navigation))
-    implementation(project(Modules.Features.home))
-    implementation(project(Modules.Features.activity))
-    implementation(project(Modules.Features.discover))
-    implementation(project(Modules.Features.profile))
-    implementation(project(Modules.Features.login))
+    implementation(project(Modules.Libraries.dataDomain))
     // Hilt
     implementation(Dependencies.hilt)
     implementation(Dependencies.hiltLifecycle)

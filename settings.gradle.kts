@@ -1,3 +1,4 @@
+include(":features:activity")
 include(":features:profile")
 include(":features:details")
 include(":features:bottomnavigation")
