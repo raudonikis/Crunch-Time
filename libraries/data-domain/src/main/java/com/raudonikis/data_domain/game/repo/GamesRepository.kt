@@ -25,14 +25,12 @@ class GamesRepository @Inject constructor(
      */
     suspend fun search(name: String): NetworkResponse<List<Game>> {
         return withContext(Dispatchers.IO) {
-            /*safeNetworkResponse {
+            safeNetworkResponse {
                 gamesApi.search(name)
                     .map {
                         GameMapper.fromGameSearchResponseList(it)
                     }
-            }*/
-            delay(6000)
-            NetworkResponse(success = true, data = testGames) //todo remove test data
+            }
         }
     }
 
