@@ -18,49 +18,6 @@
             app:header_title="Profile"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/divider_profile_with_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="@color/background_divider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_header" />
-
-        <TextView
-            android:id="@+id/title_activity"
-            style="?textAppearanceHeadline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="?spacingNormal"
-            android:layout_marginTop="?spacingNormal"
-            android:text="Activity"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_profile_with_activity" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="?spacingNormal"
-            android:layout_marginTop="?spacingNormal"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_activity"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_activity" />
-
-        <View
-            android:id="@+id/divider_activity_with_collections"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="@color/background_divider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_activity" />
-
         <TextView
             android:id="@+id/title_collection"
             style="?textAppearanceHeadline3"
@@ -70,7 +27,7 @@
             android:layout_marginTop="?spacingNormal"
             android:text="Collections"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_activity_with_collections" />
+            app:layout_constraintTop_toBottomOf="@id/layout_header" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_collections"
