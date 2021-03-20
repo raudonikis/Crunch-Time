@@ -20,10 +20,12 @@ class GameItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>() {
 
     override fun bindView(binding: ItemGameCoverBinding, payloads: List<Any>) {
         with(binding) {
+            imageGameCover.setImageResource(R.drawable.game_placeholder)
             game.coverUrl?.let { url ->
                 Glide
                     .with(root)
                     .load(url.prefixHttps())
+                    .placeholder(R.drawable.game_placeholder)
                     .centerCrop()
                     .into(imageGameCover)
             }

@@ -18,13 +18,13 @@ data class PopularGameResponse(
     @Json(name = "first_release_date")
     val releaseDate: String?,
     @Json(name = "cover")
-    val cover: GameCoverResponse,
+    val cover: GameCoverResponse?,
     @Json(name = "screenshots")
-    val screenshots: List<GameScreenshotResponse>,
+    val screenshots: List<GameScreenshotResponse> = listOf(),
     @Json(name = "videos")
-    val videos: List<GameVideoResponse>,
+    val videos: List<GameVideoResponse> = listOf(),
     @Json(name = "genres")
-    val genres: List<GameGenreResponse>,
+    val genres: List<GameGenreResponse> = listOf(),
 )
 
 /**

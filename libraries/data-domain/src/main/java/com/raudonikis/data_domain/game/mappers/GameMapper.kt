@@ -61,7 +61,7 @@ object GameMapper {
             id = response.id,
             name = response.name,
             description = response.summary,
-            coverUrl = response.cover.url,
+            coverUrl = response.cover?.url,
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.screenshots),
             videos = GameVideoMapper.fromGameVideResponseList(response.videos),
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.genres),

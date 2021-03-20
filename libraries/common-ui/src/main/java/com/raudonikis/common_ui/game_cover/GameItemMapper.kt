@@ -2,12 +2,12 @@ package com.raudonikis.common_ui.game_cover
 
 import com.raudonikis.data_domain.game.models.Game
 
-object GameCoverItemMapper {
+object GameItemMapper {
 
     /**
      * From [Game] to [GameItem]
      */
-    fun fromGame(game: Game): GameItem {
+    private fun fromGame(game: Game): GameItem {
         return GameItem(game)
     }
 

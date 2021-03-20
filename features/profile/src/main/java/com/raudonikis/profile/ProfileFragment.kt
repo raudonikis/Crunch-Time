@@ -12,7 +12,7 @@ import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.profile.activity.ActivitiesState
 import com.raudonikis.common_ui.game_cover.GameItem
-import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
+import com.raudonikis.common_ui.game_cover.GameItemMapper
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
@@ -52,7 +52,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         setUpListeners()
         setUpViews()
         setUpObservers()
-        val games = GameCoverItemMapper.fromGameList(testGames)
+        val games = GameItemMapper.fromGameList(testGames)
         gameCollectionItemAdapter.update(games)
     }
 

@@ -18,10 +18,11 @@ import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.game_cover.GameItem
-import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
+import com.raudonikis.common_ui.game_cover.GameItemMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
+import com.raudonikis.discover.popular_games.PopularGamesState
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
@@ -96,8 +97,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             trendingGamesAdapter.onClick {
                 viewModel.navigateToDetails(it.game)
             }
-            val gameItems = GameCoverItemMapper.fromGameList(testGames)
-            popularGamesItemAdapter.update(gameItems)
+            val gameItems = GameItemMapper.fromGameList(testGames)
             trendingGamesItemAdapter.update(gameItems)
         }
     }
@@ -113,6 +113,23 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         viewModel.discoverState
             .onEach { updateDiscoverState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.popularGamesState
+            .onEach { updatePopularGamesState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    private fun updatePopularGamesState(state: PopularGamesState) {
+        when (state) {
+            is PopularGamesState.Success -> {
+                popularGamesItemAdapter.update(GameItemMapper.fromGameList(state.games))
+            }
+            is PopularGamesState.Failure -> {
+                Toast.makeText(requireContext(), "popular games failed", Toast.LENGTH_SHORT).show()
+            }
+            is PopularGamesState.Loading -> {
+                Toast.makeText(requireContext(), "popular games loading", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun updateDiscoverState(state: DiscoverState) {
