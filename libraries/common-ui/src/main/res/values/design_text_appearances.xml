@@ -7,60 +7,80 @@
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:includeFontPadding">false</item>
     </style>
-    <!-- Used in page titles -->
+
     <style name="TextAppearance.Headline1">
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_small</item>-->
     </style>
 
     <style name="TextAppearance.Headline1.Inverted">
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
-    <!-- Used in Card titles, map object titles, interview questions -->
+
     <style name="TextAppearance.Headline2">
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_normal</item>-->
     </style>
 
     <style name="TextAppearance.Headline2.Inverted">
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
-    <!-- Used in Item titles in lists, input titles, card titles in start screen -->
+
     <style name="TextAppearance.Headline3">
         <item name="android:textSize">@dimen/text_size_normal_extended</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_medium</item>-->
     </style>
-    <!-- Used in Item titles in lists, input titles, card titles in start screen -->
+
     <style name="TextAppearance.Headline3.Inverted">
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
-    <!-- Used in Descriptions, subtext for headlines -->
+
     <style name="TextAppearance.Body">
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_large</item>-->
+    </style>
+
+    <style name="TextAppearance.Body.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
+    <style name="TextAppearance.Body.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextAppearance.Body.Small.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
+    <style name="TextAppearance.Body.Tiny">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextAppearance.Body.Tiny.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
 
     <style name="TextAppearance.Button">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="android:textColor">@color/text_primary</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--<item name="android:lineSpacingMultiplier">@dimen/line_spacing_normal</item>
-        <item name="android:letterSpacing">@dimen/letter_spacing_small</item>-->
     </style>
 
-    <style name="TextAppearance.Caption">
+    <style name="TextAppearance.Button.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
+    <style name="TextAppearance.Action">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/text_action</item>
+    </style>
+
+    <style name="TextAppearance.Secondary">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <!-- lineSpacingMultiplier doesn't work if you apply it as a textAppearance -->
-        <!--        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_large</item>-->
+        <item name="android:textColor">@color/text_secondary</item>
     </style>
 </resources>

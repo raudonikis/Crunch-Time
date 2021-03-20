@@ -31,8 +31,12 @@
         <attr name="textAppearanceBodyInverted" format="reference" />
         <attr name="textAppearanceButton" format="reference" />
         <attr name="textAppearanceButtonInverted" format="reference" />
-        <attr name="textAppearanceCaption" format="reference" />
-        <attr name="textAppearanceCaptionInverted" format="reference" />
+        <attr name="textAppearanceBodySmall" format="reference" />
+        <attr name="textAppearanceBodySmallInverted" format="reference" />
+        <attr name="textAppearanceBodyTiny" format="reference" />
+        <attr name="textAppearanceBodyTinyInverted" format="reference" />
+        <attr name="textAppearanceAction" format="reference" />
+        <attr name="textAppearanceSecondary" format="reference" />
     </declare-styleable>
     <!-- Custom views -->
     <declare-styleable name="HorizontalGameList">

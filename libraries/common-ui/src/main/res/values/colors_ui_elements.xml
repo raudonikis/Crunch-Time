@@ -6,6 +6,8 @@
     <!-- Text -->
     <color name="text_primary">@color/black</color>
     <color name="text_primary_inverted">@color/white</color>
+    <color name="text_action">@color/blue</color>
+    <color name="text_secondary">@color/gray</color>
     <!-- Game status -->
     <color name="game_status_want">@color/blue_light.8</color>
     <color name="game_status_played">@color/orange.8</color>

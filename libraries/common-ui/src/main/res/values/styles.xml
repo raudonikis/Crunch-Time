@@ -34,11 +34,15 @@
         <item name="textAppearanceHeadline2Inverted">@style/TextAppearance.Headline2.Inverted</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.Headline3</item>
         <item name="textAppearanceHeadline3Inverted">@style/TextAppearance.Headline3.Inverted</item>
-        <item name="textAppearanceBody">@style/TextAppearance.Body</item>
-        <!--        <item name="textAppearanceBodyInverted">@style/TextAppearance.Body.Inverted</item>-->
         <item name="textAppearanceButton">@style/TextAppearance.Button</item>
-        <!--        <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>-->
-        <item name="textAppearanceCaption">@style/TextAppearance.Caption</item>
-        <!--        <item name="textAppearanceCaptionInverted">@style/TextAppearance.Caption.Inverted</item>-->
+        <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>
+        <item name="textAppearanceBody">@style/TextAppearance.Body</item>
+        <item name="textAppearanceBodyInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Body.Small</item>
+        <item name="textAppearanceBodySmallInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceBodyTiny">@style/TextAppearance.Body</item>
+        <item name="textAppearanceBodyTinyInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceAction">@style/TextAppearance.Action</item>
+        <item name="textAppearanceSecondary">@style/TextAppearance.Secondary</item>
     </style>
 </resources>
