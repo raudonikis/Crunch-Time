@@ -15,7 +15,8 @@ import javax.inject.Inject
 class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
 
     private val bottomNavSelectedItemIdKey = "BOTTOM_NAV_SELECTED_ITEM_ID_KEY"
-    private var bottomNavSelectedItemId = R.id.navigation_discover // Must be your starting destination
+    private var bottomNavSelectedItemId =
+        R.id.navigation_discover // Must be your starting destination
     private val binding: FragmentBottomNavigationBinding by viewBinding()
 
     @Inject
@@ -38,7 +39,12 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
 
     private fun setUpBottomNavigation() {
         binding.apply {
-            val navGraphIds = listOf(R.navigation.navigation_home, R.navigation.navigation_discover, R.navigation.navigation_profile)
+            val navGraphIds = listOf(
+                R.navigation.navigation_home,
+                R.navigation.navigation_discover,
+                R.navigation.navigation_activity,
+                R.navigation.navigation_profile
+            )
             bottomNavView.selectedItemId = bottomNavSelectedItemId
             val controller = bottomNavView.setupWithNavController(
                 fragmentManager = childFragmentManager,

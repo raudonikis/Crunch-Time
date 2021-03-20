@@ -34,8 +34,12 @@
         <attr name="textAppearanceCaption" format="reference" />
         <attr name="textAppearanceCaptionInverted" format="reference" />
     </declare-styleable>
-
+    <!-- Custom views -->
     <declare-styleable name="HorizontalGameList">
         <attr name="hgl_title" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="HeaderLayout">
+        <attr name="header_title" format="string"/>
+        <attr name="header_search_enabled" format="boolean"/>
     </declare-styleable>
 </resources>

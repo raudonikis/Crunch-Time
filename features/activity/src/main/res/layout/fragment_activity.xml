@@ -7,7 +7,7 @@
     <com.raudonikis.common_ui.components.HeaderLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:header_title="Home"
+        app:header_search_enabled="true"
+        app:header_title="Activity"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

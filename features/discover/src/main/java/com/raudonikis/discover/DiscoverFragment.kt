@@ -79,8 +79,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private fun setUpSearch() {
         binding.apply {
             recyclerSearchResults.adapter = searchResultsAdapter
-            search.setSearchQuery(viewModel.searchQuery)
-            search.setOnClearClick { viewModel.onSearchQueryCleared() }
+            layoutHeader.getSearchComponent().apply {
+                setSearchQuery(viewModel.searchQuery)
+                setOnClearClick { viewModel.onSearchQueryCleared() }
+            }
         }
     }
 
@@ -104,7 +106,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
      * Observers
      */
     private fun setUpObservers() {
-        binding.search.asFlow()
+        binding.layoutHeader.getSearchComponent().asFlow()
             .debounce(800)
             .onEach { viewModel.search(it) }
             .observeInLifecycle(viewLifecycleOwner)
