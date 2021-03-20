@@ -11,6 +11,7 @@ dependencies {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.moshi)
     implementation(Dependencies.moshiConverter)
+    implementation(Dependencies.moshiAdapters)
     implementation(Dependencies.scalarsConverter)
     implementation(Dependencies.okHttp)
 //    api(Dependencies.networkResponseAdapter)

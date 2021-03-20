@@ -17,14 +17,13 @@
 
         <TextView
             android:id="@+id/text_game_status"
-            style="@style/TextAppearance.Headline3"
+            style="@style/TextAppearance.Body.Tiny.Inverted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingHorizontal="?spacingSmall"
             android:paddingVertical="?spacingTiny"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textStyle="bold"
             tools:text="Playing" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>

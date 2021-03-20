@@ -9,9 +9,9 @@
         android:id="@+id/text_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="NedasK"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="NedasK" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_game_title"
@@ -45,10 +45,9 @@
 
     <ImageView
         android:id="@+id/icon_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="?spacingNormal"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/text_action"
         app:layout_constraintStart_toEndOf="@id/text_action"
         app:layout_constraintTop_toTopOf="@id/text_action"
@@ -60,9 +59,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="?spacingSmall"
+        android:text="2 weeks ago"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_action"
-        tools:text="2 weeks ago" />
+        app:layout_constraintTop_toBottomOf="@id/text_action" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_game_cover"

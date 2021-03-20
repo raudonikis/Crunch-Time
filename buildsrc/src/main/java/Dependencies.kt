@@ -121,6 +121,7 @@ object Dependencies {
 
     // Networking - converters
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    const val moshiAdapters = "com.squareup.moshi:moshi-adapters:${Versions.moshi}"
     const val moshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     const val scalarsConverter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
 

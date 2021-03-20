@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.activity.repo
 
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.mappers.UserActivityMapper
+import com.raudonikis.data_domain.testActivities
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
@@ -15,12 +16,13 @@ class ActivitiesRepository @Inject constructor(
 
     suspend fun getUserActivities(): NetworkResponse<List<UserActivity>> {
         return withContext(Dispatchers.IO) {
-            safeNetworkResponse {
+            /*safeNetworkResponse {
                 gamesApi.getUserActivities()
                     .map {
                         UserActivityMapper.fromUserActivityResponseList(it)
                     }
-            }
+            }*/
+            NetworkResponse(success = true, data = testActivities)
         }
     }
 }

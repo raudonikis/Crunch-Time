@@ -10,7 +10,7 @@ data class UserActivityResponse(
     @Json(name = "action")
     val action: String,
     @Json(name = "data")
-    val data: GameStatusUpdatedResponse,
+    val data: UserActivityDataResponse,
 )
 
 /**

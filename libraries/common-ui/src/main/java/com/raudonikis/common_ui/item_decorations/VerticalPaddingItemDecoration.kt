@@ -1,4 +1,4 @@
-package com.raudonikis.common_ui
+package com.raudonikis.common_ui.item_decorations
 
 import android.content.Context
 import android.graphics.Rect
@@ -6,7 +6,7 @@ import android.view.View
 import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 
-class HorizontalPaddingItemDecoration(private val size: Int) : RecyclerView.ItemDecoration() {
+class VerticalPaddingItemDecoration(private val size: Int) : RecyclerView.ItemDecoration() {
 
     constructor(
         context: Context,
@@ -24,6 +24,6 @@ class HorizontalPaddingItemDecoration(private val size: Int) : RecyclerView.Item
         if (parent.getChildAdapterPosition(view) == 0) {
             return
         }
-        outRect.left += size
+        outRect.top += size
     }
 }

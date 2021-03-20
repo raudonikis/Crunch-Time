@@ -55,7 +55,7 @@ object GameMapper {
     /**
      * From [UserActivity] to [Game]
      */
-    fun fromUserActivity(userActivity: UserActivity): Game {
+    /*fun fromUserActivity(userActivity: UserActivity): Game {
         return Game(
             id = userActivity.gameId,
             name = userActivity.name,
@@ -63,5 +63,5 @@ object GameMapper {
             coverUrl = userActivity.coverUrl,
             isUpdateNeeded = true,
         )
-    }
+    }*/
 }

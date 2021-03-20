@@ -4,17 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.prefixHttps
-import com.raudonikis.common_ui.HorizontalPaddingItemDecoration
-import com.raudonikis.common_ui.RecyclerAdapter
-import com.raudonikis.common_ui.databinding.ItemActivityBinding
+import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
-import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.profile.activity.ActivitiesState
 import com.raudonikis.common_ui.game_cover.GameItem
 import com.raudonikis.common_ui.game_cover.GameCoverItemMapper
@@ -32,7 +27,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val gameCollectionItemAdapter = ItemAdapter<GameItem>()
     private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
 
-    private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
+    /*private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
         onInflate = { inflater, parent ->
             ItemActivityBinding.inflate(inflater, parent, false)
         },
@@ -47,7 +42,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         },
         onClick = { viewModel.onUserActivityClick(this) }
-    )
+    )*/
 
     /**
      * Lifecycle hooks
@@ -81,11 +76,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      * Listeners
      */
     private fun setUpListeners() {
-        gameCollectionAdapter.onClickListener =
-            { _: View?, _: IAdapter<GameItem>, gameItem: GameItem, _: Int ->
-                viewModel.onGameClicked(gameItem.game)
-                false
-            }
+        gameCollectionAdapter.onClick {
+            viewModel.onGameClicked(it.game)
+        }
         with(binding) {
             /*cardPlayed.setOnClickListener {
                 viewModel.onCollectionClicked(GameStatus.PLAYED)
@@ -113,7 +106,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                     }
                     is ActivitiesState.Success -> {
-                        userActivityAdapter.submitList(state.activities)
+//                        userActivityAdapter.submitList(state.activities)
                     }
                     is ActivitiesState.Failure -> {
 

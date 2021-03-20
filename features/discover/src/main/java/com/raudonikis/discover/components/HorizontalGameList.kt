@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
-import com.raudonikis.common_ui.HorizontalPaddingItemDecoration
+import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
 import com.raudonikis.discover.R
 import com.raudonikis.discover.databinding.LayoutHorizontalGameListBinding
 

@@ -1,6 +1,8 @@
 package com.raudonikis.network.di
 
+import com.raudonikis.network.activity.UserActivityDataResponse
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -29,7 +31,34 @@ object SerializationModule {
     }
 
     @Provides
-    internal fun provideMoshi(): Moshi {
-        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    internal fun provideMoshi(
+        userActivityDataResponseAdapter: PolymorphicJsonAdapterFactory<UserActivityDataResponse>,
+        kotlinJsonAdapterFactory: KotlinJsonAdapterFactory
+    ): Moshi {
+        return Moshi.Builder()
+            .add(userActivityDataResponseAdapter)
+            .addLast(kotlinJsonAdapterFactory)
+            .build()
+    }
+
+    @Provides
+    internal fun provideKotlinJsonAdapter(): KotlinJsonAdapterFactory {
+        return KotlinJsonAdapterFactory()
+    }
+
+    @Provides
+    internal fun provideUserActivityDataResponseAdapter(): PolymorphicJsonAdapterFactory<UserActivityDataResponse> {
+        return PolymorphicJsonAdapterFactory.of(
+            UserActivityDataResponse::class.java,
+            UserActivityDataResponse.LABEL_ACTION
+        )
+            .withSubtype(
+                UserActivityDataResponse.ActionGameStatusUpdatedResponse::class.java,
+                UserActivityDataResponse.ACTION_GAME_STATUS_UPDATED
+            )
+            .withSubtype(
+                UserActivityDataResponse.ActionGameRankedResponse::class.java,
+                UserActivityDataResponse.ACTION_GAME_RANKED
+            )
     }
 }
