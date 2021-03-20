@@ -54,7 +54,7 @@ class GamesRepository @Inject constructor(
      */
     suspend fun updateGameStatus(game: Game): NetworkResponse<GameStatusResponse> {
         return withContext(Dispatchers.IO) {
-            val gameStatus = gameStatusMapper.toJson(game.status)
+            val gameStatus = gameStatusMapper.toGameStatusRequestBody(game.status)
             safeNetworkResponse {
                 gamesApi.updateGameStatus(game.id, gameStatus)
             }

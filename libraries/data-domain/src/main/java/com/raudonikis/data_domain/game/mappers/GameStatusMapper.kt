@@ -15,4 +15,8 @@ class GameStatusMapper @Inject constructor(private val moshi: Moshi) {
         val gameStatusRequestBody = GameStatusRequestBody(gameStatus.toString())
         return adapter.toJson(gameStatusRequestBody)
     }
+
+    fun toGameStatusRequestBody(gameStatus: GameStatus): GameStatusRequestBody {
+        return GameStatusRequestBody(gameStatus.toString())
+    }
 }

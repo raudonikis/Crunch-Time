@@ -5,6 +5,7 @@ import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
+import com.raudonikis.network.game_status.GameStatusRequestBody
 import com.raudonikis.network.popular_games.PopularGameResponse
 import com.raudonikis.network.utils.NetworkResponse
 import retrofit2.http.*
@@ -23,7 +24,7 @@ interface GamesApi {
     @POST("api/v1/game/{id}/status")
     suspend fun updateGameStatus(
         @Path("id") id: Long,
-        @Body statusJson: String,
+        @Body status: GameStatusRequestBody,
     ): NetworkResponse<GameStatusResponse>
 
     /**
