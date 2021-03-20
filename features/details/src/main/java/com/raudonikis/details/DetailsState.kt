@@ -8,4 +8,5 @@ sealed class DetailsState {
     object StatusUpdating : DetailsState()
     object StatusUpdateSuccess : DetailsState()
     object StatusUpdateFailure : DetailsState()
+    object StatusUpdateNotNeeded : DetailsState()
 }

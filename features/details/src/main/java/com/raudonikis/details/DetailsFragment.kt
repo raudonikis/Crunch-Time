@@ -2,11 +2,14 @@ package com.raudonikis.details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common.extensions.disable
+import com.raudonikis.common.extensions.enable
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
@@ -46,7 +49,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     /**
-     * Initialisation
+     * Set up
      */
 
     private fun setUpViews() {
@@ -55,9 +58,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    /**
-     * Observers
-     */
     private fun setUpObservers() {
         viewModel.detailsState
             .onEach { updateDetailsState(it) }
@@ -69,41 +69,41 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             .observeInLifecycle(viewLifecycleOwner)
     }
 
-    /**
-     * Listeners
-     */
     private fun setUpListeners() {
         binding.apply {
             buttonChangeStatus.setOnClickListener {
                 GameStatusSelectDialogFragment().apply {
                     setGameStatus(viewModel.currentGame.value.status)
+                    setOnUpdateClicked { viewModel.updateGameStatus(it) }
                 }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
             }
         }
     }
 
     /**
-     * Details functionality
+     * Details
      */
     private fun updateDetailsState(detailsState: DetailsState) {
         when (detailsState) {
-            /*is DetailsState.StatusUpdating -> {
-                binding.buttonPlayed.disable()
-                binding.buttonPlaying.disable()
-                binding.buttonWant.disable()
+            is DetailsState.StatusUpdateNotNeeded -> {
+                binding.progressGameStatus.hide()
+                binding.buttonChangeStatus.enable()
+            }
+            is DetailsState.StatusUpdating -> {
+                binding.progressGameStatus.show()
+                binding.buttonChangeStatus.disable()
             }
             is DetailsState.StatusUpdateSuccess -> {
-                binding.buttonPlayed.enable()
-                binding.buttonPlaying.enable()
-                binding.buttonWant.enable()
-                Timber.d("Status update success")
+                binding.progressGameStatus.hide()
+                binding.buttonChangeStatus.enable()
+                Toast.makeText(requireContext(), "Status successfully updated", Toast.LENGTH_LONG)
+                    .show()
             }
             is DetailsState.StatusUpdateFailure -> {
-                binding.buttonPlayed.enable()
-                binding.buttonPlaying.enable()
-                binding.buttonWant.enable()
-                Timber.d("Status update failure")
-            }*/
+                binding.progressGameStatus.hide()
+                binding.buttonChangeStatus.enable()
+                Toast.makeText(requireContext(), "Status update failed", Toast.LENGTH_LONG).show()
+            }
             is DetailsState.DetailsUpdating -> {
                 binding.progressUpdatingDetails.show()
             }

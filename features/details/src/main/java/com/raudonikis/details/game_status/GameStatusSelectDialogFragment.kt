@@ -17,7 +17,7 @@ class GameStatusSelectDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     private var gameStatus: GameStatus = GameStatus.EMPTY
-    private var onUpdateClicked: () -> Unit = {}
+    private var onUpdateClicked: (gameStatus: GameStatus) -> Unit = { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +35,18 @@ class GameStatusSelectDialogFragment : DialogFragment() {
             GameStatus.PLAYING -> binding.radioButtonPlaying.check()
             GameStatus.WANT -> binding.radioButtonWant.check()
         }
-        binding.buttonUpdate.setOnClickListener {
-            onUpdateClicked.invoke()
-            this.dismiss()
+        binding.apply {
+            buttonUpdate.setOnClickListener {
+                val gameStatus = when (radioGroupGameStatus.checkedRadioButtonId) {
+                    radioButtonPlayed.id -> GameStatus.PLAYED
+                    radioButtonPlaying.id -> GameStatus.PLAYING
+                    radioButtonWant.id -> GameStatus.WANT
+                    else -> GameStatus.EMPTY
+
+                }
+                onUpdateClicked.invoke(gameStatus)
+                dismiss()
+            }
         }
     }
 
@@ -62,7 +71,7 @@ class GameStatusSelectDialogFragment : DialogFragment() {
         this.gameStatus = gameStatus
     }
 
-    fun setOnUpdateClicked(onClick: () -> Unit) {
+    fun setOnUpdateClicked(onClick: (gameStatus: GameStatus) -> Unit) {
         this.onUpdateClicked = onClick
     }
 

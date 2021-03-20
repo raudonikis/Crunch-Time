@@ -45,14 +45,18 @@ class DetailsViewModel @Inject constructor(
     /**
      * Details functionality
      */
-    fun updateGameStatus(game: Game, status: GameStatus) {
+    fun updateGameStatus(status: GameStatus) {
+        if (status == currentGame.value.status || status == GameStatus.EMPTY) {
+            _detailsState.value = DetailsState.StatusUpdateNotNeeded
+            return
+        }
         _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
-            val updatedGame = game.copy(status = status)
+            val updatedGame = currentGame.value.copy(status = status)
             gamesRepository.updateGameStatus(updatedGame)
                 .onSuccess {
                     _detailsState.value = DetailsState.StatusUpdateSuccess
-                    _currentGame.value = updatedGame
+                    _currentGame.value = _currentGame.value.copy(status = status)
                 }
                 .onFailure {
                     _detailsState.value = DetailsState.StatusUpdateFailure
