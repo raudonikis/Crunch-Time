@@ -19,6 +19,10 @@ class GamesRepository @Inject constructor(
     private val gameStatusMapper: GameStatusMapper,
 ) {
 
+    /**
+     * Search for a game with the specified [name]
+     * @return a list of [Game]
+     */
     suspend fun search(name: String): NetworkResponse<List<Game>> {
         return withContext(Dispatchers.IO) {
             /*safeNetworkResponse {
@@ -32,6 +36,10 @@ class GamesRepository @Inject constructor(
         }
     }
 
+    /**
+     * Get the details for the specific [game]
+     * @return [Game] with the same id and additional data
+     */
     suspend fun getGameDetails(game: Game): NetworkResponse<Game> {
         return withContext(Dispatchers.IO) {
             safeNetworkResponse {
@@ -43,6 +51,9 @@ class GamesRepository @Inject constructor(
         }
     }
 
+    /**
+     * Update the [GameStatus] for the specified game
+     */
     suspend fun updateGameStatus(game: Game): NetworkResponse<GameStatusResponse> {
         return withContext(Dispatchers.IO) {
             val gameStatus = gameStatusMapper.toJson(game.status)
@@ -52,41 +63,21 @@ class GamesRepository @Inject constructor(
         }
     }
 
+    /**
+     * Fetch a list of currently popular games
+     * @return a list of [Game]
+     */
+    suspend fun getPopularGames(): NetworkResponse<List<Game>> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.getPopularGames()
+                    .map { GameMapper.fromPopularGameResponseList(it) }
+            }
+        }
+    }
+
     suspend fun getGameCollection(gameStatus: GameStatus): NetworkResponse<List<Game>> {
-        delay(500)
-        return NetworkResponse(
-            true, listOf(
-                Game(
-                    name = "Game 1",
-                    description = "Game 1 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-                Game(
-                    name = "Game 2",
-                    description = "Game 2 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-                Game(
-                    name = "Game 3",
-                    description = "Game 3 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-                Game(
-                    name = "Game 4",
-                    description = "Game 4 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-                Game(
-                    name = "Game 5",
-                    description = "Game 5 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-                Game(
-                    name = "Game 6",
-                    description = "Game 6 description",
-                    coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg"
-                ),
-            ), null
-        )
+        delay(1000)
+        return NetworkResponse(true, testGames)
     }
 }

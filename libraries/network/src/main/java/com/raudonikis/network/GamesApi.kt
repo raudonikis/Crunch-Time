@@ -5,6 +5,7 @@ import com.raudonikis.network.auth.LoginResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
+import com.raudonikis.network.popular_games.PopularGameResponse
 import com.raudonikis.network.utils.NetworkResponse
 import retrofit2.http.*
 
@@ -29,7 +30,7 @@ interface GamesApi {
      * Popular/Trending lists
      */
     @GET("api/v1/games/popular")
-    suspend fun getPopularGames(): NetworkResponse<List<GameResponse>>
+    suspend fun getPopularGames(): NetworkResponse<List<PopularGameResponse>>
 
     /**
      * Activity
