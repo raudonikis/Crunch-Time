@@ -119,7 +119,7 @@ val testActivities = listOf(
     ),
     UserActivity(
         gameId = 2,
-        action = UserActivityAction.ActionGameRanked(
+        action = UserActivityAction.ActionGameRated(
             title = "Game 2",
             rating = GameRating.DOWN_VOTED,
         ),
@@ -127,7 +127,7 @@ val testActivities = listOf(
     ),
     UserActivity(
         gameId = 3,
-        action = UserActivityAction.ActionGameRanked(
+        action = UserActivityAction.ActionGameRated(
             title = "Game 3",
             rating = GameRating.UP_VOTED,
         ),

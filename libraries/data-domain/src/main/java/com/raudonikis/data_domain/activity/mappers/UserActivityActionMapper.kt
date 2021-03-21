@@ -1,26 +1,26 @@
 package com.raudonikis.data_domain.activity.mappers
 
 import com.raudonikis.data_domain.activity.models.UserActivityAction
-import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_rating.GameRating
-import com.raudonikis.network.activity.UserActivityDataResponse
+import com.raudonikis.data_domain.game_status.GameStatus
+import com.raudonikis.network.activity.UserActivityResponse
 
 object UserActivityActionMapper {
 
     /**
-     * To [UserActivityAction] from [UserActivityDataResponse]
+     * To [UserActivityAction] from [UserActivityResponse]
      */
-    fun fromUserActivityDataResponse(response: UserActivityDataResponse): UserActivityAction {
+    fun fromUserActivityDataResponse(response: UserActivityResponse): UserActivityAction {
         return when (response) {
-            is UserActivityDataResponse.ActionGameStatusUpdatedResponse -> {
+            is UserActivityResponse.UserActivityGameStatusResponse -> {
                 UserActivityAction.ActionGameStatusUpdated(
-                    status = GameStatus.fromString(response.status),
-                    title = response.gameName,
+                    status = GameStatus.fromString(response.data.status),
+                    title = response.data.gameName,
                 )
             }
-            is UserActivityDataResponse.ActionGameRankedResponse -> {
-                UserActivityAction.ActionGameRanked(
-                    title = response.name,
+            is UserActivityResponse.UserActivityGameRatedResponse -> {
+                UserActivityAction.ActionGameRated(
+                    title = response.data.name,
                     rating = GameRating.UP_VOTED
                 )
             }

@@ -9,7 +9,7 @@ sealed class UserActivityAction {
         val title: String,
     ) : UserActivityAction()
 
-    data class ActionGameRanked(
+    data class ActionGameRated(
         val title: String,
         val rating: GameRating,
     ) : UserActivityAction()

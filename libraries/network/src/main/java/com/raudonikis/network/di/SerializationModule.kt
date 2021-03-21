@@ -1,6 +1,6 @@
 package com.raudonikis.network.di
 
-import com.raudonikis.network.activity.UserActivityDataResponse
+import com.raudonikis.network.activity.UserActivityResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -28,11 +28,11 @@ object SerializationModule {
 
     @Provides
     internal fun provideMoshi(
-        userActivityDataResponseAdapter: PolymorphicJsonAdapterFactory<UserActivityDataResponse>,
+        userActivityResponseAdapter: PolymorphicJsonAdapterFactory<UserActivityResponse>,
         kotlinJsonAdapterFactory: KotlinJsonAdapterFactory
     ): Moshi {
         return Moshi.Builder()
-            .add(userActivityDataResponseAdapter)
+            .add(userActivityResponseAdapter)
             .addLast(kotlinJsonAdapterFactory)
             .build()
     }
@@ -43,19 +43,18 @@ object SerializationModule {
     }
 
     @Provides
-    internal fun provideUserActivityDataResponseAdapter(): PolymorphicJsonAdapterFactory<UserActivityDataResponse> {
+    internal fun provideUserActivityResponseAdapter(): PolymorphicJsonAdapterFactory<UserActivityResponse> {
         return PolymorphicJsonAdapterFactory.of(
-            UserActivityDataResponse::class.java,
-            UserActivityDataResponse.LABEL_ACTION
+            UserActivityResponse::class.java,
+            UserActivityResponse.LABEL_ACTION
         )
-            .withDefaultValue(UserActivityDataResponse.ActionGameRankedResponse("lol"))
             .withSubtype(
-                UserActivityDataResponse.ActionGameStatusUpdatedResponse::class.java,
-                UserActivityDataResponse.ACTION_GAME_STATUS_UPDATED
+                UserActivityResponse.UserActivityGameStatusResponse::class.java,
+                UserActivityResponse.ACTION_GAME_STATUS_UPDATED
             )
             .withSubtype(
-                UserActivityDataResponse.ActionGameRankedResponse::class.java,
-                UserActivityDataResponse.ACTION_GAME_RANKED
+                UserActivityResponse.UserActivityGameStatusResponse::class.java,
+                UserActivityResponse.ACTION_GAME_RANKED
             )
     }
 }

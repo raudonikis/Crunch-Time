@@ -2,18 +2,39 @@ package com.raudonikis.network.activity
 
 import com.squareup.moshi.Json
 
-data class UserActivityResponse(
-    @Json(name = "user_id")
-    val userId: String,
-    @Json(name = "game_id")
-    val gameId: Long,
-    @Json(name = "action")
-    val action: String,
-    @Json(name = "data")
-    val data: UserActivityDataResponse,
-    @Json(name = "cover_url")
-    val coverUrl: String? = null,
-)
+sealed class UserActivityResponse {
+    data class UserActivityGameStatusResponse(
+        @Json(name = "user_id")
+        val userId: String,
+        @Json(name = "game_id")
+        val gameId: Long,
+        @Json(name = "action")
+        val action: String,
+        @Json(name = "data")
+        val data: ActionGameStatusUpdatedResponse,
+        @Json(name = "cover_url")
+        val coverUrl: String? = null,
+    ) : UserActivityResponse()
+
+    data class UserActivityGameRatedResponse(
+        @Json(name = "user_id")
+        val userId: String,
+        @Json(name = "game_id")
+        val gameId: Long,
+        @Json(name = "action")
+        val action: String,
+        @Json(name = "data")
+        val data: ActionGameRatedResponse,
+        @Json(name = "cover_url")
+        val coverUrl: String? = null,
+    ) : UserActivityResponse()
+
+    companion object {
+        const val LABEL_ACTION = "action"
+        const val ACTION_GAME_STATUS_UPDATED = "game_status_updated"
+        const val ACTION_GAME_RANKED = "???" //todo
+    }
+}
 
 /**
  *

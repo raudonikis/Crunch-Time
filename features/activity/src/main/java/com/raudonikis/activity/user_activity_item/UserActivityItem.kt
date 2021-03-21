@@ -38,7 +38,7 @@ class UserActivityItem(val userActivity: UserActivity) :
                     textGameTitle.text = action.title
                     gameStatus.setGameStatus(action.status)
                 }
-                is UserActivityAction.ActionGameRanked -> {
+                is UserActivityAction.ActionGameRated -> {
                     gameStatus.hide()
                     iconRating.show()
                     textAction.text = "Ranked"

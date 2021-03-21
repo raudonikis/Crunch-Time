@@ -9,11 +9,22 @@ object UserActivityMapper {
      * To [UserActivity] from [UserActivityResponse]
      */
     private fun fromUserActivityResponse(response: UserActivityResponse): UserActivity {
-        return UserActivity(
-            gameId = response.gameId,
-            action = UserActivityActionMapper.fromUserActivityDataResponse(response.data),
-            coverUrl = response.coverUrl
-        )
+        when (response) {
+            is UserActivityResponse.UserActivityGameStatusResponse -> {
+                return UserActivity(
+                    gameId = response.gameId,
+                    action = UserActivityActionMapper.fromUserActivityDataResponse(response),
+                    coverUrl = response.coverUrl,
+                )
+            }
+            is UserActivityResponse.UserActivityGameRatedResponse -> {
+                return UserActivity(
+                    gameId = response.gameId,
+                    action = UserActivityActionMapper.fromUserActivityDataResponse(response),
+                    coverUrl = response.coverUrl
+                )
+            }
+        }
     }
 
     /**
