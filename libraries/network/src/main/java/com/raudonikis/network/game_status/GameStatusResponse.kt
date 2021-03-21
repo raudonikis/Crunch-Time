@@ -4,7 +4,9 @@ import com.squareup.moshi.Json
 
 data class GameStatusResponse(
     @Json(name = "status")
-    val status: String
+    val status: String,
+    @Json(name = "game_id")
+    val gameId: Long,
 )
 
 /**

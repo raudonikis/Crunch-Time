@@ -2,8 +2,9 @@ package com.raudonikis.data_domain.database.game.daos
 
 import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data_domain.game.models.Game
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.network.game_status.GameStatusResponse
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -29,5 +30,20 @@ class GameDaoImpl @Inject constructor() : GameDao {
 
     override suspend fun updatePopularGames(games: List<Game>) {
         popularGames.value = Outcome.success(games)
+    }
+
+    /**
+     * Game status
+     */
+    override suspend fun updateGameStatus(gameStatusResponse: GameStatusResponse) {
+        popularGames.value = popularGames.value.map { games ->
+            games.map { game ->
+                if (game.id == gameStatusResponse.gameId) {
+                    game.copy(status = GameStatus.fromString(gameStatusResponse.status))
+                } else {
+                    game
+                }
+            }
+        }
     }
 }

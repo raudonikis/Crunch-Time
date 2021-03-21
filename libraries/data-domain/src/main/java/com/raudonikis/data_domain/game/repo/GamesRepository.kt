@@ -65,6 +65,9 @@ class GamesRepository @Inject constructor(
             val gameStatus = GameStatusMapper.toGameStatusRequestBody(game.status)
             safeNetworkResponse {
                 gamesApi.updateGameStatus(game.id, gameStatus)
+                    .onSuccess {
+                        gameDao.updateGameStatus(it)
+                    }
             }
         }
     }
