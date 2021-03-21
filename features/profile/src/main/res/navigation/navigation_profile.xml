@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_game_collection">
         <argument
             android:name="gameStatus"
-            app:argType="com.raudonikis.data_domain.game.models.GameStatus" />
+            app:argType="com.raudonikis.data_domain.game_status.GameStatus" />
         <action
             android:id="@+id/action_gameCollectionFragment_to_navigation_details"
             app:destination="@id/navigation_details">
