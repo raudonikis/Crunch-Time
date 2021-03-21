@@ -8,7 +8,6 @@ sealed class UserActivityDataResponse {
         val status: String,
         @Json(name = "game_name")
         val gameName: String,
-        val coverUrl: String?
     ) : UserActivityDataResponse()
 
     data class ActionGameRankedResponse(val name: String) : UserActivityDataResponse()

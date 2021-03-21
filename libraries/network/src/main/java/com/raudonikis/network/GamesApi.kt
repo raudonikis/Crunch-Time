@@ -37,7 +37,7 @@ interface GamesApi {
      * Activity
      */
     @GET("api/v1/activities")
-    suspend fun getUserActivities(): NetworkResponse<List<UserActivityResponse>>
+    suspend fun getUserActivity(): NetworkResponse<List<UserActivityResponse>>
 
     /**
      * Authentication

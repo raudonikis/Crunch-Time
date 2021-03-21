@@ -15,10 +15,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 @InstallIn(SingletonComponent::class)
 object SerializationModule {
 
-    /*@Provides
-    internal fun provideNetworkResponseAdapterFactory(): NetworkResponseAdapterFactory {
-        return NetworkResponseAdapterFactory()
-    }*/
 
     @Provides
     internal fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {
@@ -52,6 +48,7 @@ object SerializationModule {
             UserActivityDataResponse::class.java,
             UserActivityDataResponse.LABEL_ACTION
         )
+            .withDefaultValue(UserActivityDataResponse.ActionGameRankedResponse("lol"))
             .withSubtype(
                 UserActivityDataResponse.ActionGameStatusUpdatedResponse::class.java,
                 UserActivityDataResponse.ACTION_GAME_STATUS_UPDATED

@@ -6,10 +6,11 @@ import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserActivityDaoImpl : UserActivityDao {
+class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
 
     /**
      * Data
