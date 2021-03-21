@@ -14,8 +14,8 @@ import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
-import com.raudonikis.common_ui.game_cover.GameItem
-import com.raudonikis.common_ui.game_cover.GameItemMapper
+import com.raudonikis.common_ui.game_item.GameItem
+import com.raudonikis.common_ui.game_item.GameItemMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding

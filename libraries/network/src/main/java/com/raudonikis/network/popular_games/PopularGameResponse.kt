@@ -12,7 +12,7 @@ data class PopularGameResponse(
     @Json(name = "name")
     val name: String,
     @Json(name = "summary")
-    val summary: String,
+    val summary: String = "",
     @Json(name = "game_status")
     val gameStatus: String,
     @Json(name = "first_release_date")

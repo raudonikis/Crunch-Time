@@ -24,8 +24,7 @@ fun FragmentDetailsBinding.bindGame(
     bindGameReleaseDate(game)
     bindGameDescription(context, game)
     bindGameGenres(context, game)
-    bindGameStatus(game)
-    bindGameCover(game)
+    bindGameItem(game)
     bindGameWallpaper(game)
     bindGameScreenshots(game, screenshotAdapter)
 }
@@ -49,19 +48,8 @@ private fun FragmentDetailsBinding.bindGameGenres(context: Context, game: Game) 
     }
 }
 
-private fun FragmentDetailsBinding.bindGameStatus(game: Game) {
-//    gameStatus.text = game.status.toString()
-}
-
-private fun FragmentDetailsBinding.bindGameCover(game: Game) {
-    game.coverUrl?.let { url ->
-        Glide
-            .with(root)
-            .load(url.prefixHttps())
-            .placeholder(R.drawable.game_placeholder)
-            .centerCrop()
-            .into(imageCover)
-    }
+private fun FragmentDetailsBinding.bindGameItem(game: Game) {
+    gameItem.bindGame(game)
 }
 
 private fun FragmentDetailsBinding.bindGameWallpaper(game: Game) {

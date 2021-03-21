@@ -38,23 +38,12 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="@dimen/game_cover_start_guideline" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_image_cover"
-            android:layout_width="@dimen/game_cover_width"
-            android:layout_height="@dimen/game_cover_height"
-            app:cardCornerRadius="?spacingSmall"
+        <com.raudonikis.common_ui.components.GameItemLayout
+            android:id="@+id/game_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/guideline_cover_top"
-            tools:backgroundTint="?colorPrimary">
-
-            <ImageView
-                android:id="@+id/image_cover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/game_placeholder" />
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/guideline_cover_top" />
 
         <TextView
             android:id="@+id/label_title"
@@ -64,7 +53,7 @@
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingMedium"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toEndOf="@id/card_image_cover"
+            app:layout_constraintStart_toEndOf="@id/game_item"
             app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
             tools:text="Game title" />
 
@@ -96,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="label_developer,card_image_cover" />
+            app:constraint_referenced_ids="label_developer,game_item" />
 
         <View
             android:id="@+id/divider_cover_with_description"

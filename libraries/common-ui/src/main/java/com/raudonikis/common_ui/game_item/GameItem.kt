@@ -1,4 +1,4 @@
-package com.raudonikis.common_ui.game_cover
+package com.raudonikis.common_ui.game_item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

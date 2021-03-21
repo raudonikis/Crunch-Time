@@ -1,4 +1,4 @@
-package com.raudonikis.common_ui.game_cover
+package com.raudonikis.common_ui.game_item
 
 import com.raudonikis.data_domain.game.models.Game
 
