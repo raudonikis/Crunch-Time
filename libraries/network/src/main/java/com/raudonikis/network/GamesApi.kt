@@ -40,6 +40,12 @@ interface GamesApi {
     suspend fun getUserActivity(): NetworkResponse<List<UserActivityResponse>>
 
     /**
+     * Deals
+     */
+    @GET("api/v1/deal/search")
+    suspend fun searchGameDeals(@Query("name") name: String): NetworkResponse<List<Unit>>
+
+    /**
      * Authentication
      */
     @POST("api/user/login")
