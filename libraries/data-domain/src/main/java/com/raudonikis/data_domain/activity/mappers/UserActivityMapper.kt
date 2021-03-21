@@ -13,7 +13,8 @@ object UserActivityMapper {
     private fun fromUserActivityResponse(response: UserActivityResponse): UserActivity {
         return UserActivity(
             gameId = response.gameId,
-            action = UserActivityActionMapper.fromUserActivityDataResponse(response.data)
+            action = UserActivityActionMapper.fromUserActivityDataResponse(response.data),
+            coverUrl = response.coverUrl
         )
     }
 

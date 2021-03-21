@@ -11,6 +11,8 @@ data class UserActivityResponse(
     val action: String,
     @Json(name = "data")
     val data: UserActivityDataResponse,
+    @Json(name = "cover_url")
+    val coverUrl: String? = null,
 )
 
 /**

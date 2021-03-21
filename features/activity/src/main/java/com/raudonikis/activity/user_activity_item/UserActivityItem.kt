@@ -29,6 +29,7 @@ class UserActivityItem(val userActivity: UserActivity) :
 
     override fun bindView(binding: ItemUserActivityBinding, payloads: List<Any>) {
         with(binding) {
+            bindGameCover(userActivity.coverUrl)
             when (val action = userActivity.action) {
                 is UserActivityAction.ActionGameStatusUpdated -> {
                     iconRating.hide()
@@ -36,7 +37,6 @@ class UserActivityItem(val userActivity: UserActivity) :
                     textAction.text = "Updated"
                     textGameTitle.text = action.title
                     gameStatus.setGameStatus(action.status)
-                    bindGameCover(action.coverUrl)
                 }
                 is UserActivityAction.ActionGameRanked -> {
                     gameStatus.hide()
@@ -44,7 +44,6 @@ class UserActivityItem(val userActivity: UserActivity) :
                     textAction.text = "Ranked"
                     textGameTitle.text = action.title
                     bindGameRating(action.rating)
-                    bindGameCover(action.coverUrl)
                 }
             }
         }
