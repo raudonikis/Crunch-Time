@@ -35,11 +35,11 @@ class GameDaoImpl @Inject constructor() : GameDao {
     /**
      * Game status
      */
-    override suspend fun updateGameStatus(gameStatusResponse: GameStatusResponse) {
+    override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
         popularGames.value = popularGames.value.map { games ->
             games.map { game ->
-                if (game.id == gameStatusResponse.gameId) {
-                    game.copy(status = GameStatus.fromString(gameStatusResponse.status))
+                if (game.id == id) {
+                    game.copy(status = gameStatus)
                 } else {
                     game
                 }

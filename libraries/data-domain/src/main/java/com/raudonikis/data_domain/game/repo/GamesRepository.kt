@@ -66,7 +66,7 @@ class GamesRepository @Inject constructor(
             safeNetworkResponse {
                 gamesApi.updateGameStatus(game.id, gameStatus)
                     .onSuccess {
-                        gameDao.updateGameStatus(it)
+                        gameDao.updateGameStatus(game.id, game.status)
                     }
             }
         }
