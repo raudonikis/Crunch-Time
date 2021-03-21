@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.raudonikis.common_ui.extensions.check
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.DialogGameStatusSelectBinding
 

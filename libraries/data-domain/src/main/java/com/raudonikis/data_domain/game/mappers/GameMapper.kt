@@ -2,7 +2,7 @@ package com.raudonikis.data_domain.game.mappers
 
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
 import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
 import com.raudonikis.data_domain.game_video.mappers.GameVideoMapper

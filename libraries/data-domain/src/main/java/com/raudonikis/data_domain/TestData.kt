@@ -3,7 +3,7 @@ package com.raudonikis.data_domain
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_video.GameVideo
 
@@ -114,39 +114,39 @@ val testActivities = listOf(
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 1",
             status = GameStatus.WANT,
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         ),
+        coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
     UserActivity(
         gameId = 2,
         action = UserActivityAction.ActionGameRanked(
             title = "Game 2",
             rating = GameRating.DOWN_VOTED,
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         ),
+        coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
     UserActivity(
         gameId = 3,
         action = UserActivityAction.ActionGameRanked(
             title = "Game 3",
             rating = GameRating.UP_VOTED,
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         ),
+        coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
     UserActivity(
         gameId = 4,
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 4",
             status = GameStatus.PLAYED,
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         ),
+        coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
     UserActivity(
         gameId = 5,
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 5",
             status = GameStatus.PLAYING,
-            coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         ),
+        coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
 )

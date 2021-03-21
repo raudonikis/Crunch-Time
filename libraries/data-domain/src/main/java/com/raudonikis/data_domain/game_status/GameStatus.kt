@@ -1,4 +1,4 @@
-package com.raudonikis.data_domain.game.models
+package com.raudonikis.data_domain.game_status
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

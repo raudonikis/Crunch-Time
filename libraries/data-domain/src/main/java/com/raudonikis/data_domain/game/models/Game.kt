@@ -3,6 +3,7 @@ package com.raudonikis.data_domain.game.models
 import android.os.Parcelable
 import com.raudonikis.data_domain.game_genre.GameGenre
 import com.raudonikis.data_domain.game_screenshot.GameScreenshot
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_video.GameVideo
 import kotlinx.parcelize.Parcelize
 

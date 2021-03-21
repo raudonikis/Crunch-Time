@@ -1,8 +1,9 @@
-package com.raudonikis.data_domain.database.game.daos
+package com.raudonikis.data_domain.game.cache.daos
 
 import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatusUtils
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -52,26 +53,8 @@ class GameDaoImpl @Inject constructor() : GameDao {
      * Game status
      */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        popularGames.value = mapGameStatus(popularGames.value, id, gameStatus)
-        gameSearchResults.value = mapGameStatus(gameSearchResults.value, id, gameStatus)
-    }
-
-    /**
-     * Updates the [GameStatus] for games with the same [id]
-     */
-    private fun mapGameStatus(
-        outcome: Outcome<List<Game>>,
-        id: Long,
-        gameStatus: GameStatus
-    ): Outcome<List<Game>> {
-        return outcome.map { games ->
-            games.map { game ->
-                if (game.id == id) {
-                    game.copy(status = gameStatus)
-                } else {
-                    game
-                }
-            }
-        }
+        popularGames.value = GameStatusUtils.updateGameStatusForGames(popularGames.value, id, gameStatus)
+        gameSearchResults.value =
+            GameStatusUtils.updateGameStatusForGames(gameSearchResults.value, id, gameStatus)
     }
 }

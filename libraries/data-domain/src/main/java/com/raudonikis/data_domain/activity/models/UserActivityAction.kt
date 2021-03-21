@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.activity.models
 
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_rating.GameRating
 
 sealed class UserActivityAction {

@@ -3,7 +3,7 @@ package com.raudonikis.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel

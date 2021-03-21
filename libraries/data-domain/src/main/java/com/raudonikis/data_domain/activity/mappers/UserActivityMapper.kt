@@ -1,8 +1,6 @@
 package com.raudonikis.data_domain.activity.mappers
 
 import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.activity.models.UserActivityAction
-import com.raudonikis.data_domain.game.models.GameStatus
 import com.raudonikis.network.activity.UserActivityResponse
 
 object UserActivityMapper {

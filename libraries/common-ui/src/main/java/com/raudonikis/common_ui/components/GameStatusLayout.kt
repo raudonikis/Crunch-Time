@@ -8,7 +8,7 @@ import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.LayoutGameStatusBinding
-import com.raudonikis.data_domain.game.models.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatus
 
 class GameStatusLayout(context: Context, attributeSet: AttributeSet) :
     FrameLayout(context, attributeSet) {
