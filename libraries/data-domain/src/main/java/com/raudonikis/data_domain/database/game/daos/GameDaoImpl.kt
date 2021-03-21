@@ -52,20 +52,19 @@ class GameDaoImpl @Inject constructor() : GameDao {
      * Game status
      */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        listOf(popularGames, gameSearchResults).forEach { gamesFlow ->
-            mapGameStatus(gamesFlow, id, gameStatus)
-        }
+        popularGames.value = mapGameStatus(popularGames.value, id, gameStatus)
+        gameSearchResults.value = mapGameStatus(gameSearchResults.value, id, gameStatus)
     }
 
     /**
      * Updates the [GameStatus] for games with the same [id]
      */
     private fun mapGameStatus(
-        gamesFlow: StateFlow<Outcome<List<Game>>>,
+        outcome: Outcome<List<Game>>,
         id: Long,
         gameStatus: GameStatus
     ): Outcome<List<Game>> {
-        return gamesFlow.value.map { games ->
+        return outcome.map { games ->
             games.map { game ->
                 if (game.id == id) {
                     game.copy(status = gameStatus)
