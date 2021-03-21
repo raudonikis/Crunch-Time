@@ -19,7 +19,6 @@ import com.raudonikis.common_ui.game_cover.GameItemMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
-import com.raudonikis.discover.popular_games.PopularGamesState
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
@@ -113,6 +112,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         viewModel.popularGamesState
             .onEach { updatePopularGamesState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.gameSearchState
+            .onEach { updateSearchState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     private fun updatePopularGamesState(outcome: Outcome<List<Game>>) {
@@ -121,38 +123,47 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 popularGamesItemAdapter.update(GameItemMapper.fromGameList(it))
             }
             .onFailure {
-                Toast.makeText(requireContext(), "popular games failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Popular games failed", Toast.LENGTH_LONG).show()
             }
-            .onEmpty {}
+            .onEmpty {
+                Toast.makeText(requireContext(), "Popular games empty", Toast.LENGTH_LONG).show()
+            }
             .onLoading {
-                Toast.makeText(requireContext(), "popular games loading", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Popular games loading", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateSearchState(outcome: Outcome<List<Game>>) {
+        outcome
+            .onSuccess {
+                binding.groupSearchLoading.hide()
+                searchResultsAdapter.submitList(it)
+            }
+            .onFailure {
+                searchResultsAdapter.submitList(emptyList())
+                binding.groupSearchLoading.hide()
+                Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_LONG).show()
+            }
+            .onEmpty {
+                searchResultsAdapter.submitList(emptyList())
+                binding.groupSearchLoading.hide()
+            }
+            .onLoading {
+                searchResultsAdapter.submitList(emptyList())
+                binding.groupSearchLoading.show()
             }
     }
 
     private fun updateDiscoverState(state: DiscoverState) {
         when (state) {
             is DiscoverState.Discover -> {
-                updateGameListsVisibility(true)
-                updateLoadingVisibility(false)
-                updateSearchVisibility(false)
+                binding.groupDiscover.show()
+                binding.groupSearch.hide()
+                binding.groupSearchLoading.hide()
             }
-            is DiscoverState.Searching -> {
-                updateGameListsVisibility(false)
-                updateLoadingVisibility(true)
-                updateSearchVisibility(false)
-            }
-            is DiscoverState.SearchSuccess -> {
-                updateGameListsVisibility(false)
-                updateLoadingVisibility(false)
-                updateSearchVisibility(true)
-                searchResultsAdapter.submitList(state.results)
-            }
-            is DiscoverState.SearchFailure -> {
-                updateGameListsVisibility(true)
-                updateLoadingVisibility(false)
-                updateSearchVisibility(false)
-                searchResultsAdapter.submitList(emptyList())
-                Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
+            is DiscoverState.Search -> {
+                binding.groupDiscover.hide()
+                binding.groupSearch.show()
             }
         }
     }

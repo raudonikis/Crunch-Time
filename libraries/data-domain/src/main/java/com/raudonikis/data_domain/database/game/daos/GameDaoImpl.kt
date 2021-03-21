@@ -14,7 +14,9 @@ class GameDaoImpl @Inject constructor() : GameDao {
     /**
      * Data
      */
-    private var popularGames: MutableStateFlow<Outcome<List<Game>>> =
+    private val popularGames: MutableStateFlow<Outcome<List<Game>>> =
+        MutableStateFlow(Outcome.empty())
+    private val gameSearchResults: MutableStateFlow<Outcome<List<Game>>> =
         MutableStateFlow(Outcome.empty())
 
     /**
@@ -30,6 +32,21 @@ class GameDaoImpl @Inject constructor() : GameDao {
 
     override suspend fun updatePopularGames(games: List<Game>) {
         popularGames.value = Outcome.success(games)
+    }
+
+    /**
+     * Game search
+     */
+    override fun getGameSearchResults(): Flow<Outcome<List<Game>>> {
+        return gameSearchResults
+    }
+
+    override fun setGameSearchResultsOutcome(outcome: Outcome<List<Game>>) {
+        gameSearchResults.value = outcome
+    }
+
+    override suspend fun updateGameSearchResults(games: List<Game>) {
+        gameSearchResults.value = Outcome.success(games)
     }
 
     /**

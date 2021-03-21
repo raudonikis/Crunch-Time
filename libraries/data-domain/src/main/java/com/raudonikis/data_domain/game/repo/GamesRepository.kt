@@ -26,20 +26,29 @@ class GamesRepository @Inject constructor(
      * Observables
      */
     fun getPopularGames(): Flow<Outcome<List<Game>>> = gameDao.getPopularGames()
+    fun getGameSearchResults(): Flow<Outcome<List<Game>>> = gameDao.getGameSearchResults()
 
     /**
      * Search for a game with the specified [name]
      * @return a list of [Game]
      */
-    suspend fun search(name: String): NetworkResponse<List<Game>> {
-        return withContext(Dispatchers.IO) {
+    suspend fun search(name: String): Outcome<List<Game>> {
+        gameDao.setGameSearchResultsOutcome(Outcome.loading())
+        withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.search(name)
                     .map {
                         GameMapper.fromGameSearchResponseList(it)
                     }
             }
+        }.toOutcome().also { outcome ->
+            gameDao.setGameSearchResultsOutcome(outcome)
+            return outcome
         }
+    }
+
+    fun clearSearchResults() {
+        gameDao.setGameSearchResultsOutcome(Outcome.empty())
     }
 
     /**

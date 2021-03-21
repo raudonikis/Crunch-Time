@@ -19,9 +19,9 @@ object GameMapper {
         return Game(
             id = response.id,
             name = response.name,
-            description = response.summary ?: "",
+            description = response.summary,
             coverUrl = response.cover?.url,
-            releaseDate = response.releaseDate ?: "",
+            releaseDate = response.releaseDate,
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.genres),
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.screenshots),
             status = GameStatus.fromString(response.gameStatus),

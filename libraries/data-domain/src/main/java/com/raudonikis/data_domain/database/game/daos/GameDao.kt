@@ -15,6 +15,13 @@ interface GameDao {
     suspend fun updatePopularGames(games: List<Game>)
 
     /**
+     * Game search
+     */
+    fun getGameSearchResults(): Flow<Outcome<List<Game>>>
+    fun setGameSearchResultsOutcome(outcome: Outcome<List<Game>>)
+    suspend fun updateGameSearchResults(games: List<Game>)
+
+    /**
      * Game status
      */
     suspend fun updateGameStatus(id: Long, gameStatus: GameStatus)

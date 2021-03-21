@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.repo.GamesRepository
-import com.raudonikis.discover.popular_games.PopularGamesState
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +37,7 @@ class DiscoverViewModel @Inject constructor(
      */
     val discoverState: StateFlow<DiscoverState> = _discoverState
     val popularGamesState = gamesRepository.getPopularGames()
+    val gameSearchState = gamesRepository.getGameSearchResults()
 
     init {
         updatePopularGames()
@@ -51,20 +51,12 @@ class DiscoverViewModel @Inject constructor(
         searchJob?.cancel()
         if (query.isBlank()) {
             _discoverState.value = DiscoverState.Discover
+            gamesRepository.clearSearchResults()
             return
         }
-        _discoverState.value = DiscoverState.Searching
+        _discoverState.value = DiscoverState.Search
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             gamesRepository.search(query)
-                .onSuccess {
-                    _discoverState.value = DiscoverState.SearchSuccess(it)
-                }
-                .onEmpty {
-                    _discoverState.value = DiscoverState.SearchFailure
-                }
-                .onFailure {
-                    _discoverState.value = DiscoverState.SearchFailure
-                }
         }
     }
 
@@ -83,6 +75,7 @@ class DiscoverViewModel @Inject constructor(
     fun onSearchQueryCleared() {
         searchQuery = ""
         searchJob?.cancel()
+        gamesRepository.clearSearchResults()
         _discoverState.value = DiscoverState.Discover
     }
 

@@ -13,13 +13,13 @@ data class GameSearchResponse(
     @Json(name = "cover")
     val cover: GameCoverResponse?,
     @Json(name = "first_release_date")
-    val releaseDate: String?,
+    val releaseDate: String = "",
     @Json(name = "aggregated_rating")
     val rating: Double?,
     @Json(name = "screenshots")
-    val screenshots: List<GameScreenshotResponse>?,
+    val screenshots: List<GameScreenshotResponse> = listOf(),
     @Json(name = "genres")
-    val genres: List<GameGenreResponse>,
+    val genres: List<GameGenreResponse> = listOf(),
     @Json(name = "id")
     val id: Long,
 //    val involvedCompanies: List<InvolvedCompany>,
@@ -27,9 +27,9 @@ data class GameSearchResponse(
     val name: String,
 //    val platforms: List<Platform>,
     @Json(name = "summary")
-    val summary: String?,
+    val summary: String = "",
     @Json(name = "game_status")
-    val gameStatus: String?,
+    val gameStatus: String = "",
 )
 
 /**

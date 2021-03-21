@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="0dp">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="popular_games, trending_games" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="loading_search, recycler_search_results, text_loading" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="loading_search, text_loading" />
+
     <com.raudonikis.common_ui.components.HeaderLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
@@ -21,7 +40,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="?spacingNormal"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_loading"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_search" />
