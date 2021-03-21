@@ -16,6 +16,7 @@ import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.raudonikis.details.game_status.GameStatusSelectDialogFragment
+import com.raudonikis.details.review.ReviewDialogFragment
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -76,6 +77,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     setGameStatus(viewModel.currentGame.value.status)
                     setOnUpdateClicked { viewModel.updateGameStatus(it) }
                 }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
+            }
+            buttonReview.setOnClickListener {
+                ReviewDialogFragment().show(parentFragmentManager, ReviewDialogFragment.TAG_REVIEW)
             }
         }
     }

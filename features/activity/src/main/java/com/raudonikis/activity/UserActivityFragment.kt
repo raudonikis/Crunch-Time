@@ -15,6 +15,7 @@ import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.data_domain.activity.models.UserActivity
+import com.raudonikis.data_domain.testActivities
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -53,6 +54,7 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                 )
             )
         }
+        userActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(testActivities))
     }
 
     private fun setUpObservers() {
@@ -67,12 +69,14 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                 userActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(it))
             }
             .onFailure {
-                Toast.makeText(requireContext(), "Failure", Toast.LENGTH_SHORT).show()}
+                Toast.makeText(requireContext(), "Failure", Toast.LENGTH_SHORT).show()
+            }
             .onLoading {
                 Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
             }
             .onEmpty {
-                Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show() }
+                Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }
