@@ -25,8 +25,6 @@ class DiscoverViewModel @Inject constructor(
      */
     private val _discoverState: MutableStateFlow<DiscoverState> =
         MutableStateFlow(DiscoverState.Discover)
-    private val _popularGamesState: MutableStateFlow<PopularGamesState> =
-        MutableStateFlow(PopularGamesState.Initial)
 
     /**
      * Search data
@@ -39,7 +37,7 @@ class DiscoverViewModel @Inject constructor(
      * Observables
      */
     val discoverState: StateFlow<DiscoverState> = _discoverState
-    val popularGamesState: StateFlow<PopularGamesState> = _popularGamesState
+    val popularGamesState = gamesRepository.getPopularGames()
 
     init {
         updatePopularGames()
@@ -73,18 +71,9 @@ class DiscoverViewModel @Inject constructor(
     /**
      * Popular/Trending games
      */
-    fun updatePopularGames() {
+    private fun updatePopularGames() {
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.getPopularGames()
-                .onSuccess {
-                    _popularGamesState.value = PopularGamesState.Success(it)
-                }
-                .onFailure {
-                    _popularGamesState.value = PopularGamesState.Failure
-                }
-                .onEmpty {
-                    _popularGamesState.value = PopularGamesState.Failure
-                }
+            gamesRepository.updatePopularGames()
         }
     }
 

@@ -1,5 +1,6 @@
 package com.raudonikis.network.utils
 
+import com.raudonikis.common.extensions.Outcome
 import com.squareup.moshi.Json
 import timber.log.Timber
 
@@ -61,5 +62,19 @@ data class NetworkResponse<T>(
             f()
         }
         return this
+    }
+
+    fun toOutcome(): Outcome<T> {
+        this
+            .onSuccess {
+                return Outcome.success(it)
+            }
+            .onFailure {
+                return Outcome.failure()
+            }
+            .onEmpty {
+                return Outcome.empty()
+            }
+        return Outcome.failure()
     }
 }

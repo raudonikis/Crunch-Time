@@ -1,5 +1,7 @@
 package com.raudonikis.data_domain.game.repo
 
+import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.data_domain.database.game.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.mappers.GameStatusMapper
 import com.raudonikis.data_domain.game.models.Game
@@ -11,12 +13,19 @@ import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GamesRepository @Inject constructor(
     private val gamesApi: GamesApi,
+    private val gameDao: GameDao,
 ) {
+
+    /**
+     * Observables
+     */
+    fun getPopularGames(): Flow<Outcome<List<Game>>> = gameDao.getPopularGames()
 
     /**
      * Search for a game with the specified [name]
@@ -61,15 +70,19 @@ class GamesRepository @Inject constructor(
     }
 
     /**
-     * Fetch a list of currently popular games
-     * @return a list of [Game]
+     * Fetch a list of currently popular games and update the database
+     * @return [Outcome] with information about the operation success
      */
-    suspend fun getPopularGames(): NetworkResponse<List<Game>> {
-        return withContext(Dispatchers.IO) {
+    suspend fun updatePopularGames(): Outcome<List<Game>> {
+        gameDao.setPopularGamesOutcome(Outcome.loading())
+        withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.getPopularGames()
                     .map { GameMapper.fromPopularGameResponseList(it) }
             }
+        }.toOutcome().also { outcome ->
+            gameDao.setPopularGamesOutcome(outcome)
+            return outcome
         }
     }
 

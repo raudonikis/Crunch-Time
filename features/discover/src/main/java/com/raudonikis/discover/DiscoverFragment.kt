@@ -8,10 +8,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.prefixHttps
-import com.raudonikis.common.extensions.show
-import com.raudonikis.common.extensions.showIf
+import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
@@ -118,18 +115,18 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             .observeInLifecycle(viewLifecycleOwner)
     }
 
-    private fun updatePopularGamesState(state: PopularGamesState) {
-        when (state) {
-            is PopularGamesState.Success -> {
-                popularGamesItemAdapter.update(GameItemMapper.fromGameList(state.games))
+    private fun updatePopularGamesState(outcome: Outcome<List<Game>>) {
+        outcome
+            .onSuccess {
+                popularGamesItemAdapter.update(GameItemMapper.fromGameList(it))
             }
-            is PopularGamesState.Failure -> {
-                Toast.makeText(requireContext(), "popular games failed", Toast.LENGTH_SHORT).show()
+            .onFailure {
+                Toast.makeText(requireContext(), "popular games failed", Toast.LENGTH_LONG).show()
             }
-            is PopularGamesState.Loading -> {
+            .onEmpty {}
+            .onLoading {
                 Toast.makeText(requireContext(), "popular games loading", Toast.LENGTH_SHORT).show()
             }
-        }
     }
 
     private fun updateDiscoverState(state: DiscoverState) {
