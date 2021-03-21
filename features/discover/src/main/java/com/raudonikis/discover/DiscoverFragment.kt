@@ -11,6 +11,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding
+import com.raudonikis.common_ui.extensions.hideKeyboard
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
@@ -78,7 +79,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             recyclerSearchResults.adapter = searchResultsAdapter
             layoutHeader.getSearchComponent().apply {
                 setSearchQuery(viewModel.searchQuery)
-                setOnClearClick { viewModel.onSearchQueryCleared() }
+                setOnClearClick {
+                    viewModel.onSearchQueryCleared()
+                }
             }
         }
     }
@@ -103,8 +106,11 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
      */
     private fun setUpObservers() {
         binding.layoutHeader.getSearchComponent().asFlow()
-            .debounce(800)
-            .onEach { viewModel.search(it) }
+            .debounce(1000)
+            .onEach {
+                hideKeyboard()
+                viewModel.search(it)
+            }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.discoverState
             .onEach { updateDiscoverState(it) }
@@ -165,48 +171,6 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 binding.groupDiscover.hide()
                 binding.groupSearch.show()
             }
-        }
-    }
-
-    /**
-     * Update the visibility of every game list
-     * GameLists affected -> [popularGamesAdapter], [trendingGamesAdapter]
-     */
-    private fun updateGameListsVisibility(isShown: Boolean) {
-        binding.apply {
-            if (isShown) {
-                popularGames.show()
-                trendingGames.show()
-            } else {
-                popularGames.hide()
-                trendingGames.hide()
-            }
-        }
-    }
-
-    /**
-     * Update the visibility of loading indicators
-     */
-    private fun updateLoadingVisibility(isShown: Boolean) {
-        binding.apply {
-            if (isShown) {
-                textLoading.show()
-                loadingSearch.show()
-                loadingSearch.playAnimation()
-            } else {
-                loadingSearch.hide()
-                loadingSearch.cancelAnimation()
-                textLoading.hide()
-            }
-        }
-    }
-
-    /**
-     * Update the visibility of search results
-     */
-    private fun updateSearchVisibility(isShown: Boolean) {
-        binding.apply {
-            recyclerSearchResults.showIf { isShown }
         }
     }
 }
