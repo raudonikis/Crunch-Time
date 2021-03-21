@@ -3,7 +3,6 @@ package com.raudonikis.data_domain.database.game.daos
 import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameStatus
-import com.raudonikis.network.game_status.GameStatusResponse
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -53,7 +52,20 @@ class GameDaoImpl @Inject constructor() : GameDao {
      * Game status
      */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        popularGames.value = popularGames.value.map { games ->
+        listOf(popularGames, gameSearchResults).forEach { gamesFlow ->
+            mapGameStatus(gamesFlow, id, gameStatus)
+        }
+    }
+
+    /**
+     * Updates the [GameStatus] for games with the same [id]
+     */
+    private fun mapGameStatus(
+        gamesFlow: StateFlow<Outcome<List<Game>>>,
+        id: Long,
+        gameStatus: GameStatus
+    ): Outcome<List<Game>> {
+        return gamesFlow.value.map { games ->
             games.map { game ->
                 if (game.id == id) {
                     game.copy(status = gameStatus)
