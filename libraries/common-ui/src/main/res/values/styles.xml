@@ -44,5 +44,7 @@
         <item name="textAppearanceBodyTinyInverted">@style/TextAppearance.Body.Inverted</item>
         <item name="textAppearanceAction">@style/TextAppearance.Action</item>
         <item name="textAppearanceSecondary">@style/TextAppearance.Secondary</item>
+        <!-- Chips -->
+        <item name="chipStyle">@style/Chip.Action</item>
     </style>
 </resources>

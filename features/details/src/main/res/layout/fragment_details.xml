@@ -51,10 +51,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
-            android:layout_marginTop="?spacingMedium"
+            android:layout_marginTop="?spacingTiny"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/game_item"
-            app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
+            app:layout_constraintTop_toBottomOf="@id/label_developer"
             tools:text="Game title" />
 
         <TextView
@@ -69,15 +69,48 @@
             tools:text="2017, February 28" />
 
         <TextView
+            android:id="@+id/rating_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="?spacingTiny"
+            android:layout_marginTop="?spacingNormal"
+            android:text="514"
+            app:drawableStartCompat="@drawable/ic_like"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/game_item" />
+
+        <TextView
+            android:id="@+id/rating_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="?spacingTiny"
+            android:text="12"
+            app:drawableStartCompat="@drawable/ic_dislike"
+            app:layout_constraintStart_toEndOf="@id/rating_like"
+            app:layout_constraintTop_toTopOf="@id/rating_like" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/button_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingSmall"
+            android:text="Review"
+            app:layout_constraintBottom_toBottomOf="@id/rating_like"
+            app:layout_constraintStart_toEndOf="@id/rating_dislike"
+            app:layout_constraintTop_toTopOf="@id/rating_like" />
+
+        <TextView
             android:id="@+id/label_developer"
             style="?textAppearanceBodySmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingTiny"
+            android:layout_marginTop="?spacingSmall"
             android:text="Developer"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/label_title"
-            app:layout_constraintTop_toBottomOf="@id/text_release_date"
+            app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
             tools:text="Guerilla Games" />
 
         <androidx.constraintlayout.widget.Barrier
@@ -85,13 +118,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="label_developer,game_item" />
+            app:constraint_referenced_ids="button_review,game_item" />
 
         <View
             android:id="@+id/divider_cover_with_description"
             android:layout_width="wrap_content"
             android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
+            android:layout_marginTop="?spacingSmall"
             android:background="@color/background_divider"
             app:layout_constraintTop_toBottomOf="@id/barrier_cover_with_description" />
 

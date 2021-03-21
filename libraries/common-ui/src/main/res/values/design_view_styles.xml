@@ -6,4 +6,8 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Button</item>
+    </style>
 </resources>
