@@ -9,5 +9,6 @@ fun GameRating.getRatingDrawable(): Int {
     return when (this) {
         GameRating.UP_VOTED -> R.drawable.ic_like
         GameRating.DOWN_VOTED -> R.drawable.ic_dislike
+        else -> R.drawable.ic_search//todo
     }
 }
