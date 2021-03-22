@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class GamesRepository @Inject constructor(
@@ -44,6 +45,12 @@ class GamesRepository @Inject constructor(
         }.toOutcome().also { outcome ->
             gameDao.setGameSearchResultsOutcome(outcome)
             return outcome
+        }
+    }
+
+    suspend fun getDeals() {
+        gamesApi.searchGameDeals("Hollow knight").also {
+            Timber.d("lol")
         }
     }
 

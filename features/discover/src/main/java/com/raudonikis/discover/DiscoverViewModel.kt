@@ -40,7 +40,10 @@ class DiscoverViewModel @Inject constructor(
     val gameSearchState = gamesRepository.getGameSearchResults()
 
     init {
-        updatePopularGames()
+//        updatePopularGames()
+        viewModelScope.launch(Dispatchers.IO) {
+            gamesRepository.getDeals()
+        }
     }
 
     /**

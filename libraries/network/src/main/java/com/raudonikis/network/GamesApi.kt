@@ -2,6 +2,7 @@ package com.raudonikis.network
 
 import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.auth.LoginResponse
+import com.raudonikis.network.deals.DealSearchResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
@@ -43,7 +44,7 @@ interface GamesApi {
      * Deals
      */
     @GET("api/v1/deal/search")
-    suspend fun searchGameDeals(@Query("name") name: String): NetworkResponse<List<Unit>>
+    suspend fun searchGameDeals(@Query("name") name: String): List<DealSearchResponse>
 
     /**
      * Authentication
