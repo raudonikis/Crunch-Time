@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingHuge"
-        android:text="Sign Up"
+        android:text="@string/title_sign_up"
         android:textSize="?textSizeLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,10 +22,29 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingHuge"
-        android:hint="E-mail"
+        android:hint="@string/hint_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_login">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_field_username"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?spacingMedium"
+        android:layout_marginTop="?spacingMedium"
+        android:hint="@string/hint_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_field_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -41,11 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingMedium"
-        android:hint="Password"
+        android:hint="@string/hint_password"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_field_email">
+        app:layout_constraintTop_toBottomOf="@id/text_field_username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -61,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingMedium"
-        android:hint="Confirm password"
+        android:hint="@string/hint_confirm_password"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingMedium"
-        android:text="Sign up"
+        android:text="@string/button_sign_up"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingMedium"
         android:layout_marginTop="?spacingSmall"
-        android:text="Already have an account?"
+        android:text="@string/label_have_account"
         android:textSize="?textSizeSmall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_sign_up" />
@@ -103,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingTiny"
-        android:text="Login"
+        android:text="@string/button_login"
         android:textColor="@color/colorPrimary"
         android:textSize="?textSizeSmall"
         app:layout_constraintStart_toEndOf="@id/text_login"

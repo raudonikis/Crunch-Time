@@ -2,6 +2,8 @@ package com.raudonikis.network
 
 import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.auth.LoginResponse
+import com.raudonikis.network.auth.register.RegisterRequestBody
+import com.raudonikis.network.auth.register.RegisterResponse
 import com.raudonikis.network.deals.DealSearchResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_status.GameStatusResponse
@@ -54,4 +56,9 @@ interface GamesApi {
         @Query("email") email: String,
         @Query("password") password: String
     ): NetworkResponse<LoginResponse>
+
+    @POST("api/user/register")
+    suspend fun register(
+        @Body registerBody: RegisterRequestBody
+    ): NetworkResponse<RegisterResponse>
 }
