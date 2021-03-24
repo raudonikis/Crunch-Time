@@ -5,9 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.data.user.UserPreferences
 import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.LoginRouter
-import com.raudonikis.login.validation.EmailValidationResult
-import com.raudonikis.login.validation.PasswordValidationResult
-import com.raudonikis.login.validation.ValidationUtils
+import com.raudonikis.login.validation.*
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,18 +26,18 @@ class LoginViewModel @Inject constructor(
     /**
      * States/Events
      */
-    private val emailState: MutableStateFlow<EmailValidationResult> =
-        MutableStateFlow(EmailValidationResult.EMAIL_INITIAL)
-    private val passwordState: MutableStateFlow<PasswordValidationResult> =
-        MutableStateFlow(PasswordValidationResult.PASSWORD_INITIAL)
+    private val emailState: MutableStateFlow<EmailState> =
+        MutableStateFlow(EmailState.Blank)
+    private val passwordState: MutableStateFlow<PasswordState> =
+        MutableStateFlow(PasswordState.Blank)
     private val loginEvent: MutableSharedFlow<LoginEvent> =
         MutableSharedFlow()
 
     /**
      * Observables
      */
-    val emailStateObservable: Flow<EmailValidationResult> = emailState
-    val passwordStateObservable: Flow<PasswordValidationResult> = passwordState
+    val emailStateObservable: Flow<EmailState> = emailState
+    val passwordStateObservable: Flow<PasswordState> = passwordState
     val loginEventObservable: Flow<LoginEvent> = loginEvent
 
     /**
@@ -57,7 +55,7 @@ class LoginViewModel @Inject constructor(
      * Login
      */
     fun login(email: String, password: String) {
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             if (emailState.value.isValid() && passwordState.value.isValid()) {
                 loginEvent.emit(LoginEvent.Loading)
                 authenticationRepository.login(email, password)
@@ -70,7 +68,7 @@ class LoginViewModel @Inject constructor(
             } else {
                 loginEvent.emit(LoginEvent.InvalidInputs)
             }
-        }
+        }*/
     }
 
     private fun onLoginSuccess() {
@@ -85,8 +83,8 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun resetStates() {
-        emailState.value = EmailValidationResult.EMAIL_INITIAL
-        passwordState.value = PasswordValidationResult.PASSWORD_INITIAL
+        emailState.value = EmailState.Blank
+        passwordState.value = PasswordState.Blank
     }
 
     /**

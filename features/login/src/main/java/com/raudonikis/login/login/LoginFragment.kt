@@ -8,13 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
-import com.raudonikis.common_ui.extensions.clearError
 import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.text
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
-import com.raudonikis.login.validation.EmailValidationResult
-import com.raudonikis.login.validation.PasswordValidationResult
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -65,7 +62,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
             viewModel.emailStateObservable.collect { emailState ->
-                when (emailState) {
+                /*when (emailState) {
                     EmailValidationResult.EMAIL_INITIAL,
                     EmailValidationResult.EMAIL_VALID -> {
                         binding.textFieldEmail.clearError()
@@ -73,10 +70,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     else -> {
                         binding.textFieldEmail.error = emailState.name
                     }
-                }
+                }*/
             }
             viewModel.passwordStateObservable.collect { passwordState ->
-                when (passwordState) {
+                /*when (passwordState) {
                     PasswordValidationResult.PASSWORD_INITIAL,
                     PasswordValidationResult.PASSWORD_VALID -> {
                         binding.textFieldPassword.clearError()
@@ -84,7 +81,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     else -> {
                         binding.textFieldPassword.error = passwordState.name
                     }
-                }
+                }*/
             }
         }
     }

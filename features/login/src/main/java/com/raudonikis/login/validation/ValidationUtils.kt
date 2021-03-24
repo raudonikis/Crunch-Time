@@ -2,30 +2,47 @@ package com.raudonikis.login.validation
 
 object ValidationUtils {
 
-    private const val REGEX_EMAIL = "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"
+    private const val EMAIL_REGEX = "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"
+    private const val PASSWORD_MIN_LENGTH = 6
 
-    fun validateEmail(email: String?): EmailValidationResult {
+    fun validateEmail(email: String?): EmailState {
         return when {
             email.isNullOrBlank() -> {
-                EmailValidationResult.EMAIL_BLANK
+                EmailState.Blank
             }
-            email.matches(REGEX_EMAIL.toRegex()) -> {
-                EmailValidationResult.EMAIL_VALID
+            email.matches(EMAIL_REGEX.toRegex()) -> {
+                EmailState.Valid(email)
             }
             else -> {
-                EmailValidationResult.EMAIL_BAD_FORMAT
+                EmailState.BadFormat(email)
             }
         }
     }
 
-    fun validatePassword(password: String?): PasswordValidationResult {
+    fun validatePassword(password: String?): PasswordState {
         return when {
-            password.isNullOrBlank() -> PasswordValidationResult.PASSWORD_BLANK
-            else -> PasswordValidationResult.PASSWORD_VALID
+            password.isNullOrBlank() -> PasswordState.Blank
+            password.length < PASSWORD_MIN_LENGTH -> PasswordState.TooShort(password)
+            else -> PasswordState.Valid(password)
         }
     }
 
-    fun validatePasswordWithConfirmation(password: String, confirmationPassword: String) {
-        //todo
+    fun validateUsername(username: String?): UsernameState {
+        return when {
+            username.isNullOrBlank() -> UsernameState.Blank
+            else -> UsernameState.Valid(username)
+        }
+    }
+
+    fun validateConfirmPassword(
+        password: String?,
+        confirmPassword: String?
+    ): PasswordState {
+        return when {
+            confirmPassword.isNullOrBlank() -> PasswordState.Blank
+            confirmPassword.length < PASSWORD_MIN_LENGTH -> PasswordState.TooShort(confirmPassword)
+            password == confirmPassword -> PasswordState.Valid(confirmPassword)
+            else -> PasswordState.NotMatching(confirmPassword)
+        }
     }
 }

@@ -12,6 +12,7 @@ android {
 
 dependencies {
     implementation(project(Modules.Libraries.common))
+    implementation(project(Modules.Libraries.core))
     implementation(project(Modules.Libraries.commonUi))
     implementation(project(Modules.Libraries.navigation))
     implementation(project(Modules.Libraries.data))
