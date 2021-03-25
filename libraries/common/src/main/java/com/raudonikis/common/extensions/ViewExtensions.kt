@@ -27,6 +27,14 @@ fun View.enable() {
     isClickable = true
 }
 
+fun View.enableIf(condition: () -> Boolean) {
+    if (condition()) {
+        enable()
+    } else {
+        disable()
+    }
+}
+
 fun View.showIf(condition: () -> Boolean) {
     when (condition()) {
         true -> show()

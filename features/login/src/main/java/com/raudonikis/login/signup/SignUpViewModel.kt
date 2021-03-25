@@ -1,14 +1,14 @@
 package com.raudonikis.login.signup
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raudonikis.login.validation.EmailState
 import com.raudonikis.login.validation.PasswordState
 import com.raudonikis.login.validation.UsernameState
 import com.raudonikis.login.validation.ValidationUtils
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,11 +32,25 @@ class SignUpViewModel @Inject constructor(
     val passwordState: StateFlow<PasswordState> = _passwordState
     val passwordConfirmState: StateFlow<PasswordState> = _passwordConfirmState
     val usernameState: StateFlow<UsernameState> = _usernameState
+    val signUpState: StateFlow<SignUpState> =
+        combine(
+            _emailState,
+            _passwordState,
+            _passwordConfirmState,
+            _usernameState
+        ) { email, password, passwordConfirm, username ->
+            when {
+                email.isValid() && password.isValid() && passwordConfirm.isValid() && username.isValid() -> {
+                    SignUpState.Enabled
+                }
+                else -> SignUpState.Disabled
+            }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, SignUpState.Disabled)
 
     /**
      * Sign Up
      */
-    fun signUp(email: String?, password: String?, passwordConfirm: String?, username: String?) {
+    fun signUp() {
 
     }
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.raudonikis.common.extensions.enableIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentSignUpBinding
@@ -60,6 +61,11 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 .onEach {
                     binding.textFieldUsername.error =
                         validationErrorMapper.fromUsernameState(it)
+                }
+                .observeInLifecycle(viewLifecycleOwner)
+            signUpState
+                .onEach { state ->
+                    binding.buttonSignUp.enableIf { state is SignUpState.Enabled }
                 }
                 .observeInLifecycle(viewLifecycleOwner)
         }

@@ -41,8 +41,8 @@ object ValidationUtils {
         return when {
             confirmPassword.isNullOrBlank() -> PasswordState.Blank
             confirmPassword.length < PASSWORD_MIN_LENGTH -> PasswordState.TooShort(confirmPassword)
-            password == confirmPassword -> PasswordState.Valid(confirmPassword)
-            else -> PasswordState.NotMatching(confirmPassword)
+            password != confirmPassword -> PasswordState.NotMatching(confirmPassword)
+            else -> PasswordState.Valid(confirmPassword)
         }
     }
 }
