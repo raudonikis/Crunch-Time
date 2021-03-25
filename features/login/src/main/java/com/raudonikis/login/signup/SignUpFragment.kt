@@ -33,7 +33,6 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpInputListeners()
         setUpListeners()
         setUpObservers()
     }
@@ -125,5 +124,6 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 viewModel.onSignUpClicked()
             }
         }
+        setUpInputListeners()
     }
 }

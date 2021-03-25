@@ -23,7 +23,7 @@ class SignUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * States
+     * States/Events
      */
     private val _emailState: MutableStateFlow<EmailState> =
         MutableStateFlow(EmailState.Initial)
@@ -47,10 +47,6 @@ class SignUpViewModel @Inject constructor(
                 else -> SignUpState.Disabled
             }
         }.stateIn(viewModelScope, SharingStarted.Lazily, SignUpState.Disabled)
-
-    /**
-     * Events
-     */
     private val _signUpEvent: Channel<SignUpEvent> = Channel()
 
     /**
@@ -60,7 +56,7 @@ class SignUpViewModel @Inject constructor(
     val passwordState: Flow<PasswordState> = _passwordState
     val passwordConfirmState: Flow<PasswordState> = _passwordConfirmState
     val usernameState: Flow<UsernameState> = _usernameState
-    val signUpEvent: Flow<SignUpEvent> = _signUpEvent.consumeAsFlow()
+    val signUpEvent: Flow<SignUpEvent> = _signUpEvent.receiveAsFlow()
     val signUpState: Flow<SignUpState> = _signUpState
 
 

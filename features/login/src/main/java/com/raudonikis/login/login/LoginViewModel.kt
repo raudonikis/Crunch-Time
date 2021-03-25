@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.data.user.UserPreferences
 import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.LoginRouter
-import com.raudonikis.login.validation.*
+import com.raudonikis.login.validation.EmailState
+import com.raudonikis.login.validation.PasswordState
+import com.raudonikis.login.validation.ValidationUtils
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,83 +26,87 @@ class LoginViewModel @Inject constructor(
     /**
      * States/Events
      */
-    private val emailState: MutableStateFlow<EmailState> =
-        MutableStateFlow(EmailState.Blank)
-    private val passwordState: MutableStateFlow<PasswordState> =
-        MutableStateFlow(PasswordState.Blank)
-    private val loginEvent: MutableSharedFlow<LoginEvent> =
-        MutableSharedFlow()
+    private val _emailState: MutableStateFlow<EmailState> =
+        MutableStateFlow(EmailState.Initial)
+    private val _passwordState: MutableStateFlow<PasswordState> =
+        MutableStateFlow(PasswordState.Initial)
+    private val _loginState: StateFlow<LoginState> =
+        combine(_emailState, _passwordState) { email, password ->
+            when {
+                email.isValid() && password.isValid() -> LoginState.Enabled
+                else -> LoginState.Disabled
+            }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, LoginState.Disabled)
+    private val _loginEvent: Channel<LoginEvent> = Channel(capacity = Channel.BUFFERED)
 
     /**
      * Observables
      */
-    val emailStateObservable: Flow<EmailState> = emailState
-    val passwordStateObservable: Flow<PasswordState> = passwordState
-    val loginEventObservable: Flow<LoginEvent> = loginEvent
-
-    /**
-     * Initialisation
-     */
-    fun onViewCreated() {
-        if (userPreferences.isRememberMeChecked && userPreferences.userEmail.isNotBlank()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                loginEvent.emit(LoginEvent.InitialiseData(userPreferences.userEmail))
-            }
-        }
-    }
+    val emailState: Flow<EmailState> = _emailState
+    val passwordState: Flow<PasswordState> = _passwordState
+    val loginState: Flow<LoginState> = _loginState
+    val loginEvent: Flow<LoginEvent> = _loginEvent.receiveAsFlow()
 
     /**
      * Login
      */
-    fun login(email: String, password: String) {
-        /*viewModelScope.launch {
-            if (emailState.value.isValid() && passwordState.value.isValid()) {
-                loginEvent.emit(LoginEvent.Loading)
-                authenticationRepository.login(email, password)
-                    .onSuccess {
-                        onLoginSuccess()
-                    }
-                    .onFailure {
-                        loginEvent.emit(LoginEvent.LoginFailure)
-                    }
-            } else {
-                loginEvent.emit(LoginEvent.InvalidInputs)
-            }
-        }*/
+    private fun login() {
+        _loginEvent.offer(LoginEvent.Loading)
+        viewModelScope.launch {
+            val email = _emailState.value.getCurrentEmail()
+            val password = _passwordState.value.getCurrentPassword()
+            authenticationRepository.login(email, password)
+                .onSuccess {
+                    _loginEvent.offer(LoginEvent.LoginSuccess)
+                    navigateToBottomNavigation()
+                }
+                .onFailure {
+                    _loginEvent.offer(LoginEvent.LoginFailure)
+                }
+                .onEmpty {
+                    _loginEvent.offer(LoginEvent.LoginFailure)
+                }
+        }
     }
 
-    private fun onLoginSuccess() {
-        viewModelScope.launch {
-            loginEvent.emit(LoginEvent.LoginSuccess)
+    /**
+     * Events
+     */
+    fun onViewCreated() {
+        if (userPreferences.isRememberMeChecked && userPreferences.userEmail.isNotBlank()) {
+            _loginEvent.offer(LoginEvent.InitialiseFields(userPreferences.userEmail))
         }
-        navigateToBottomNavigation()
     }
 
     fun onRememberMeChecked(isChecked: Boolean) {
         userPreferences.isRememberMeChecked = isChecked
     }
 
-    private fun resetStates() {
-        emailState.value = EmailState.Blank
-        passwordState.value = PasswordState.Blank
-    }
-
     /**
      * Validation
      */
     fun onEmailChanged(email: String) {
-        emailState.value = ValidationUtils.validateEmail(email)
+        _emailState.value = ValidationUtils.validateEmail(email)
     }
 
     fun onPasswordChanged(password: String) {
-        passwordState.value = ValidationUtils.validatePassword(password)
+        _passwordState.value = ValidationUtils.validatePassword(password)
+    }
+
+    fun onSignUpClicked() {
+        navigateToSignUp()
+    }
+
+    fun onLoginClicked() {
+        if (_loginState.value is LoginState.Enabled) {
+            login()
+        }
     }
 
     /**
      * Navigation
      */
-    fun navigateToSignUp() {
-        resetStates()
+    private fun navigateToSignUp() {
         navigationDispatcher.navigate(LoginRouter.loginToSignUp())
     }
 

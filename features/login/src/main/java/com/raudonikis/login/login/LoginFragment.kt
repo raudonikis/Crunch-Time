@@ -5,22 +5,29 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import com.raudonikis.common.extensions.enableIf
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
+import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.showLongSnackbar
+import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.text
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
+import com.raudonikis.login.validation.mappers.ValidationErrorMapper
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
     private val binding: FragmentLoginBinding by viewBinding()
+
+    @Inject
+    lateinit var validationErrorMapper: ValidationErrorMapper
 
     /**
      * Lifecycle hooks
@@ -36,52 +43,46 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Observers
      */
     private fun setUpObservers() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.loginEventObservable.collect { loginState ->
-                when (loginState) {
-                    is LoginEvent.InitialiseData -> {
-                        binding.textFieldEmail.text = loginState.email
-                        binding.checkboxRememberMe.isChecked = true
-                    }
-                    is LoginEvent.Loading -> {
-                        binding.progressBarLogin.show()
-                    }
-                    is LoginEvent.LoginSuccess -> {
-                        binding.progressBarLogin.hide()
-                    }
-                    is LoginEvent.LoginFailure -> {
-                        binding.progressBarLogin.hide()
-                        //todo improve error message
-                        showLongSnackbar("Login failed")
-                    }
-                    is LoginEvent.InvalidInputs -> {
-                        binding.progressBarLogin.hide()
-                        //todo improve error message
-                        showLongSnackbar("Invalid inputs")
-                    }
+        viewModel.apply {
+            loginState
+                .onEach { onLoginState(it) }
+                .observeInLifecycle(viewLifecycleOwner)
+            loginEvent
+                .onEach { onLoginEvent(it) }
+                .observeInLifecycle(viewLifecycleOwner)
+            emailState
+                .onEach {
+                    binding.textFieldEmail.error = validationErrorMapper.fromEmailState(it)
                 }
+                .observeInLifecycle(viewLifecycleOwner)
+            passwordState
+                .onEach {
+                    binding.textFieldPassword.error = validationErrorMapper.fromPasswordState(it)
+                }
+                .observeInLifecycle(viewLifecycleOwner)
+        }
+    }
+
+    private fun onLoginState(state: LoginState) {
+        binding.buttonLogin.enableIf { state is LoginState.Enabled }
+    }
+
+    private fun onLoginEvent(event: LoginEvent) {
+        when (event) {
+            is LoginEvent.InitialiseFields -> {
+                binding.textFieldEmail.text = event.email
+                binding.checkboxRememberMe.isChecked = true
             }
-            viewModel.emailStateObservable.collect { emailState ->
-                /*when (emailState) {
-                    EmailValidationResult.EMAIL_INITIAL,
-                    EmailValidationResult.EMAIL_VALID -> {
-                        binding.textFieldEmail.clearError()
-                    }
-                    else -> {
-                        binding.textFieldEmail.error = emailState.name
-                    }
-                }*/
+            is LoginEvent.Loading -> {
+                binding.progressBarLogin.show()
             }
-            viewModel.passwordStateObservable.collect { passwordState ->
-                /*when (passwordState) {
-                    PasswordValidationResult.PASSWORD_INITIAL,
-                    PasswordValidationResult.PASSWORD_VALID -> {
-                        binding.textFieldPassword.clearError()
-                    }
-                    else -> {
-                        binding.textFieldPassword.error = passwordState.name
-                    }
-                }*/
+            is LoginEvent.LoginSuccess -> {
+                showShortSnackbar("Login success")
+                binding.progressBarLogin.hide()
+            }
+            is LoginEvent.LoginFailure -> {
+                binding.progressBarLogin.hide()
+                showLongSnackbar("Login failed")
             }
         }
     }
@@ -92,13 +93,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setUpListeners() {
         binding.apply {
             buttonSignUp.setOnClickListener {
-                viewModel.navigateToSignUp()
+                viewModel.onSignUpClicked()
             }
             buttonLogin.setOnClickListener {
-                viewModel.login(
-                    textFieldEmail.text,
-                    textFieldPassword.text
-                )
+                viewModel.onLoginClicked()
             }
             checkboxRememberMe.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.onRememberMeChecked(isChecked)
