@@ -2,20 +2,29 @@ package com.raudonikis.login.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.validation.EmailState
 import com.raudonikis.login.validation.PasswordState
 import com.raudonikis.login.validation.UsernameState
 import com.raudonikis.login.validation.ValidationUtils
 import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.navigation.NavigationGraph
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
+    private val authenticationRepository: AuthenticationRepository,
 ) : ViewModel() {
 
+    /**
+     * States
+     */
     private val _emailState: MutableStateFlow<EmailState> =
         MutableStateFlow(EmailState.Initial)
     private val _passwordState: MutableStateFlow<PasswordState> =
@@ -24,15 +33,7 @@ class SignUpViewModel @Inject constructor(
         MutableStateFlow(PasswordState.Initial)
     private val _usernameState: MutableStateFlow<UsernameState> =
         MutableStateFlow(UsernameState.Initial)
-
-    /**
-     * Observables
-     */
-    val emailState: StateFlow<EmailState> = _emailState
-    val passwordState: StateFlow<PasswordState> = _passwordState
-    val passwordConfirmState: StateFlow<PasswordState> = _passwordConfirmState
-    val usernameState: StateFlow<UsernameState> = _usernameState
-    val signUpState: StateFlow<SignUpState> =
+    private val _signUpState: StateFlow<SignUpState> =
         combine(
             _emailState,
             _passwordState,
@@ -48,10 +49,40 @@ class SignUpViewModel @Inject constructor(
         }.stateIn(viewModelScope, SharingStarted.Lazily, SignUpState.Disabled)
 
     /**
-     * Sign Up
+     * Events
      */
-    fun signUp() {
+    private val _signUpEvent: Channel<SignUpEvent> = Channel()
 
+    /**
+     * Observables
+     */
+    val emailState: Flow<EmailState> = _emailState
+    val passwordState: Flow<PasswordState> = _passwordState
+    val passwordConfirmState: Flow<PasswordState> = _passwordConfirmState
+    val usernameState: Flow<UsernameState> = _usernameState
+    val signUpEvent: Flow<SignUpEvent> = _signUpEvent.consumeAsFlow()
+    val signUpState: Flow<SignUpState> = _signUpState
+
+
+    private fun signUp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _signUpEvent.offer(SignUpEvent.Loading)
+            val email = _emailState.value.getCurrentEmail()
+            val password = _passwordState.value.getCurrentPassword()
+            val passwordConfirm = _passwordConfirmState.value.getCurrentPassword()
+            val username = _usernameState.value.getCurrentUsername()
+            authenticationRepository.register(email, password, passwordConfirm, username)
+                .onSuccess {
+                    _signUpEvent.offer(SignUpEvent.Success)
+                    navigateToBottomNavigation()
+                }
+                .onFailure {
+                    _signUpEvent.offer(SignUpEvent.Failure)
+                }
+                .onEmpty {
+                    _signUpEvent.offer(SignUpEvent.Failure)
+                }
+        }
     }
 
     /**
@@ -75,10 +106,24 @@ class SignUpViewModel @Inject constructor(
         _usernameState.value = ValidationUtils.validateUsername(username)
     }
 
+    fun onLoginClicked() {
+        navigateToLogin()
+    }
+
+    fun onSignUpClicked() {
+        if (_signUpState.value is SignUpState.Enabled) {
+            signUp()
+        }
+    }
+
     /**
      * Navigation
      */
-    fun navigateToLogin() {
+    private fun navigateToLogin() {
         navigationDispatcher.navigateBack()
+    }
+
+    private fun navigateToBottomNavigation() {
+        navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true))
     }
 }

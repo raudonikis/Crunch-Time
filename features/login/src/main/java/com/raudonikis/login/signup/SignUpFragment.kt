@@ -6,7 +6,11 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raudonikis.common.extensions.enableIf
+import com.raudonikis.common.extensions.hide
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.showLongSnackbar
+import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentSignUpBinding
 import com.raudonikis.login.validation.mappers.ValidationErrorMapper
@@ -64,10 +68,31 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 }
                 .observeInLifecycle(viewLifecycleOwner)
             signUpState
-                .onEach { state ->
-                    binding.buttonSignUp.enableIf { state is SignUpState.Enabled }
-                }
+                .onEach { onSignUpState(it) }
                 .observeInLifecycle(viewLifecycleOwner)
+            signUpEvent
+                .onEach { onSignUpEvent(it) }
+                .observeInLifecycle(viewLifecycleOwner)
+        }
+    }
+
+    private fun onSignUpState(state: SignUpState) {
+        binding.buttonSignUp.enableIf { state is SignUpState.Enabled }
+    }
+
+    private fun onSignUpEvent(event: SignUpEvent) {
+        when (event) {
+            is SignUpEvent.Success -> {
+                showShortSnackbar("Sign up success")
+                binding.progressBarSignUp.hide()
+            }
+            is SignUpEvent.Failure -> {
+                showLongSnackbar("Sign up failed")
+                binding.progressBarSignUp.hide()
+            }
+            is SignUpEvent.Loading -> {
+                binding.progressBarSignUp.show()
+            }
         }
     }
 
@@ -94,10 +119,10 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     private fun setUpListeners() {
         binding.apply {
             buttonLogin.setOnClickListener {
-                viewModel.navigateToLogin()
+                viewModel.onLoginClicked()
             }
             buttonSignUp.setOnClickListener {
-                //todo
+                viewModel.onSignUpClicked()
             }
         }
     }

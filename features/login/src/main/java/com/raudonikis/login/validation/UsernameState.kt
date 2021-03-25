@@ -7,4 +7,11 @@ sealed class UsernameState : ValidationState() {
 
     override val validState: Class<out ValidationState>
         get() = Valid::class.java
+
+    fun getCurrentUsername(): String {
+        return when(this) {
+            is Valid -> this.username
+            else -> ""
+        }
+    }
 }

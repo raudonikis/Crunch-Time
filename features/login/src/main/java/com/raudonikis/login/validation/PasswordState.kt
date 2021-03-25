@@ -12,10 +12,10 @@ sealed class PasswordState : ValidationState() {
 
     fun getCurrentPassword(): String {
         return when (this) {
-            is Blank, is Initial -> ""
             is TooShort -> this.password
             is NotMatching -> this.password
             is Valid -> this.password
+            else -> ""
         }
     }
 }

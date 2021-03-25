@@ -15,6 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="?spacingNormal"
+        android:indeterminateTint="?colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/title_login"
+        app:layout_constraintStart_toEndOf="@id/title_login"
+        app:layout_constraintTop_toTopOf="@id/title_login" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_field_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
