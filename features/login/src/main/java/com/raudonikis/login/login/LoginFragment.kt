@@ -6,8 +6,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raudonikis.common.extensions.enableIf
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.show
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
@@ -42,8 +41,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.loginState
-            .onEach { onLoginState(it) }
+        viewModel.loginValidationValidationState
+            .onEach { onLoginValidationState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.loginEvent
             .onEach { onLoginEvent(it) }
@@ -54,11 +53,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.passwordState
             .onEach { onPasswordState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.loginState
+            .onEach { onLoginState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     /**
      * Events
      */
+
+    private fun onLoginState(loginState: LoginState) {
+        binding.progressBarLogin.showIf { loginState is LoginState.Loading }
+    }
 
     private fun onEmailState(emailState: EmailState) {
         binding.textFieldEmail.updateError(validationErrorMapper.fromEmailState(emailState))
@@ -69,8 +75,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     }
 
-    private fun onLoginState(state: LoginState) {
-        binding.buttonLogin.enableIf { state is LoginState.Enabled }
+    private fun onLoginValidationState(validationState: LoginValidationState) {
+        binding.buttonLogin.enableIf { validationState is LoginValidationState.Enabled }
     }
 
     private fun onLoginEvent(event: LoginEvent) {
@@ -79,15 +85,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.textFieldEmail.text = event.email
                 binding.checkboxRememberMe.isChecked = true
             }
-            is LoginEvent.Loading -> {
-                binding.progressBarLogin.show()
-            }
             is LoginEvent.LoginSuccess -> {
                 showShortSnackbar("Login success")
-                binding.progressBarLogin.hide()
             }
             is LoginEvent.LoginFailure -> {
-                binding.progressBarLogin.hide()
                 showLongSnackbar("Login failed")
             }
         }

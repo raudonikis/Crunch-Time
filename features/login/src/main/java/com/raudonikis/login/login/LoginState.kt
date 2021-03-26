@@ -1,6 +1,6 @@
 package com.raudonikis.login.login
 
 sealed class LoginState {
-    object Disabled: LoginState()
-    object Enabled: LoginState()
+    object Initial: LoginState()
+    object Loading: LoginState()
 }

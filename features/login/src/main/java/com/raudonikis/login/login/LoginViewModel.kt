@@ -30,13 +30,15 @@ class LoginViewModel @Inject constructor(
         MutableStateFlow(EmailState.Initial)
     private val _passwordState: MutableStateFlow<PasswordState> =
         MutableStateFlow(PasswordState.Initial)
-    private val _loginState: StateFlow<LoginState> =
-        combine(_emailState, _passwordState) { email, password ->
+    private val _loginState: MutableStateFlow<LoginState> =
+        MutableStateFlow(LoginState.Initial)
+    private val _loginValidationValidationState: StateFlow<LoginValidationState> =
+        combine(_emailState, _passwordState, _loginState) { email, password, login ->
             when {
-                email.isValid() && password.isValid() -> LoginState.Enabled
-                else -> LoginState.Disabled
+                email.isValid() && password.isValid() && login !is LoginState.Loading -> LoginValidationState.Enabled
+                else -> LoginValidationState.Disabled
             }
-        }.stateIn(viewModelScope, SharingStarted.Lazily, LoginState.Disabled)
+        }.stateIn(viewModelScope, SharingStarted.Lazily, LoginValidationState.Disabled)
     private val _loginEvent: Channel<LoginEvent> = Channel(capacity = Channel.BUFFERED)
 
     /**
@@ -45,13 +47,14 @@ class LoginViewModel @Inject constructor(
     val emailState: Flow<EmailState> = _emailState
     val passwordState: Flow<PasswordState> = _passwordState
     val loginState: Flow<LoginState> = _loginState
+    val loginValidationValidationState: Flow<LoginValidationState> = _loginValidationValidationState
     val loginEvent: Flow<LoginEvent> = _loginEvent.receiveAsFlow()
 
     /**
      * Login
      */
     private fun login() {
-        _loginEvent.offer(LoginEvent.Loading)
+        _loginState.value = LoginState.Loading
         viewModelScope.launch {
             val email = _emailState.value.getCurrentEmail()
             val password = _passwordState.value.getCurrentPassword()
@@ -61,9 +64,11 @@ class LoginViewModel @Inject constructor(
                     navigateToBottomNavigation()
                 }
                 .onFailure {
+                    _loginState.value = LoginState.Initial
                     _loginEvent.offer(LoginEvent.LoginFailure)
                 }
                 .onEmpty {
+                    _loginState.value = LoginState.Initial
                     _loginEvent.offer(LoginEvent.LoginFailure)
                 }
         }
@@ -98,7 +103,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onLoginClicked() {
-        if (_loginState.value is LoginState.Enabled) {
+        if (_loginValidationValidationState.value is LoginValidationState.Enabled) {
             login()
         }
     }
