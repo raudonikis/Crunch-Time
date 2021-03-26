@@ -60,6 +60,7 @@ class LoginViewModel @Inject constructor(
             val password = _passwordState.value.getCurrentPassword()
             authenticationRepository.login(email, password)
                 .onSuccess {
+                    _loginState.value = LoginState.Initial
                     _loginEvent.offer(LoginEvent.LoginSuccess)
                     navigateToBottomNavigation()
                 }

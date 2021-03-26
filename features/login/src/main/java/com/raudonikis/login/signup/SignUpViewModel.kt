@@ -33,20 +33,22 @@ class SignUpViewModel @Inject constructor(
         MutableStateFlow(PasswordState.Initial)
     private val _usernameState: MutableStateFlow<UsernameState> =
         MutableStateFlow(UsernameState.Initial)
-    private val _signUpState: StateFlow<SignUpState> =
+    private val _signUpState: MutableStateFlow<SignUpState> = MutableStateFlow(SignUpState.INITIAL)
+    private val _signUpValidationValidationState: StateFlow<SignUpValidationState> =
         combine(
             _emailState,
             _passwordState,
             _passwordConfirmState,
-            _usernameState
-        ) { email, password, passwordConfirm, username ->
+            _usernameState,
+            _signUpState
+        ) { email, password, passwordConfirm, username, signUp ->
             when {
-                email.isValid() && password.isValid() && passwordConfirm.isValid() && username.isValid() -> {
-                    SignUpState.Enabled
+                email.isValid() && password.isValid() && passwordConfirm.isValid() && username.isValid() && signUp != SignUpState.LOADING -> {
+                    SignUpValidationState.ENABLED
                 }
-                else -> SignUpState.Disabled
+                else -> SignUpValidationState.DISABLED
             }
-        }.stateIn(viewModelScope, SharingStarted.Lazily, SignUpState.Disabled)
+        }.stateIn(viewModelScope, SharingStarted.Lazily, SignUpValidationState.DISABLED)
     private val _signUpEvent: Channel<SignUpEvent> = Channel()
 
     /**
@@ -56,26 +58,30 @@ class SignUpViewModel @Inject constructor(
     val passwordState: Flow<PasswordState> = _passwordState
     val passwordConfirmState: Flow<PasswordState> = _passwordConfirmState
     val usernameState: Flow<UsernameState> = _usernameState
-    val signUpEvent: Flow<SignUpEvent> = _signUpEvent.receiveAsFlow()
     val signUpState: Flow<SignUpState> = _signUpState
+    val signUpEvent: Flow<SignUpEvent> = _signUpEvent.receiveAsFlow()
+    val signUpValidationState: Flow<SignUpValidationState> = _signUpValidationValidationState
 
 
     private fun signUp() {
         viewModelScope.launch(Dispatchers.IO) {
-            _signUpEvent.offer(SignUpEvent.Loading)
+            _signUpState.value = SignUpState.LOADING
             val email = _emailState.value.getCurrentEmail()
             val password = _passwordState.value.getCurrentPassword()
             val passwordConfirm = _passwordConfirmState.value.getCurrentPassword()
             val username = _usernameState.value.getCurrentUsername()
             authenticationRepository.register(email, password, passwordConfirm, username)
                 .onSuccess {
+                    _signUpState.value = SignUpState.INITIAL
                     _signUpEvent.offer(SignUpEvent.Success)
                     navigateToBottomNavigation()
                 }
                 .onFailure {
+                    _signUpState.value = SignUpState.INITIAL
                     _signUpEvent.offer(SignUpEvent.Failure)
                 }
                 .onEmpty {
+                    _signUpState.value = SignUpState.INITIAL
                     _signUpEvent.offer(SignUpEvent.Failure)
                 }
         }
@@ -107,7 +113,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClicked() {
-        if (_signUpState.value is SignUpState.Enabled) {
+        if (_signUpValidationValidationState.value == SignUpValidationState.ENABLED) {
             signUp()
         }
     }

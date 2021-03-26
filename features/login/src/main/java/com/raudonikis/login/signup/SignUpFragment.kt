@@ -6,8 +6,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raudonikis.common.extensions.enableIf
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.show
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.showShortSnackbar
@@ -57,17 +56,24 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         viewModel.usernameState
             .onEach { onUsernameState(it) }
             .observeInLifecycle(viewLifecycleOwner)
-        viewModel.signUpState
-            .onEach { onSignUpState(it) }
+        viewModel.signUpValidationState
+            .onEach { onSignUpValidationState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.signUpEvent
             .onEach { onSignUpEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.signUpState
+            .onEach { onSignUpState(it) }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
     /**
      * Events
      */
+    private fun onSignUpState(signUpState: SignUpState) {
+        binding.progressBarSignUp.showIf { signUpState == SignUpState.LOADING }
+    }
+
     private fun onUsernameState(usernameState: UsernameState) {
         binding.textFieldUsername.updateError(validationErrorMapper.fromUsernameState(usernameState))
     }
@@ -88,22 +94,17 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         binding.textFieldEmail.updateError(validationErrorMapper.fromEmailState(emailState))
     }
 
-    private fun onSignUpState(state: SignUpState) {
-        binding.buttonSignUp.enableIf { state is SignUpState.Enabled }
+    private fun onSignUpValidationState(validationState: SignUpValidationState) {
+        binding.buttonSignUp.enableIf { validationState == SignUpValidationState.ENABLED }
     }
 
     private fun onSignUpEvent(event: SignUpEvent) {
         when (event) {
             is SignUpEvent.Success -> {
                 showShortSnackbar("Sign up success")
-                binding.progressBarSignUp.hide()
             }
             is SignUpEvent.Failure -> {
                 showLongSnackbar("Sign up failed")
-                binding.progressBarSignUp.hide()
-            }
-            is SignUpEvent.Loading -> {
-                binding.progressBarSignUp.show()
             }
         }
     }
