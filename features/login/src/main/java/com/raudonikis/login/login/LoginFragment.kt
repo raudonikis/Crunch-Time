@@ -63,7 +63,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      */
 
     private fun onLoginState(loginState: LoginState) {
-        binding.progressBarLogin.showIf { loginState is LoginState.Loading }
+        binding.progressBarLogin.showIf { loginState == LoginState.LOADING }
     }
 
     private fun onEmailState(emailState: EmailState) {
@@ -76,7 +76,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun onLoginValidationState(validationState: LoginValidationState) {
-        binding.buttonLogin.enableIf { validationState is LoginValidationState.Enabled }
+        binding.buttonLogin.enableIf { validationState == LoginValidationState.ENABLED }
     }
 
     private fun onLoginEvent(event: LoginEvent) {

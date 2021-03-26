@@ -100,10 +100,10 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private fun onSignUpEvent(event: SignUpEvent) {
         when (event) {
-            is SignUpEvent.Success -> {
+            SignUpEvent.SUCCESS -> {
                 showShortSnackbar("Sign up success")
             }
-            is SignUpEvent.Failure -> {
+            SignUpEvent.FAILURE -> {
                 showLongSnackbar("Sign up failed")
             }
         }
