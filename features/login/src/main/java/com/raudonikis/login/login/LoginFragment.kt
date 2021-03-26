@@ -8,12 +8,11 @@ import androidx.fragment.app.viewModels
 import com.raudonikis.common.extensions.enableIf
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
-import com.raudonikis.common_ui.extensions.observeInLifecycle
-import com.raudonikis.common_ui.extensions.showLongSnackbar
-import com.raudonikis.common_ui.extensions.showShortSnackbar
-import com.raudonikis.common_ui.extensions.text
+import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentLoginBinding
+import com.raudonikis.login.validation.EmailState
+import com.raudonikis.login.validation.PasswordState
 import com.raudonikis.login.validation.mappers.ValidationErrorMapper
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,24 +42,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.apply {
-            loginState
-                .onEach { onLoginState(it) }
-                .observeInLifecycle(viewLifecycleOwner)
-            loginEvent
-                .onEach { onLoginEvent(it) }
-                .observeInLifecycle(viewLifecycleOwner)
-            emailState
-                .onEach {
-                    binding.textFieldEmail.error = validationErrorMapper.fromEmailState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-            passwordState
-                .onEach {
-                    binding.textFieldPassword.error = validationErrorMapper.fromPasswordState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-        }
+        viewModel.loginState
+            .onEach { onLoginState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.loginEvent
+            .onEach { onLoginEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.emailState
+            .onEach { onEmailState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.passwordState
+            .onEach { onPasswordState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    /**
+     * Events
+     */
+
+    private fun onEmailState(emailState: EmailState) {
+        binding.textFieldEmail.updateError(validationErrorMapper.fromEmailState(emailState))
+    }
+
+    private fun onPasswordState(passwordState: PasswordState) {
+        binding.textFieldPassword.updateError(validationErrorMapper.fromPasswordState(passwordState))
+
     }
 
     private fun onLoginState(state: LoginState) {

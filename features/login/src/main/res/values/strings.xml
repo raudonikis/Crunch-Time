@@ -18,4 +18,5 @@
     <string name="validation_error_password_too_short">Password must contain at least 6 characters</string>
     <string name="validation_error_password_not_matching">Passwords must be the same</string>
     <string name="validation_error_username_blank">Username cannot be empty</string>
+    <string name="checkbox_remember_me">Remember me</string>
 </resources>

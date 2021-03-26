@@ -11,8 +11,12 @@ import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.showShortSnackbar
+import com.raudonikis.common_ui.extensions.updateError
 import com.raudonikis.login.R
 import com.raudonikis.login.databinding.FragmentSignUpBinding
+import com.raudonikis.login.validation.EmailState
+import com.raudonikis.login.validation.PasswordState
+import com.raudonikis.login.validation.UsernameState
 import com.raudonikis.login.validation.mappers.ValidationErrorMapper
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,38 +45,47 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.apply {
-            emailState
-                .onEach {
-                    binding.textFieldEmail.error =
-                        validationErrorMapper.fromEmailState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-            passwordState
-                .onEach {
-                    binding.textFieldPassword.error =
-                        validationErrorMapper.fromPasswordState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-            passwordConfirmState
-                .onEach {
-                    binding.textFieldPasswordConfirm.error =
-                        validationErrorMapper.fromPasswordState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-            usernameState
-                .onEach {
-                    binding.textFieldUsername.error =
-                        validationErrorMapper.fromUsernameState(it)
-                }
-                .observeInLifecycle(viewLifecycleOwner)
-            signUpState
-                .onEach { onSignUpState(it) }
-                .observeInLifecycle(viewLifecycleOwner)
-            signUpEvent
-                .onEach { onSignUpEvent(it) }
-                .observeInLifecycle(viewLifecycleOwner)
-        }
+        viewModel.emailState
+            .onEach { onEmailState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.passwordState
+            .onEach { onPasswordState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.passwordConfirmState
+            .onEach { onPasswordConfirmState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.usernameState
+            .onEach { onUsernameState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.signUpState
+            .onEach { onSignUpState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.signUpEvent
+            .onEach { onSignUpEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    /**
+     * Events
+     */
+    private fun onUsernameState(usernameState: UsernameState) {
+        binding.textFieldUsername.updateError(validationErrorMapper.fromUsernameState(usernameState))
+    }
+
+    private fun onPasswordState(passwordState: PasswordState) {
+        binding.textFieldPassword.updateError(validationErrorMapper.fromPasswordState(passwordState))
+    }
+
+    private fun onPasswordConfirmState(passwordState: PasswordState) {
+        binding.textFieldPasswordConfirm.updateError(
+            validationErrorMapper.fromPasswordState(
+                passwordState
+            )
+        )
+    }
+
+    private fun onEmailState(emailState: EmailState) {
+        binding.textFieldEmail.updateError(validationErrorMapper.fromEmailState(emailState))
     }
 
     private fun onSignUpState(state: SignUpState) {

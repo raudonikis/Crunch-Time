@@ -3,10 +3,10 @@ package com.raudonikis.data_domain.auth
 import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data.user.UserPreferences
 import com.raudonikis.network.GamesApi
-import com.raudonikis.network.auth.LoginResponse
+import com.raudonikis.network.auth.login.LoginRequestBody
+import com.raudonikis.network.auth.login.LoginResponse
 import com.raudonikis.network.auth.register.RegisterRequestBody
 import com.raudonikis.network.auth.register.RegisterResponse
-import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,19 +18,20 @@ class AuthenticationRepository @Inject constructor(
     private val userPreferences: UserPreferences,
 ) {
 
-    suspend fun login(email: String, password: String): NetworkResponse<LoginResponse> {
+    suspend fun login(email: String, password: String): Outcome<LoginResponse> {
         return withContext(Dispatchers.IO) {
-            val networkResponse = safeNetworkResponse { gamesApi.login(email, password) }
-            Timber.v("Logged in -> $networkResponse")
-            networkResponse.onSuccess { loginResponse ->
-                userPreferences.apply {
-                    accessToken = loginResponse.accessToken
-                    userEmail = email
+            val loginBody = LoginRequestBody(email, password)
+            safeNetworkResponse {
+                gamesApi.login(loginBody)
+            }.toOutcome()
+                .onSuccess { loginResponse ->
+                    userPreferences.apply {
+                        accessToken = loginResponse.accessToken
+                        userEmail = email
+                    }
+                }.onFailure {
+                    Timber.e("Unable to login -> onFailure")
                 }
-            }.onFailure {
-                Timber.e("Unable to login -> onFailure")
-            }
-            return@withContext networkResponse
         }
     }
 

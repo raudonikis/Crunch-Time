@@ -1,5 +1,6 @@
-package com.raudonikis.network.auth
+package com.raudonikis.network.auth.login
 
+import com.raudonikis.network.auth.UserResponse
 import com.squareup.moshi.Json
 
 data class LoginResponse(
