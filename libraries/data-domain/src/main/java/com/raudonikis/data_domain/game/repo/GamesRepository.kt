@@ -5,6 +5,8 @@ import com.raudonikis.data_domain.game.cache.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game_review.GameReviewInfo
+import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.network.GamesApi
@@ -46,6 +48,17 @@ class GamesRepository @Inject constructor(
             gameDao.setGameSearchResultsOutcome(outcome)
             return outcome
         }
+    }
+
+    suspend fun getGameReviewInfo(game: Game): Outcome<GameReviewInfo> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.getGameReviewInfo(game.id)
+                    .map {
+                        GameReviewInfoMapper.fromGameReviewInfoResponse(it)
+                    }
+            }
+        }.toOutcome()
     }
 
     suspend fun getDeals() {

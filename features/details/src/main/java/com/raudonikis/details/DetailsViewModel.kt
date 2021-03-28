@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +38,7 @@ class DetailsViewModel @Inject constructor(
      */
     fun onCreate(game: Game) {
         _currentGame.value = game
+        updateGameReviewInfo()
         if (game.isUpdateNeeded) {
             updateGameDetails()
         }
@@ -80,6 +82,21 @@ class DetailsViewModel @Inject constructor(
                 }
                 .onEmpty {
                     _detailsState.value = DetailsState.DetailsUpdateFailure
+                }
+        }
+    }
+
+    private fun updateGameReviewInfo() {
+        viewModelScope.launch(Dispatchers.IO) {
+            gamesRepository.getGameReviewInfo(_currentGame.value)
+                .onSuccess {
+                    _currentGame.value = _currentGame.value.copy(gameReviewInfo = it)
+                }
+                .onFailure {
+                    Timber.w("Game review info failure")
+                }
+                .onEmpty {
+                    Timber.w("Game review info failure")
                 }
         }
     }

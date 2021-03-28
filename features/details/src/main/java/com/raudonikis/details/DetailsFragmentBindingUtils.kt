@@ -11,6 +11,7 @@ import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_release_date.GameDateUtils
+import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.raudonikis.details.game_screenshot.mappers.ScreenshotItemMapper
@@ -27,6 +28,14 @@ fun FragmentDetailsBinding.bindGame(
     bindGameItem(game)
     bindGameWallpaper(game)
     bindGameScreenshots(game, screenshotAdapter)
+    bindGameReviewInfo(game.gameReviewInfo)
+}
+
+private fun FragmentDetailsBinding.bindGameReviewInfo(gameReviewInfo: GameReviewInfo?) {
+    gameReviewInfo?.let {
+        ratingLike.text = it.positiveCount.toString()
+        ratingDislike.text = it.negativeCount.toString()
+    }
 }
 
 private fun FragmentDetailsBinding.bindGameTitle(game: Game) {

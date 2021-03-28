@@ -7,6 +7,7 @@ import com.raudonikis.network.auth.register.RegisterRequestBody
 import com.raudonikis.network.auth.register.RegisterResponse
 import com.raudonikis.network.deals.DealSearchResponse
 import com.raudonikis.network.game.GameResponse
+import com.raudonikis.network.game_review.GameReviewInfoResponse
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
 import com.raudonikis.network.game_status.GameStatusRequestBody
@@ -30,6 +31,14 @@ interface GamesApi {
         @Path("id") id: Long,
         @Body status: GameStatusRequestBody,
     ): NetworkResponse<GameStatusResponse>
+
+    /**
+     * Reviews
+     */
+    @GET("api/v1/game/{id}/reviews")
+    suspend fun getGameReviewInfo(
+        @Path("id") id: Long
+    ): NetworkResponse<GameReviewInfoResponse>
 
     /**
      * Popular/Trending lists

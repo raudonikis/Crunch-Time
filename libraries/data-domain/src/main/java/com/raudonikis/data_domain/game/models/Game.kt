@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game.models
 
 import android.os.Parcelable
 import com.raudonikis.data_domain.game_genre.GameGenre
+import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_screenshot.GameScreenshot
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_video.GameVideo
@@ -18,5 +19,6 @@ data class Game(
     val status: GameStatus = GameStatus.EMPTY,
     val gameGenres: List<GameGenre> = listOf(),
     val releaseDate: String = "",
+    val gameReviewInfo: GameReviewInfo? = null,
     val isUpdateNeeded: Boolean = false,
 ) : Parcelable

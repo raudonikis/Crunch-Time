@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingTiny"
             android:gravity="center"
-            android:text="514"
             app:drawableStartCompat="@drawable/ic_like"
             app:layout_constraintStart_toStartOf="@id/label_title"
-            app:layout_constraintTop_toBottomOf="@id/text_release_date" />
+            app:layout_constraintTop_toBottomOf="@id/text_release_date"
+            tools:text="514" />
 
         <TextView
             android:id="@+id/rating_dislike"
@@ -84,20 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingTiny"
             android:gravity="center"
-            android:text="12"
             app:drawableStartCompat="@drawable/ic_dislike"
             app:layout_constraintStart_toEndOf="@id/rating_like"
-            app:layout_constraintTop_toTopOf="@id/rating_like" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/button_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="?spacingNormal"
-            android:text="Review"
-            app:layout_constraintBottom_toBottomOf="@id/rating_like"
-            app:layout_constraintStart_toEndOf="@id/rating_dislike"
-            app:layout_constraintTop_toTopOf="@id/rating_like" />
+            app:layout_constraintTop_toTopOf="@id/rating_like"
+            tools:text="12" />
 
         <TextView
             android:id="@+id/label_developer"
@@ -116,17 +106,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="button_review,game_item, button_deals" />
+            app:constraint_referenced_ids="chip_group_buttons,game_item" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/button_deals"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
-            android:text="Deals"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/game_item" />
+            app:layout_constraintTop_toBottomOf="@id/game_item">
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/button_deals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?spacingSmall"
+                android:text="Deals" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/button_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="?spacingSmall"
+                android:text="Reviews" />
+        </com.google.android.material.chip.ChipGroup>
 
         <View
             android:id="@+id/divider_cover_with_description"
