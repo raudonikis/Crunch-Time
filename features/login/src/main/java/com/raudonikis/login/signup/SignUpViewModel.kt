@@ -34,7 +34,7 @@ class SignUpViewModel @Inject constructor(
     private val _usernameState: MutableStateFlow<UsernameState> =
         MutableStateFlow(UsernameState.Initial)
     private val _signUpState: MutableStateFlow<SignUpState> = MutableStateFlow(SignUpState.INITIAL)
-    private val _signUpValidationValidationState: StateFlow<SignUpValidationState> =
+    private val _signUpValidationState: StateFlow<SignUpValidationState> =
         combine(
             _emailState,
             _passwordState,
@@ -60,7 +60,7 @@ class SignUpViewModel @Inject constructor(
     val usernameState: Flow<UsernameState> = _usernameState
     val signUpState: Flow<SignUpState> = _signUpState
     val signUpEvent: Flow<SignUpEvent> = _signUpEvent.receiveAsFlow()
-    val signUpValidationState: Flow<SignUpValidationState> = _signUpValidationValidationState
+    val signUpValidationState: Flow<SignUpValidationState> = _signUpValidationState
 
 
     private fun signUp() {
@@ -113,7 +113,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClicked() {
-        if (_signUpValidationValidationState.value == SignUpValidationState.ENABLED) {
+        if (_signUpValidationState.value == SignUpValidationState.ENABLED) {
             signUp()
         }
     }
