@@ -24,7 +24,11 @@
         android:id="@+id/dealsFragment"
         android:name="com.raudonikis.details.game_deal.DealsFragment"
         android:label="DealsFragment"
-        tools:layout="@layout/fragment_deals" />
+        tools:layout="@layout/fragment_deals" >
+        <argument
+            android:name="game"
+            app:argType="com.raudonikis.data_domain.game.models.Game" />
+    </fragment>
     <fragment
         android:id="@+id/reviewsFragment"
         android:name="com.raudonikis.details.game_review.ReviewsFragment"

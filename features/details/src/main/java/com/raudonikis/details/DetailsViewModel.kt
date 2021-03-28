@@ -120,7 +120,7 @@ class DetailsViewModel @Inject constructor(
      * Navigation
      */
     private fun navigateToDeals() {
-        navigationDispatcher.navigate(DetailsRouter.fromDetailsToDeals())
+        navigationDispatcher.navigate(DetailsRouter.fromDetailsToDeals(_currentGame.value))
     }
 
     private fun navigateToReviews() {

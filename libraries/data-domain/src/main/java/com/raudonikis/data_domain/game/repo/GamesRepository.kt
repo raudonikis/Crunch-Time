@@ -4,6 +4,8 @@ import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data_domain.game.cache.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.data_domain.game_deal.mappers.GameDealMapper
 import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
 import com.raudonikis.data_domain.game_status.GameStatus
@@ -78,9 +80,15 @@ class GamesRepository @Inject constructor(
         }.toOutcome()
     }
 
-    suspend fun getDeals() {
-        gamesApi.searchGameDeals("Hollow knight").also {
-            Timber.d("lol")
+    /**
+     * Search for game deals
+     */
+    suspend fun searchGameDeals(game: Game): Outcome<List<GameDeal>> {
+        return try {
+            val response = gamesApi.searchGameDeals(game.name)
+            Outcome.success(GameDealMapper.fromDealSearchResponseList(response, game))
+        } catch (e: Exception) {
+            Outcome.failure()
         }
     }
 

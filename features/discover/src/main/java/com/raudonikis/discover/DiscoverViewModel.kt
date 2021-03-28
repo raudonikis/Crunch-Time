@@ -41,9 +41,6 @@ class DiscoverViewModel @Inject constructor(
 
     init {
         updatePopularGames()
-        /*viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.getDeals()
-        }*/
     }
 
     /**
