@@ -6,6 +6,7 @@ import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.data_domain.game_deal.GameDeal
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.ItemDealBinding
+import com.raudonikis.details.game_deal.mappers.GameDealShopIconMapper
 
 data class DealItem(val deal: GameDeal) : AbstractBindingItem<ItemDealBinding>() {
 
@@ -19,9 +20,12 @@ data class DealItem(val deal: GameDeal) : AbstractBindingItem<ItemDealBinding>()
     override fun bindView(binding: ItemDealBinding, payloads: List<Any>) {
         with(binding) {
             textDealShop.text = deal.shop.name
-            textNewPrice.text = deal.priceNew.toString()
-            textOldPrice.text = deal.priceOld.toString()
-            //todo image
+            textNewPrice.text = "€${deal.priceNew}"
+            textOldPrice.text = "€${deal.priceOld}"
+            imageDealShop.contentDescription = deal.shop.name
+            GameDealShopIconMapper.iconFromGameDealShop(deal.shop)?.let { iconId ->
+                imageDealShop.setImageResource(iconId)
+            }
         }
     }
 }

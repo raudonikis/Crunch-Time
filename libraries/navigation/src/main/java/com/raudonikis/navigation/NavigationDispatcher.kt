@@ -1,5 +1,6 @@
 package com.raudonikis.navigation
 
+import android.net.Uri
 import androidx.navigation.NavDirections
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,7 +27,11 @@ class NavigationDispatcher @Inject constructor() {
         }
     }
 
-    // TODO : fun navigate(uri: Uri) {}
+    fun navigate(uri: Uri) {
+        coroutineScope.launch {
+            navigationCommands.emit(NavigationCommand.ToUri(uri))
+        }
+    }
 
     fun navigateBack() {
         coroutineScope.launch {

@@ -23,7 +23,8 @@ object GameDealMapper {
                 priceNew = it.newPrice,
                 priceOld = it.oldPrice,
                 priceCut = it.priceCut,
-                shop = GameDealShopMapper.fromDealShopResponse(it.shop)
+                shop = GameDealShopMapper.fromDealShopResponse(it.shop),
+                url = it.url
             )
         }
     }

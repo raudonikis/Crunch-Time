@@ -7,5 +7,4 @@ data class DealSearchResponse(
     val deals: List<DealResponse>,
     @Json(name = "name")
     val name: String,
-//    val urls
 )

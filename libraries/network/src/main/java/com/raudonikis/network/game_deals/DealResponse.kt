@@ -11,6 +11,8 @@ data class DealResponse(
     val priceCut: Double,
     @Json(name = "shop")
     val shop: DealShopResponse,
+    @Json(name = "url")
+    val url: String? = null,
 )
 
 /**

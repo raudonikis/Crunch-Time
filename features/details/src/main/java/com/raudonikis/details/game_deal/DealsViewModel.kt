@@ -1,9 +1,13 @@
 package com.raudonikis.details.game_deal
 
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.repo.GamesRepository
+import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -11,8 +15,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
 class DealsViewModel @Inject constructor(
+    private val navigationDispatcher: NavigationDispatcher,
     private val gamesRepository: GamesRepository,
 ) : ViewModel() {
 
@@ -44,5 +50,21 @@ class DealsViewModel @Inject constructor(
                     _dealsState.value = DealsState.Failure
                 }
         }
+    }
+
+    /**
+     * Events
+     */
+    fun onDealClicked(deal: GameDeal) {
+        deal.url?.let { url ->
+            navigateToDealUri(url.toUri())
+        }
+    }
+
+    /**
+     * Navigation
+     */
+    private fun navigateToDealUri(dealUri: Uri) {
+        navigationDispatcher.navigate(dealUri)
     }
 }

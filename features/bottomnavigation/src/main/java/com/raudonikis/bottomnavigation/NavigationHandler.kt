@@ -1,5 +1,6 @@
 package com.raudonikis.bottomnavigation
 
+import android.content.Intent
 import androidx.navigation.NavController
 import com.raudonikis.navigation.NavigationCommand
 import com.raudonikis.navigation.NavigationDispatcher
@@ -10,8 +11,11 @@ import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import javax.inject.Inject
 
+
 @ActivityRetainedScoped
-class NavigationHandler @Inject constructor(private val navigationDispatcher: NavigationDispatcher) {
+class NavigationHandler @Inject constructor(
+    private val navigationDispatcher: NavigationDispatcher
+) {
 
     private lateinit var rootNavigationController: NavController
     private lateinit var currentNavigationController: NavController
@@ -25,7 +29,7 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
         currentNavigationController = navController
     }
 
-    suspend fun setUpNavigation(navController: NavController) {
+    suspend fun setUpNavigation(navController: NavController, onIntent: (Intent) -> Unit = {}) {
         setRootNavigationController(navController)
         navigationDispatcher.getNavigationCommands()
             .onEach { navigationCommand ->
@@ -46,6 +50,12 @@ class NavigationHandler @Inject constructor(private val navigationDispatcher: Na
                         }
                         is NavigationCommand.ToRoot -> {
                             // TODO
+                        }
+                        is NavigationCommand.ToUri -> {
+                            val uriIntent = Intent(Intent.ACTION_VIEW).apply {
+                                data = navigationCommand.uri
+                            }
+                            onIntent(uriIntent)
                         }
                     }
                 }

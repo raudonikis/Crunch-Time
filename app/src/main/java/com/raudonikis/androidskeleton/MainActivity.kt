@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun setUpNavigation() {
         val navController = findNavController(R.id.nav_host_fragment)
         lifecycleScope.launchWhenCreated {
-            navigationHandler.setUpNavigation(navController)
+            navigationHandler.setUpNavigation(navController, onIntent = {
+                startActivity(it)
+            })
         }
     }
 }

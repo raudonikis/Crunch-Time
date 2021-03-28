@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.details.R
@@ -51,11 +52,15 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
      */
     private fun setUpDeals() {
         with(binding) {
-            recyclerDeals.adapter = dealsAdapter
+            recyclerDeals.adapter = dealsAdapter.apply {
+                onClick {
+                    viewModel.onDealClicked(it.deal)
+                }
+            }
             recyclerDeals.addItemDecoration(
                 VerticalPaddingItemDecoration(
                     requireContext(),
-                    R.dimen.spacing_small
+                    R.dimen.spacing_normal
                 )
             )
         }

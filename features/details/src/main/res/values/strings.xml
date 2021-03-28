@@ -6,4 +6,5 @@
     <string name="label_screenshots">Screenshots</string>
     <string name="label_videos">Videos</string>
     <string name="label_review_count">%1$d reviews</string>
+    <string name="label_price">€%1$d</string>
 </resources>
