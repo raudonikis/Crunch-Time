@@ -5,7 +5,7 @@ import com.raudonikis.network.auth.login.LoginRequestBody
 import com.raudonikis.network.auth.login.LoginResponse
 import com.raudonikis.network.auth.register.RegisterRequestBody
 import com.raudonikis.network.auth.register.RegisterResponse
-import com.raudonikis.network.deals.DealSearchResponse
+import com.raudonikis.network.game_deals.DealSearchResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_review.GameReviewInfoResponse
 import com.raudonikis.network.game_review.GameReviewPostResponse

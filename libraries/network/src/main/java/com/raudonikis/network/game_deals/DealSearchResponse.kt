@@ -1,4 +1,4 @@
-package com.raudonikis.network.deals
+package com.raudonikis.network.game_deals
 
 import com.squareup.moshi.Json
 
