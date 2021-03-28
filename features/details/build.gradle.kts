@@ -18,6 +18,7 @@ dependencies {
     // Hilt
     implementation(Dependencies.hilt)
     implementation(Dependencies.hiltLifecycle)
+    implementation(Dependencies.hiltNavigation)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
     // Images

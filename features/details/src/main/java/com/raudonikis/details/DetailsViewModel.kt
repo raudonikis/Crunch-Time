@@ -37,7 +37,7 @@ class DetailsViewModel @Inject constructor(
      * Initialisation
      */
     fun onCreate(game: Game) {
-        _currentGame.value = game
+        onGameUpdated(game)
         updateGameReviewInfo()
         if (game.isUpdateNeeded) {
             updateGameDetails()
@@ -57,8 +57,8 @@ class DetailsViewModel @Inject constructor(
             val updatedGame = currentGame.value.copy(status = status)
             gamesRepository.updateGameStatus(updatedGame)
                 .onSuccess {
+                    onGameUpdated(_currentGame.value.copy(status = status))
                     _detailsState.value = DetailsState.StatusUpdateSuccess
-                    _currentGame.value = _currentGame.value.copy(status = status)
                 }
                 .onFailure {
                     _detailsState.value = DetailsState.StatusUpdateFailure
@@ -74,7 +74,7 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch {
             gamesRepository.getGameDetails(currentGame.value)
                 .onSuccess {
-                    _currentGame.value = it
+                    onGameUpdated(it)
                     _detailsState.value = DetailsState.DetailsUpdateSuccess
                 }
                 .onFailure {
@@ -90,7 +90,7 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             gamesRepository.getGameReviewInfo(_currentGame.value)
                 .onSuccess {
-                    _currentGame.value = _currentGame.value.copy(gameReviewInfo = it)
+                    onGameUpdated(_currentGame.value.copy(gameReviewInfo = it))
                 }
                 .onFailure {
                     Timber.w("Game review info failure")
@@ -112,6 +112,10 @@ class DetailsViewModel @Inject constructor(
         navigateToReviews()
     }
 
+    fun onGameUpdated(game: Game) {
+        _currentGame.value = game
+    }
+
     /**
      * Navigation
      */
@@ -120,9 +124,8 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun navigateToReviews() {
-        val reviews = _currentGame.value.gameReviewInfo?.reviews ?: listOf()
         navigationDispatcher.navigate(
-            DetailsRouter.fromDetailsToReviews(reviews, _currentGame.value.id)
+            DetailsRouter.fromDetailsToReviews(_currentGame.value)
         )
     }
 }

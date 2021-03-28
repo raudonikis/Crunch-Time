@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.onEach
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val binding: FragmentDetailsBinding by viewBinding()
-    private val viewModel: DetailsViewModel by viewModels()
+    private val viewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.navigation_details)
     private val args: DetailsFragmentArgs by navArgs()
 
     /**

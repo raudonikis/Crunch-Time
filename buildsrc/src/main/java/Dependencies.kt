@@ -112,6 +112,7 @@ object Dependencies {
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
     const val hiltLifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLifecycle}"
     const val hiltLifecycleCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltAndroidx}"
+    const val hiltNavigation = "androidx.hilt:hilt-navigation-fragment:${Versions.hiltAndroidx}"
 
     // Logging
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"

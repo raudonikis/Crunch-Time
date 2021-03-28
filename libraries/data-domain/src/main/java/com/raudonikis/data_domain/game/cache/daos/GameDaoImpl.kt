@@ -53,7 +53,8 @@ class GameDaoImpl @Inject constructor() : GameDao {
      * Game status
      */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        popularGames.value = GameStatusUtils.updateGameStatusForGames(popularGames.value, id, gameStatus)
+        popularGames.value =
+            GameStatusUtils.updateGameStatusForGames(popularGames.value, id, gameStatus)
         gameSearchResults.value =
             GameStatusUtils.updateGameStatusForGames(gameSearchResults.value, id, gameStatus)
     }

@@ -25,5 +25,4 @@ interface GameDao {
      * Game status
      */
     suspend fun updateGameStatus(id: Long, gameStatus: GameStatus)
-
 }

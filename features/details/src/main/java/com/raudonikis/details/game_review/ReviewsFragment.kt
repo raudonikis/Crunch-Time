@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -11,6 +12,8 @@ import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.details.DetailsViewModel
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.FragmentReviewsBinding
 import com.raudonikis.details.game_review.mappers.ReviewItemMapper
@@ -22,6 +25,7 @@ import kotlinx.coroutines.flow.onEach
 class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
 
     private val viewModel: ReviewsViewModel by viewModels()
+    private val detailsViewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.navigation_details)
     private val binding: FragmentReviewsBinding by viewBinding()
     private val args: ReviewsFragmentArgs by navArgs()
 
@@ -44,7 +48,7 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.onCreate(args.gameId, args.reviews.toList())
+        viewModel.onCreate(args.game)
     }
 
     /**
@@ -59,15 +63,15 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                     R.dimen.spacing_normal
                 )
             )
-            val reviews = ReviewItemMapper.fromGameReviewList(args.reviews.toList())
-            reviewsItemAdapter.update(reviews)
-            textReviewCount.text = getString(R.string.label_review_count, reviews.size)
         }
     }
 
     private fun setUpObservers() {
-        viewModel.reviewState
+        viewModel.writeReviewState
             .onEach { onReviewState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.currentGame
+            .onEach { onGameUpdate(it) }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
@@ -99,5 +103,12 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                 showShortSnackbar("Failed to post review")
             }
         }
+    }
+
+    private fun onGameUpdate(game: Game) {
+        detailsViewModel.onGameUpdated(game)
+        reviewsItemAdapter.update(ReviewItemMapper.fromGameReviewList(game.gameReviewInfo.reviews))
+        binding.textReviewCount.text =
+            getString(R.string.label_review_count, game.gameReviewInfo.reviews.size)
     }
 }

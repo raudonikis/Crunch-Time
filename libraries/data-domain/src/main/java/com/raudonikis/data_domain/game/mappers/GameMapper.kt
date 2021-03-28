@@ -4,6 +4,7 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
+import com.raudonikis.data_domain.game_review.GameReview
 import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
 import com.raudonikis.data_domain.game_video.mappers.GameVideoMapper
 import com.raudonikis.network.game.GameResponse
@@ -75,6 +76,26 @@ object GameMapper {
      */
     fun fromPopularGameResponseList(responses: List<PopularGameResponse>): List<Game> {
         return responses.map { fromPopularGameResponse(it) }
+    }
+
+    /**
+     * Add a new [GameReview] to a [Game]
+     */
+    fun addGameReview(game: Game, gameReview: GameReview): Game {
+        var positiveCount = game.gameReviewInfo.positiveCount
+        var negativeCount = game.gameReviewInfo.negativeCount
+        if (gameReview.isPositive) {
+            positiveCount++
+        } else {
+            negativeCount++
+        }
+        return game.copy(
+            gameReviewInfo = game.gameReviewInfo.copy(
+                positiveCount = positiveCount,
+                negativeCount = negativeCount,
+                reviews = game.gameReviewInfo.reviews.plus(gameReview)
+            )
+        )
     }
 
     /**

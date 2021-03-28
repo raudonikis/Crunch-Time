@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GameReviewInfo(
-    val positiveCount: Int,
-    val negativeCount: Int,
+    val positiveCount: Int = 0,
+    val negativeCount: Int = 0,
     val reviews: List<GameReview> = listOf(),
 ) : Parcelable

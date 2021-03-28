@@ -2,9 +2,11 @@ package com.raudonikis.details.game_review
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.data_domain.game.mappers.GameMapper
+import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.data_domain.game_rating.GameRating
-import com.raudonikis.data_domain.game_review.GameReview
+import com.raudonikis.data_domain.game_review.mappers.GameReviewMapper
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.network.game_review.GameReviewRequestBody
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,43 +22,46 @@ class ReviewsViewModel @Inject constructor(
     private val gamesRepository: GamesRepository,
 ) : ViewModel() {
 
-    private var gameId: Long? = null
-    private var reviews: List<GameReview> = listOf()
-    private val _reviewState: MutableStateFlow<ReviewState> = MutableStateFlow(ReviewState.INITIAL)
+    private var _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
+    private val _writeReviewState: MutableStateFlow<ReviewState> =
+        MutableStateFlow(ReviewState.INITIAL)
 
     /**
      * Observables
      */
-    val reviewState: Flow<ReviewState> = _reviewState
+    val writeReviewState: Flow<ReviewState> = _writeReviewState
+    val currentGame: Flow<Game> = _currentGame
 
     /**
      * Initialisation
      */
-    fun onCreate(gameId: Long, reviews: List<GameReview>) {
-        this.gameId = gameId
-        this.reviews = reviews
+    fun onCreate(game: Game) {
+        _currentGame.value = game
     }
 
     /**
      * Review functionality
      */
     fun postReview(rating: GameRating, comment: String) {
-        gameId?.let { id ->
-            val reviewBody = GameReviewRequestBody(
-                content = comment,
-                isPositive = rating == GameRating.UP_VOTED,
-                gameId = id
-            )
-            _reviewState.value = ReviewState.LOADING
-            viewModelScope.launch(Dispatchers.IO) {
-                gamesRepository.postReview(reviewBody)
-                    .onSuccess {
-                        _reviewState.value = ReviewState.SUCCESS
-                    }
-                    .onFailure {
-                        _reviewState.value = ReviewState.FAILURE
-                    }
-            }
+        val game = _currentGame.value
+        val reviewBody = GameReviewRequestBody(
+            content = comment,
+            isPositive = rating == GameRating.UP_VOTED,
+            gameId = game.id
+        )
+        _writeReviewState.value = ReviewState.LOADING
+        viewModelScope.launch(Dispatchers.IO) {
+            gamesRepository.postReview(reviewBody)
+                .onSuccess {
+                    val gameReview =
+                        GameReviewMapper.fromGameReviewPostResponse(it).addGameInfo(game)
+                    _currentGame.value = GameMapper.addGameReview(game, gameReview)
+                    _writeReviewState.value = ReviewState.SUCCESS
+                }
+                .onFailure {
+                    _writeReviewState.value = ReviewState.FAILURE
+                }
         }
+
     }
 }

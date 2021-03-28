@@ -19,6 +19,6 @@ data class Game(
     val status: GameStatus = GameStatus.EMPTY,
     val gameGenres: List<GameGenre> = listOf(),
     val releaseDate: String = "",
-    val gameReviewInfo: GameReviewInfo? = null,
+    val gameReviewInfo: GameReviewInfo = GameReviewInfo(),
     val isUpdateNeeded: Boolean = false,
 ) : Parcelable

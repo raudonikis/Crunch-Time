@@ -30,10 +30,7 @@ object GameReviewInfoMapper {
     ): GameReviewInfo {
         val gameReviewInfo = fromGameReviewInfoResponse(response)
         return gameReviewInfo.copy(
-            reviews = GameReviewMapper.addGameInfo(
-                game,
-                gameReviewInfo.reviews
-            )
+            reviews = gameReviewInfo.reviews.map { it.addGameInfo(game) }
         )
     }
 }

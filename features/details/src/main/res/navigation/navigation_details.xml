@@ -31,10 +31,7 @@
         android:label="ReviewsFragment"
         tools:layout="@layout/fragment_reviews" >
         <argument
-            android:name="reviews"
-            app:argType="com.raudonikis.data_domain.game_review.GameReview[]" />
-        <argument
-            android:name="gameId"
-            app:argType="long" />
+            android:name="game"
+            app:argType="com.raudonikis.data_domain.game.models.Game" />
     </fragment>
 </navigation>
