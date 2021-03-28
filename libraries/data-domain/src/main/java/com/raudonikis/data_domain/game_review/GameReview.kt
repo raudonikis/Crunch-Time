@@ -6,6 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GameReview(
     val gameId: Long,
+    val gameTitle: String = "",
+    val gameCoverUrl: String? = null,
     val content: String = "",
     val isPositive: Boolean,
     val createdAt: String,

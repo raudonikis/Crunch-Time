@@ -3,11 +3,11 @@ package com.raudonikis.data_domain.game.repo
 import com.raudonikis.common.extensions.Outcome
 import com.raudonikis.data_domain.game.cache.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
-import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
 import com.raudonikis.data_domain.game_status.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_status.GameStatusResponse
@@ -54,8 +54,8 @@ class GamesRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.getGameReviewInfo(game.id)
-                    .map {
-                        GameReviewInfoMapper.fromGameReviewInfoResponse(it)
+                    .map { response ->
+                        GameReviewInfoMapper.fromGameReviewInfoResponseWithGameInfo(response, game)
                     }
             }
         }.toOutcome()

@@ -16,10 +16,22 @@
         <action
             android:id="@+id/action_detailsFragment_to_dealsFragment"
             app:destination="@id/dealsFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/dealsFragment"
         android:name="com.raudonikis.details.game_deal.DealsFragment"
         android:label="DealsFragment"
         tools:layout="@layout/fragment_deals" />
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.raudonikis.details.game_review.ReviewsFragment"
+        android:label="ReviewsFragment"
+        tools:layout="@layout/fragment_reviews" >
+        <argument
+            android:name="reviews"
+            app:argType="com.raudonikis.data_domain.game_review.GameReview[]" />
+    </fragment>
 </navigation>

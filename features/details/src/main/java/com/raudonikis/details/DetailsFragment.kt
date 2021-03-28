@@ -84,6 +84,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             buttonDeals.setOnClickListener {
                 viewModel.onDealsButtonClicked()
             }
+            buttonReviews.setOnClickListener {
+                viewModel.onReviewsButtonClicked()
+            }
         }
     }
 
