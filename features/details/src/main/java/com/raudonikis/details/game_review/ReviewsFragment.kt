@@ -40,7 +40,7 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             )
             val reviews = ReviewItemMapper.fromGameReviewList(args.reviews.toList())
             reviewsItemAdapter.update(reviews)
-            textReviewCount.text = reviews.size.toString() + " reviews"
+            textReviewCount.text = getString(R.string.label_review_count, reviews.size)
         }
     }
 }
