@@ -83,4 +83,18 @@ class DetailsViewModel @Inject constructor(
                 }
         }
     }
+
+    /**
+     * Events
+     */
+    fun onDealsButtonClicked() {
+        navigateToDeals()
+    }
+
+    /**
+     * Navigation
+     */
+    private fun navigateToDeals() {
+        navigationDispatcher.navigate(DetailsRouter.fromDetailsToDeals())
+    }
 }

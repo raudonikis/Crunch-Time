@@ -1,4 +1,4 @@
-package com.raudonikis.details.review
+package com.raudonikis.details.game_review
 
 import android.app.Dialog
 import android.os.Bundle

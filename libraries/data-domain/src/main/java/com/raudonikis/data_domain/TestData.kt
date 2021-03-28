@@ -3,6 +3,8 @@ package com.raudonikis.data_domain
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.data_domain.game_deal.GameDealShop
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_video.GameVideo
@@ -105,6 +107,51 @@ val testGames = listOf(
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
         videos = listOf(GameVideo("https://www.youtube.com/watch?v=H5mj4CP4_rI")),
         status = GameStatus.EMPTY,
+    ),
+)
+
+val testDeals = listOf(
+    GameDeal(
+        59.90,
+        69.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Steam")
+    ),
+    GameDeal(
+        40.90,
+        69.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Random")
+    ),
+    GameDeal(
+        12.90,
+        14.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Amazon")
+    ),
+    GameDeal(
+        20.90,
+        30.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Steam")
+    ),
+    GameDeal(
+        13.90,
+        20.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Amazon")
+    ),
+    GameDeal(
+        40.90,
+        42.90,
+        null,
+        0.0,
+        GameDealShop("idk", "Steam")
     ),
 )
 

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/background"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,20 +71,19 @@
             android:id="@+id/rating_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="?spacingTiny"
-            android:layout_marginTop="?spacingNormal"
+            android:layout_marginTop="?spacingTiny"
+            android:gravity="center"
             android:text="514"
             app:drawableStartCompat="@drawable/ic_like"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/game_item" />
+            app:layout_constraintStart_toStartOf="@id/label_title"
+            app:layout_constraintTop_toBottomOf="@id/text_release_date" />
 
         <TextView
             android:id="@+id/rating_dislike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="?spacingTiny"
+            android:gravity="center"
             android:text="12"
             app:drawableStartCompat="@drawable/ic_dislike"
             app:layout_constraintStart_toEndOf="@id/rating_like"
@@ -114,11 +112,21 @@
             tools:text="Guerilla Games" />
 
         <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_cover_with_description"
+            android:id="@+id/barrier_details_with_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="button_review,game_item" />
+            app:constraint_referenced_ids="button_review,game_item, button_deals" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/button_deals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Deals"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/game_item" />
+
 
         <View
             android:id="@+id/divider_cover_with_description"
@@ -126,7 +134,7 @@
             android:layout_height="?spacingSmall"
             android:layout_marginTop="?spacingSmall"
             android:background="@color/background_divider"
-            app:layout_constraintTop_toBottomOf="@id/barrier_cover_with_description" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_details_with_buttons" />
 
         <TextView
             android:id="@+id/text_description"
