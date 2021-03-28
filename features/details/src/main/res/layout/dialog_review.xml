@@ -164,6 +164,17 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="?spacingSmall"
+            android:indeterminateTint="?colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/button_save"
+            app:layout_constraintEnd_toStartOf="@id/button_save"
+            app:layout_constraintTop_toTopOf="@id/button_save" />
+
         <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"

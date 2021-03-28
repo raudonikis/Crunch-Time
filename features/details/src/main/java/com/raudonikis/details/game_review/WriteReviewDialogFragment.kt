@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.raudonikis.common.extensions.enableIf
+import com.raudonikis.common.extensions.showIf
+import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.text
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.details.R
@@ -37,9 +39,8 @@ class WriteReviewDialogFragment : DialogFragment() {
             buttonSave.setOnClickListener {
                 if (selectedRating != GameRating.UNDEFINED) {
                     onSaveClicked.invoke(selectedRating, textInputComment.text)
-                    dismiss()
                 } else {
-                    Toast.makeText(context, "Please select a rating", Toast.LENGTH_SHORT).show()
+                    showLongSnackbar("Please select a rating")
                 }
             }
             buttonLike.setOnClickListener {
@@ -87,6 +88,13 @@ class WriteReviewDialogFragment : DialogFragment() {
 
     fun setOnSaveClicked(onClick: (gameRating: GameRating, comment: String) -> Unit) = apply {
         this.onSaveClicked = onClick
+    }
+
+    fun setReviewState(reviewState: ReviewState) {
+        with(binding) {
+            progressBarSave.showIf { reviewState == ReviewState.LOADING }
+            buttonSave.enableIf { reviewState != ReviewState.LOADING }
+        }
     }
 
     companion object {

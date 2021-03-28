@@ -9,8 +9,9 @@ import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.network.game_review.GameReviewRequestBody
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +22,12 @@ class ReviewsViewModel @Inject constructor(
 
     private var gameId: Long? = null
     private var reviews: List<GameReview> = listOf()
+    private val _reviewState: MutableStateFlow<ReviewState> = MutableStateFlow(ReviewState.INITIAL)
+
+    /**
+     * Observables
+     */
+    val reviewState: Flow<ReviewState> = _reviewState
 
     /**
      * Initialisation
@@ -40,13 +47,14 @@ class ReviewsViewModel @Inject constructor(
                 isPositive = rating == GameRating.UP_VOTED,
                 gameId = id
             )
+            _reviewState.value = ReviewState.LOADING
             viewModelScope.launch(Dispatchers.IO) {
                 gamesRepository.postReview(reviewBody)
                     .onSuccess {
-                        Timber.d("post review -> Success")
+                        _reviewState.value = ReviewState.SUCCESS
                     }
                     .onFailure {
-                        Timber.d("post review -> Failure")
+                        _reviewState.value = ReviewState.FAILURE
                     }
             }
         }

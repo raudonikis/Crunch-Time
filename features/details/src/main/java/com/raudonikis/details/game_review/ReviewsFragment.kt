@@ -7,6 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.details.R
@@ -14,6 +16,7 @@ import com.raudonikis.details.databinding.FragmentReviewsBinding
 import com.raudonikis.details.game_review.mappers.ReviewItemMapper
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
@@ -27,6 +30,7 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
      */
     private val reviewsItemAdapter = ItemAdapter<ReviewItem>()
     private val reviewsAdapter = FastAdapter.with(reviewsItemAdapter)
+    private var writeReviewDialog: WriteReviewDialogFragment? = null
 
     /**
      * Lifecycle hooks
@@ -35,6 +39,7 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         super.onViewCreated(view, savedInstanceState)
         setUpReviews()
         setUpListeners()
+        setUpObservers()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,14 +65,38 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         }
     }
 
+    private fun setUpObservers() {
+        viewModel.reviewState
+            .onEach { onReviewState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
     private fun setUpListeners() {
         with(binding) {
             textButtonWriteReview.setOnClickListener {
-                WriteReviewDialogFragment()
+                writeReviewDialog = WriteReviewDialogFragment()
                     .setOnSaveClicked { gameRating, comment ->
                         viewModel.postReview(gameRating, comment)
+                    }.also {
+                        it.show(parentFragmentManager, WriteReviewDialogFragment.TAG_REVIEW)
                     }
-                    .show(parentFragmentManager, WriteReviewDialogFragment.TAG_REVIEW)
+            }
+        }
+    }
+
+    /**
+     * Events
+     */
+    private fun onReviewState(state: ReviewState) {
+        writeReviewDialog?.setReviewState(state)
+        when (state) {
+            ReviewState.SUCCESS -> {
+                showShortSnackbar("Review posted successfully")
+                writeReviewDialog?.dismiss()
+                writeReviewDialog = null
+            }
+            ReviewState.FAILURE -> {
+                showShortSnackbar("Failed to post review")
             }
         }
     }
