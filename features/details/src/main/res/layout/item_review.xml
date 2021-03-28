@@ -63,6 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
+            android:layout_marginEnd="?spacingSmall"
             android:maxLines="2"
             app:layout_constraintEnd_toStartOf="@id/image_rating"
             app:layout_constraintStart_toEndOf="@id/card_game_cover"

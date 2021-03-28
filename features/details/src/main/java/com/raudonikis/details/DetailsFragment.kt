@@ -14,7 +14,6 @@ import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.details.databinding.FragmentDetailsBinding
-import com.raudonikis.details.game_review.ReviewDialogFragment
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.raudonikis.details.game_status.GameStatusSelectDialogFragment
 import com.wada811.viewbinding.viewBinding

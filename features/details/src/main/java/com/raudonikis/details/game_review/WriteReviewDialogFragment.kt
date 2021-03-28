@@ -13,7 +13,7 @@ import com.raudonikis.details.R
 import com.raudonikis.details.databinding.DialogReviewBinding
 import timber.log.Timber
 
-class ReviewDialogFragment : DialogFragment() {
+class WriteReviewDialogFragment : DialogFragment() {
 
     private var _binding: DialogReviewBinding? = null
     private val binding get() = _binding!!
@@ -85,7 +85,7 @@ class ReviewDialogFragment : DialogFragment() {
         _binding = null
     }
 
-    fun setOnSaveClicked(onClick: (gameRating: GameRating, comment: String) -> Unit) {
+    fun setOnSaveClicked(onClick: (gameRating: GameRating, comment: String) -> Unit) = apply {
         this.onSaveClicked = onClick
     }
 

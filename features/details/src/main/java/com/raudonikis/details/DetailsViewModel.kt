@@ -121,6 +121,8 @@ class DetailsViewModel @Inject constructor(
 
     private fun navigateToReviews() {
         val reviews = _currentGame.value.gameReviewInfo?.reviews ?: listOf()
-        navigationDispatcher.navigate(DetailsRouter.fromDetailsToReviews(reviews))
+        navigationDispatcher.navigate(
+            DetailsRouter.fromDetailsToReviews(reviews, _currentGame.value.id)
+        )
     }
 }

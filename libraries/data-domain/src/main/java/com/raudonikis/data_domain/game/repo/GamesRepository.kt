@@ -10,6 +10,8 @@ import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.network.GamesApi
+import com.raudonikis.network.game_review.GameReviewPostResponse
+import com.raudonikis.network.game_review.GameReviewRequestBody
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
@@ -50,6 +52,10 @@ class GamesRepository @Inject constructor(
         }
     }
 
+    /**
+     * Fetch all of the review info associated with this game
+     * @return [GameReviewInfo]
+     */
     suspend fun getGameReviewInfo(game: Game): Outcome<GameReviewInfo> {
         return withContext(Dispatchers.IO) {
             safeNetworkResponse {
@@ -57,6 +63,17 @@ class GamesRepository @Inject constructor(
                     .map { response ->
                         GameReviewInfoMapper.fromGameReviewInfoResponseWithGameInfo(response, game)
                     }
+            }
+        }.toOutcome()
+    }
+
+    /**
+     * Post a new review
+     */
+    suspend fun postReview(reviewRequestBody: GameReviewRequestBody): Outcome<GameReviewPostResponse> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.postReview(reviewRequestBody)
             }
         }.toOutcome()
     }

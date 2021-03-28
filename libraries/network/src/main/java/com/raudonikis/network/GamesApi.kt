@@ -8,6 +8,8 @@ import com.raudonikis.network.auth.register.RegisterResponse
 import com.raudonikis.network.deals.DealSearchResponse
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_review.GameReviewInfoResponse
+import com.raudonikis.network.game_review.GameReviewPostResponse
+import com.raudonikis.network.game_review.GameReviewRequestBody
 import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
 import com.raudonikis.network.game_status.GameStatusRequestBody
@@ -39,6 +41,11 @@ interface GamesApi {
     suspend fun getGameReviewInfo(
         @Path("id") id: Long
     ): NetworkResponse<GameReviewInfoResponse>
+
+    @POST("api/v1/reviews")
+    suspend fun postReview(
+        @Body review: GameReviewRequestBody
+    ): NetworkResponse<GameReviewPostResponse>
 
     /**
      * Popular/Trending lists
