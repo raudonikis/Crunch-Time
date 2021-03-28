@@ -24,11 +24,18 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
     private val reviewsItemAdapter = ItemAdapter<ReviewItem>()
     private val reviewsAdapter = FastAdapter.with(reviewsItemAdapter)
 
+    /**
+     * Lifecycle hooks
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpReviews()
+        setUpListeners()
     }
 
+    /**
+     * Set up
+     */
     private fun setUpReviews() {
         with(binding) {
             recyclerReviews.adapter = reviewsAdapter
@@ -41,6 +48,14 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             val reviews = ReviewItemMapper.fromGameReviewList(args.reviews.toList())
             reviewsItemAdapter.update(reviews)
             textReviewCount.text = getString(R.string.label_review_count, reviews.size)
+        }
+    }
+
+    private fun setUpListeners() {
+        with(binding) {
+            textButtonWriteReview.setOnClickListener {
+                ReviewDialogFragment().show(parentFragmentManager, ReviewDialogFragment.TAG_REVIEW)
+            }
         }
     }
 }

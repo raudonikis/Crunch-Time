@@ -78,9 +78,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     setOnUpdateClicked { viewModel.updateGameStatus(it) }
                 }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
             }
-            /*buttonReview.setOnClickListener {
-                ReviewDialogFragment().show(parentFragmentManager, ReviewDialogFragment.TAG_REVIEW)
-            }*/
             buttonDeals.setOnClickListener {
                 viewModel.onDealsButtonClicked()
             }
