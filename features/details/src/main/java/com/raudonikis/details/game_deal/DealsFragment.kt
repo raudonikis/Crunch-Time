@@ -7,8 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.show
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.update
@@ -76,16 +75,13 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
      * Events
      */
     private fun onDealsState(state: DealsState) {
+        binding.progressBarDeals.showIf { state is DealsState.Loading }
         when (state) {
-            is DealsState.Loading -> {
-                binding.progressBarDeals.show()
-            }
             is DealsState.Success -> {
-                binding.progressBarDeals.hide()
-                dealsItemAdapter.update(DealItemMapper.fromDealList(state.deals))
-            }
-            is DealsState.Failure -> {
-                binding.progressBarDeals.hide()
+                DealItemMapper.fromDealList(state.deals).sortedBy { it.deal.priceNew }
+                    .let { deals ->
+                        dealsItemAdapter.update(deals)
+                    }
             }
         }
     }

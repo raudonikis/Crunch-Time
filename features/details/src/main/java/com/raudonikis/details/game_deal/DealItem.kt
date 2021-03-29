@@ -1,5 +1,6 @@
 package com.raudonikis.details.game_deal
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
@@ -21,9 +22,12 @@ data class DealItem(val deal: GameDeal) : AbstractBindingItem<ItemDealBinding>()
         with(binding) {
             textDealShop.text = deal.shop.name
             textNewPrice.text = "€${deal.priceNew}"
-            textOldPrice.text = "€${deal.priceOld}"
+            textOldPrice.apply {
+                text = "€${deal.priceOld}"
+                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
             imageDealShop.contentDescription = deal.shop.name
-            GameDealShopIconMapper.iconFromGameDealShop(deal.shop)?.let { iconId ->
+            GameDealShopIconMapper.iconFromGameDealShop(deal.shop).let { iconId ->
                 imageDealShop.setImageResource(iconId)
             }
         }

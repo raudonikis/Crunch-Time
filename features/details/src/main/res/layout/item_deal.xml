@@ -20,7 +20,7 @@
             android:id="@+id/image_deal_shop"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_steam" />
+            android:src="@drawable/ic_store_placeholder" />
     </androidx.cardview.widget.CardView>
 
     <TextView
