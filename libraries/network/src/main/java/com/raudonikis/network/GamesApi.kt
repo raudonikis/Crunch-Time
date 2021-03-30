@@ -14,6 +14,7 @@ import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.game_search.GameSearchResponse
 import com.raudonikis.network.game_status.GameStatusRequestBody
 import com.raudonikis.network.popular_games.PopularGameResponse
+import com.raudonikis.network.user.UserSearchResponse
 import com.raudonikis.network.utils.NetworkResponse
 import retrofit2.http.*
 
@@ -70,6 +71,12 @@ interface GamesApi {
      */
     @GET("api/v1/deal/search")
     suspend fun searchGameDeals(@Query("name") name: String): List<DealSearchResponse>
+
+    /**
+     * Users
+     */
+    @GET("api/v1/user/search")
+    suspend fun searchUsers(@Query("name") name: String): NetworkResponse<List<UserSearchResponse>>
 
     /**
      * Authentication

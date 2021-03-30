@@ -59,6 +59,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         viewModel.newsFeedState
             .onEach { updateNewsFeedState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.userSearchResultsState
+            .onEach { }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     private fun updateNewsFeedState(state: Outcome<List<UserActivity>>) {
