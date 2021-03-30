@@ -78,6 +78,12 @@ interface GamesApi {
     @GET("api/v1/user/search")
     suspend fun searchUsers(@Query("name") name: String): NetworkResponse<List<UserSearchResponse>>
 
+    @POST("api/v1/user/follow/{uuid}")
+    suspend fun followUser(@Path("uuid") uuid: String): NetworkResponse<Unit>
+
+    @DELETE("api/v1/user/follow/{uuid}")
+    suspend fun unfollowUser(@Path("uuid") uuid: String): NetworkResponse<Unit>
+
     /**
      * Authentication
      */
