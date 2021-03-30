@@ -7,10 +7,17 @@ sealed class UserActivityAction {
     data class ActionGameStatusUpdated(
         val status: GameStatus,
         val title: String,
+        val user: String,
     ) : UserActivityAction()
 
     data class ActionGameRated(
         val title: String,
         val rating: GameRating,
+        val user: String,
+    ) : UserActivityAction()
+
+    data class ActionListCreated(
+        val listName: String,
+        val user: String,
     ) : UserActivityAction()
 }

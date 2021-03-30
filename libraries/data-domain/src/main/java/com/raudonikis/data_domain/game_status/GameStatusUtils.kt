@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.game_status
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction
 import com.raudonikis.data_domain.game.models.Game

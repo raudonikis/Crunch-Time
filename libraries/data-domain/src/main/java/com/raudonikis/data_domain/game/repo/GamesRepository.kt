@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.game.repo
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.cache.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class GamesRepository @Inject constructor(

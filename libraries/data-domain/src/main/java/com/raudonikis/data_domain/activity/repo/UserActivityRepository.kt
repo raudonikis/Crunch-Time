@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.activity.repo
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.cache.daos.UserActivityDao
 import com.raudonikis.data_domain.activity.mappers.UserActivityMapper
 import com.raudonikis.data_domain.activity.models.UserActivity
@@ -19,9 +19,13 @@ class UserActivityRepository @Inject constructor(
     /**
      * Observables
      */
-    fun getUserActivity(): Flow<Outcome<List<UserActivity>>> = userActivityDao.getUserActivity()
+    fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>> = userActivityDao.getMyUserActivity()
+    fun getNewsFeed(): Flow<Outcome<List<UserActivity>>> = userActivityDao.getNewsFeed()
 
-    suspend fun updateUserActivity(): Outcome<List<UserActivity>> {
+    /**
+     * My activity
+     */
+    suspend fun updateMyUserActivity(): Outcome<List<UserActivity>> {
         withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.getUserActivity()
@@ -30,7 +34,24 @@ class UserActivityRepository @Inject constructor(
                     }
             }
         }.toOutcome().also { outcome ->
-            userActivityDao.setUserActivityOutcome(outcome)
+            userActivityDao.setMyUserActivityOutcome(outcome)
+            return outcome
+        }
+    }
+
+    /**
+     * News feed
+     */
+    suspend fun updateNewsFeed(): Outcome<List<UserActivity>> {
+        withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.getNewsFeed()
+                    .map {
+                        UserActivityMapper.fromUserActivityResponseList(it)
+                    }
+            }
+        }.toOutcome().also { outcome ->
+            userActivityDao.setNewsFeedOutcome(outcome)
             return outcome
         }
     }

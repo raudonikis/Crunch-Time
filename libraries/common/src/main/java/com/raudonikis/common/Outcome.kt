@@ -1,4 +1,4 @@
-package com.raudonikis.common.extensions
+package com.raudonikis.common
 
 /**
  * Used to keep track of the result's status and value, and handle success/error

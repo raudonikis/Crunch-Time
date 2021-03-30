@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.activity.R
 import com.raudonikis.activity.databinding.ItemUserActivityBinding
+import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
@@ -13,6 +14,7 @@ import com.raudonikis.common_ui.extensions.getRatingDrawable
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction
 import com.raudonikis.data_domain.game_rating.GameRating
+import java.util.*
 
 class UserActivityItem(val userActivity: UserActivity) :
     AbstractBindingItem<ItemUserActivityBinding>() {
@@ -30,6 +32,7 @@ class UserActivityItem(val userActivity: UserActivity) :
     override fun bindView(binding: ItemUserActivityBinding, payloads: List<Any>) {
         with(binding) {
             bindGameCover(userActivity.coverUrl)
+            bindCreationDate(userActivity.createdAt)
             when (val action = userActivity.action) {
                 is UserActivityAction.ActionGameStatusUpdated -> {
                     iconRating.hide()
@@ -64,6 +67,12 @@ class UserActivityItem(val userActivity: UserActivity) :
                 .placeholder(R.drawable.game_placeholder)
                 .centerCrop()
                 .into(imageGameCover)
+        }
+    }
+
+    private fun ItemUserActivityBinding.bindCreationDate(createdAt: Date?) {
+        createdAt?.let {
+            textDate.text = DateFormatter.dateToFormattedString(createdAt)
         }
     }
 }

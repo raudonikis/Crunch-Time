@@ -60,6 +60,12 @@ interface GamesApi {
     suspend fun getUserActivity(): NetworkResponse<List<UserActivityResponse>>
 
     /**
+     * News feed
+     */
+    @GET("api/v1/user/news-feed")
+    suspend fun getNewsFeed(): NetworkResponse<List<UserActivityResponse>>
+
+    /**
      * Deals
      */
     @GET("api/v1/deal/search")

@@ -53,8 +53,12 @@ object SerializationModule {
                 UserActivityResponse.ACTION_GAME_STATUS_UPDATED
             )
             .withSubtype(
-                UserActivityResponse.UserActivityGameStatusResponse::class.java,
+                UserActivityResponse.UserActivityGameRatedResponse::class.java,
                 UserActivityResponse.ACTION_GAME_RANKED
+            )
+            .withSubtype(
+                UserActivityResponse.UserActivityListCreatedResponse::class.java,
+                UserActivityResponse.ACTION_LIST_CREATED
             )
     }
 }

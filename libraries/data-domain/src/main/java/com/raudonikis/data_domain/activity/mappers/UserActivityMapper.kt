@@ -1,5 +1,6 @@
 package com.raudonikis.data_domain.activity.mappers
 
+import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.network.activity.UserActivityResponse
 
@@ -15,13 +16,23 @@ object UserActivityMapper {
                     gameId = response.gameId,
                     action = UserActivityActionMapper.fromUserActivityDataResponse(response),
                     coverUrl = response.coverUrl,
+                    createdAt = DateFormatter.stringToDate(response.createdAt),
                 )
             }
             is UserActivityResponse.UserActivityGameRatedResponse -> {
                 return UserActivity(
                     gameId = response.gameId,
                     action = UserActivityActionMapper.fromUserActivityDataResponse(response),
-                    coverUrl = response.coverUrl
+                    coverUrl = response.coverUrl,
+                    createdAt = DateFormatter.stringToDate(response.createdAt),
+                )
+            }
+            is UserActivityResponse.UserActivityListCreatedResponse -> {
+                return UserActivity(
+                    gameId = response.gameId ?: 0, //todo
+                    action = UserActivityActionMapper.fromUserActivityDataResponse(response),
+                    coverUrl = response.coverUrl,
+                    createdAt = DateFormatter.stringToDate(response.createdAt),
                 )
             }
         }

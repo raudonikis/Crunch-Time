@@ -2,7 +2,6 @@ package com.raudonikis.activity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mikepenz.fastadapter.FastAdapter
@@ -10,12 +9,12 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.activity.databinding.FragmentActivityBinding
 import com.raudonikis.activity.user_activity_item.UserActivityItem
 import com.raudonikis.activity.user_activity_item.UserActivityItemMapper
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.testActivities
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -27,55 +26,55 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
     private val binding: FragmentActivityBinding by viewBinding()
 
     /**
-     * Activity
+     * News feed
      */
-    private val userActivityItemAdapter = ItemAdapter<UserActivityItem>()
-    private val userActivityAdapter = FastAdapter.with(userActivityItemAdapter)
+    private val newsFeedItemAdapter = ItemAdapter<UserActivityItem>()
+    private val newsFeedAdapter = FastAdapter.with(newsFeedItemAdapter)
 
     /**
      * Lifecycle hooks
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpUserActivity()
+        setUpNewsFeed()
         setUpObservers()
     }
 
     /**
      * Set up
      */
-    private fun setUpUserActivity() {
+    private fun setUpNewsFeed() {
         binding.apply {
-            recyclerActivities.adapter = userActivityAdapter
-            recyclerActivities.addItemDecoration(
+            recyclerNewsFeed.adapter = newsFeedAdapter
+            recyclerNewsFeed.addItemDecoration(
                 VerticalPaddingItemDecoration(
                     requireContext(),
                     R.dimen.spacing_small
                 )
             )
         }
-        userActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(testActivities))
     }
 
     private fun setUpObservers() {
-        viewModel.userActivityState
-            .onEach { updateUserActivityState(it) }
+        viewModel.newsFeedState
+            .onEach { updateNewsFeedState(it) }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
-    private fun updateUserActivityState(state: Outcome<List<UserActivity>>) {
+    private fun updateNewsFeedState(state: Outcome<List<UserActivity>>) {
         state
-            .onSuccess {
-                userActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(it))
+            .onSuccess { newsFeed ->
+                val newsFeedItems = newsFeed.sortedByDescending { it.createdAt }
+                newsFeedItemAdapter.update(UserActivityItemMapper.fromUserActivityList(newsFeedItems))
             }
             .onFailure {
-                Toast.makeText(requireContext(), "Failure", Toast.LENGTH_SHORT).show()
+                showShortSnackbar("Failure")
             }
             .onLoading {
-                Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                showShortSnackbar("Loading...")
             }
             .onEmpty {
-                Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+                showShortSnackbar("Empty")
             }
     }
 

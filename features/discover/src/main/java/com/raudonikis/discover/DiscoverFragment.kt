@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.*
 import com.raudonikis.common_ui.RecyclerAdapter
 import com.raudonikis.common_ui.databinding.ItemGameBinding

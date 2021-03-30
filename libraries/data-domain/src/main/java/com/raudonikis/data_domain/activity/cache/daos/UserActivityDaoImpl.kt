@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.activity.cache.daos
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusUtils
@@ -17,19 +17,42 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
      */
     private val userActivity: MutableStateFlow<Outcome<List<UserActivity>>> =
         MutableStateFlow(Outcome.empty())
+    private val newsFeed: MutableStateFlow<Outcome<List<UserActivity>>> =
+        MutableStateFlow(Outcome.empty())
 
-    override fun getUserActivity(): Flow<Outcome<List<UserActivity>>> {
+    /**
+     * My user activity
+     */
+    override fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>> {
         return userActivity
     }
 
-    override fun setUserActivityOutcome(outcome: Outcome<List<UserActivity>>) {
+    override fun setMyUserActivityOutcome(outcome: Outcome<List<UserActivity>>) {
         userActivity.value = outcome
     }
 
-    override suspend fun updateUserActivity(userActivities: List<UserActivity>) {
-        userActivity.value = Outcome.success(userActivities)
+    override suspend fun updateMyUserActivity(userActivity: List<UserActivity>) {
+        this.userActivity.value = Outcome.success(userActivity)
     }
 
+    /**
+     * News feed
+     */
+    override fun getNewsFeed(): Flow<Outcome<List<UserActivity>>> {
+        return newsFeed
+    }
+
+    override fun setNewsFeedOutcome(outcome: Outcome<List<UserActivity>>) {
+        newsFeed.value = outcome
+    }
+
+    override suspend fun updateNewsFeed(newsFeed: List<UserActivity>) {
+        this.newsFeed.value = Outcome.success(newsFeed)
+    }
+
+    /**
+     * Game status
+     */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
         userActivity.value =
             GameStatusUtils.updateGameStatusForActivities(userActivity.value, id, gameStatus)

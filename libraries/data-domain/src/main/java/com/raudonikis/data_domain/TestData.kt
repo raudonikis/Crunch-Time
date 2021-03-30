@@ -155,12 +155,14 @@ val testDeals = listOf(
     ),
 )
 
+/*
 val testActivities = listOf(
     UserActivity(
         gameId = 1,
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 1",
             status = GameStatus.WANT,
+            user = "NedasK",
         ),
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
@@ -169,6 +171,7 @@ val testActivities = listOf(
         action = UserActivityAction.ActionGameRated(
             title = "Game 2",
             rating = GameRating.DOWN_VOTED,
+            user = "NedasK",
         ),
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
@@ -177,6 +180,7 @@ val testActivities = listOf(
         action = UserActivityAction.ActionGameRated(
             title = "Game 3",
             rating = GameRating.UP_VOTED,
+            user = "NedasK",
         ),
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
@@ -185,6 +189,7 @@ val testActivities = listOf(
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 4",
             status = GameStatus.PLAYED,
+            user = "NedasK",
         ),
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
@@ -193,7 +198,8 @@ val testActivities = listOf(
         action = UserActivityAction.ActionGameStatusUpdated(
             title = "Game 5",
             status = GameStatus.PLAYING,
+            user = "NedasK",
         ),
         coverUrl = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co2tvq.jpg",
     ),
-)
+)*/

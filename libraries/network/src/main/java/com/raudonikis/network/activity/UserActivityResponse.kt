@@ -4,8 +4,6 @@ import com.squareup.moshi.Json
 
 sealed class UserActivityResponse {
     data class UserActivityGameStatusResponse(
-        @Json(name = "user_id")
-        val userId: String,
         @Json(name = "game_id")
         val gameId: Long,
         @Json(name = "action")
@@ -14,11 +12,13 @@ sealed class UserActivityResponse {
         val data: ActionGameStatusUpdatedResponse,
         @Json(name = "cover_url")
         val coverUrl: String? = null,
+        @Json(name = "created_at")
+        val createdAt: String,
+        @Json(name = "updated_at")
+        val updatedAt: String,
     ) : UserActivityResponse()
 
     data class UserActivityGameRatedResponse(
-        @Json(name = "user_id")
-        val userId: String,
         @Json(name = "game_id")
         val gameId: Long,
         @Json(name = "action")
@@ -27,11 +27,31 @@ sealed class UserActivityResponse {
         val data: ActionGameRatedResponse,
         @Json(name = "cover_url")
         val coverUrl: String? = null,
+        @Json(name = "created_at")
+        val createdAt: String,
+        @Json(name = "updated_at")
+        val updatedAt: String,
+    ) : UserActivityResponse()
+
+    data class UserActivityListCreatedResponse(
+        @Json(name = "game_id")
+        val gameId: Long?,
+        @Json(name = "action")
+        val action: String,
+        @Json(name = "data")
+        val data: ActionListCreatedResponse,
+        @Json(name = "cover_url")
+        val coverUrl: String? = null,
+        @Json(name = "created_at")
+        val createdAt: String,
+        @Json(name = "updated_at")
+        val updatedAt: String,
     ) : UserActivityResponse()
 
     companion object {
         const val LABEL_ACTION = "action"
         const val ACTION_GAME_STATUS_UPDATED = "game_status_updated"
+        const val ACTION_LIST_CREATED = "list_created"
         const val ACTION_GAME_RANKED = "???" //todo
     }
 }

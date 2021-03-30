@@ -16,12 +16,20 @@ object UserActivityActionMapper {
                 UserActivityAction.ActionGameStatusUpdated(
                     status = GameStatus.fromString(response.data.status),
                     title = response.data.gameName,
+                    user = response.data.user,
                 )
             }
             is UserActivityResponse.UserActivityGameRatedResponse -> {
                 UserActivityAction.ActionGameRated(
                     title = response.data.name,
-                    rating = GameRating.UP_VOTED
+                    rating = GameRating.UP_VOTED,
+                    user = response.data.name,
+                )
+            }
+            is UserActivityResponse.UserActivityListCreatedResponse -> {
+                UserActivityAction.ActionListCreated(
+                    listName = response.data.listName,
+                    user = response.data.user,
                 )
             }
         }

@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.activity.cache.daos
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game_status.GameStatus
 import kotlinx.coroutines.flow.Flow
@@ -8,11 +8,18 @@ import kotlinx.coroutines.flow.Flow
 interface UserActivityDao {
 
     /**
-     * User activity
+     * My user activity
      */
-    fun getUserActivity(): Flow<Outcome<List<UserActivity>>>
-    fun setUserActivityOutcome(outcome: Outcome<List<UserActivity>>)
-    suspend fun updateUserActivity(userActivities: List<UserActivity>)
+    fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>>
+    fun setMyUserActivityOutcome(outcome: Outcome<List<UserActivity>>)
+    suspend fun updateMyUserActivity(userActivity: List<UserActivity>)
+
+    /**
+     * News feed
+     */
+    fun getNewsFeed(): Flow<Outcome<List<UserActivity>>>
+    fun setNewsFeedOutcome(outcome: Outcome<List<UserActivity>>)
+    suspend fun updateNewsFeed(newsFeed: List<UserActivity>)
 
     /**
      * Game status

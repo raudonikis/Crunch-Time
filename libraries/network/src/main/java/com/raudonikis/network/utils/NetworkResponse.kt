@@ -1,6 +1,6 @@
 package com.raudonikis.network.utils
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.squareup.moshi.Json
 import timber.log.Timber
 

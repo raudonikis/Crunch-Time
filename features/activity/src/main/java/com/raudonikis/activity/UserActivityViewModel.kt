@@ -18,18 +18,19 @@ class UserActivityViewModel @Inject constructor(
     /**
      * Observables
      */
-    val userActivityState = userActivityRepository.getUserActivity()
+    val userActivityState = userActivityRepository.getMyUserActivity()
+    val newsFeedState = userActivityRepository.getNewsFeed()
 
     init {
-        updateUserActivity()
+        updateNewsFeed()
     }
 
     /**
      * User activity
      */
-    private fun updateUserActivity() {
+    private fun updateNewsFeed() {
         viewModelScope.launch(Dispatchers.IO) {
-            userActivityRepository.updateUserActivity()
+            userActivityRepository.updateNewsFeed()
         }
     }
 }

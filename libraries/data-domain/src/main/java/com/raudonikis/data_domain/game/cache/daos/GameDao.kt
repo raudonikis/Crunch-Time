@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.game.cache.daos
 
-import com.raudonikis.common.extensions.Outcome
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_status.GameStatus
 import kotlinx.coroutines.flow.Flow
