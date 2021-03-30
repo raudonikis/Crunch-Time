@@ -1,6 +1,7 @@
 package com.raudonikis.network
 
 import com.raudonikis.network.activity.UserActivityResponse
+import com.raudonikis.network.auth.UserResponse
 import com.raudonikis.network.auth.login.LoginRequestBody
 import com.raudonikis.network.auth.login.LoginResponse
 import com.raudonikis.network.auth.register.RegisterRequestBody
@@ -83,6 +84,9 @@ interface GamesApi {
 
     @DELETE("api/v1/user/follow/{uuid}")
     suspend fun unfollowUser(@Path("uuid") uuid: String): NetworkResponse<Unit>
+
+    @GET("api/v1/user/followers")
+    suspend fun getFollowers(): NetworkResponse<List<UserResponse>>
 
     /**
      * Authentication
