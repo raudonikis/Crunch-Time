@@ -9,6 +9,8 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.activity.databinding.FragmentActivityBinding
 import com.raudonikis.activity.user_activity_item.UserActivityItem
 import com.raudonikis.activity.user_activity_item.UserActivityItemMapper
+import com.raudonikis.activity.user_item.UserItem
+import com.raudonikis.activity.user_item.UserItemMapper
 import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.hideKeyboard
@@ -38,7 +40,7 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
     /**
      * User search
      */
-    private val userSearchItemAdapter = ItemAdapter<UserActivityItem>()
+    private val userSearchItemAdapter = ItemAdapter<UserItem>()
     private val userSearchAdapter = FastAdapter.with(userSearchItemAdapter)
 
     /**
@@ -58,8 +60,8 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         viewModel.newsFeedState
             .onEach { updateNewsFeedState(it) }
             .observeInLifecycle(viewLifecycleOwner)
-        viewModel.userSearchResultsState
-            .onEach { updateSearchResultsState(it) }
+        viewModel.userSearchState
+            .onEach { updateUserSearchState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.userActivityState
             .onEach { updateUserActivityState(it) }
@@ -110,15 +112,15 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
      */
     private fun setUpUserSearch() {
         binding.apply {
-            recyclerSearchResults.adapter = userSearchAdapter
-            recyclerSearchResults.addItemDecoration(
+            recyclerUserSearch.adapter = userSearchAdapter
+            recyclerUserSearch.addItemDecoration(
                 VerticalPaddingItemDecoration(
                     requireContext(),
                     R.dimen.spacing_small
                 )
             )
             layoutHeader.getSearchComponent().apply {
-//                setSearchQuery(viewModel.searchQuery)
+                setSearchQuery(viewModel.userSearchQuery)
                 setOnClearClick {
                     viewModel.onSearchCleared()
                 }
@@ -126,12 +128,13 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         }
     }
 
-    private fun updateSearchResultsState(state: Outcome<List<User>>) {
+    private fun updateUserSearchState(state: Outcome<List<User>>) {
         state
             .onSuccess {
+                userSearchItemAdapter.update(UserItemMapper.fromUserList(it))
             }
             .onFailure {
-                showShortSnackbar("Failure search")
+                showShortSnackbar("User search failure")
             }
             .onLoading {
                 showShortSnackbar("Loading search...")
@@ -145,7 +148,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
      * User activity
      */
     private fun updateUserActivityState(state: UserActivityState) {
-        binding.groupNewsFeed.showIf { state == UserActivityState.NEWS_FEED }
-        binding.groupUserSearch.showIf { state == UserActivityState.USER_SEARCH }
+        with(binding) {
+            groupUserSearch.showIf { state == UserActivityState.USER_SEARCH }
+            groupNewsFeed.showIf { state == UserActivityState.NEWS_FEED }
+        }
     }
 }

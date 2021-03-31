@@ -27,11 +27,13 @@ class UserActivityViewModel @Inject constructor(
      * User search
      */
     private var userSearchJob: Job? = null
+    var userSearchQuery = ""
+        private set
 
     /**
      * Observables
      */
-    val userSearchResultsState = userRepository.getUserSearchResults()
+    val userSearchState = userRepository.getUserSearchResults()
     val newsFeedState = userActivityRepository.getNewsFeed()
     val userActivityState: Flow<UserActivityState> = _userActivityState
 
@@ -53,9 +55,9 @@ class UserActivityViewModel @Inject constructor(
      */
     fun searchUsers(name: String) {
         userSearchJob?.cancel()
+        userSearchQuery = name
         if (name.isBlank()) {
-            _userActivityState.value = UserActivityState.NEWS_FEED
-            userRepository.clearUserSearchResults()
+            onSearchCleared()
             return
         }
         _userActivityState.value = UserActivityState.USER_SEARCH

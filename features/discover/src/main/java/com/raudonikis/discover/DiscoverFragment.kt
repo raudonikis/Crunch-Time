@@ -77,7 +77,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private fun setUpSearch() {
         binding.apply {
-            recyclerSearchResults.adapter = searchResultsAdapter
+            recyclerGameSearch.adapter = searchResultsAdapter
             layoutHeader.getSearchComponent().apply {
                 setSearchQuery(viewModel.searchQuery)
                 setOnClearClick {
@@ -164,10 +164,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private fun updateDiscoverState(state: DiscoverState) {
         binding.groupSearch.showIf { state is DiscoverState.Search }
         binding.groupDiscover.showIf { state is DiscoverState.Discover }
-        /*when (state) {
+        when (state) {
             is DiscoverState.Discover -> {
                 binding.groupSearchLoading.hide()
             }
-        }*/
+        }
     }
 }

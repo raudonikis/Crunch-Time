@@ -5,4 +5,5 @@
     <item name="adapter_activity_id" type="id" />
     <item name="adapter_deal_id" type="id" />
     <item name="adapter_review_id" type="id" />
+    <item name="adapter_user_id" type="id" />
 </resources>
