@@ -19,6 +19,7 @@ data class UserItem(val user: User) : AbstractBindingItem<ItemUserBinding>() {
     override fun bindView(binding: ItemUserBinding, payloads: List<Any>) {
         with(binding) {
             textUserName.text = user.name
+            textUserEmail.text = user.email
         }
     }
 }
