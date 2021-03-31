@@ -162,16 +162,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     private fun updateDiscoverState(state: DiscoverState) {
-        when (state) {
+        binding.groupSearch.showIf { state is DiscoverState.Search }
+        binding.groupDiscover.showIf { state is DiscoverState.Discover }
+        /*when (state) {
             is DiscoverState.Discover -> {
-                binding.groupDiscover.show()
-                binding.groupSearch.hide()
                 binding.groupSearchLoading.hide()
             }
-            is DiscoverState.Search -> {
-                binding.groupDiscover.hide()
-                binding.groupSearch.show()
-            }
-        }
+        }*/
     }
 }

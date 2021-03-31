@@ -37,4 +37,8 @@ class UserRepository @Inject constructor(
             return outcome
         }
     }
+
+    fun clearUserSearchResults() {
+        userDao.setUserSearchResultsOutcome(Outcome.empty())
+    }
 }
