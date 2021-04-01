@@ -71,6 +71,7 @@ class UserActivityViewModel @Inject constructor(
      */
     fun onSearchCleared() {
         userSearchJob?.cancel()
+        userSearchJob = null
         userRepository.clearUserSearchResults()
         _userActivityState.value = UserActivityState.NEWS_FEED
     }

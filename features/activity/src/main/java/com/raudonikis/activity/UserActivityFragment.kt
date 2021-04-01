@@ -13,10 +13,7 @@ import com.raudonikis.activity.user_item.UserItem
 import com.raudonikis.activity.user_item.UserItemMapper
 import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.showIf
-import com.raudonikis.common_ui.extensions.hideKeyboard
-import com.raudonikis.common_ui.extensions.observeInLifecycle
-import com.raudonikis.common_ui.extensions.showShortSnackbar
-import com.raudonikis.common_ui.extensions.update
+import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.user.User
@@ -125,6 +122,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                     viewModel.onSearchCleared()
                 }
             }
+            userSearchAdapter.onViewClick(R.id.button_follow) {
+                showShortSnackbar("Follow clicked")
+            }
         }
     }
 
@@ -136,11 +136,8 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             .onFailure {
                 showShortSnackbar("User search failure")
             }
-            .onLoading {
-                showShortSnackbar("Loading search...")
-            }
             .onEmpty {
-                showShortSnackbar("Empty search")
+                userSearchItemAdapter.clear()
             }
     }
 
