@@ -20,6 +20,7 @@ class UserRepository @Inject constructor(
      * Observables
      */
     fun getUserSearchResults(): Flow<Outcome<List<User>>> = userDao.getUserSearchResults()
+    fun getFollowingUsers(): Flow<Outcome<List<User>>> = userDao.getFollowingUsers()
 
     /**
      * User search
@@ -45,6 +46,18 @@ class UserRepository @Inject constructor(
     /**
      * Followers
      */
+    suspend fun updateFollowingUsers(): Outcome<List<User>> {
+        withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.getFollowingUsers()
+                    .map { UserMapper.fromUserResponseList(it) }
+            }
+        }.toOutcome().also { outcome ->
+            userDao.setFollowingUsersOutcome(outcome)
+            return outcome
+        }
+    }
+
     suspend fun followUser(user: User): Outcome<List<Nothing>> {
         return withContext(Dispatchers.IO) {
             safeNetworkResponse {

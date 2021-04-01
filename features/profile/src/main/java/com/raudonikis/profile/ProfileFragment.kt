@@ -6,14 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
+import com.raudonikis.common.Outcome
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
-import com.raudonikis.common_ui.extensions.update
-import com.raudonikis.profile.activity.ActivitiesState
 import com.raudonikis.common_ui.game_item.GameItem
-import com.raudonikis.common_ui.game_item.GameItemMapper
-import com.raudonikis.data_domain.testGames
+import com.raudonikis.data_domain.user.User
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,25 +21,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModels()
     private val binding: FragmentProfileBinding by viewBinding()
+
+    /**
+     * Game collection
+     */
     private val gameCollectionItemAdapter = ItemAdapter<GameItem>()
     private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
-
-    /*private val userActivityAdapter = RecyclerAdapter<UserActivity, ItemActivityBinding>(
-        onInflate = { inflater, parent ->
-            ItemActivityBinding.inflate(inflater, parent, false)
-        },
-        onBind = { activity ->
-            activity.coverUrl?.let { url ->
-                Glide
-                    .with(root)
-                    .load(url.prefixHttps())
-                    .placeholder(R.drawable.game_placeholder)
-                    .centerCrop()
-                    .into(activityImage)
-            }
-        },
-        onClick = { viewModel.onUserActivityClick(this) }
-    )*/
 
     /**
      * Lifecycle hooks
@@ -50,26 +34,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpListeners()
-        setUpViews()
         setUpObservers()
-        val games = GameItemMapper.fromGameList(testGames)
-        gameCollectionItemAdapter.update(games)
-    }
-
-    /**
-     * Set up
-     */
-    private fun setUpViews() {
-        with(binding) {
-            /*recyclerActivity.apply {
-                adapter = userActivityAdapter
-                addItemDecoration(HorizontalPaddingItemDecoration(context, R.dimen.spacing_small))
-            }*/
-            recyclerGameCollection.apply {
-                adapter = gameCollectionAdapter
-                addItemDecoration(HorizontalPaddingItemDecoration(context, R.dimen.spacing_small))
-            }
-        }
     }
 
     /**
@@ -97,22 +62,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpObservers() {
         viewModel.activitiesState
-            .onEach { state ->
-                when (state) {
-                    is ActivitiesState.Initial -> {
-
-                    }
-                    is ActivitiesState.Loading -> {
-
-                    }
-                    is ActivitiesState.Success -> {
-//                        userActivityAdapter.submitList(state.activities)
-                    }
-                    is ActivitiesState.Failure -> {
-
-                    }
-                }
-            }
+            .onEach { }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.followingUsersState
+            .onEach { onFollowingUsersState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    /**
+     * Followers
+     */
+    private fun onFollowingUsersState(state: Outcome<List<User>>) {
+
     }
 }

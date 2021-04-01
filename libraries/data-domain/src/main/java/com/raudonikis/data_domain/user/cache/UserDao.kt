@@ -7,9 +7,16 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao {
 
     /**
-     * Search
+     * User search
      */
     fun getUserSearchResults(): Flow<Outcome<List<User>>>
     fun setUserSearchResultsOutcome(outcome: Outcome<List<User>>)
     suspend fun updateUserSearchResults(userSearchResults: List<User>)
+
+    /**
+     * Followers
+     */
+    fun getFollowingUsers(): Flow<Outcome<List<User>>>
+    fun setFollowingUsersOutcome(outcome: Outcome<List<User>>)
+    suspend fun updateFollowingUsers(following: List<User>)
 }

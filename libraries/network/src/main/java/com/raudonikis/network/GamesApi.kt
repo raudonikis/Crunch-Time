@@ -86,7 +86,7 @@ interface GamesApi {
     suspend fun unfollowUser(@Path("uuid") uuid: String): NetworkResponse<List<Nothing>>
 
     @GET("api/v1/user/followers")
-    suspend fun getFollowers(): NetworkResponse<List<UserResponse>>
+    suspend fun getFollowingUsers(): NetworkResponse<List<UserResponse>>
 
     /**
      * Authentication
