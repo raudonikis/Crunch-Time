@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.activity.databinding.FragmentActivityBinding
+import com.raudonikis.activity.followers.UserFollowEvent
 import com.raudonikis.activity.user_activity_item.UserActivityItem
 import com.raudonikis.activity.user_activity_item.UserActivityItemMapper
 import com.raudonikis.activity.user_item.UserItem
@@ -62,6 +63,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.userActivityState
             .onEach { updateUserActivityState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.userFollowEvent
+            .onEach { onUserFollowEvent(it) }
             .observeInLifecycle(viewLifecycleOwner)
         binding.layoutHeader.getSearchComponent().asFlow()
             .debounce(1000)
@@ -123,7 +127,7 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                 }
             }
             userSearchAdapter.onViewClick(R.id.button_follow) {
-                showShortSnackbar("Follow clicked")
+                viewModel.onFollowButtonClicked(it.user)
             }
         }
     }
@@ -148,6 +152,20 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         with(binding) {
             groupUserSearch.showIf { state == UserActivityState.USER_SEARCH }
             groupNewsFeed.showIf { state == UserActivityState.NEWS_FEED }
+        }
+    }
+
+    /**
+     * Followers
+     */
+    private fun onUserFollowEvent(event: UserFollowEvent) {
+        when (event) {
+            UserFollowEvent.FAILURE -> {
+                showShortSnackbar("Follow failure")
+            }
+            UserFollowEvent.SUCCESS -> {
+                showShortSnackbar("Follow success")
+            }
         }
     }
 }

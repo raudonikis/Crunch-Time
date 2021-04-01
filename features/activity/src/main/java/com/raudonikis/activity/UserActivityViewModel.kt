@@ -2,13 +2,16 @@ package com.raudonikis.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.activity.followers.UserFollowEvent
 import com.raudonikis.data_domain.activity.repo.UserActivityRepository
+import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.repo.UserRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +25,7 @@ class UserActivityViewModel @Inject constructor(
 
     private val _userActivityState: MutableStateFlow<UserActivityState> =
         MutableStateFlow(UserActivityState.NEWS_FEED)
+    private val _userFollowEvent: MutableSharedFlow<UserFollowEvent> = MutableSharedFlow()
 
     /**
      * User search
@@ -36,6 +40,7 @@ class UserActivityViewModel @Inject constructor(
     val userSearchState = userRepository.getUserSearchResults()
     val newsFeedState = userActivityRepository.getNewsFeed()
     val userActivityState: Flow<UserActivityState> = _userActivityState
+    val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
 
     init {
         updateNewsFeed()
@@ -74,5 +79,14 @@ class UserActivityViewModel @Inject constructor(
         userSearchJob = null
         userRepository.clearUserSearchResults()
         _userActivityState.value = UserActivityState.NEWS_FEED
+    }
+
+    fun onFollowButtonClicked(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userFollowEvent.emit(UserFollowEvent.LOADING)
+            userRepository.followUser(user)
+                .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
+                .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
+        }
     }
 }

@@ -80,10 +80,10 @@ interface GamesApi {
     suspend fun searchUsers(@Query("name") name: String): NetworkResponse<List<UserSearchResponse>>
 
     @POST("api/v1/user/follow/{uuid}")
-    suspend fun followUser(@Path("uuid") uuid: String): NetworkResponse<Unit>
+    suspend fun followUser(@Path("uuid") uuid: String): NetworkResponse<List<Nothing>>
 
     @DELETE("api/v1/user/follow/{uuid}")
-    suspend fun unfollowUser(@Path("uuid") uuid: String): NetworkResponse<Unit>
+    suspend fun unfollowUser(@Path("uuid") uuid: String): NetworkResponse<List<Nothing>>
 
     @GET("api/v1/user/followers")
     suspend fun getFollowers(): NetworkResponse<List<UserResponse>>

@@ -41,4 +41,23 @@ class UserRepository @Inject constructor(
     fun clearUserSearchResults() {
         userDao.setUserSearchResultsOutcome(Outcome.empty())
     }
+
+    /**
+     * Followers
+     */
+    suspend fun followUser(user: User): Outcome<List<Nothing>> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.followUser(user.uuid)
+            }
+        }.toOutcome()
+    }
+
+    suspend fun unfollowUser(user: User): Outcome<List<Nothing>> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.unfollowUser(user.uuid)
+            }
+        }.toOutcome()
+    }
 }
