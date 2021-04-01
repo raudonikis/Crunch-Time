@@ -46,5 +46,8 @@
         <item name="textAppearanceSecondary">@style/TextAppearance.Secondary</item>
         <!-- Chips -->
         <item name="chipStyle">@style/Chip.Action</item>
+        <!-- Buttons -->
+        <!-- Shapes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
     </style>
 </resources>
