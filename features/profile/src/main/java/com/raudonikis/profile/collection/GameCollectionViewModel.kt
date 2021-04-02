@@ -46,7 +46,7 @@ class GameCollectionViewModel @Inject constructor(
     private fun updateGameCollection() {
         _gameCollectionState.value = GameCollectionState.Loading
         viewModelScope.launch {
-            gamesRepository.getGameCollection(currentGameStatus)
+            /*gamesRepository.getGameCollection(currentGameStatus)
                 .onSuccess {
                     _gameCollectionState.value = GameCollectionState.Success(it)
                 }
@@ -55,7 +55,7 @@ class GameCollectionViewModel @Inject constructor(
                 }
                 .onEmpty {
                     _gameCollectionState.value = GameCollectionState.Failure
-                }
+                }*/
         }
     }
 

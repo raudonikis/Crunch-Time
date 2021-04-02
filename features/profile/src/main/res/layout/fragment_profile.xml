@@ -29,8 +29,8 @@
             tools:text="raudonikiss" />
 
         <TextView
-            style="?textAppearanceSecondary"
             android:id="@+id/text_user_email"
+            style="?textAppearanceSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
-            android:text="Following"
+            android:text="@string/button_following_placeholder"
             app:layout_constraintEnd_toStartOf="@+id/button_followers"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -56,63 +56,48 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingSmall"
-            android:text="Followers"
+            android:text="@string/button_followers_placeholder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_following"
             app:layout_constraintTop_toBottomOf="@id/text_user_email" />
 
-        <!--<TextView
+        <TextView
             android:id="@+id/title_collection"
             style="?textAppearanceHeadline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingNormal"
-            android:text="Collections"
+            android:text="@string/label_collections"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_header" />
+            app:layout_constraintTop_toBottomOf="@id/button_following" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_collections"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_collections"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
-            android:layout_marginTop="?spacingNormal"
-            android:orientation="horizontal"
-            app:checkedChip="@id/chip_playing"
-            app:chipSpacing="?spacingSmall"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_collection"
-            app:selectionRequired="true"
-            app:singleSelection="true">
+            app:tabMode="scrollable">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_playing"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Playing"
-                android:textAppearance="?textAppearanceBody" />
+                android:text="Played" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_played"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Played"
-                android:textAppearance="?textAppearanceBody" />
+                android:text="Playing now" />
 
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_want"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Want"
-                android:textAppearance="?textAppearanceBody" />
+                android:text="Want to play" />
 
-        </com.google.android.material.chip.ChipGroup>
+        </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_game_collection"
@@ -124,9 +109,9 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_group_collections"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_collections"
             tools:itemCount="4"
-            tools:listitem="@layout/item_game_cover" />-->
+            tools:listitem="@layout/item_game_cover" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

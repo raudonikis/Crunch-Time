@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game.cache.daos
 
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_status.GameStatus
 import kotlinx.coroutines.flow.Flow
 
@@ -25,4 +26,11 @@ interface GameDao {
      * Game status
      */
     suspend fun updateGameStatus(id: Long, gameStatus: GameStatus)
+
+    /**
+     * Game collections
+     */
+    fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>>
+    fun setGameCollectionOutcome(gameCollectionType: GameCollectionType, outcome: Outcome<List<Game>>)
+    suspend fun updateGameCollection(gameCollectionType: GameCollectionType, games: List<Game>)
 }

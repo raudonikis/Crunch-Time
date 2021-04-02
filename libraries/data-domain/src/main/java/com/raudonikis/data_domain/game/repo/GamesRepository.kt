@@ -4,6 +4,7 @@ import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.cache.daos.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_deal.GameDeal
 import com.raudonikis.data_domain.game_deal.mappers.GameDealMapper
 import com.raudonikis.data_domain.game_review.GameReviewInfo
@@ -11,6 +12,8 @@ import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.testGames
+import com.raudonikis.data_domain.testGames2
+import com.raudonikis.data_domain.testGames3
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewRequestBody
@@ -31,6 +34,9 @@ class GamesRepository @Inject constructor(
     /**
      * Observables
      */
+    fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>> =
+        gameDao.getGameCollection(gameCollectionType)
+
     fun getPopularGames(): Flow<Outcome<List<Game>>> = gameDao.getPopularGames()
     fun getGameSearchResults(): Flow<Outcome<List<Game>>> = gameDao.getGameSearchResults()
 
@@ -142,8 +148,15 @@ class GamesRepository @Inject constructor(
         }
     }
 
-    suspend fun getGameCollection(gameStatus: GameStatus): NetworkResponse<List<Game>> {
-        delay(1000)
-        return NetworkResponse(true, testGames)
+    suspend fun updateGameCollection(gameCollectionType: GameCollectionType) {
+        gameDao.setGameCollectionOutcome(gameCollectionType, Outcome.loading())
+        withContext(Dispatchers.IO) {
+            val games = when (gameCollectionType) {
+                GameCollectionType.PLAYED -> testGames
+                GameCollectionType.PLAYING -> testGames2
+                GameCollectionType.WANT -> testGames3
+            }
+            gameDao.setGameCollectionOutcome(gameCollectionType, Outcome.success(games))
+        }
     }
 }

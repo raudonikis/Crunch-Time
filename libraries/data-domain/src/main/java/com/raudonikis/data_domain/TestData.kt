@@ -24,6 +24,9 @@ val testGames = listOf(
         videos = listOf(GameVideo("https://www.youtube.com/watch?v=H5mj4CP4_rI")),
         status = GameStatus.PLAYED,
     ),
+)
+
+val testGames2 = listOf(
     Game(
         name = "Game 3",
         description = "Game 3 description",
@@ -52,6 +55,9 @@ val testGames = listOf(
         videos = listOf(GameVideo("https://www.youtube.com/watch?v=H5mj4CP4_rI")),
         status = GameStatus.EMPTY,
     ),
+)
+
+val testGames3 = listOf(
     Game(
         name = "Game 6",
         description = "Game 6 description",

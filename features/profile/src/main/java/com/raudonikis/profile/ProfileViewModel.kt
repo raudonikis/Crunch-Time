@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameCollectionType
+import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user.repo.UserRepository
@@ -14,6 +16,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +26,7 @@ class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val userRepository: UserRepository,
     private val userPreferences: UserPreferences,
+    private val gamesRepository: GamesRepository,
 ) : ViewModel() {
 
     /**
@@ -30,8 +35,11 @@ class ProfileViewModel @Inject constructor(
     private val _activitiesState: MutableStateFlow<ActivitiesState> =
         MutableStateFlow(ActivitiesState.Initial)
     private val _userState: MutableStateFlow<Outcome<User>> = MutableStateFlow(Outcome.empty())
+    private val _gameCollectionTypeState: MutableStateFlow<GameCollectionType> =
+        MutableStateFlow(GameCollectionType.PLAYED)
 
     init {
+        updateGameCollections()
         updateFollowingUsers()
         updateCurrentUser()
     }
@@ -42,6 +50,11 @@ class ProfileViewModel @Inject constructor(
     val activitiesState: Flow<ActivitiesState> = _activitiesState
     val followingUsersState: Flow<Outcome<List<User>>> = userRepository.getFollowingUsers()
     val userState: Flow<Outcome<User>> = _userState
+    val gameCollectionTypeState: StateFlow<GameCollectionType> = _gameCollectionTypeState
+    val gameCollection: Flow<Outcome<List<Game>>> =
+        _gameCollectionTypeState.flatMapLatest { gameCollectionType ->
+            gamesRepository.getGameCollection(gameCollectionType)
+        }
 
     /**
      * Followers
@@ -62,6 +75,21 @@ class ProfileViewModel @Inject constructor(
     }
 
     /**
+     * Game collection
+     */
+    private fun updateGameCollections() {
+        viewModelScope.launch(Dispatchers.IO) {
+            listOf(
+                GameCollectionType.WANT,
+                GameCollectionType.PLAYING,
+                GameCollectionType.PLAYED
+            ).map {
+                gamesRepository.updateGameCollection(it)
+            }
+        }
+    }
+
+    /**
      * Events
      */
 
@@ -75,6 +103,10 @@ class ProfileViewModel @Inject constructor(
 
     fun onFollowingClicked() {
         navigateToFollowing()
+    }
+
+    fun onGameCollectionTabSwitched(gameCollectionType: GameCollectionType) {
+        _gameCollectionTypeState.value = gameCollectionType
     }
 
     /**

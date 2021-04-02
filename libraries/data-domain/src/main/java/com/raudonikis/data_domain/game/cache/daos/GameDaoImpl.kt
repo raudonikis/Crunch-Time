@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game.cache.daos
 
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusUtils
 import kotlinx.coroutines.flow.*
@@ -17,6 +18,12 @@ class GameDaoImpl @Inject constructor() : GameDao {
     private val popularGames: MutableStateFlow<Outcome<List<Game>>> =
         MutableStateFlow(Outcome.empty())
     private val gameSearchResults: MutableStateFlow<Outcome<List<Game>>> =
+        MutableStateFlow(Outcome.empty())
+    private val gameCollectionPlayed: MutableStateFlow<Outcome<List<Game>>> =
+        MutableStateFlow(Outcome.empty())
+    private val gameCollectionPlaying: MutableStateFlow<Outcome<List<Game>>> =
+        MutableStateFlow(Outcome.empty())
+    private val gameCollectionWant: MutableStateFlow<Outcome<List<Game>>> =
         MutableStateFlow(Outcome.empty())
 
     /**
@@ -57,5 +64,37 @@ class GameDaoImpl @Inject constructor() : GameDao {
             GameStatusUtils.updateGameStatusForGames(popularGames.value, id, gameStatus)
         gameSearchResults.value =
             GameStatusUtils.updateGameStatusForGames(gameSearchResults.value, id, gameStatus)
+    }
+
+    override fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>> {
+        return chooseGameCollection(gameCollectionType)
+    }
+
+    override fun setGameCollectionOutcome(
+        gameCollectionType: GameCollectionType,
+        outcome: Outcome<List<Game>>
+    ) {
+        chooseGameCollection(gameCollectionType).value = outcome
+    }
+
+    override suspend fun updateGameCollection(
+        gameCollectionType: GameCollectionType,
+        games: List<Game>
+    ) {
+        chooseGameCollection(gameCollectionType).value = Outcome.success(games)
+    }
+
+    private fun chooseGameCollection(gameCollectionType: GameCollectionType): MutableStateFlow<Outcome<List<Game>>> {
+        return when (gameCollectionType) {
+            GameCollectionType.PLAYED -> {
+                gameCollectionPlayed
+            }
+            GameCollectionType.PLAYING -> {
+                gameCollectionPlaying
+            }
+            GameCollectionType.WANT -> {
+                gameCollectionWant
+            }
+        }
     }
 }
