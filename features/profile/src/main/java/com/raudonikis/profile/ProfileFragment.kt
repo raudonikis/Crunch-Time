@@ -9,7 +9,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
-import com.raudonikis.common_ui.game_item.GameItem
+import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
@@ -25,7 +25,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     /**
      * Game collection
      */
-    private val gameCollectionItemAdapter = ItemAdapter<GameItem>()
+    private val gameCollectionItemAdapter = ItemAdapter<GameCoverItem>()
     private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
 
     /**

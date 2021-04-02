@@ -2,20 +2,15 @@ package com.raudonikis.discover
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.*
-import com.raudonikis.common_ui.RecyclerAdapter
-import com.raudonikis.common_ui.databinding.ItemGameBinding
-import com.raudonikis.common_ui.extensions.hideKeyboard
-import com.raudonikis.common_ui.extensions.observeInLifecycle
-import com.raudonikis.common_ui.extensions.onClick
-import com.raudonikis.common_ui.extensions.update
+import com.raudonikis.common_ui.extensions.*
+import com.raudonikis.common_ui.game_cover_item.GameCoverItem
+import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.game_item.GameItem
 import com.raudonikis.common_ui.game_item.GameItemMapper
 import com.raudonikis.data_domain.game.models.Game
@@ -35,79 +30,35 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     /**
      * Popular games
      */
-    private val popularGamesItemAdapter = ItemAdapter<GameItem>()
+    private val popularGamesItemAdapter = ItemAdapter<GameCoverItem>()
     private val popularGamesAdapter = FastAdapter.with(popularGamesItemAdapter)
 
     /**
      * Trending games
      */
-    private val trendingGamesItemAdapter = ItemAdapter<GameItem>()
+    private val trendingGamesItemAdapter = ItemAdapter<GameCoverItem>()
     private val trendingGamesAdapter = FastAdapter.with(trendingGamesItemAdapter)
 
     /**
-     * Search results
+     * Game search results
      */
-    private val searchResultsAdapter = RecyclerAdapter<Game, ItemGameBinding>(
-        onInflate = { inflater, parent ->
-            ItemGameBinding.inflate(inflater, parent, false)
-        },
-        onBind = { game ->
-            this.gameTitle.text = game.name
-            this.gameDescription.text = game.description
-            game.coverUrl?.let { url ->
-                Glide
-                    .with(this.root)
-                    .load(url.prefixHttps())
-                    .centerCrop()
-                    .into(this.gameCover)
-            }
-        },
-        onClick = { viewModel.navigateToDetails(this) }
-    )
+    private val gameSearchItemAdapter = ItemAdapter<GameItem>()
+    private val gameSearchAdapter = FastAdapter.with(gameSearchItemAdapter)
 
     /**
      * Lifecycle hooks
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpSearch()
+        setUpGameSearch()
         setUpGameLists()
         setUpObservers()
     }
 
-    private fun setUpSearch() {
-        binding.apply {
-            recyclerGameSearch.adapter = searchResultsAdapter
-            layoutHeader.getSearchComponent().apply {
-                setSearchQuery(viewModel.searchQuery)
-                setOnClearClick {
-                    viewModel.onSearchQueryCleared()
-                }
-            }
-        }
-    }
 
-    private fun setUpGameLists() {
-        binding.apply {
-            popularGames.setAdapter(popularGamesAdapter)
-            popularGamesAdapter.onClick {
-                viewModel.navigateToDetails(it.game)
-            }
-            trendingGames.setAdapter(trendingGamesAdapter)
-            trendingGamesAdapter.onClick {
-                viewModel.navigateToDetails(it.game)
-            }
-            val gameItems = GameItemMapper.fromGameList(testGames)
-            trendingGamesItemAdapter.update(gameItems)
-        }
-    }
-
-    /**
-     * Observers
-     */
     private fun setUpObservers() {
         binding.layoutHeader.getSearchComponent().asFlow()
-            .debounce(1000)
+            .debounce(SEARCH_DEBOUNCE_TIME)
             .onEach {
                 hideKeyboard()
                 viewModel.search(it)
@@ -124,50 +75,87 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             .observeInLifecycle(viewLifecycleOwner)
     }
 
-    private fun updatePopularGamesState(outcome: Outcome<List<Game>>) {
-        outcome
-            .onSuccess {
-                popularGamesItemAdapter.update(GameItemMapper.fromGameList(it))
+    /**
+     * Game search
+     */
+    private fun setUpGameSearch() {
+        binding.apply {
+            recyclerGameSearch.adapter = gameSearchAdapter
+            gameSearchAdapter.onClick {
+                viewModel.onGameClicked(it.game)
             }
-            .onFailure {
-                Toast.makeText(requireContext(), "Popular games failed", Toast.LENGTH_LONG).show()
+            layoutHeader.getSearchComponent().apply {
+                setSearchQuery(viewModel.searchQuery)
+                setOnClearClick {
+                    viewModel.onSearchQueryCleared()
+                }
             }
-            .onEmpty {
-                Toast.makeText(requireContext(), "Popular games empty", Toast.LENGTH_LONG).show()
-            }
-            .onLoading {
-                Toast.makeText(requireContext(), "Popular games loading", Toast.LENGTH_SHORT).show()
-            }
+        }
     }
 
     private fun updateSearchState(outcome: Outcome<List<Game>>) {
+        binding.groupSearchLoading.showIf { outcome is Outcome.Loading }
         outcome
             .onSuccess {
-                binding.groupSearchLoading.hide()
-                searchResultsAdapter.submitList(it)
+                gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))
             }
             .onFailure {
-                searchResultsAdapter.submitList(emptyList())
-                binding.groupSearchLoading.hide()
-                Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_LONG).show()
+                gameSearchItemAdapter.clear()
+                showLongSnackbar("Search failed")
             }
             .onEmpty {
-                searchResultsAdapter.submitList(emptyList())
-                binding.groupSearchLoading.hide()
+                gameSearchItemAdapter.clear()
             }
             .onLoading {
-                searchResultsAdapter.submitList(emptyList())
-                binding.groupSearchLoading.show()
+                gameSearchItemAdapter.clear()
             }
     }
 
-    private fun updateDiscoverState(state: DiscoverState) {
-        binding.groupSearch.showIf { state is DiscoverState.Search }
-        binding.groupDiscover.showIf { state is DiscoverState.Discover }
-        when (state) {
-            is DiscoverState.Discover -> {
-                binding.groupSearchLoading.hide()
+    /**
+     * Game lists
+     */
+    private fun setUpGameLists() {
+        binding.apply {
+            popularGames.setAdapter(popularGamesAdapter)
+            popularGamesAdapter.onClick {
+                viewModel.onGameClicked(it.game)
             }
+            trendingGames.setAdapter(trendingGamesAdapter)
+            trendingGamesAdapter.onClick {
+                viewModel.onGameClicked(it.game)
+            }
+            val gameItems = GameCoverItemMapper.fromGameList(testGames)
+            trendingGamesItemAdapter.update(gameItems)
         }
+    }
+
+    private fun updatePopularGamesState(outcome: Outcome<List<Game>>) {
+        outcome
+            .onSuccess {
+                popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
+            }
+            .onFailure {
+                showLongSnackbar("Popular games failed")
+            }
+            .onEmpty {
+                showLongSnackbar("Popular games empty")
+            }
+            .onLoading {
+                showShortSnackbar("Popular games loading")
+            }
+    }
+
+    /**
+     * Discover
+     */
+    private fun updateDiscoverState(state: DiscoverState) {
+        with(binding) {
+            groupSearch.showIf { state is DiscoverState.Search }
+            groupDiscover.showIf { state is DiscoverState.Discover }
+        }
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_TIME: Long = 1200
     }
 }

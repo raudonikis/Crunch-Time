@@ -6,30 +6,29 @@ import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common_ui.R
-import com.raudonikis.common_ui.databinding.ItemGameCoverBinding
+import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.data_domain.game.models.Game
 
-class GameItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>() {
+class GameItem(val game: Game) : AbstractBindingItem<ItemGameBinding>() {
 
     override val type: Int
         get() = R.id.adapter_game_id
 
-    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): ItemGameCoverBinding {
-        return ItemGameCoverBinding.inflate(inflater, parent, false)
+    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): ItemGameBinding {
+        return ItemGameBinding.inflate(inflater, parent, false)
     }
 
-    override fun bindView(binding: ItemGameCoverBinding, payloads: List<Any>) {
+    override fun bindView(binding: ItemGameBinding, payloads: List<Any>) {
         with(binding) {
-            imageGameCover.setImageResource(R.drawable.game_placeholder)
+            gameTitle.text = game.name
+            gameDescription.text = game.description
             game.coverUrl?.let { url ->
                 Glide
                     .with(root)
                     .load(url.prefixHttps())
-                    .placeholder(R.drawable.game_placeholder)
                     .centerCrop()
-                    .into(imageGameCover)
+                    .into(gameCover)
             }
-            gameStatus.setGameStatus(game.status)
         }
     }
 }

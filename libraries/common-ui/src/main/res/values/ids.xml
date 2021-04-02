@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="adapter_screenshot_id" type="id" />
+    <item name="adapter_game_cover_id" type="id" />
     <item name="adapter_game_id" type="id" />
     <item name="adapter_activity_id" type="id" />
     <item name="adapter_deal_id" type="id" />

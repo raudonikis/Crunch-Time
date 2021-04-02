@@ -5,14 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.raudonikis.common.extensions.hide
-import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.show
-import com.raudonikis.common_ui.RecyclerAdapter
-import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.common_ui.extensions.observeInLifecycle
-import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.profile.R
 import com.raudonikis.profile.databinding.FragmentGameCollectionBinding
 import com.wada811.viewbinding.viewBinding
@@ -26,7 +21,7 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
     private val binding: FragmentGameCollectionBinding by viewBinding()
     private val args: GameCollectionFragmentArgs by navArgs()
 
-    private val gameCollectionAdapter = RecyclerAdapter<Game, ItemGameBinding>(
+    /*private val gameCollectionAdapter = RecyclerAdapter<Game, ItemGameBinding>(
         onInflate = { inflater, parent ->
             ItemGameBinding.inflate(inflater, parent, false)
         },
@@ -42,7 +37,7 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
             }
         },
         onClick = { viewModel.onGameClick(this) }
-    )
+    )*/
 
     /**
      * Lifecycle hooks
@@ -63,7 +58,7 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
      */
     private fun setUpViews() {
         with(binding) {
-            recyclerGameCollection.adapter = gameCollectionAdapter
+//            recyclerGameCollection.adapter = gameCollectionAdapter
             titleCollection.text = args.gameStatus.toString().capitalize()
         }
     }
@@ -82,7 +77,7 @@ class GameCollectionFragment : Fragment(R.layout.fragment_game_collection) {
                     }
                     is GameCollectionState.Success -> {
                         binding.progressCollection.hide()
-                        gameCollectionAdapter.submitList(state.games)
+//                        gameCollectionAdapter.submitList(state.games)
                         with(binding) {
                             titleCollection.text = args.gameStatus.toString().capitalize()
                             collectionSize.text = "${state.games.size} games"
