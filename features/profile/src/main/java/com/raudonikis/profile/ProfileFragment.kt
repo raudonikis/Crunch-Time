@@ -67,12 +67,31 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.followingUsersState
             .onEach { onFollowingUsersState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.userState
+            .onEach { onUserState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    /**
+     * User
+     */
+    private fun onUserState(state: Outcome<User>) {
+        with(binding) {
+            state
+                .onSuccess { user ->
+                    textUserEmail.text = user.email
+                    textUserName.text = user.name
+                }
+        }
     }
 
     /**
      * Followers
      */
     private fun onFollowingUsersState(state: Outcome<List<User>>) {
-
+        state
+            .onSuccess {
+                binding.buttonFollowing.text = "Following(${it.size})"
+            }
     }
 }

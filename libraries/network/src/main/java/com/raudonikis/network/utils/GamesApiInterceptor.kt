@@ -1,6 +1,6 @@
 package com.raudonikis.network.utils
 
-import com.raudonikis.data.user.UserPreferences
+import com.raudonikis.data.auth.AuthPreferences
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -8,12 +8,12 @@ import okhttp3.Response
 import javax.inject.Inject
 
 internal class GamesApiInterceptor @Inject constructor(
-    private val userPreferences: UserPreferences
+    private val authPreferences: AuthPreferences,
 ) : Interceptor {
 
     private val headers: Map<String, String>
         get() = mapOf(
-            GamesApiConstants.Header.KEY_AUTHORIZATION to "${GamesApiConstants.Header.VALUE_AUTHORIZATION}${userPreferences.accessToken}",
+            GamesApiConstants.Header.KEY_AUTHORIZATION to "${GamesApiConstants.Header.VALUE_AUTHORIZATION}${authPreferences.accessToken}",
         )
     private val queries: Map<String, String>
         get() = mapOf()

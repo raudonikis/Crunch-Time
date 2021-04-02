@@ -2,7 +2,7 @@ package com.raudonikis.login.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.raudonikis.data.user.UserPreferences
+import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.LoginRouter
 import com.raudonikis.login.validation.EmailState
@@ -79,8 +79,10 @@ class LoginViewModel @Inject constructor(
      * Events
      */
     fun onViewCreated() {
-        if (userPreferences.isRememberMeChecked && userPreferences.userEmail.isNotBlank()) {
-            _loginEvent.offer(LoginEvent.InitialiseFields(userPreferences.userEmail))
+        if (userPreferences.isRememberMeChecked) {
+            userPreferences.currentUser?.let { user ->
+                _loginEvent.offer(LoginEvent.InitialiseFields(user))
+            }
         }
     }
 

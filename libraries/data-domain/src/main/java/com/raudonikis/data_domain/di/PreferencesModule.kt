@@ -1,4 +1,4 @@
-package com.raudonikis.data.di
+package com.raudonikis.data_domain.di
 
 import android.content.Context
 import android.content.SharedPreferences

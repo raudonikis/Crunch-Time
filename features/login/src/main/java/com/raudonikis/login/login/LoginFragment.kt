@@ -82,7 +82,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun onLoginEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.InitialiseFields -> {
-                binding.textFieldEmail.text = event.email
+                binding.textFieldEmail.text = event.user.email
                 binding.checkboxRememberMe.isChecked = true
             }
             is LoginEvent.LoginSuccess -> {
