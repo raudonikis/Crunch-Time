@@ -79,13 +79,7 @@ class ProfileViewModel @Inject constructor(
      */
     private fun updateGameCollections() {
         viewModelScope.launch(Dispatchers.IO) {
-            listOf(
-                GameCollectionType.WANT,
-                GameCollectionType.PLAYING,
-                GameCollectionType.PLAYED
-            ).map {
-                gamesRepository.updateGameCollection(it)
-            }
+            gamesRepository.updateGameCollection()
         }
     }
 

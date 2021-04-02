@@ -12,8 +12,6 @@ import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.testGames
-import com.raudonikis.data_domain.testGames2
-import com.raudonikis.data_domain.testGames3
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewRequestBody
@@ -21,7 +19,6 @@ import com.raudonikis.network.game_status.GameStatusResponse
 import com.raudonikis.network.utils.NetworkResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -148,15 +145,10 @@ class GamesRepository @Inject constructor(
         }
     }
 
-    suspend fun updateGameCollection(gameCollectionType: GameCollectionType) {
-        gameDao.setGameCollectionOutcome(gameCollectionType, Outcome.loading())
+    suspend fun updateGameCollection() {
+        gameDao.setGameCollectionOutcome(Outcome.loading())
         withContext(Dispatchers.IO) {
-            val games = when (gameCollectionType) {
-                GameCollectionType.PLAYED -> testGames
-                GameCollectionType.PLAYING -> testGames2
-                GameCollectionType.WANT -> testGames3
-            }
-            gameDao.setGameCollectionOutcome(gameCollectionType, Outcome.success(games))
+            gameDao.setGameCollectionOutcome(Outcome.success(testGames))
         }
     }
 }

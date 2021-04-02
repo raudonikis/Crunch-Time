@@ -31,6 +31,6 @@ interface GameDao {
      * Game collections
      */
     fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>>
-    fun setGameCollectionOutcome(gameCollectionType: GameCollectionType, outcome: Outcome<List<Game>>)
-    suspend fun updateGameCollection(gameCollectionType: GameCollectionType, games: List<Game>)
+    fun setGameCollectionOutcome(outcome: Outcome<List<Game>>)
+    suspend fun updateGameCollection(games: List<Game>)
 }

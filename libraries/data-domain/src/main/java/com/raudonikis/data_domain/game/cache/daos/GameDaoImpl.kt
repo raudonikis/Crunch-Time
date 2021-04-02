@@ -19,11 +19,7 @@ class GameDaoImpl @Inject constructor() : GameDao {
         MutableStateFlow(Outcome.empty())
     private val gameSearchResults: MutableStateFlow<Outcome<List<Game>>> =
         MutableStateFlow(Outcome.empty())
-    private val gameCollectionPlayed: MutableStateFlow<Outcome<List<Game>>> =
-        MutableStateFlow(Outcome.empty())
-    private val gameCollectionPlaying: MutableStateFlow<Outcome<List<Game>>> =
-        MutableStateFlow(Outcome.empty())
-    private val gameCollectionWant: MutableStateFlow<Outcome<List<Game>>> =
+    private val gameCollection: MutableStateFlow<Outcome<List<Game>>> =
         MutableStateFlow(Outcome.empty())
 
     /**
@@ -71,30 +67,26 @@ class GameDaoImpl @Inject constructor() : GameDao {
     }
 
     override fun setGameCollectionOutcome(
-        gameCollectionType: GameCollectionType,
         outcome: Outcome<List<Game>>
     ) {
-        chooseGameCollection(gameCollectionType).value = outcome
+        gameCollection.value = outcome
     }
 
     override suspend fun updateGameCollection(
-        gameCollectionType: GameCollectionType,
         games: List<Game>
     ) {
-        chooseGameCollection(gameCollectionType).value = Outcome.success(games)
+        gameCollection.value = Outcome.success(games)
     }
 
-    private fun chooseGameCollection(gameCollectionType: GameCollectionType): MutableStateFlow<Outcome<List<Game>>> {
-        return when (gameCollectionType) {
-            GameCollectionType.PLAYED -> {
-                gameCollectionPlayed
-            }
-            GameCollectionType.PLAYING -> {
-                gameCollectionPlaying
-            }
-            GameCollectionType.WANT -> {
-                gameCollectionWant
-            }
+    private fun chooseGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>> {
+        return gameCollection.map { outcome ->
+            outcome
+                .onSuccess { games ->
+                    return@map Outcome.success(games.filter { game ->
+                        game.status == gameCollectionType.toGameStatus()
+                    })
+                }
+            return@map outcome
         }
     }
 }
