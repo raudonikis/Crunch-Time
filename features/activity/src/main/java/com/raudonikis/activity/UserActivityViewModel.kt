@@ -81,6 +81,12 @@ class UserActivityViewModel @Inject constructor(
         _userActivityState.value = UserActivityState.NEWS_FEED
     }
 
+    fun onNewsFeedRefresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            userActivityRepository.updateNewsFeed()
+        }
+    }
+
     fun onFollowButtonClicked(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             _userFollowEvent.emit(UserFollowEvent.LOADING)

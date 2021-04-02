@@ -43,6 +43,7 @@ class UserActivityRepository @Inject constructor(
      * News feed
      */
     suspend fun updateNewsFeed(): Outcome<List<UserActivity>> {
+        userActivityDao.setNewsFeedOutcome(Outcome.loading())
         withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.getNewsFeed()

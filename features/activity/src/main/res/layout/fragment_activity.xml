@@ -18,7 +18,7 @@
         android:id="@+id/group_news_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="recycler_news_feed" />
+        app:constraint_referenced_ids="swipe_refresh_news_feed" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_user_search"
@@ -27,20 +27,27 @@
         android:visibility="gone"
         app:constraint_referenced_ids="recycler_user_search" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_news_feed"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_news_feed"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="?spacingNormal"
         android:layout_marginTop="?spacingNormal"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_header"
-        tools:itemCount="6"
-        tools:listitem="@layout/item_user_activity" />
+        app:layout_constraintTop_toBottomOf="@id/layout_header">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_news_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_user_activity" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_user_search"

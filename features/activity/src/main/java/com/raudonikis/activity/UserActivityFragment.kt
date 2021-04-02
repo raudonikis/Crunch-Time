@@ -88,23 +88,22 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                     R.dimen.spacing_small
                 )
             )
+            swipeRefreshNewsFeed.setOnRefreshListener {
+                viewModel.onNewsFeedRefresh()
+            }
         }
     }
 
     private fun updateNewsFeedState(state: Outcome<List<UserActivity>>) {
         state
             .onSuccess { newsFeed ->
+                binding.swipeRefreshNewsFeed.isRefreshing = false
                 val newsFeedItems = newsFeed.sortedByDescending { it.createdAt }
                 newsFeedItemAdapter.update(UserActivityItemMapper.fromUserActivityList(newsFeedItems))
             }
             .onFailure {
-                showShortSnackbar("Failure")
-            }
-            .onLoading {
-                showShortSnackbar("Loading...")
-            }
-            .onEmpty {
-                showShortSnackbar("Empty")
+                binding.swipeRefreshNewsFeed.isRefreshing = false
+                showShortSnackbar("Failure - news feed")
             }
     }
 
@@ -165,6 +164,8 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             }
             UserFollowEvent.SUCCESS -> {
                 showShortSnackbar("Follow success")
+            }
+            else -> {
             }
         }
     }

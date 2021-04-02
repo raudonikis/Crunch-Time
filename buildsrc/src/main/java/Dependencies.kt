@@ -8,6 +8,7 @@ object Versions {
     // UI
     const val glide = "4.12.0"
     const val fastAdapter = "5.3.5"
+    const val swipeToRefresh = "1.1.0"
 
     // Animations
     const val lottie = "3.6.1"
@@ -103,6 +104,7 @@ object Dependencies {
     const val fastAdapter = "com.mikepenz:fastadapter:${Versions.fastAdapter}"
     const val fastAdapterViewBinding =
         "com.mikepenz:fastadapter-extensions-binding:${Versions.fastAdapter}"
+    const val swipeToRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
 
     // Animations
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
