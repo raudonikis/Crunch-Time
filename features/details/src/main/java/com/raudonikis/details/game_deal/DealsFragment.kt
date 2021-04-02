@@ -75,14 +75,13 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
      * Events
      */
     private fun onDealsState(state: DealsState) {
-        binding.progressBarDeals.showIf { state is DealsState.Loading }
-        when (state) {
-            is DealsState.Success -> {
-                DealItemMapper.fromDealList(state.deals).sortedBy { it.deal.priceNew }
-                    .let { deals ->
-                        dealsItemAdapter.update(deals)
-                    }
-            }
+        binding.groupLoading.showIf { state is DealsState.Loading }
+        binding.groupFailure.showIf { state is DealsState.Failure }
+        binding.recyclerDeals.showIf { state is DealsState.Success }
+        if (state is DealsState.Success) {
+            val deals = DealItemMapper.fromDealList(state.deals).sortedBy { it.deal.priceNew }
+            dealsItemAdapter.update(deals)
+            binding.groupFailure.showIf { deals.isEmpty() }
         }
     }
 }

@@ -8,4 +8,7 @@
     <string name="label_review_count">%1$d reviews</string>
     <string name="label_price">€%1$d</string>
     <string name="button_reviews">Reviews(%1$d)</string>
+    <string name="error_no_deals">No deals available.</string>
+    <string name="button_write_review">Write a review</string>
+    <string name="error_no_reviews">No reviews yet.</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
@@ -107,8 +108,10 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
 
     private fun onGameUpdate(game: Game) {
         detailsViewModel.onGameUpdated(game)
-        reviewsItemAdapter.update(ReviewItemMapper.fromGameReviewList(game.gameReviewInfo.reviews))
+        val reviews = ReviewItemMapper.fromGameReviewList(game.gameReviewInfo.reviews)
+        reviewsItemAdapter.update(reviews)
         binding.textReviewCount.text =
             getString(R.string.label_review_count, game.gameReviewInfo.reviews.size)
+        binding.groupFailure.showIf { reviews.isEmpty() }
     }
 }
