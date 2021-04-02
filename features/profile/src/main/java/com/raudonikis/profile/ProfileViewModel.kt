@@ -9,6 +9,7 @@ import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user.repo.UserRepository
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.profile.activity.ActivitiesState
+import com.raudonikis.profile.followers.FollowerType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -68,11 +69,26 @@ class ProfileViewModel @Inject constructor(
         navigateToDetails(game)
     }
 
+    fun onFollowersClicked() {
+        navigateToFollowers()
+    }
+
+    fun onFollowingClicked() {
+        navigateToFollowing()
+    }
+
     /**
      * Navigation
      */
-
     private fun navigateToDetails(game: Game) {
         navigationDispatcher.navigate(ProfileRouter.profileToDetails(game))
+    }
+
+    private fun navigateToFollowers() {
+        navigationDispatcher.navigate(ProfileRouter.profileToFollowers(FollowerType.FOLLOWER))
+    }
+
+    private fun navigateToFollowing() {
+        navigationDispatcher.navigate(ProfileRouter.profileToFollowers(FollowerType.FOLLOWING))
     }
 }

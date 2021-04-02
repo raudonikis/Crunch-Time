@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background">
+        android:layout_height="wrap_content">
 
         <com.raudonikis.common_ui.components.HeaderLayout
             android:id="@+id/layout_header"
@@ -20,6 +19,7 @@
 
         <TextView
             android:id="@+id/text_user_name"
+            style="?textAppearanceBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingNormal"
@@ -29,6 +29,7 @@
             tools:text="raudonikiss" />
 
         <TextView
+            style="?textAppearanceSecondary"
             android:id="@+id/text_user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
             android:id="@+id/button_following"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
             android:text="Following"
             app:layout_constraintEnd_toStartOf="@+id/button_followers"
             app:layout_constraintHorizontal_bias="0.5"
@@ -53,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingSmall"
             android:text="Followers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

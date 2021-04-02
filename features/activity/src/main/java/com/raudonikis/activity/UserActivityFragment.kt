@@ -10,8 +10,8 @@ import com.raudonikis.activity.databinding.FragmentActivityBinding
 import com.raudonikis.activity.followers.UserFollowEvent
 import com.raudonikis.activity.user_activity_item.UserActivityItem
 import com.raudonikis.activity.user_activity_item.UserActivityItemMapper
-import com.raudonikis.activity.user_item.UserItem
-import com.raudonikis.activity.user_item.UserItemMapper
+import com.raudonikis.common_ui.user_item.UserItem
+import com.raudonikis.common_ui.user_item.UserItemMapper
 import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.*

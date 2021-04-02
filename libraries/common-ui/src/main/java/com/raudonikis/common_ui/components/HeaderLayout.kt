@@ -32,7 +32,7 @@ class HeaderLayout(context: Context, attributeSet: AttributeSet) :
         enableSearch(isSearchEnabled)
     }
 
-    private fun setTitle(title: String?) {
+    fun setTitle(title: String?) {
         binding.textTitle.text = title
     }
 

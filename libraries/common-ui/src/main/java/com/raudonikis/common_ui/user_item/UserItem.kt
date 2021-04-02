@@ -1,10 +1,10 @@
-package com.raudonikis.activity.user_item
+package com.raudonikis.common_ui.user_item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
-import com.raudonikis.activity.R
-import com.raudonikis.activity.databinding.ItemUserBinding
+import com.raudonikis.common_ui.R
+import com.raudonikis.common_ui.databinding.ItemUserBinding
 import com.raudonikis.data_domain.user.User
 
 data class UserItem(val user: User) : AbstractBindingItem<ItemUserBinding>() {

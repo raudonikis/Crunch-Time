@@ -20,6 +20,9 @@
                 android:name="game"
                 app:argType="com.raudonikis.data_domain.game.models.Game" />
         </action>
+        <action
+            android:id="@+id/action_profileFragment_to_followersFragment"
+            app:destination="@id/followersFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameCollectionFragment"
@@ -38,4 +41,13 @@
         </action>
     </fragment>
     <include app:graph="@navigation/navigation_details" />
+    <fragment
+        android:id="@+id/followersFragment"
+        android:name="com.raudonikis.profile.followers.FollowersFragment"
+        android:label="FollowersFragment"
+        tools:layout="@layout/fragment_followers" >
+        <argument
+            android:name="followerType"
+            app:argType="com.raudonikis.profile.followers.FollowerType" />
+    </fragment>
 </navigation>

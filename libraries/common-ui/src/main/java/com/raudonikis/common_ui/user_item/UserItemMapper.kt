@@ -1,4 +1,4 @@
-package com.raudonikis.activity.user_item
+package com.raudonikis.common_ui.user_item
 
 import com.raudonikis.data_domain.user.User
 

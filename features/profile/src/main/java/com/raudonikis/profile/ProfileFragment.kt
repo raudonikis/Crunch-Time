@@ -3,7 +3,7 @@ package com.raudonikis.profile
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewModel: ProfileViewModel by hiltNavGraphViewModels(R.id.navigation_profile)
     private val binding: FragmentProfileBinding by viewBinding()
 
     /**
@@ -45,6 +45,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             viewModel.onGameClicked(it.game)
         }
         with(binding) {
+            buttonFollowing.setOnClickListener {
+                viewModel.onFollowingClicked()
+            }
+            buttonFollowers.setOnClickListener {
+                viewModel.onFollowersClicked()
+            }
             /*cardPlayed.setOnClickListener {
                 viewModel.onCollectionClicked(GameStatus.PLAYED)
             }
@@ -90,8 +96,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun onFollowingUsersState(state: Outcome<List<User>>) {
         state
-            .onSuccess {
-                binding.buttonFollowing.text = "Following(${it.size})"
+            .onSuccess { followingUsers ->
+                binding.buttonFollowing.text =
+                    getString(R.string.button_following, followingUsers.size)
             }
     }
 }
