@@ -7,11 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.raudonikis.common.Outcome
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
+import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
+import com.raudonikis.data_domain.game_deal.GameDeal
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.FragmentDealsBinding
 import com.raudonikis.details.game_deal.mappers.DealItemMapper
@@ -69,19 +72,30 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
         viewModel.dealsState
             .onEach { onDealsState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+        viewModel.errorEvent
+            .onEach { onErrorEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     /**
      * Events
      */
-    private fun onDealsState(state: DealsState) {
-        binding.groupLoading.showIf { state is DealsState.Loading }
-        binding.groupFailure.showIf { state is DealsState.Failure }
-        binding.recyclerDeals.showIf { state is DealsState.Success }
-        if (state is DealsState.Success) {
-            val deals = DealItemMapper.fromDealList(state.deals).sortedBy { it.deal.priceNew }
-            dealsItemAdapter.update(deals)
-            binding.groupFailure.showIf { deals.isEmpty() }
+    private fun onDealsState(state: Outcome<List<GameDeal>>) {
+        with(binding) {
+            groupLoading.showIf { state is Outcome.Loading }
+            groupFailure.showIf { state is Outcome.Failure }
+            recyclerDeals.showIf { state is Outcome.Success }
+            state
+                .onSuccess { deals ->
+                    DealItemMapper.fromDealList(deals).sortedBy { it.deal.priceNew }.also {
+                        dealsItemAdapter.update(it)
+                    }
+                    binding.groupFailure.showIf { deals.isEmpty() }
+                }
         }
+    }
+
+    private fun onErrorEvent(error: String) {
+        showLongSnackbar(error)
     }
 }

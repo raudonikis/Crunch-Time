@@ -7,10 +7,8 @@ sealed class Outcome<out T> {
 
     data class Success<out T>(val data: T) : Outcome<T>()
     object Empty : Outcome<Nothing>()
-    object Failure : Outcome<Nothing>()
+    data class Failure(val message: String?) : Outcome<Nothing>()
     object Loading : Outcome<Nothing>()
-//    data class Failure(val error: ErrorCode, val message: String?) : Outcome<Nothing>()
-//    data class Loading(val update: ProgressUpdate?) : Outcome<Nothing>()
 
     inline fun onSuccess(f: (data: T) -> Unit): Outcome<T> {
         if (this is Success) {
@@ -33,9 +31,9 @@ sealed class Outcome<out T> {
         return this
     }
 
-    inline fun onFailure(f: (/*errorCode: ErrorCode*/) -> Unit): Outcome<T> {
+    inline fun onFailure(f: (message: String?) -> Unit): Outcome<T> {
         if (this is Failure) {
-            f()
+            f(message)
         }
         return this
     }
@@ -43,7 +41,7 @@ sealed class Outcome<out T> {
     inline fun <C> map(transform: (T) -> C): Outcome<C> {
         return when (this) {
             is Success -> success(transform(data))
-            is Failure -> failure()
+            is Failure -> failure(message)
             is Empty -> empty()
             is Loading -> loading()
         }
@@ -52,7 +50,8 @@ sealed class Outcome<out T> {
     companion object {
         fun <T> success(data: T) = Success(data)
         fun empty() = Empty
-        fun failure() = Failure
+        fun failure() = Failure(null)
+        fun failure(message: String?) = Failure(message)
         fun loading() = Loading
     }
 }

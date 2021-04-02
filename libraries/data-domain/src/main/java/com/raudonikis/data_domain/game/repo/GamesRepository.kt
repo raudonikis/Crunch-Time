@@ -87,7 +87,7 @@ class GamesRepository @Inject constructor(
             val response = gamesApi.searchGameDeals(game.name)
             Outcome.success(GameDealMapper.fromDealSearchResponseList(response, game))
         } catch (e: Exception) {
-            Outcome.failure()
+            Outcome.failure(e.message)
         }
     }
 
