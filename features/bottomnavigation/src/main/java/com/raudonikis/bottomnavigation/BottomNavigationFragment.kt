@@ -40,7 +40,6 @@ class BottomNavigationFragment : Fragment(R.layout.fragment_bottom_navigation) {
     private fun setUpBottomNavigation() {
         binding.apply {
             val navGraphIds = listOf(
-                R.navigation.navigation_home,
                 R.navigation.navigation_discover,
                 R.navigation.navigation_activity,
                 R.navigation.navigation_profile

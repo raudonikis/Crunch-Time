@@ -28,13 +28,18 @@ fun FragmentDetailsBinding.bindGame(
     bindGameItem(game)
     bindGameWallpaper(game)
     bindGameScreenshots(game, screenshotAdapter)
-    bindGameReviewInfo(game.gameReviewInfo)
+    bindGameReviewInfo(game.gameReviewInfo, context)
 }
 
-private fun FragmentDetailsBinding.bindGameReviewInfo(gameReviewInfo: GameReviewInfo?) {
-    gameReviewInfo?.let {
-        ratingLike.text = it.positiveCount.toString()
-        ratingDislike.text = it.negativeCount.toString()
+private fun FragmentDetailsBinding.bindGameReviewInfo(
+    gameReviewInfo: GameReviewInfo?,
+    context: Context
+) {
+    gameReviewInfo?.let { gameReviewInfo ->
+        ratingLike.text = gameReviewInfo.positiveCount.toString()
+        ratingDislike.text = gameReviewInfo.negativeCount.toString()
+        val reviewCount = gameReviewInfo.negativeCount + gameReviewInfo.positiveCount
+        buttonReviews.text = context.getString(R.string.button_reviews, reviewCount)
     }
 }
 
