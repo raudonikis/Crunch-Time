@@ -70,6 +70,9 @@ class NavigationHandler @Inject constructor(
                     false -> R.id.action_global_bottomNavigationFragment
                 }
             }
+            is NavigationGraph.Login -> {
+                R.id.action_global_navigation_login
+            }
         }
         rootNavigationController.navigate(destination)
     }

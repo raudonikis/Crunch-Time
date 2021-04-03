@@ -96,6 +96,9 @@ interface GamesApi {
         @Body loginBody: LoginRequestBody
     ): NetworkResponse<LoginResponse>
 
+    @POST("api/v1/user/logout")
+    suspend fun logout(): NetworkResponse<List<Nothing>>
+
     @POST("api/user/register")
     suspend fun register(
         @Body registerBody: RegisterRequestBody

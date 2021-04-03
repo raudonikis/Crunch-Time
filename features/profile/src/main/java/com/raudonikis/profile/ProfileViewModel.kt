@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.usecases.MyActivityUseCase
+import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
@@ -12,14 +13,13 @@ import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user_following.UserFollowingUseCase
 import com.raudonikis.navigation.NavigationDispatcher
-import com.raudonikis.profile.activity.ActivitiesState
+import com.raudonikis.navigation.NavigationGraph
 import com.raudonikis.profile.followers.FollowerType
+import com.raudonikis.profile.logout.LogoutEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +27,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val userPreferences: UserPreferences,
+    private val authenticationRepository: AuthenticationRepository,
     // Use cases
     private val gameCollectionUseCase: GameCollectionUseCase,
     private val userFollowingUseCase: UserFollowingUseCase,
@@ -34,11 +35,12 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * States
+     * States/Events
      */
     private val _userState: MutableStateFlow<Outcome<User>> = MutableStateFlow(Outcome.empty())
     private val _gameCollectionTypeState: MutableStateFlow<GameCollectionType> =
         MutableStateFlow(GameCollectionType.PLAYED)
+    private val _logoutEvent: Channel<LogoutEvent> = Channel()
 
     init {
         updateGameCollections()
@@ -58,6 +60,7 @@ class ProfileViewModel @Inject constructor(
         _gameCollectionTypeState.flatMapLatest { gameCollectionType ->
             gameCollectionUseCase.getGameCollection(gameCollectionType)
         }
+    val logoutEvent: Flow<LogoutEvent> = _logoutEvent.receiveAsFlow()
 
     /**
      * Followers
@@ -116,6 +119,18 @@ class ProfileViewModel @Inject constructor(
         _gameCollectionTypeState.value = gameCollectionType
     }
 
+    fun onLogoutClicked() {
+        _logoutEvent.offer(LogoutEvent.IN_PROGRESS)
+        viewModelScope.launch(Dispatchers.IO) {
+            authenticationRepository.logout()
+                .onSuccess {
+                    _logoutEvent.offer(LogoutEvent.SUCCESS)
+                    navigateToLogin()
+                }
+                .onFailure { _logoutEvent.offer(LogoutEvent.FAILURE) }
+        }
+    }
+
     /**
      * Navigation
      */
@@ -129,5 +144,9 @@ class ProfileViewModel @Inject constructor(
 
     private fun navigateToFollowing() {
         navigationDispatcher.navigate(ProfileRouter.profileToFollowers(FollowerType.FOLLOWING))
+    }
+
+    private fun navigateToLogin() {
+        navigationDispatcher.navigate(NavigationGraph.Login)
     }
 }

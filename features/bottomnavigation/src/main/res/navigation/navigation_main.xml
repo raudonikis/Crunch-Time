@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/bottomNavigationFragment">
+    app:startDestination="@id/navigation_login">
 
     <include
         android:id="@+id/navigation_login"
@@ -11,7 +11,9 @@
 
     <action
         android:id="@+id/action_global_navigation_login"
-        app:destination="@id/navigation_login" />
+        app:destination="@id/navigation_login"
+        app:popUpTo="@id/navigation_main"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/bottomNavigationFragment"

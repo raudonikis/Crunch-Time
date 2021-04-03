@@ -9,4 +9,5 @@
     <string name="label_game_collection_played">Played</string>
     <string name="label_game_collection_playing">Playing now</string>
     <string name="label_game_collection_want">Want to play</string>
+    <string name="button_logout">Logout</string>
 </resources>

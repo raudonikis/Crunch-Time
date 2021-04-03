@@ -21,6 +21,16 @@ class AuthenticationRepository @Inject constructor(
     private val authPreferences: AuthPreferences,
 ) {
 
+    suspend fun logout(): Outcome<List<Nothing>> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.logout()
+            }
+        }.toOutcome().onSuccess {
+            clearUserData()
+        }
+    }
+
     suspend fun login(email: String, password: String): Outcome<LoginResponse> {
         return withContext(Dispatchers.IO) {
             val loginBody = LoginRequestBody(email, password)
@@ -53,5 +63,9 @@ class AuthenticationRepository @Inject constructor(
                     userPreferences.currentUser = UserMapper.fromUserResponse(response.user)
                 }
         }
+    }
+
+    private fun clearUserData() {
+        authPreferences.accessToken = ""
     }
 }

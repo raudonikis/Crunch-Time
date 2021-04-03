@@ -7,10 +7,8 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
-import com.raudonikis.common_ui.extensions.observeInLifecycle
-import com.raudonikis.common_ui.extensions.onClick
-import com.raudonikis.common_ui.extensions.onTabSelected
-import com.raudonikis.common_ui.extensions.update
+import com.raudonikis.common.extensions.enableIf
+import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
@@ -22,6 +20,7 @@ import com.raudonikis.data_domain.user.User
 import com.raudonikis.profile.collection.GameCollectionTab
 import com.raudonikis.profile.collection.mappers.GameCollectionTypeMapper
 import com.raudonikis.profile.databinding.FragmentProfileBinding
+import com.raudonikis.profile.logout.LogoutEvent
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
@@ -73,6 +72,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 val gameCollectionType = GameCollectionTypeMapper.fromGameCollectionTab(position)
                 viewModel.onGameCollectionTabSwitched(gameCollectionType)
             }
+            buttonLogout.setOnClickListener {
+                viewModel.onLogoutClicked()
+            }
         }
     }
 
@@ -91,6 +93,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.gameCollection
             .onEach { onGameCollectionState(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.logoutEvent
+            .onEach { onLogoutEvent(it) }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
@@ -163,5 +168,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.buttonFollowing.text =
                     getString(R.string.button_following, followingUsers.size)
             }
+    }
+
+    /**
+     * Logout
+     */
+    private fun onLogoutEvent(event: LogoutEvent) {
+        binding.buttonLogout.enableIf { event != LogoutEvent.IN_PROGRESS }
+        when (event) {
+            LogoutEvent.IN_PROGRESS -> {
+
+            }
+            LogoutEvent.FAILURE -> {
+                showShortSnackbar("Logout failed")
+            }
+            LogoutEvent.SUCCESS -> {
+                showShortSnackbar("Logout success")
+            }
+        }
     }
 }
