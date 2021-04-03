@@ -6,6 +6,7 @@ import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.GameStatusUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +16,7 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
     /**
      * Data
      */
-    private val userActivity: MutableStateFlow<Outcome<List<UserActivity>>> =
+    private val myUserActivity: MutableStateFlow<Outcome<List<UserActivity>>> =
         MutableStateFlow(Outcome.empty())
     private val newsFeed: MutableStateFlow<Outcome<List<UserActivity>>> =
         MutableStateFlow(Outcome.empty())
@@ -24,22 +25,34 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
      * My user activity
      */
     override fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>> {
-        return userActivity
+        return myUserActivity.map { outcome ->
+            outcome.map { userActivities ->
+                userActivities.sortedByDescending { userActivity ->
+                    userActivity.createdAt
+                }
+            }
+        }
     }
 
     override fun setMyUserActivityOutcome(outcome: Outcome<List<UserActivity>>) {
-        userActivity.value = outcome
+        myUserActivity.value = outcome
     }
 
     override suspend fun updateMyUserActivity(userActivity: List<UserActivity>) {
-        this.userActivity.value = Outcome.success(userActivity)
+        this.myUserActivity.value = Outcome.success(userActivity)
     }
 
     /**
      * News feed
      */
     override fun getNewsFeed(): Flow<Outcome<List<UserActivity>>> {
-        return newsFeed
+        return newsFeed.map { outcome ->
+            outcome.map { newsFeed ->
+                newsFeed.sortedByDescending { userActivity ->
+                    userActivity.createdAt
+                }
+            }
+        }
     }
 
     override fun setNewsFeedOutcome(outcome: Outcome<List<UserActivity>>) {
@@ -54,7 +67,7 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
      * Game status
      */
     override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        userActivity.value =
-            GameStatusUtils.updateGameStatusForActivities(userActivity.value, id, gameStatus)
+        myUserActivity.value =
+            GameStatusUtils.updateGameStatusForActivities(myUserActivity.value, id, gameStatus)
     }
 }

@@ -98,8 +98,7 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         state
             .onSuccess { newsFeed ->
                 binding.swipeRefreshNewsFeed.isRefreshing = false
-                val newsFeedItems = newsFeed.sortedByDescending { it.createdAt }
-                newsFeedItemAdapter.update(UserActivityItemMapper.fromUserActivityList(newsFeedItems))
+                newsFeedItemAdapter.update(UserActivityItemMapper.fromUserActivityList(newsFeed))
             }
             .onFailure {
                 binding.swipeRefreshNewsFeed.isRefreshing = false
