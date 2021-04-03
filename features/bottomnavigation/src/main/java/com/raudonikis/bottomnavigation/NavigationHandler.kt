@@ -34,10 +34,11 @@ class NavigationHandler @Inject constructor(
         navigationDispatcher.getNavigationCommands()
             .onEach { navigationCommand ->
                 Timber.d("NavigationCommand -> $navigationCommand")
+                Timber.d("CurrentDestination -> ${navController.currentDestination}")
                 currentNavigationController.apply {
                     when (navigationCommand) {
                         is NavigationCommand.ToGraph -> {
-                            onGraphNavigation(navigationCommand.graph)
+                            onGraphNavigation(navigationCommand.graph, navController)
                         }
                         is NavigationCommand.To -> {
                             navigate(navigationCommand.directions)
@@ -62,7 +63,7 @@ class NavigationHandler @Inject constructor(
             }.collect()
     }
 
-    private fun onGraphNavigation(graph: NavigationGraph) {
+    private fun onGraphNavigation(graph: NavigationGraph, navController: NavController) {
         val destination = when (graph) {
             is NavigationGraph.BottomNavigation -> {
                 when (graph.inclusive) {
@@ -71,6 +72,7 @@ class NavigationHandler @Inject constructor(
                 }
             }
             is NavigationGraph.Login -> {
+                setNavigationController(navController)
                 R.id.action_global_navigation_login
             }
         }
