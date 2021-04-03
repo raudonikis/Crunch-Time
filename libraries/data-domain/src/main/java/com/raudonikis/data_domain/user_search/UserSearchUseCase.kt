@@ -19,6 +19,7 @@ class UserSearchUseCase @Inject constructor(
     fun getUserSearchResults(): Flow<Outcome<List<User>>> = userDao.getUserSearchResults()
 
     suspend fun searchUsers(name: String): Outcome<List<User>> {
+        userDao.setUserSearchResultsOutcome(Outcome.loading())
         withContext(Dispatchers.IO) {
             safeNetworkResponse {
                 gamesApi.searchUsers(name)
@@ -27,6 +28,12 @@ class UserSearchUseCase @Inject constructor(
                     }
             }
         }.toOutcome().also { outcome ->
+            outcome.map { users ->
+                if (users.isEmpty()) {
+                    userDao.setUserSearchResultsOutcome(Outcome.empty())
+                    return outcome
+                }
+            }
             userDao.setUserSearchResultsOutcome(outcome)
             return outcome
         }

@@ -6,4 +6,5 @@
     <string name="label_loading">Loading...</string>
     <string name="title_followers">Followers</string>
     <string name="title_following">Following</string>
+    <string name="error_no_search_results">No results found.</string>
 </resources>

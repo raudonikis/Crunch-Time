@@ -34,7 +34,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="recycler_user_search" />
+        app:constraint_referenced_ids="recycler_user_search, group_search_empty, group_search_loading" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="text_loading, animation_search_loading" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="text_search_empty, icon_search_empty" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_news_feed"
@@ -71,4 +85,49 @@
         app:layout_constraintTop_toBottomOf="@id/layout_header"
         tools:itemCount="6"
         tools:listitem="@layout/item_user" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_search_loading"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/animation_controller"
+        app:lottie_speed="2" />
+
+    <TextView
+        android:id="@+id/text_loading"
+        style="@style/TextAppearance.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animation_search_loading" />
+
+    <ImageView
+        android:id="@+id/icon_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_game_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_search_empty"
+        style="?textAppearanceBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingNormal"
+        android:text="@string/error_no_search_results"
+        app:layout_constraintEnd_toEndOf="@id/icon_search_empty"
+        app:layout_constraintStart_toStartOf="@id/icon_search_empty"
+        app:layout_constraintTop_toBottomOf="@id/icon_search_empty" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,17 +22,10 @@
         app:constraint_referenced_ids="popular_games, trending_games" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="group_search_loading, recycler_game_search, group_search_empty" />
-
-    <androidx.constraintlayout.widget.Group
         android:id="@+id/group_search_loading"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="loading_search, text_loading" />
 
     <androidx.constraintlayout.widget.Group
@@ -41,6 +34,13 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="icon_search_empty, text_search_empty" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="group_search_loading, recycler_game_search, group_search_empty" />
 
     <com.raudonikis.common_ui.components.HeaderLayout
         android:id="@+id/layout_header"

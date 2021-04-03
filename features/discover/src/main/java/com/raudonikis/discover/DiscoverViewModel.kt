@@ -2,16 +2,18 @@ package com.raudonikis.discover
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_search.GameSearchUseCase
 import com.raudonikis.data_domain.popular_games.PopularGamesUseCase
+import com.raudonikis.discover.popular_games.PopularGamesState
+import com.raudonikis.discover.search.GameSearchState
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +29,7 @@ class DiscoverViewModel @Inject constructor(
      * States
      */
     private val _discoverState: MutableStateFlow<DiscoverState> =
-        MutableStateFlow(DiscoverState.Discover)
+        MutableStateFlow(DiscoverState.DISCOVER)
 
     /**
      * Search data
@@ -39,9 +41,24 @@ class DiscoverViewModel @Inject constructor(
     /**
      * Observables
      */
-    val discoverState: Flow<DiscoverState> = _discoverState
-    val popularGamesState: Flow<Outcome<List<Game>>> = popularGamesUseCase.getPopularGames()
-    val gameSearchState: Flow<Outcome<List<Game>>> = gameSearchUseCase.getGameSearchResults()
+    val popularGamesState: Flow<PopularGamesState> = popularGamesUseCase.getPopularGames()
+        .combine(_discoverState) { popularGamesState, discoverState ->
+            when (discoverState) {
+                DiscoverState.DISCOVER -> {
+                    PopularGamesState.PopularGames(popularGamesState)
+                }
+                else -> PopularGamesState.Disabled
+            }
+        }
+    val gameSearchState: Flow<GameSearchState> = gameSearchUseCase.getGameSearchResults()
+        .combine(_discoverState) { gameSearchState, discoverState ->
+            when (discoverState) {
+                DiscoverState.SEARCH -> {
+                    GameSearchState.GameSearch(gameSearchState)
+                }
+                else -> GameSearchState.Disabled
+            }
+        }
 
     init {
         updatePopularGames()
@@ -54,11 +71,11 @@ class DiscoverViewModel @Inject constructor(
         searchQuery = query
         clearSearchJob()
         if (query.isBlank()) {
-            _discoverState.value = DiscoverState.Discover
+            _discoverState.value = DiscoverState.DISCOVER
             gameSearchUseCase.clearSearchResults()
             return
         }
-        _discoverState.value = DiscoverState.Search
+        _discoverState.value = DiscoverState.SEARCH
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             gameSearchUseCase.search(query)
         }
@@ -85,7 +102,7 @@ class DiscoverViewModel @Inject constructor(
         searchQuery = ""
         clearSearchJob()
         gameSearchUseCase.clearSearchResults()
-        _discoverState.value = DiscoverState.Discover
+        _discoverState.value = DiscoverState.DISCOVER
     }
 
     fun onGameClicked(game: Game) {

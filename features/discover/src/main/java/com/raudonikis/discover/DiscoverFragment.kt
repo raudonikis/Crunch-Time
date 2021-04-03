@@ -7,15 +7,16 @@ import androidx.fragment.app.viewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
-import com.raudonikis.common.extensions.*
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.game_item.GameItem
 import com.raudonikis.common_ui.game_item.GameItemMapper
-import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
+import com.raudonikis.discover.popular_games.PopularGamesState
+import com.raudonikis.discover.search.GameSearchState
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
@@ -64,14 +65,11 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 viewModel.search(it)
             }
             .observeInLifecycle(viewLifecycleOwner)
-        viewModel.discoverState
-            .onEach { updateDiscoverState(it) }
+        viewModel.gameSearchState
+            .onEach { updateSearchState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.popularGamesState
             .onEach { updatePopularGamesState(it) }
-            .observeInLifecycle(viewLifecycleOwner)
-        viewModel.gameSearchState
-            .onEach { updateSearchState(it) }
             .observeInLifecycle(viewLifecycleOwner)
     }
 
@@ -93,23 +91,24 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         }
     }
 
-    private fun updateSearchState(outcome: Outcome<List<Game>>) {
-        binding.groupSearchLoading.showIf { outcome is Outcome.Loading }
-        binding.groupSearchEmpty.showIf { outcome is Outcome.Empty }
-        outcome
-            .onSuccess {
-                gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))
+    private fun updateSearchState(state: GameSearchState) {
+        with(binding) {
+            groupSearch.showIf { state is GameSearchState.GameSearch }
+            if (state is GameSearchState.GameSearch) {
+                groupSearchLoading.showIf { state.outcome is Outcome.Loading }
+                groupSearchEmpty.showIf { state.outcome is Outcome.Empty }
+                state.outcome.onSuccess {
+                    gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))
+                }
+                    .onFailure {
+                        gameSearchItemAdapter.clear()
+                        showLongSnackbar("Search failed")
+                    }
+                    .onEmpty {
+                        gameSearchItemAdapter.clear()
+                    }
             }
-            .onFailure {
-                gameSearchItemAdapter.clear()
-                showLongSnackbar("Search failed")
-            }
-            .onEmpty {
-                gameSearchItemAdapter.clear()
-            }
-            .onLoading {
-                gameSearchItemAdapter.clear()
-            }
+        }
     }
 
     /**
@@ -130,29 +129,24 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         }
     }
 
-    private fun updatePopularGamesState(outcome: Outcome<List<Game>>) {
-        outcome
-            .onSuccess {
-                popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
-            }
-            .onFailure {
-                showLongSnackbar("Popular games failed")
-            }
-            .onEmpty {
-                showLongSnackbar("Popular games empty")
-            }
-            .onLoading {
-                showShortSnackbar("Popular games loading")
-            }
-    }
-
-    /**
-     * Discover
-     */
-    private fun updateDiscoverState(state: DiscoverState) {
+    private fun updatePopularGamesState(state: PopularGamesState) {
         with(binding) {
-            groupSearch.showIf { state is DiscoverState.Search }
-            groupDiscover.showIf { state is DiscoverState.Discover }
+            popularGames.showIf { state is PopularGamesState.PopularGames }
+            trendingGames.showIf { state is PopularGamesState.PopularGames }
+            if (state is PopularGamesState.PopularGames) {
+                state.outcome.onSuccess {
+                    popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
+                }
+                    .onFailure {
+                        showLongSnackbar("Popular games failed")
+                    }
+                    .onEmpty {
+                        showLongSnackbar("Popular games empty")
+                    }
+                    .onLoading {
+                        showShortSnackbar("Popular games loading")
+                    }
+            }
         }
     }
 

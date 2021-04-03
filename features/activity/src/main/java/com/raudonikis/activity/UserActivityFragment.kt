@@ -8,11 +8,14 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.activity.databinding.FragmentActivityBinding
 import com.raudonikis.activity.followers.UserFollowEvent
+import com.raudonikis.activity.news_feed.NewsFeedState
+import com.raudonikis.activity.user_search.UserSearchState
 import com.raudonikis.common_ui.user_activity_item.UserActivityItem
 import com.raudonikis.common_ui.user_activity_item.UserActivityItemMapper
 import com.raudonikis.common_ui.user_item.UserItem
 import com.raudonikis.common_ui.user_item.UserItemMapper
 import com.raudonikis.common.Outcome
+import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
@@ -61,9 +64,6 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         viewModel.userSearchState
             .onEach { updateUserSearchState(it) }
             .observeInLifecycle(viewLifecycleOwner)
-        viewModel.userActivityState
-            .onEach { updateUserActivityState(it) }
-            .observeInLifecycle(viewLifecycleOwner)
         viewModel.userFollowEvent
             .onEach { onUserFollowEvent(it) }
             .observeInLifecycle(viewLifecycleOwner)
@@ -94,16 +94,26 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         }
     }
 
-    private fun updateNewsFeedState(state: Outcome<List<UserActivity>>) {
-        state
-            .onSuccess { newsFeed ->
-                binding.swipeRefreshNewsFeed.isRefreshing = false
-                newsFeedItemAdapter.update(UserActivityItemMapper.fromUserActivityList(newsFeed))
+    private fun updateNewsFeedState(state: NewsFeedState) {
+        with(binding) {
+            groupNewsFeed.showIf { state is NewsFeedState.NewsFeed }
+            if (state is NewsFeedState.NewsFeed) {
+                state.newsFeedOutcome
+                    .onSuccess { newsFeed ->
+                        swipeRefreshNewsFeed.isRefreshing = false
+                        newsFeedItemAdapter.update(
+                            UserActivityItemMapper.fromUserActivityList(
+                                newsFeed
+                            )
+                        )
+                    }
+                    .onFailure {
+                        swipeRefreshNewsFeed.isRefreshing = false
+                        showShortSnackbar("Failure - news feed")
+                    }
+
             }
-            .onFailure {
-                binding.swipeRefreshNewsFeed.isRefreshing = false
-                showShortSnackbar("Failure - news feed")
-            }
+        }
     }
 
     /**
@@ -130,26 +140,23 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         }
     }
 
-    private fun updateUserSearchState(state: Outcome<List<User>>) {
-        state
-            .onSuccess {
-                userSearchItemAdapter.update(UserItemMapper.fromUserList(it))
-            }
-            .onFailure {
-                showShortSnackbar("User search failure")
-            }
-            .onEmpty {
-                userSearchItemAdapter.clear()
-            }
-    }
-
-    /**
-     * User activity
-     */
-    private fun updateUserActivityState(state: UserActivityState) {
+    private fun updateUserSearchState(state: UserSearchState) {
         with(binding) {
-            groupUserSearch.showIf { state == UserActivityState.USER_SEARCH }
-            groupNewsFeed.showIf { state == UserActivityState.NEWS_FEED }
+            groupUserSearch.showIf { state is UserSearchState.UserSearch }
+            if (state is UserSearchState.UserSearch) {
+                groupSearchEmpty.showIf { state.searchOutcome is Outcome.Empty }
+                groupSearchLoading.showIf { state.searchOutcome is Outcome.Loading }
+                state.searchOutcome
+                    .onSuccess {
+                        userSearchItemAdapter.update(UserItemMapper.fromUserList(it))
+                    }
+                    .onFailure {
+                        showShortSnackbar("User search failure")
+                    }
+                    .onEmpty {
+                        userSearchItemAdapter.clear()
+                    }
+            }
         }
     }
 
