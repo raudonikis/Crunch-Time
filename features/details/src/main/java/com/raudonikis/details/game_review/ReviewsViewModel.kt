@@ -43,14 +43,9 @@ class ReviewsViewModel @Inject constructor(
      */
     fun postReview(rating: GameRating, comment: String) {
         val game = _currentGame.value
-        val reviewBody = GameReviewRequestBody(
-            content = comment,
-            isPositive = rating == GameRating.UP_VOTED,
-            gameId = game.id
-        )
         _writeReviewState.value = ReviewState.LOADING
         viewModelScope.launch(Dispatchers.IO) {
-            gameReviewUseCase.postReview(reviewBody)
+            gameReviewUseCase.postReview(rating, comment, game)
                 .onSuccess {
                     val gameReview =
                         GameReviewMapper.fromGameReviewPostResponse(it).addGameInfo(game)

@@ -68,12 +68,4 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
     override suspend fun updateNewsFeed(newsFeed: List<UserActivity>) {
         this.newsFeed.value = Outcome.success(newsFeed)
     }
-
-    /**
-     * Game status
-     */
-    override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
-        myUserActivity.value =
-            GameStatusUtils.updateGameStatusForActivities(myUserActivity.value, id, gameStatus)
-    }
 }

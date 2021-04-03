@@ -21,9 +21,4 @@ interface UserActivityDao {
     fun getNewsFeed(): Flow<Outcome<List<UserActivity>>>
     fun setNewsFeedOutcome(outcome: Outcome<List<UserActivity>>)
     suspend fun updateNewsFeed(newsFeed: List<UserActivity>)
-
-    /**
-     * Game status
-     */
-    suspend fun updateGameStatus(id: Long, gameStatus: GameStatus)
 }

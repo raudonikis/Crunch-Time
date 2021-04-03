@@ -5,6 +5,8 @@ import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.network.activity.UserActivityResponse
+import com.raudonikis.network.game_review.GameReviewPostResponse
+import com.raudonikis.network.game_review.GameReviewResponse
 import com.raudonikis.network.game_status.GameStatusResponse
 
 object UserActivityMapper {
@@ -49,7 +51,7 @@ object UserActivityMapper {
     }
 
     /**
-     * From [GameStatusResponse],[Game] and [User] after a successful game status update to [UserActivity]
+     * From [GameReviewResponse] to [UserActivity] after a successful game status update
      */
     fun onGameStatusUpdate(
         gameStatusResponse: GameStatusResponse,
@@ -61,6 +63,26 @@ object UserActivityMapper {
             action = UserActivityActionMapper.onGameStatusUpdate(gameStatusResponse, game, user),
             coverUrl = game.coverUrl,
             createdAt = DateFormatter.stringToDate(gameStatusResponse.createdAt),
+        )
+    }
+
+    /**
+     * From [GameReviewPostResponse] to [UserActivity] after a successful game review post
+     */
+    fun onGameReviewUpdate(
+        gameReviewPostResponse: GameReviewPostResponse,
+        game: Game,
+        user: User?
+    ): UserActivity {
+        return UserActivity(
+            gameId = gameReviewPostResponse.gameId,
+            action = UserActivityActionMapper.onGameReviewUpdate(
+                gameReviewPostResponse,
+                game,
+                user
+            ),
+            coverUrl = game.coverUrl,
+            createdAt = DateFormatter.stringToDate(gameReviewPostResponse.createdAt),
         )
     }
 }
