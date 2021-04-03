@@ -1,4 +1,4 @@
-package com.raudonikis.data_domain.game.cache.daos
+package com.raudonikis.data_domain.game.cache
 
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game

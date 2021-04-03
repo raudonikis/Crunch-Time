@@ -1,7 +1,7 @@
 package com.raudonikis.data_domain.game_collection
 
 import com.raudonikis.common.Outcome
-import com.raudonikis.data_domain.game.cache.daos.GameDao
+import com.raudonikis.data_domain.game.cache.GameDao
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.testGames

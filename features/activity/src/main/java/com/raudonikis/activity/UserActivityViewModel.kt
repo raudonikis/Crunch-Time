@@ -3,10 +3,10 @@ package com.raudonikis.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.activity.followers.UserFollowEvent
-import com.raudonikis.data_domain.activity.repo.UserActivityRepository
+import com.raudonikis.data_domain.news_feed.NewsFeedUseCase
 import com.raudonikis.data_domain.user.User
-import com.raudonikis.data_domain.user.repo.UserRepository
-import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.data_domain.user_follow.UserFollowUseCase
+import com.raudonikis.data_domain.user_search.UserSearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,9 +18,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserActivityViewModel @Inject constructor(
-    private val navigationDispatcher: NavigationDispatcher,
-    private val userActivityRepository: UserActivityRepository,
-    private val userRepository: UserRepository,
+    // Use cases
+    private val newsFeedUseCase: NewsFeedUseCase,
+    private val userSearchUseCase: UserSearchUseCase,
+    private val userFollowUseCase: UserFollowUseCase,
 ) : ViewModel() {
 
     private val _userActivityState: MutableStateFlow<UserActivityState> =
@@ -37,8 +38,8 @@ class UserActivityViewModel @Inject constructor(
     /**
      * Observables
      */
-    val userSearchState = userRepository.getUserSearchResults()
-    val newsFeedState = userActivityRepository.getNewsFeed()
+    val userSearchState = userSearchUseCase.getUserSearchResults()
+    val newsFeedState = newsFeedUseCase.getNewsFeed()
     val userActivityState: Flow<UserActivityState> = _userActivityState
     val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
 
@@ -51,7 +52,7 @@ class UserActivityViewModel @Inject constructor(
      */
     private fun updateNewsFeed() {
         viewModelScope.launch(Dispatchers.IO) {
-            userActivityRepository.updateNewsFeed()
+            newsFeedUseCase.updateNewsFeed()
         }
     }
 
@@ -67,7 +68,7 @@ class UserActivityViewModel @Inject constructor(
         }
         _userActivityState.value = UserActivityState.USER_SEARCH
         userSearchJob = viewModelScope.launch(Dispatchers.IO) {
-            userRepository.searchUsers(name)
+            userSearchUseCase.searchUsers(name)
         }
     }
 
@@ -77,20 +78,20 @@ class UserActivityViewModel @Inject constructor(
     fun onSearchCleared() {
         userSearchJob?.cancel()
         userSearchJob = null
-        userRepository.clearUserSearchResults()
+        userSearchUseCase.clearUserSearchResults()
         _userActivityState.value = UserActivityState.NEWS_FEED
     }
 
     fun onNewsFeedRefresh() {
         viewModelScope.launch(Dispatchers.IO) {
-            userActivityRepository.updateNewsFeed()
+            newsFeedUseCase.updateNewsFeed()
         }
     }
 
     fun onFollowButtonClicked(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             _userFollowEvent.emit(UserFollowEvent.LOADING)
-            userRepository.followUser(user)
+            userFollowUseCase.followUser(user)
                 .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
                 .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
         }

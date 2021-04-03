@@ -1,4 +1,4 @@
-package com.raudonikis.data_domain.activity.cache.daos
+package com.raudonikis.data_domain.activity.cache
 
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity

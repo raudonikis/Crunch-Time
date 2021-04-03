@@ -1,9 +1,9 @@
 package com.raudonikis.data_domain.di
 
-import com.raudonikis.data_domain.activity.cache.daos.UserActivityDao
-import com.raudonikis.data_domain.activity.cache.daos.UserActivityDaoImpl
-import com.raudonikis.data_domain.game.cache.daos.GameDao
-import com.raudonikis.data_domain.game.cache.daos.GameDaoImpl
+import com.raudonikis.data_domain.activity.cache.UserActivityDao
+import com.raudonikis.data_domain.activity.cache.UserActivityDaoImpl
+import com.raudonikis.data_domain.game.cache.GameDao
+import com.raudonikis.data_domain.game.cache.GameDaoImpl
 import com.raudonikis.data_domain.user.cache.UserDao
 import com.raudonikis.data_domain.user.cache.UserDaoImpl
 import dagger.Binds

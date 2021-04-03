@@ -8,7 +8,7 @@ import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.UserPreferences
-import com.raudonikis.data_domain.user.repo.UserRepository
+import com.raudonikis.data_domain.user_following.UserFollowingUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.profile.activity.ActivitiesState
 import com.raudonikis.profile.followers.FollowerType
@@ -24,10 +24,10 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    private val userRepository: UserRepository,
     private val userPreferences: UserPreferences,
     // Use cases
     private val gameCollectionUseCase: GameCollectionUseCase,
+    private val userFollowingUseCase: UserFollowingUseCase,
 ) : ViewModel() {
 
     /**
@@ -49,7 +49,7 @@ class ProfileViewModel @Inject constructor(
      * Observables
      */
     val activitiesState: Flow<ActivitiesState> = _activitiesState
-    val followingUsersState: Flow<Outcome<List<User>>> = userRepository.getFollowingUsers()
+    val followingUsersState: Flow<Outcome<List<User>>> = userFollowingUseCase.getFollowingUsers()
     val userState: Flow<Outcome<User>> = _userState
     val gameCollectionTypeState: StateFlow<GameCollectionType> = _gameCollectionTypeState
     val gameCollection: Flow<Outcome<List<Game>>> =
@@ -62,7 +62,7 @@ class ProfileViewModel @Inject constructor(
      */
     private fun updateFollowingUsers() {
         viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateFollowingUsers()
+            userFollowingUseCase.updateFollowingUsers()
         }
     }
 

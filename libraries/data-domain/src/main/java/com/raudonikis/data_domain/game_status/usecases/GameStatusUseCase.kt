@@ -1,6 +1,6 @@
 package com.raudonikis.data_domain.game_status.usecases
 
-import com.raudonikis.data_domain.game.cache.daos.GameDao
+import com.raudonikis.data_domain.game.cache.GameDao
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.mappers.GameStatusMapper
