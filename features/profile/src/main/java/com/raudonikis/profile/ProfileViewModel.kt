@@ -99,7 +99,8 @@ class ProfileViewModel @Inject constructor(
         navigateToFollowing()
     }
 
-    fun onGameCollectionTabSwitched(gameCollectionType: GameCollectionType) {
+    fun onGameCollectionTabSwitched(gameCollectionType: GameCollectionType?) {
+        gameCollectionType ?: return
         _gameCollectionTypeState.value = gameCollectionType
     }
 

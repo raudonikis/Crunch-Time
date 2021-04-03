@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
 import com.raudonikis.common_ui.extensions.observeInLifecycle
 import com.raudonikis.common_ui.extensions.onClick
+import com.raudonikis.common_ui.extensions.onTabSelected
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.user.User
+import com.raudonikis.profile.collection.GameCollectionTab
+import com.raudonikis.profile.collection.mappers.GameCollectionTypeMapper
 import com.raudonikis.profile.databinding.FragmentProfileBinding
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,27 +59,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             buttonFollowers.setOnClickListener {
                 viewModel.onFollowersClicked()
             }
-            tabLayoutCollections.addOnTabSelectedListener(object : OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when (tab?.position) {
-                        0 -> viewModel.onGameCollectionTabSwitched(
-                            GameCollectionType.PLAYED
-                        )
-                        1 -> viewModel.onGameCollectionTabSwitched(
-                            GameCollectionType.PLAYING
-                        )
-                        2 -> viewModel.onGameCollectionTabSwitched(
-                            GameCollectionType.WANT
-                        )
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                }
-            })
+            tabLayoutCollections.onTabSelected { position ->
+                val gameCollectionType = GameCollectionTypeMapper.fromGameCollectionTab(position)
+                viewModel.onGameCollectionTabSwitched(gameCollectionType)
+            }
         }
     }
 
@@ -106,11 +89,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      */
     private fun setUpGameCollections() {
         with(binding) {
-            val selectedTab = when (viewModel.gameCollectionTypeState.value) {
-                GameCollectionType.PLAYED -> 0
-                GameCollectionType.PLAYING -> 1
-                GameCollectionType.WANT -> 2
-            }
+            val selectedTab =
+                GameCollectionTab.fromGameCollectionType(viewModel.gameCollectionTypeState.value)
             tabLayoutCollections.getTabAt(selectedTab)?.select()
             recyclerGameCollection.adapter = gameCollectionAdapter
             recyclerGameCollection.addItemDecoration(

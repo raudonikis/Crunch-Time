@@ -4,6 +4,7 @@ import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_status.GameStatus
+import com.raudonikis.data_domain.game_status.GameStatusMapper
 import com.raudonikis.data_domain.game_status.GameStatusUtils
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -83,7 +84,7 @@ class GameDaoImpl @Inject constructor() : GameDao {
             outcome
                 .onSuccess { games ->
                     return@map Outcome.success(games.filter { game ->
-                        game.status == gameCollectionType.toGameStatus()
+                        game.status == GameStatusMapper.fromGameCollectionType(gameCollectionType)
                     })
                 }
             return@map outcome
