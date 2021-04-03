@@ -103,12 +103,18 @@ class LoginViewModel @Inject constructor(
 
     fun onSignUpClicked() {
         navigateToSignUp()
+        clearValidationStates()
     }
 
     fun onLoginClicked() {
         if (_loginValidationValidationState.value == LoginValidationState.ENABLED) {
             login()
         }
+    }
+
+    private fun clearValidationStates() {
+        _passwordState.value = PasswordState.Initial
+        _emailState.value = EmailState.Initial
     }
 
     /**
