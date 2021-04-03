@@ -2,7 +2,10 @@ package com.raudonikis.data_domain.activity.mappers
 
 import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.data_domain.activity.models.UserActivity
+import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.user.User
 import com.raudonikis.network.activity.UserActivityResponse
+import com.raudonikis.network.game_status.GameStatusResponse
 
 object UserActivityMapper {
 
@@ -43,5 +46,21 @@ object UserActivityMapper {
      */
     fun fromUserActivityResponseList(userActivityResponseList: List<UserActivityResponse>): List<UserActivity> {
         return userActivityResponseList.map { fromUserActivityResponse(it) }
+    }
+
+    /**
+     * From [GameStatusResponse],[Game] and [User] after a successful game status update to [UserActivity]
+     */
+    fun onGameStatusUpdate(
+        gameStatusResponse: GameStatusResponse,
+        game: Game,
+        user: User?
+    ): UserActivity {
+        return UserActivity(
+            gameId = gameStatusResponse.gameId,
+            action = UserActivityActionMapper.onGameStatusUpdate(gameStatusResponse, game, user),
+            coverUrl = game.coverUrl,
+            createdAt = DateFormatter.stringToDate(gameStatusResponse.createdAt),
+        )
     }
 }

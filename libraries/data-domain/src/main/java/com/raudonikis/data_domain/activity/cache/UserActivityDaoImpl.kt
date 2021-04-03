@@ -38,6 +38,12 @@ class UserActivityDaoImpl @Inject constructor() : UserActivityDao {
         myUserActivity.value = outcome
     }
 
+    override fun addNewMyActivity(userActivity: UserActivity) {
+        myUserActivity.value = myUserActivity.value.map { userActivities ->
+            userActivities.plus(userActivity)
+        }
+    }
+
     override suspend fun updateMyUserActivity(userActivity: List<UserActivity>) {
         this.myUserActivity.value = Outcome.success(userActivity)
     }

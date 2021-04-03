@@ -1,9 +1,12 @@
 package com.raudonikis.data_domain.activity.mappers
 
 import com.raudonikis.data_domain.activity.models.UserActivityAction
+import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_status.GameStatus
+import com.raudonikis.data_domain.user.User
 import com.raudonikis.network.activity.UserActivityResponse
+import com.raudonikis.network.game_status.GameStatusResponse
 
 object UserActivityActionMapper {
 
@@ -33,5 +36,13 @@ object UserActivityActionMapper {
                 )
             }
         }
+    }
+
+    fun onGameStatusUpdate(gameStatusResponse: GameStatusResponse, game: Game, user: User?): UserActivityAction {
+        return UserActivityAction.ActionGameStatusUpdated(
+            status = GameStatus.fromString(gameStatusResponse.status),
+            title = game.name,
+            user = user?.name ?: ""
+        )
     }
 }

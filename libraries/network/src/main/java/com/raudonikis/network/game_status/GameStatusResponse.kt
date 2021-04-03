@@ -7,6 +7,8 @@ data class GameStatusResponse(
     val status: String,
     @Json(name = "game_id")
     val gameId: Long,
+    @Json(name = "created_at")
+    val createdAt: String,
 )
 
 /**

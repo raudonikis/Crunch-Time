@@ -12,6 +12,7 @@ interface UserActivityDao {
      */
     fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>>
     fun setMyUserActivityOutcome(outcome: Outcome<List<UserActivity>>)
+    fun addNewMyActivity(userActivity: UserActivity)
     suspend fun updateMyUserActivity(userActivity: List<UserActivity>)
 
     /**
