@@ -3,8 +3,10 @@ package com.raudonikis.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.game.usecases.GameDetailsUseCase
+import com.raudonikis.data_domain.game_review.usecases.GameReviewUseCase
 import com.raudonikis.data_domain.game_status.GameStatus
-import com.raudonikis.data_domain.game.repo.GamesRepository
+import com.raudonikis.data_domain.game_status.usecases.GameStatusUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,10 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    private val gamesRepository: GamesRepository,
+    // Use cases
+    private val gameStatusUseCase: GameStatusUseCase,
+    private val gameReviewUseCase: GameReviewUseCase,
+    private val gameDetailsUseCase: GameDetailsUseCase,
 ) : ViewModel() {
 
     /**
@@ -55,7 +60,7 @@ class DetailsViewModel @Inject constructor(
         _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
             val updatedGame = currentGame.value.copy(status = status)
-            gamesRepository.updateGameStatus(updatedGame)
+            gameStatusUseCase.updateGameStatus(updatedGame)
                 .onSuccess {
                     onGameUpdated(_currentGame.value.copy(status = status))
                     _detailsState.value = DetailsState.StatusUpdateSuccess
@@ -72,7 +77,7 @@ class DetailsViewModel @Inject constructor(
     private fun updateGameDetails() {
         _detailsState.value = DetailsState.DetailsUpdating
         viewModelScope.launch {
-            gamesRepository.getGameDetails(currentGame.value)
+            gameDetailsUseCase.getGameDetails(currentGame.value)
                 .onSuccess {
                     onGameUpdated(it)
                     _detailsState.value = DetailsState.DetailsUpdateSuccess
@@ -88,7 +93,7 @@ class DetailsViewModel @Inject constructor(
 
     private fun updateGameReviewInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.getGameReviewInfo(_currentGame.value)
+            gameReviewUseCase.getGameReviewInfo(_currentGame.value)
                 .onSuccess {
                     onGameUpdated(_currentGame.value.copy(gameReviewInfo = it))
                 }

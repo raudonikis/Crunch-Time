@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
-import com.raudonikis.data_domain.game.repo.GamesRepository
+import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user.repo.UserRepository
@@ -26,7 +26,8 @@ class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val userRepository: UserRepository,
     private val userPreferences: UserPreferences,
-    private val gamesRepository: GamesRepository,
+    // Use cases
+    private val gameCollectionUseCase: GameCollectionUseCase,
 ) : ViewModel() {
 
     /**
@@ -53,7 +54,7 @@ class ProfileViewModel @Inject constructor(
     val gameCollectionTypeState: StateFlow<GameCollectionType> = _gameCollectionTypeState
     val gameCollection: Flow<Outcome<List<Game>>> =
         _gameCollectionTypeState.flatMapLatest { gameCollectionType ->
-            gamesRepository.getGameCollection(gameCollectionType)
+            gameCollectionUseCase.getGameCollection(gameCollectionType)
         }
 
     /**
@@ -79,7 +80,7 @@ class ProfileViewModel @Inject constructor(
      */
     private fun updateGameCollections() {
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.updateGameCollection()
+            gameCollectionUseCase.updateGameCollection()
         }
     }
 

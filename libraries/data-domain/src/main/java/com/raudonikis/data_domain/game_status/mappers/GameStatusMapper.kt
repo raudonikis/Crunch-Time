@@ -1,6 +1,7 @@
-package com.raudonikis.data_domain.game_status
+package com.raudonikis.data_domain.game_status.mappers
 
 import com.raudonikis.data_domain.game.models.GameCollectionType
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.network.game_status.GameStatusRequestBody
 
 object GameStatusMapper {

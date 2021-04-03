@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.data_domain.game_deal.usecases.GameDealsUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DealsViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    private val gamesRepository: GamesRepository,
+    // Use cases
+    private val gameDealsUseCase: GameDealsUseCase,
 ) : ViewModel() {
 
     private val _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
@@ -48,7 +49,7 @@ class DealsViewModel @Inject constructor(
     private fun updateDeals() {
         _dealsState.value = Outcome.loading()
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.searchGameDeals(_currentGame.value).also { outcome ->
+            gameDealsUseCase.searchGameDeals(_currentGame.value).also { outcome ->
                 _dealsState.value = outcome
             }.onFailure { error ->
                 error?.let { _errorEvent.offer(error) }

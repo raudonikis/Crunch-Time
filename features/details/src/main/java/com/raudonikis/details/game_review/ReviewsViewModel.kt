@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.repo.GamesRepository
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_review.mappers.GameReviewMapper
-import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.data_domain.game_review.usecases.GameReviewUseCase
 import com.raudonikis.network.game_review.GameReviewRequestBody
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewsViewModel @Inject constructor(
-    private val navigationDispatcher: NavigationDispatcher,
-    private val gamesRepository: GamesRepository,
+    // Use cases
+    private val gameReviewUseCase: GameReviewUseCase,
 ) : ViewModel() {
 
     private var _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
@@ -51,7 +50,7 @@ class ReviewsViewModel @Inject constructor(
         )
         _writeReviewState.value = ReviewState.LOADING
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.postReview(reviewBody)
+            gameReviewUseCase.postReview(reviewBody)
                 .onSuccess {
                     val gameReview =
                         GameReviewMapper.fromGameReviewPostResponse(it).addGameInfo(game)

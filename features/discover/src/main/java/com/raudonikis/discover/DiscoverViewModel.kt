@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game.repo.GamesRepository
+import com.raudonikis.data_domain.game_search.GameSearchUseCase
+import com.raudonikis.data_domain.popular_games.PopularGamesUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
-    private val gamesRepository: GamesRepository,
+    // Use cases
+    private val popularGamesUseCase: PopularGamesUseCase,
+    private val gameSearchUseCase: GameSearchUseCase,
 ) : ViewModel() {
 
     /**
@@ -37,8 +40,8 @@ class DiscoverViewModel @Inject constructor(
      * Observables
      */
     val discoverState: Flow<DiscoverState> = _discoverState
-    val popularGamesState: Flow<Outcome<List<Game>>> = gamesRepository.getPopularGames()
-    val gameSearchState: Flow<Outcome<List<Game>>> = gamesRepository.getGameSearchResults()
+    val popularGamesState: Flow<Outcome<List<Game>>> = popularGamesUseCase.getPopularGames()
+    val gameSearchState: Flow<Outcome<List<Game>>> = gameSearchUseCase.getGameSearchResults()
 
     init {
         updatePopularGames()
@@ -52,12 +55,12 @@ class DiscoverViewModel @Inject constructor(
         clearSearchJob()
         if (query.isBlank()) {
             _discoverState.value = DiscoverState.Discover
-            gamesRepository.clearSearchResults()
+            gameSearchUseCase.clearSearchResults()
             return
         }
         _discoverState.value = DiscoverState.Search
         searchJob = viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.search(query)
+            gameSearchUseCase.search(query)
         }
     }
 
@@ -71,7 +74,7 @@ class DiscoverViewModel @Inject constructor(
      */
     private fun updatePopularGames() {
         viewModelScope.launch(Dispatchers.IO) {
-            gamesRepository.updatePopularGames()
+            popularGamesUseCase.updatePopularGames()
         }
     }
 
@@ -81,7 +84,7 @@ class DiscoverViewModel @Inject constructor(
     fun onSearchQueryCleared() {
         searchQuery = ""
         clearSearchJob()
-        gamesRepository.clearSearchResults()
+        gameSearchUseCase.clearSearchResults()
         _discoverState.value = DiscoverState.Discover
     }
 
