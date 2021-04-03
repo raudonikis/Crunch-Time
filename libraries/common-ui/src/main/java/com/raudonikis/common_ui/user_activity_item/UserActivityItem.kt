@@ -1,14 +1,14 @@
-package com.raudonikis.activity.user_activity_item
+package com.raudonikis.common_ui.user_activity_item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
-import com.raudonikis.activity.R
-import com.raudonikis.activity.databinding.ItemUserActivityBinding
 import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.common.extensions.prefixHttps
 import com.raudonikis.common.extensions.showIf
+import com.raudonikis.common_ui.R
+import com.raudonikis.common_ui.databinding.ItemUserActivityBinding
 import com.raudonikis.common_ui.extensions.getRatingDrawable
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction

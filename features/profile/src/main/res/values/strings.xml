@@ -5,4 +5,8 @@
     <string name="button_followers">Followers(%1$d)</string>
     <string name="button_followers_placeholder">Followers</string>
     <string name="label_collections">Collections</string>
+    <string name="label_my_activity">My activity</string>
+    <string name="label_game_collection_played">Played</string>
+    <string name="label_game_collection_playing">Playing now</string>
+    <string name="label_game_collection_want">Want to play</string>
 </resources>

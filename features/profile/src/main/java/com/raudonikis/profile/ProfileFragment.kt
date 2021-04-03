@@ -14,6 +14,9 @@ import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
+import com.raudonikis.common_ui.user_activity_item.UserActivityItem
+import com.raudonikis.common_ui.user_activity_item.UserActivityItemMapper
+import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.profile.collection.GameCollectionTab
@@ -36,12 +39,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val gameCollectionAdapter = FastAdapter.with(gameCollectionItemAdapter)
 
     /**
+     * My activity
+     */
+    private val myActivityItemAdapter = ItemAdapter<UserActivityItem>()
+    private val myActivityAdapter = FastAdapter.with(myActivityItemAdapter)
+
+    /**
      * Lifecycle hooks
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpListeners()
         setUpGameCollections()
+        setUpMyActivity()
         setUpObservers()
     }
 
@@ -70,8 +80,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.activitiesState
-            .onEach { }
+        viewModel.myActivityState
+            .onEach { onMyActivityState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.followingUsersState
             .onEach { onFollowingUsersState(it) }
@@ -82,6 +92,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.gameCollection
             .onEach { onGameCollectionState(it) }
             .observeInLifecycle(viewLifecycleOwner)
+    }
+
+    private fun onMyActivityState(state: Outcome<List<UserActivity>>) {
+        state
+            .onSuccess {
+                myActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(it))
+            }
     }
 
     /**
@@ -107,6 +124,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .onSuccess {
                 gameCollectionItemAdapter.update(GameCoverItemMapper.fromGameList(it))
             }
+    }
+
+    /**
+     * My activity
+     */
+    private fun setUpMyActivity() {
+        with(binding) {
+            recyclerMyActivity.adapter = myActivityAdapter
+            recyclerMyActivity.addItemDecoration(
+                HorizontalPaddingItemDecoration(
+                    requireContext(),
+                    R.dimen.spacing_small
+                )
+            )
+        }
     }
 
     /**

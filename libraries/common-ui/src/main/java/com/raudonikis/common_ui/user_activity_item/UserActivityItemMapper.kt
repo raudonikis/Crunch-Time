@@ -1,4 +1,4 @@
-package com.raudonikis.activity.user_activity_item
+package com.raudonikis.common_ui.user_activity_item
 
 import com.raudonikis.data_domain.activity.models.UserActivity
 

@@ -3,6 +3,8 @@ package com.raudonikis.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
+import com.raudonikis.data_domain.activity.models.UserActivity
+import com.raudonikis.data_domain.activity.usecases.MyActivityUseCase
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
@@ -28,13 +30,12 @@ class ProfileViewModel @Inject constructor(
     // Use cases
     private val gameCollectionUseCase: GameCollectionUseCase,
     private val userFollowingUseCase: UserFollowingUseCase,
+    private val myActivityUseCase: MyActivityUseCase,
 ) : ViewModel() {
 
     /**
      * States
      */
-    private val _activitiesState: MutableStateFlow<ActivitiesState> =
-        MutableStateFlow(ActivitiesState.Initial)
     private val _userState: MutableStateFlow<Outcome<User>> = MutableStateFlow(Outcome.empty())
     private val _gameCollectionTypeState: MutableStateFlow<GameCollectionType> =
         MutableStateFlow(GameCollectionType.PLAYED)
@@ -43,12 +44,13 @@ class ProfileViewModel @Inject constructor(
         updateGameCollections()
         updateFollowingUsers()
         updateCurrentUser()
+        updateMyActivity()
     }
 
     /**
      * Observables
      */
-    val activitiesState: Flow<ActivitiesState> = _activitiesState
+    val myActivityState: Flow<Outcome<List<UserActivity>>> = myActivityUseCase.getMyUserActivity()
     val followingUsersState: Flow<Outcome<List<User>>> = userFollowingUseCase.getFollowingUsers()
     val userState: Flow<Outcome<User>> = _userState
     val gameCollectionTypeState: StateFlow<GameCollectionType> = _gameCollectionTypeState
@@ -81,6 +83,15 @@ class ProfileViewModel @Inject constructor(
     private fun updateGameCollections() {
         viewModelScope.launch(Dispatchers.IO) {
             gameCollectionUseCase.updateGameCollection()
+        }
+    }
+
+    /**
+     * My activity
+     */
+    private fun updateMyActivity() {
+        viewModelScope.launch(Dispatchers.IO) {
+            myActivityUseCase.updateMyUserActivity()
         }
     }
 
