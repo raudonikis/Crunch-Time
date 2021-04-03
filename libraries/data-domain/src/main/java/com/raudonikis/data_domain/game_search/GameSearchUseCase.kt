@@ -32,6 +32,13 @@ class GameSearchUseCase @Inject constructor(
                     }
             }
         }.toOutcome().also { outcome ->
+            outcome
+                .onSuccess { games ->
+                    if (games.isEmpty()) {
+                        gameDao.setGameSearchResultsOutcome(Outcome.empty())
+                        return outcome
+                    }
+                }
             gameDao.setGameSearchResultsOutcome(outcome)
             return outcome
         }

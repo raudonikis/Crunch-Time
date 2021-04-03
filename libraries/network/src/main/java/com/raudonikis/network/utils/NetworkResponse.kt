@@ -50,6 +50,7 @@ data class NetworkResponse<T>(
         return this
     }
 
+    //todo remove
     inline fun onEmpty(f: () -> Unit): NetworkResponse<T> {
         if (isSuccessEmpty()) {
             f()

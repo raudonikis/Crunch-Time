@@ -95,6 +95,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private fun updateSearchState(outcome: Outcome<List<Game>>) {
         binding.groupSearchLoading.showIf { outcome is Outcome.Loading }
+        binding.groupSearchEmpty.showIf { outcome is Outcome.Empty }
         outcome
             .onSuccess {
                 gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))

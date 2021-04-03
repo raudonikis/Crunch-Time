@@ -26,13 +26,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="loading_search, recycler_game_search, text_loading" />
+        app:constraint_referenced_ids="group_search_loading, recycler_game_search, group_search_empty" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_search_loading"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="loading_search, text_loading" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="icon_search_empty, text_search_empty" />
 
     <com.raudonikis.common_ui.components.HeaderLayout
         android:id="@+id/layout_header"
@@ -102,5 +110,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_search" />
+
+    <ImageView
+        android:id="@+id/icon_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_game_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_search_empty"
+        style="?textAppearanceBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingNormal"
+        android:text="@string/error_no_search_results"
+        app:layout_constraintEnd_toEndOf="@id/icon_search_empty"
+        app:layout_constraintStart_toStartOf="@id/icon_search_empty"
+        app:layout_constraintTop_toBottomOf="@id/icon_search_empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
