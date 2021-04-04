@@ -11,4 +11,6 @@
     <string name="error_no_deals">No deals available.</string>
     <string name="button_write_review">Write a review</string>
     <string name="error_no_reviews">No reviews yet.</string>
+    <string name="button_deals">Deals</string>
+    <string name="button_reviews_placeholder">Reviews</string>
 </resources>

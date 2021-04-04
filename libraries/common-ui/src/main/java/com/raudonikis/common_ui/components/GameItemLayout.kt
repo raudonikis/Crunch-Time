@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.bumptech.glide.Glide
+import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.ItemGameCoverBinding
 import com.raudonikis.data_domain.game.models.Game
@@ -21,7 +23,7 @@ class GameItemLayout(context: Context, attributeSet: AttributeSet) :
     }
 
     fun bindGame(game: Game) {
-        bindGameCover(game.coverUrl)
+        bindGameCover(game)
         bindGameStatus(game.status)
     }
 
@@ -29,14 +31,19 @@ class GameItemLayout(context: Context, attributeSet: AttributeSet) :
         binding.gameStatus.setGameStatus(gameStatus)
     }
 
-    private fun bindGameCover(coverUrl: String?) {
-        coverUrl?.let { url ->
+    private fun bindGameCover(game: Game) {
+        binding.imageGameCover.setImageDrawable(null)
+        game.coverUrl?.let { url ->
             Glide
                 .with(binding.root)
                 .load(url.prefixHttps())
                 .placeholder(R.drawable.game_placeholder)
                 .centerCrop()
                 .into(binding.imageGameCover)
+            binding.textImagePlaceholder.hide()
+        } ?: kotlin.run {
+            binding.textImagePlaceholder.text = game.name
+            binding.textImagePlaceholder.show()
         }
     }
 }

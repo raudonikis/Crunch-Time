@@ -27,6 +27,12 @@
         <attr name="textAppearanceHeadline2Inverted" format="reference" />
         <attr name="textAppearanceHeadline3" format="reference" />
         <attr name="textAppearanceHeadline3Inverted" format="reference" />
+        <attr name="textAppearanceHeadline4" format="reference" />
+        <attr name="textAppearanceHeadline4Inverted" format="reference" />
+        <attr name="textAppearanceHeadline5" format="reference" />
+        <attr name="textAppearanceHeadline5Inverted" format="reference" />
+        <attr name="textAppearanceHeadline6" format="reference" />
+        <attr name="textAppearanceHeadline6Inverted" format="reference" />
         <attr name="textAppearanceBody" format="reference" />
         <attr name="textAppearanceBodyInverted" format="reference" />
         <attr name="textAppearanceButton" format="reference" />

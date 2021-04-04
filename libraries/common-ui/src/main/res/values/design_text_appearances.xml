@@ -35,6 +35,33 @@
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
 
+    <style name="TextAppearance.Headline4">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline4.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
+    <style name="TextAppearance.Headline5">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline5.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
+    <style name="TextAppearance.Headline6">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline6.Inverted">
+        <item name="android:textColor">@color/text_primary_inverted</item>
+    </style>
+
     <style name="TextAppearance.Body">
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">@font/poppins_regular</item>

@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
+import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common.extensions.show
 import com.raudonikis.data_domain.game_review.GameReview
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.ItemReviewBinding
@@ -24,12 +26,17 @@ data class ReviewItem(val review: GameReview) : AbstractBindingItem<ItemReviewBi
             textUserName.text = review.userId.toString()
             textReviewContent.text = review.content
             textDate.text = review.createdAt
+            imageGameCover.setImageDrawable(null)
             review.gameCoverUrl?.let { coverUrl ->
                 Glide
                     .with(root)
                     .load(coverUrl.prefixHttps())
                     .centerCrop()
                     .into(imageGameCover)
+                textImagePlaceholder.hide()
+            } ?: kotlin.run {
+                textImagePlaceholder.text = review.gameTitle
+                textImagePlaceholder.show()
             }
             val ratingDrawable = when (review.isPositive) {
                 true -> R.drawable.ic_like

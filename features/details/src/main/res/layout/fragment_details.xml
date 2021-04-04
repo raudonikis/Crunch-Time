@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/label_title"
-            style="?textAppearanceHeadline3"
+            style="?textAppearanceHeadline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
@@ -106,31 +106,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="chip_group_buttons,game_item" />
+            app:constraint_referenced_ids="button_deals, button_reviews,game_item" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_buttons"
+        <Button
+            android:id="@+id/button_deals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
-            android:orientation="horizontal"
+            android:text="@string/button_deals"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/game_item">
+            app:layout_constraintTop_toBottomOf="@id/game_item"
+            app:layout_goneMarginTop="?spacingSmall" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/button_deals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="?spacingSmall"
-                android:text="Deals" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/button_reviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="?spacingSmall"
-                android:text="Reviews" />
-        </com.google.android.material.chip.ChipGroup>
+        <Button
+            android:id="@+id/button_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingSmall"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/button_reviews_placeholder"
+            app:layout_constraintStart_toEndOf="@id/button_deals"
+            app:layout_constraintTop_toBottomOf="@id/game_item"
+            app:layout_goneMarginStart="?spacingSmall" />
 
         <View
             android:id="@+id/divider_cover_with_description"

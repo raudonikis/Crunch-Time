@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
+import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.ItemGameCoverBinding
 import com.raudonikis.data_domain.game.models.Game
@@ -20,7 +22,7 @@ class GameCoverItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>(
 
     override fun bindView(binding: ItemGameCoverBinding, payloads: List<Any>) {
         with(binding) {
-            imageGameCover.setImageResource(R.drawable.game_placeholder)
+            imageGameCover.setImageDrawable(null)
             game.coverUrl?.let { url ->
                 Glide
                     .with(root)
@@ -28,6 +30,10 @@ class GameCoverItem(val game: Game) : AbstractBindingItem<ItemGameCoverBinding>(
                     .placeholder(R.drawable.game_placeholder)
                     .centerCrop()
                     .into(imageGameCover)
+                textImagePlaceholder.hide()
+            } ?: kotlin.run {
+                textImagePlaceholder.text = game.name
+                textImagePlaceholder.show()
             }
             gameStatus.setGameStatus(game.status)
         }

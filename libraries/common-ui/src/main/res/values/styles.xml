@@ -34,6 +34,12 @@
         <item name="textAppearanceHeadline2Inverted">@style/TextAppearance.Headline2.Inverted</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.Headline3</item>
         <item name="textAppearanceHeadline3Inverted">@style/TextAppearance.Headline3.Inverted</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Headline4</item>
+        <item name="textAppearanceHeadline4Inverted">@style/TextAppearance.Headline4.Inverted</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline5Inverted">@style/TextAppearance.Headline5.Inverted</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
+        <item name="textAppearanceHeadline6Inverted">@style/TextAppearance.Headline6.Inverted</item>
         <item name="textAppearanceButton">@style/TextAppearance.Button</item>
         <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>
         <item name="textAppearanceBody">@style/TextAppearance.Body</item>
@@ -49,5 +55,9 @@
         <!-- Buttons -->
         <!-- Shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 </resources>
