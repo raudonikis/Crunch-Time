@@ -32,6 +32,11 @@
     <color name="imagePlaceholderColor">@color/gray</color>
     <color name="dialogColor">@color/white</color>
     <color name="reviewColor">@color/gray</color>
+    <color name="chipColor">@color/gray</color>
+    <!-- Buttons -->
+    <color name="buttonIconColor">@color/black</color>
+    <color name="buttonStrokeColor">@color/black</color>
+    <color name="outlinedButtonTextColor">@color/black</color>
     <!-- Bottom navigation -->
     <color name="bottomNavigationColor">@color/white</color>
     <color name="bottomNavigationIconActiveColor">@color/primaryColor</color>

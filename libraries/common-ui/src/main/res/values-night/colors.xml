@@ -25,6 +25,11 @@
     <color name="imagePlaceholderColor">@color/surfaceColorDark_1dp</color>
     <color name="dialogColor">@color/surfaceColorDark_24dp</color>
     <color name="reviewColor">@color/surfaceColorDark</color>
+    <color name="chipColor">@color/surfaceColorDark_1dp</color>
+    <!-- Buttons -->
+    <color name="buttonIconColor">@color/onSurfaceColor</color>
+    <color name="buttonStrokeColor">@color/onSurfaceColor</color>
+    <color name="outlinedButtonTextColor">@color/onSurfaceColor</color>
     <!-- Bottom navigation -->
     <color name="bottomNavigationColor">@color/surfaceColorDark_8dp</color>
     <color name="bottomNavigationIconActiveColor">@color/onSurfaceColor_highEmphasis</color>
