@@ -17,8 +17,7 @@ import timber.log.Timber
 
 class WriteReviewDialogFragment : DialogFragment() {
 
-    private var _binding: DialogReviewBinding? = null
-    private val binding get() = _binding!!
+    private var binding: DialogReviewBinding? = null
 
     private var selectedRating: GameRating = GameRating.UNDEFINED
 
@@ -29,13 +28,14 @@ class WriteReviewDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DialogReviewBinding.inflate(LayoutInflater.from(context))
-        return binding.root
+        val view = DialogReviewBinding.inflate(LayoutInflater.from(context))
+        binding = view
+        return view.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
+        binding?.apply {
             buttonSave.setOnClickListener {
                 if (selectedRating != GameRating.UNDEFINED) {
                     onSaveClicked.invoke(selectedRating, textInputComment.text)
@@ -54,17 +54,19 @@ class WriteReviewDialogFragment : DialogFragment() {
 
     private fun onRatingClicked(gameRating: GameRating) {
         selectedRating = gameRating
-        when (gameRating) {
-            GameRating.UP_VOTED -> {
-                binding.imageButtonDislike.setImageResource(R.drawable.ic_dislike)
-                binding.imageButtonLike.setImageResource(R.drawable.ic_like_filled)
-            }
-            GameRating.DOWN_VOTED -> {
-                binding.imageButtonDislike.setImageResource(R.drawable.ic_dislike_filled)
-                binding.imageButtonLike.setImageResource(R.drawable.ic_like)
-            }
-            else -> {
-                Timber.e("onRatingClicked -> This should not happen.")
+        binding?.apply {
+            when (gameRating) {
+                GameRating.UP_VOTED -> {
+                    imageButtonDislike.setImageResource(R.drawable.ic_dislike)
+                    imageButtonLike.setImageResource(R.drawable.ic_like_filled)
+                }
+                GameRating.DOWN_VOTED -> {
+                    imageButtonDislike.setImageResource(R.drawable.ic_dislike_filled)
+                    imageButtonLike.setImageResource(R.drawable.ic_like)
+                }
+                else -> {
+                    Timber.e("onRatingClicked -> This should not happen.")
+                }
             }
         }
     }
@@ -83,7 +85,7 @@ class WriteReviewDialogFragment : DialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     fun setOnSaveClicked(onClick: (gameRating: GameRating, comment: String) -> Unit) = apply {
@@ -91,7 +93,7 @@ class WriteReviewDialogFragment : DialogFragment() {
     }
 
     fun setReviewState(reviewState: ReviewState) {
-        with(binding) {
+        binding?.apply {
             progressBarSave.showIf { reviewState == ReviewState.LOADING }
             buttonSave.enableIf { reviewState != ReviewState.LOADING }
         }
