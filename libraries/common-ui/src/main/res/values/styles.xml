@@ -56,6 +56,7 @@
         <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
         <item name="textAppearanceHeadline6Inverted">@style/TextAppearance.Headline6.Inverted</item>
         <item name="textAppearanceButton">@style/TextAppearance.Button</item>
+        <item name="textAppearanceButtonPrimary">@style/TextAppearance.Button.Primary</item>
         <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>
         <item name="textAppearanceBody">@style/TextAppearance.Body</item>
         <item name="textAppearanceBodyInverted">@style/TextAppearance.Body.Inverted</item>
