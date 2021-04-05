@@ -3,8 +3,23 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Colors -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorBackground">@color/backgroundColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+
+        <!--<color name="primaryColor">#a0c4ff</color>
+        <color name="primaryLightColor">#d3f7ff</color>
+        <color name="primaryDarkColor">#6e94cc</color>
+        <color name="secondaryColor">@color/green</color>
+        <color name="secondaryLightColor">@color/green_light</color>
+        <color name="secondaryDarkColor">@color/green_dark</color>
+        <color name="primaryTextColor">@color/black</color>
+        <color name="secondaryTextColor">@color/black</color>-->
+
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Text Size -->
         <item name="textSizeTiny">@dimen/text_size_tiny</item>

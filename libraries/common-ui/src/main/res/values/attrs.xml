@@ -43,14 +43,16 @@
         <attr name="textAppearanceBodyTinyInverted" format="reference" />
         <attr name="textAppearanceAction" format="reference" />
         <attr name="textAppearanceSecondary" format="reference" />
+        <!-- Colors -->
+        <attr name="colorBackground" format="color|reference" />
     </declare-styleable>
     <!-- Custom views -->
     <declare-styleable name="HorizontalGameList">
-        <attr name="hgl_title" format="string"/>
+        <attr name="hgl_title" format="string" />
     </declare-styleable>
     <declare-styleable name="HeaderLayout">
-        <attr name="header_title" format="string"/>
-        <attr name="header_search_enabled" format="boolean"/>
-        <attr name="header_search_hint" format="string"/>
+        <attr name="header_title" format="string" />
+        <attr name="header_search_enabled" format="boolean" />
+        <attr name="header_search_hint" format="string" />
     </declare-styleable>
 </resources>

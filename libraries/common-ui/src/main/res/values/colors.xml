@@ -1,26 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Color palette -->
+    <!-- Primary -->
+    <color name="primaryColor">#546E7A</color>
+    <color name="primaryLightColor">#819CA9</color>
+    <color name="primaryDarkColor">#29434E</color>
+    <!-- Secondary -->
+    <color name="secondaryColor">@color/green</color>
+    <color name="secondaryLightColor">@color/green_light</color>
+    <color name="secondaryDarkColor">@color/green_dark</color>
+    <color name="secondaryVariantColor">#00E676</color>
+    <!-- Surfaces -->
+    <color name="backgroundColor">@color/white</color>
+    <color name="surfaceColor">@color/white</color>
+    <color name="surfaceColorDark">#181B24</color>
+    <!-- Error -->
+    <color name="errorColor">#B00020</color>
+    <!-- OnColors -->
+    <color name="onPrimaryColor">@color/white</color>
+    <color name="onSecondaryColor">@color/black</color>
+    <color name="onBackgroundColor">@color/black</color>
+    <color name="onSurfaceColor">@color/black</color>
+    <color name="onSurfaceColor_highEmphasis">@color/black</color>
+    <color name="onSurfaceColor_mediumEmphasis">@color/black</color>
+    <color name="onErrorColor">@color/white</color>
+
+    <!-- Custom colors -->
+    <color name="headerColor">@color/colorPrimary</color>
+    <color name="searchColor">@color/white</color>
+    <color name="bottomNavigationColor">@color/white</color>
+
+
     <color name="colorPrimary">@color/green</color>
     <color name="colorPrimaryDark">@color/green_dark</color>
     <color name="colorAccent">#2a9d8f</color>
+
+    <!-- Gray -->
     <color name="gray_100">#F3F3F3</color>
     <color name="gray_200">#e5e5e5</color>
     <color name="gray">#d3d3d3</color>
     <color name="gray_400">#CACACA</color>
     <color name="gray_500">#B4B3B3</color>
     <color name="gray_600">#9F9F9F</color>
+    <color name="grey_dark">#121212</color>
+    <!-- Yellow -->
     <color name="yellow">#F6CB0B</color>
     <color name="yellow_light">#fffe53</color>
     <color name="yellow_dark">#bf9b00</color>
+    <!-- Green -->
     <color name="green">#06d6a0</color>
     <color name="green.8">#CC06d6a0</color>
     <color name="green_light">#63ffd1</color>
     <color name="green_dark">#00a371</color>
+    <!-- Black and White-->
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <!-- Blue -->
     <color name="blue">#457b9d</color>
     <color name="blue_light">#48cae4</color>
     <color name="blue_light.8">#CC48cae4</color>
+    <!-- Orange -->
     <color name="orange">#f77f00</color>
     <color name="orange.8">#CCf77f00</color>
+    <!-- Surface elevations -->
+    <color name="surfaceColorDark_1dp">#24262F</color>
+    <color name="surfaceColorDark_2dp">#282B33</color>
+    <color name="surfaceColorDark_3dp">#2A2D36</color>
+    <color name="surfaceColorDark_4dp">#2D3038</color>
+    <color name="surfaceColorDark_6dp">#31343C</color>
+    <color name="surfaceColorDark_8dp">#34363E</color>
+    <color name="surfaceColorDark_12dp">#383B43</color>
+    <color name="surfaceColorDark_16dp">#3B3D45</color>
+    <color name="surfaceColorDark_24dp">#3D3F47</color>
 </resources>
