@@ -20,7 +20,7 @@
         <color name="primaryTextColor">@color/black</color>
         <color name="secondaryTextColor">@color/black</color>-->
 
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/secondaryColor</item>
         <!-- Text Size -->
         <item name="textSizeTiny">@dimen/text_size_tiny</item>
         <item name="textSizeSmall">@dimen/text_size_small</item>
@@ -70,6 +70,7 @@
         <!-- Buttons -->
         <!-- Shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

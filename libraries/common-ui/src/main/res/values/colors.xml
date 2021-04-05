@@ -26,14 +26,10 @@
     <color name="onErrorColor">@color/white</color>
 
     <!-- Custom colors -->
-    <color name="headerColor">@color/colorPrimary</color>
+    <color name="headerColor">@color/primaryColor</color>
     <color name="searchColor">@color/white</color>
     <color name="bottomNavigationColor">@color/white</color>
-
-
-    <color name="colorPrimary">@color/green</color>
-    <color name="colorPrimaryDark">@color/green_dark</color>
-    <color name="colorAccent">#2a9d8f</color>
+    <color name="imagePlaceholderColor">@color/gray</color>
 
     <!-- Gray -->
     <color name="gray_100">#F3F3F3</color>

@@ -22,4 +22,5 @@
     <color name="headerColor">@color/surfaceColorDark_4dp</color>
     <color name="searchColor">@color/surfaceColorDark_6dp</color>
     <color name="bottomNavigationColor">@color/surfaceColorDark_8dp</color>
+    <color name="imagePlaceholderColor">@color/surfaceColorDark_1dp</color>
 </resources>

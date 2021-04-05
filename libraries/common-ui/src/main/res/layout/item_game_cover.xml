@@ -18,7 +18,7 @@
                 android:id="@+id/image_game_cover"
                 android:layout_width="130dp"
                 android:layout_height="180sp"
-                android:background="@color/gray"
+                android:background="@color/imagePlaceholderColor"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
