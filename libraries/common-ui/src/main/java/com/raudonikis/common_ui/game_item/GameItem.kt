@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.raudonikis.common.extensions.prefixHttps
+import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.R
 import com.raudonikis.common_ui.databinding.ItemGameBinding
 import com.raudonikis.data_domain.game.models.Game
@@ -22,12 +23,14 @@ class GameItem(val game: Game) : AbstractBindingItem<ItemGameBinding>() {
         with(binding) {
             gameTitle.text = game.name
             gameDescription.text = game.description
+            textGameCoverPlaceholder.text = game.name
+            textGameCoverPlaceholder.showIf { game.coverUrl == null }
             game.coverUrl?.let { url ->
                 Glide
                     .with(root)
                     .load(url.prefixHttps())
                     .centerCrop()
-                    .into(gameCover)
+                    .into(imageGameCover)
             }
         }
     }
