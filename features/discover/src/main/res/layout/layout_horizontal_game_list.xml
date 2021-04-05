@@ -36,6 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:itemCount="4"
-        tools:listitem="@layout/item_activity" />
+        tools:listitem="@layout/item_game_cover" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

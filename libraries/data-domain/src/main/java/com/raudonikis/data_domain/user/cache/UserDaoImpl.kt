@@ -37,6 +37,12 @@ class UserDaoImpl @Inject constructor() : UserDao {
         followingUsersState.value = outcome
     }
 
+    override fun addNewFollowingUser(user: User) {
+        followingUsersState.value = followingUsersState.value.map { users ->
+            users.plus(user)
+        }
+    }
+
     override suspend fun updateFollowingUsers(followingUsers: List<User>) {
         followingUsersState.value = Outcome.success(followingUsers)
     }
