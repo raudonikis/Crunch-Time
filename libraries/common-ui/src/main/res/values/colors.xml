@@ -31,6 +31,7 @@
     <color name="searchColor">@color/white</color>
     <color name="imagePlaceholderColor">@color/gray</color>
     <color name="dialogColor">@color/white</color>
+    <color name="reviewColor">@color/gray</color>
     <!-- Bottom navigation -->
     <color name="bottomNavigationColor">@color/white</color>
     <color name="bottomNavigationIconActiveColor">@color/primaryColor</color>

@@ -14,7 +14,7 @@
     <color name="onPrimaryColor">@color/black</color>
     <color name="onSecondaryColor">@color/black</color>
     <color name="onBackgroundColor">@color/white</color>
-    <color name="onSurfaceColor">@color/white</color>
+    <color name="onSurfaceColor">#DEFFFFFF</color>
     <color name="onSurfaceColor_highEmphasis">#DEFFFFFF</color>
     <color name="onSurfaceColor_mediumEmphasis">#99FFFFFF</color>
     <color name="onSurfaceColor_disabled">#4DFFFFFF</color>
@@ -24,6 +24,7 @@
     <color name="searchColor">@color/surfaceColorDark_6dp</color>
     <color name="imagePlaceholderColor">@color/surfaceColorDark_1dp</color>
     <color name="dialogColor">@color/surfaceColorDark_24dp</color>
+    <color name="reviewColor">@color/surfaceColorDark</color>
     <!-- Bottom navigation -->
     <color name="bottomNavigationColor">@color/surfaceColorDark_8dp</color>
     <color name="bottomNavigationIconActiveColor">@color/onSurfaceColor_highEmphasis</color>
