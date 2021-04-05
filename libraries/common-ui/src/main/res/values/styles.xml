@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Colors -->
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryDark">@color/headerColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorBackground">@color/backgroundColor</item>
         <item name="android:colorBackground">@color/backgroundColor</item>

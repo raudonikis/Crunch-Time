@@ -2,7 +2,7 @@
 <resources>
     <!-- Color palette -->
     <!-- Primary -->
-    <color name="primaryColor">#607D8B</color>
+    <color name="primaryColor">#7ae1ba</color>
     <color name="primaryLightColor">#8eacbb</color>
     <color name="primaryDarkColor">#34515e</color>
     <!-- Surfaces -->
@@ -15,12 +15,17 @@
     <color name="onSecondaryColor">@color/black</color>
     <color name="onBackgroundColor">@color/white</color>
     <color name="onSurfaceColor">@color/white</color>
-    <color name="onSurfaceColor_highEmphasis">#FCFCFC</color>
-    <color name="onSurfaceColor_mediumEmphasis">#F5F5F5</color>
+    <color name="onSurfaceColor_highEmphasis">#DEFFFFFF</color>
+    <color name="onSurfaceColor_mediumEmphasis">#99FFFFFF</color>
+    <color name="onSurfaceColor_disabled">#4DFFFFFF</color>
     <color name="onErrorColor">@color/black</color>
     <!-- Custom colors -->
     <color name="headerColor">@color/surfaceColorDark_4dp</color>
     <color name="searchColor">@color/surfaceColorDark_6dp</color>
-    <color name="bottomNavigationColor">@color/surfaceColorDark_8dp</color>
     <color name="imagePlaceholderColor">@color/surfaceColorDark_1dp</color>
+    <color name="dialogColor">@color/surfaceColorDark_24dp</color>
+    <!-- Bottom navigation -->
+    <color name="bottomNavigationColor">@color/surfaceColorDark_8dp</color>
+    <color name="bottomNavigationIconActiveColor">@color/onSurfaceColor_highEmphasis</color>
+    <color name="bottomNavigationIconInactiveColor">@color/onSurfaceColor_disabled</color>
 </resources>

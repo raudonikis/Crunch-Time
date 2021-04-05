@@ -2,7 +2,7 @@
 <resources>
     <!-- Color palette -->
     <!-- Primary -->
-    <color name="primaryColor">#546E7A</color>
+    <color name="primaryColor">#00c074</color>
     <color name="primaryLightColor">#819CA9</color>
     <color name="primaryDarkColor">#29434E</color>
     <!-- Secondary -->
@@ -23,13 +23,18 @@
     <color name="onSurfaceColor">@color/black</color>
     <color name="onSurfaceColor_highEmphasis">@color/black</color>
     <color name="onSurfaceColor_mediumEmphasis">@color/black</color>
+    <color name="onSurfaceColor_disabled">@color/gray</color>
     <color name="onErrorColor">@color/white</color>
 
     <!-- Custom colors -->
     <color name="headerColor">@color/primaryColor</color>
     <color name="searchColor">@color/white</color>
-    <color name="bottomNavigationColor">@color/white</color>
     <color name="imagePlaceholderColor">@color/gray</color>
+    <color name="dialogColor">@color/white</color>
+    <!-- Bottom navigation -->
+    <color name="bottomNavigationColor">@color/white</color>
+    <color name="bottomNavigationIconActiveColor">@color/primaryColor</color>
+    <color name="bottomNavigationIconInactiveColor">@color/gray_600</color>
 
     <!-- Gray -->
     <color name="gray_100">#F3F3F3</color>
@@ -48,6 +53,16 @@
     <color name="green.8">#CC06d6a0</color>
     <color name="green_light">#63ffd1</color>
     <color name="green_dark">#00a371</color>
+    <color name="green_50">#e0f8ee</color>
+    <color name="green_100">#b2edd5</color>
+    <color name="green_200">#7ae1ba</color>
+    <color name="green_300">#06d69f</color>
+    <color name="green_400">#00cc89</color>
+    <color name="green_500">#00c074</color>
+    <color name="green_600">#00b169</color>
+    <color name="green_700">#009e5b</color>
+    <color name="green_800">#008c4e</color>
+    <color name="green_900">#006c37</color>
     <!-- Black and White-->
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
