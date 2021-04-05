@@ -12,6 +12,7 @@ import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
+import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.common_ui.user_activity_item.UserActivityItem
 import com.raudonikis.common_ui.user_activity_item.UserActivityItemMapper
 import com.raudonikis.data_domain.activity.models.UserActivity
@@ -138,7 +139,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         with(binding) {
             recyclerMyActivity.adapter = myActivityAdapter
             recyclerMyActivity.addItemDecoration(
-                HorizontalPaddingItemDecoration(
+                VerticalPaddingItemDecoration(
                     requireContext(),
                     R.dimen.spacing_small
                 )

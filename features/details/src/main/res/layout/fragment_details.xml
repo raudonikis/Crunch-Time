@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/label_title"
-            style="?textAppearanceHeadline5"
+            style="?textAppearanceHeadline4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
@@ -74,6 +74,7 @@
             android:layout_marginTop="?spacingTiny"
             android:gravity="center"
             app:drawableStartCompat="@drawable/ic_like"
+            app:drawableTint="?colorOnSurface"
             app:layout_constraintStart_toStartOf="@id/label_title"
             app:layout_constraintTop_toBottomOf="@id/text_release_date"
             tools:text="514" />
@@ -85,6 +86,7 @@
             android:layout_marginStart="?spacingTiny"
             android:gravity="center"
             app:drawableStartCompat="@drawable/ic_dislike"
+            app:drawableTint="?colorOnSurface"
             app:layout_constraintStart_toEndOf="@id/rating_like"
             app:layout_constraintTop_toTopOf="@id/rating_like"
             tools:text="12" />
@@ -129,14 +131,6 @@
             app:layout_constraintTop_toBottomOf="@id/game_item"
             app:layout_goneMarginStart="?spacingSmall" />
 
-        <View
-            android:id="@+id/divider_cover_with_description"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingSmall"
-            android:background="@color/background_divider"
-            app:layout_constraintTop_toBottomOf="@id/barrier_details_with_buttons" />
-
         <TextView
             android:id="@+id/text_description"
             style="?textAppearanceBodySmall"
@@ -145,7 +139,7 @@
             android:layout_marginTop="?spacingSmall"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider_cover_with_description"
+            app:layout_constraintTop_toBottomOf="@id/button_deals"
             tools:text="..." />
 
         <TextView
@@ -174,22 +168,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorPrimary"
-            android:elevation="0dp"
             android:src="@drawable/ic_add"
-            app:elevation="0dp"
-            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="@id/image_wallpaper"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
             app:maxImageSize="?spacingMedium" />
-
-        <View
-            android:id="@+id/divider_description_with_genres"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="@color/background_divider"
-            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <TextView
             android:id="@+id/label_genres"
@@ -199,7 +182,7 @@
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_genres"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider_description_with_genres" />
+            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chips_genres"
@@ -211,14 +194,6 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/label_genres" />
 
-        <View
-            android:id="@+id/divider_genres_with_screenshots"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="@color/background_divider"
-            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
-
         <TextView
             android:id="@+id/label_screenshots"
             style="@style/TextAppearance.Headline3"
@@ -227,7 +202,7 @@
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_screenshots"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider_genres_with_screenshots" />
+            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_screenshots"
@@ -240,26 +215,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_screenshots"
-            tools:itemCount="1"
+            tools:itemCount="2"
+            android:paddingBottom="?spacingSmall"
             tools:listitem="@layout/item_screenshot" />
-
-        <View
-            android:id="@+id/divider_screenshots_with_videos"
-            android:layout_width="wrap_content"
-            android:layout_height="?spacingSmall"
-            android:layout_marginTop="?spacingNormal"
-            android:background="@color/background_divider"
-            app:layout_constraintTop_toBottomOf="@id/recycler_screenshots" />
-
-        <TextView
-            android:id="@+id/label_videos"
-            style="@style/TextAppearance.Headline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:text="@string/label_videos"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider_screenshots_with_videos" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"

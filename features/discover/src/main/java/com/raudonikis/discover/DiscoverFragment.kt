@@ -13,6 +13,7 @@ import com.raudonikis.common_ui.game_cover_item.GameCoverItem
 import com.raudonikis.common_ui.game_cover_item.GameCoverItemMapper
 import com.raudonikis.common_ui.game_item.GameItem
 import com.raudonikis.common_ui.game_item.GameItemMapper
+import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.data_domain.testGames
 import com.raudonikis.discover.databinding.FragmentDiscoverBinding
 import com.raudonikis.discover.popular_games.PopularGamesState
@@ -79,6 +80,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private fun setUpGameSearch() {
         binding.apply {
             recyclerGameSearch.adapter = gameSearchAdapter
+            recyclerGameSearch.addItemDecoration(
+                VerticalPaddingItemDecoration(
+                    requireContext(),
+                    R.dimen.spacing_small
+                )
+            )
             gameSearchAdapter.onClick {
                 viewModel.onGameClicked(it.game)
             }

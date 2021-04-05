@@ -35,7 +35,7 @@ private fun FragmentDetailsBinding.bindGameReviewInfo(
     gameReviewInfo: GameReviewInfo?,
     context: Context
 ) {
-    gameReviewInfo?.let { gameReviewInfo ->
+    gameReviewInfo?.let {
         ratingLike.text = gameReviewInfo.positiveCount.toString()
         ratingDislike.text = gameReviewInfo.negativeCount.toString()
         val reviewCount = gameReviewInfo.negativeCount + gameReviewInfo.positiveCount
@@ -53,7 +53,9 @@ private fun FragmentDetailsBinding.bindGameReleaseDate(game: Game) {
 
 private fun FragmentDetailsBinding.bindGameGenres(context: Context, game: Game) {
     chipsGenres.removeAllViews()
-    game.gameGenres.forEach { genre ->
+    labelGenres.showIf { game.gameGenres.isNotEmpty() }
+    chipsGenres.showIf { game.gameGenres.isNotEmpty() }
+    game.gameGenres.map { genre ->
         val chip =
             LayoutInflater.from(context).inflate(R.layout.chip_genre, chipsGenres, false) as Chip
         chip.text = genre.name
@@ -81,6 +83,8 @@ private fun FragmentDetailsBinding.bindGameScreenshots(
     game: Game,
     screenshotAdapter: ItemAdapter<ScreenshotItem>
 ) {
+    labelScreenshots.showIf { game.screenshots.isNotEmpty() }
+    recyclerScreenshots.showIf { game.screenshots.isNotEmpty() }
     screenshotAdapter.apply {
         clear()
         add(ScreenshotItemMapper.fromScreenshotList(game.screenshots))
@@ -88,6 +92,7 @@ private fun FragmentDetailsBinding.bindGameScreenshots(
 }
 
 private fun FragmentDetailsBinding.bindGameDescription(context: Context, game: Game) {
+    textDescription.showIf { game.description.isNotBlank() }
     val maxCharacterCount = 120
     var isShowingMore = false
     textReadMore.setOnClickListener {

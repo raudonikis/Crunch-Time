@@ -3,9 +3,24 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Colors -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/headerColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorBackground">@color/backgroundColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+
+        <!--<color name="primaryColor">#a0c4ff</color>
+        <color name="primaryLightColor">#d3f7ff</color>
+        <color name="primaryDarkColor">#6e94cc</color>
+        <color name="secondaryColor">@color/green</color>
+        <color name="secondaryLightColor">@color/green_light</color>
+        <color name="secondaryDarkColor">@color/green_dark</color>
+        <color name="primaryTextColor">@color/black</color>
+        <color name="secondaryTextColor">@color/black</color>-->
+
+        <item name="colorAccent">@color/secondaryColor</item>
         <!-- Text Size -->
         <item name="textSizeTiny">@dimen/text_size_tiny</item>
         <item name="textSizeSmall">@dimen/text_size_small</item>
@@ -41,6 +56,8 @@
         <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
         <item name="textAppearanceHeadline6Inverted">@style/TextAppearance.Headline6.Inverted</item>
         <item name="textAppearanceButton">@style/TextAppearance.Button</item>
+        <item name="textAppearanceButtonPrimary">@style/TextAppearance.Button.Primary</item>
+        <item name="textAppearanceButtonNegative">@style/TextAppearance.Button.Negative</item>
         <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>
         <item name="textAppearanceBody">@style/TextAppearance.Body</item>
         <item name="textAppearanceBodyInverted">@style/TextAppearance.Body.Inverted</item>
@@ -55,6 +72,7 @@
         <!-- Buttons -->
         <!-- Shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

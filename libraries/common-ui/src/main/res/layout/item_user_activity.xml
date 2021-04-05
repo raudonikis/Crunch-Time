@@ -1,91 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    app:cardCornerRadius="?spacingNormal"
+    app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/text_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="NedasK" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_game_title"
-        style="?textAppearanceHeadline3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?spacingTiny"
-        android:layout_marginEnd="?spacingTiny"
-        android:ellipsize="end"
-        android:maxLines="2"
-        app:layout_constraintEnd_toStartOf="@id/card_game_cover"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_user"
-        tools:text="Cyberpunk 2077" />
+        <TextView
+            android:layout_marginStart="?spacingTiny"
+            android:id="@+id/text_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NedasK" />
 
-    <TextView
-        android:id="@+id/text_action"
-        style="?textAppearanceAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?spacingSmall"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_game_title"
-        tools:text="Rated" />
+        <TextView
+            android:id="@+id/text_game_title"
+            style="?textAppearanceHeadline4"
+            android:layout_marginStart="?spacingTiny"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingTiny"
+            android:layout_marginEnd="?spacingTiny"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/card_game_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_user"
+            tools:text="Cyberpunk 2077" />
 
-    <com.raudonikis.common_ui.components.GameStatusLayout
-        android:id="@+id/game_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="?spacingNormal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/text_action"
-        app:layout_constraintStart_toEndOf="@id/text_action"
-        app:layout_constraintTop_toTopOf="@id/text_action" />
+        <TextView
+            android:id="@+id/text_action"
+            style="?textAppearanceAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingTiny"
+            android:layout_marginTop="?spacingSmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_game_title"
+            tools:text="Rated" />
 
-    <ImageView
-        android:id="@+id/icon_rating"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="?spacingNormal"
-        app:layout_constraintBottom_toBottomOf="@id/text_action"
-        app:layout_constraintStart_toEndOf="@id/text_action"
-        app:layout_constraintTop_toTopOf="@id/text_action"
-        tools:src="@drawable/ic_like" />
-
-    <TextView
-        android:id="@+id/text_date"
-        style="?textAppearanceSecondary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?spacingSmall"
-        android:text="2 weeks ago"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_action" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_game_cover"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="?spacingNormal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <com.raudonikis.common_ui.components.GameStatusLayout
+            android:id="@+id/game_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/text_action"
+            app:layout_constraintStart_toEndOf="@id/text_action"
+            app:layout_constraintTop_toTopOf="@id/text_action" />
 
         <ImageView
-            android:id="@+id/image_game_cover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/game_placeholder"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.cardview.widget.CardView>
+            android:id="@+id/icon_rating"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="?spacingNormal"
+            app:layout_constraintBottom_toBottomOf="@id/text_action"
+            app:layout_constraintStart_toEndOf="@id/text_action"
+            app:layout_constraintTop_toTopOf="@id/text_action"
+            tools:src="@drawable/ic_like" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_date"
+            style="?textAppearanceSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingTiny"
+            android:layout_marginTop="?spacingSmall"
+            android:text="2 weeks ago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_action" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_game_cover"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:elevation="0dp"
+            app:cardCornerRadius="?spacingNormal"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_game_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/game_placeholder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

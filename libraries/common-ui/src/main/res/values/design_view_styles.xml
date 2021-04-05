@@ -10,4 +10,6 @@
         <item name="chipBackgroundColor">?colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Button</item>
     </style>
+    <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+    </style>
 </resources>

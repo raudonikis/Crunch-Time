@@ -53,7 +53,7 @@ class DetailsViewModel @Inject constructor(
      * Details functionality
      */
     fun updateGameStatus(status: GameStatus) {
-        if (status == currentGame.value.status || status == GameStatus.EMPTY) {
+        if (status == currentGame.value.status) {
             _detailsState.value = DetailsState.StatusUpdateNotNeeded
             return
         }
@@ -119,6 +119,10 @@ class DetailsViewModel @Inject constructor(
 
     fun onGameUpdated(game: Game) {
         _currentGame.value = game
+    }
+
+    fun onGameStatusDeleteClicked() {
+        updateGameStatus(GameStatus.EMPTY)
     }
 
     /**

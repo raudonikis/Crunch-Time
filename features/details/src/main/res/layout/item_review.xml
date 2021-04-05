@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/background_review"
-    android:elevation="0dp"
+    android:backgroundTint="@color/reviewColor"
+    android:elevation="1dp"
     app:cardCornerRadius="?spacingSmall"
-    app:cardElevation="0dp">
+    app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_game_cover"
             android:layout_width="100dp"
             android:layout_height="140dp"
             android:layout_marginStart="?spacingSmall"
             android:layout_marginTop="?spacingSmall"
             android:backgroundTint="@color/gray"
-            android:elevation="0dp"
+            android:elevation="1dp"
             app:cardCornerRadius="?spacingSmall"
-            app:cardElevation="0dp"
+            app:cardElevation="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -30,7 +30,7 @@
                 android:id="@+id/image_game_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/text_image_placeholder"
@@ -101,8 +101,9 @@
             android:layout_marginEnd="?spacingSmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_game_title"
+            app:tint="?colorOnSurface"
             tools:src="@drawable/ic_like" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

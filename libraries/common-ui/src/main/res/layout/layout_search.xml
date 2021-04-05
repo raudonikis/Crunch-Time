@@ -11,16 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingNormal"
         android:hint="@string/hint_search"
-        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundColor="@color/searchColor"
         app:boxCornerRadiusBottomEnd="?spacingLarge"
         app:boxCornerRadiusBottomStart="?spacingLarge"
         app:boxCornerRadiusTopEnd="?spacingLarge"
         app:boxCornerRadiusTopStart="?spacingLarge"
-        app:startIconTint="@color/black"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_search">
+        app:endIconTint="?colorOnSurface"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="?colorOnSurface">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

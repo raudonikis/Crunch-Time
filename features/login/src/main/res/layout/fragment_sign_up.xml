@@ -6,12 +6,12 @@
 
     <TextView
         android:id="@+id/title_login"
+        style="?textAppearanceHeadline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="?spacingMedium"
         android:layout_marginTop="?spacingHuge"
         android:text="@string/title_sign_up"
-        android:textSize="?textSizeLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,23 +119,22 @@
 
     <TextView
         android:id="@+id/text_login"
+        style="?textAppearanceBodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingMedium"
         android:layout_marginTop="?spacingSmall"
         android:text="@string/label_have_account"
-        android:textSize="?textSizeSmall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_sign_up" />
 
     <TextView
         android:id="@+id/button_login"
+        style="?textAppearanceButtonPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?spacingTiny"
         android:text="@string/button_login"
-        android:textColor="@color/colorPrimary"
-        android:textSize="?textSizeSmall"
         app:layout_constraintStart_toEndOf="@id/text_login"
         app:layout_constraintTop_toTopOf="@id/text_login" />
 

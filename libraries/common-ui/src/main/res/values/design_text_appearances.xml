@@ -3,12 +3,13 @@
 
     <style name="TextAppearance" parent="android:TextAppearance">
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColor">@color/onSurfaceColor_mediumEmphasis</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="TextAppearance.Headline1">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -18,6 +19,7 @@
     </style>
 
     <style name="TextAppearance.Headline2">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -27,6 +29,7 @@
     </style>
 
     <style name="TextAppearance.Headline3">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_normal_extended</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -36,6 +39,7 @@
     </style>
 
     <style name="TextAppearance.Headline4">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -45,6 +49,7 @@
     </style>
 
     <style name="TextAppearance.Headline5">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -54,6 +59,7 @@
     </style>
 
     <style name="TextAppearance.Headline6">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_tiny</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
@@ -63,6 +69,7 @@
     </style>
 
     <style name="TextAppearance.Body">
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
@@ -72,6 +79,7 @@
     </style>
 
     <style name="TextAppearance.Body.Small">
+        <item name="android:textColor">@color/onSurfaceColor_mediumEmphasis</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
@@ -81,6 +89,7 @@
     </style>
 
     <style name="TextAppearance.Body.Tiny">
+        <item name="android:textColor">@color/onSurfaceColor_mediumEmphasis</item>
         <item name="android:textSize">@dimen/text_size_tiny</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
@@ -93,9 +102,16 @@
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColor">@color/onSurfaceColor_highEmphasis</item>
     </style>
 
+    <style name="TextAppearance.Button.Primary">
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Button.Negative">
+        <item name="android:textColor">?colorError</item>
+    </style>
     <style name="TextAppearance.Button.Inverted">
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>
@@ -107,8 +123,8 @@
     </style>
 
     <style name="TextAppearance.Secondary">
+        <item name="android:textColor">@color/onSurfaceColor_mediumEmphasis</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/text_secondary</item>
     </style>
 </resources>

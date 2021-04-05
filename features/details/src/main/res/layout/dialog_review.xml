@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/white"
-    android:elevation="0dp"
-    app:cardCornerRadius="?spacingNormal"
-    app:cardElevation="0dp">
+    android:backgroundTint="@color/dialogColor"
+    android:elevation="?spacingNormal"
+    app:cardCornerRadius="?spacingNormalExtended"
+    app:cardElevation="?spacingNormalExtended">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/text_title"
-            style="@style/TextAppearance.Headline3"
+            style="?textAppearanceHeadline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="?spacingNormal"
@@ -46,16 +46,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_title_with_content" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/button_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingNormal"
             android:layout_marginTop="?spacingSmall"
-            android:clickable="true"
             android:elevation="0dp"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="?spacingMedium"
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +62,9 @@
                 android:id="@+id/image_button_like"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_like" />
-        </androidx.cardview.widget.CardView>
+                android:src="@drawable/ic_like"
+                app:tint="?colorOnSurface" />
+        </com.google.android.material.card.MaterialCardView>
 
         <View
             android:id="@+id/divider_like_or_start"
@@ -103,16 +101,13 @@
             app:layout_constraintStart_toEndOf="@id/text_label_or"
             app:layout_constraintTop_toTopOf="@id/button_like" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/button_dislike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:layout_marginEnd="?spacingNormal"
-            android:clickable="true"
             android:elevation="0dp"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="?spacingMedium"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,9 +116,10 @@
             <ImageView
                 android:id="@+id/image_button_dislike"
                 android:layout_width="50dp"
+                app:tint="?colorOnSurface"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_dislike" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <View
             android:id="@+id/divider_rating_with_content"
@@ -186,4 +182,4 @@
             app:layout_constraintTop_toBottomOf="@id/text_input_comment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
