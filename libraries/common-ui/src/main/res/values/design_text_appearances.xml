@@ -109,6 +109,9 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.Button.Negative">
+        <item name="android:textColor">?colorError</item>
+    </style>
     <style name="TextAppearance.Button.Inverted">
         <item name="android:textColor">@color/text_primary_inverted</item>
     </style>

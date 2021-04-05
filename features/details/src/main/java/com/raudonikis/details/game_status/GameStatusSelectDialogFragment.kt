@@ -18,6 +18,7 @@ class GameStatusSelectDialogFragment : DialogFragment() {
 
     private var gameStatus: GameStatus = GameStatus.EMPTY
     private var onUpdateClicked: (gameStatus: GameStatus) -> Unit = { }
+    private var onDeleteClicked: () -> Unit = { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,10 @@ class GameStatusSelectDialogFragment : DialogFragment() {
                 onUpdateClicked.invoke(gameStatus)
                 dismiss()
             }
+            buttonDelete.setOnClickListener {
+                onDeleteClicked.invoke()
+                dismiss()
+            }
         }
     }
 
@@ -73,6 +78,10 @@ class GameStatusSelectDialogFragment : DialogFragment() {
 
     fun setOnUpdateClicked(onClick: (gameStatus: GameStatus) -> Unit) {
         this.onUpdateClicked = onClick
+    }
+
+    fun setOnDeleteClicked(onClick: () -> Unit) {
+        this.onDeleteClicked = onClick
     }
 
     companion object {

@@ -37,6 +37,7 @@
         <attr name="textAppearanceBodyInverted" format="reference" />
         <attr name="textAppearanceButton" format="reference" />
         <attr name="textAppearanceButtonPrimary" format="reference" />
+        <attr name="textAppearanceButtonNegative" format="reference" />
         <attr name="textAppearanceButtonInverted" format="reference" />
         <attr name="textAppearanceBodySmall" format="reference" />
         <attr name="textAppearanceBodySmallInverted" format="reference" />

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="?spacingNormal"
             android:layout_marginTop="?spacingNormal"
-            android:text="Update game status"
+            android:text="@string/dialog_title_game_status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,13 +61,26 @@
                 android:text="Played" />
         </RadioGroup>
 
-        <Button
-            android:id="@+id/button_update"
+        <TextView
+            android:id="@+id/button_delete"
+            style="?textAppearanceButtonNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="?spacingSmall"
             android:layout_marginEnd="?spacingNormal"
-            android:text="Update"
+            android:text="@string/button_delete"
+            app:layout_constraintEnd_toStartOf="@id/button_update"
+            app:layout_constraintTop_toBottomOf="@id/radio_group_game_status" />
+
+        <TextView
+            android:id="@+id/button_update"
+            style="?textAppearanceButtonPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:layout_marginEnd="?spacingNormal"
+            android:paddingBottom="?spacingNormal"
+            android:text="@string/button_update"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radio_group_game_status" />
     </androidx.constraintlayout.widget.ConstraintLayout>

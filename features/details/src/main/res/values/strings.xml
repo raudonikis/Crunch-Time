@@ -13,4 +13,7 @@
     <string name="error_no_reviews">No reviews yet.</string>
     <string name="button_deals">Deals</string>
     <string name="button_reviews_placeholder">Reviews</string>
+    <string name="button_update">Update</string>
+    <string name="dialog_title_game_status">Update game status</string>
+    <string name="button_delete">Delete</string>
 </resources>
