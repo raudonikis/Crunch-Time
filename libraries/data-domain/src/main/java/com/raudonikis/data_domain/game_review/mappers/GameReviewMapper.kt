@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game_review.mappers
 
 import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.data_domain.game_review.GameReview
+import com.raudonikis.data_domain.user.mappers.UserMapper
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewResponse
 
@@ -17,7 +18,7 @@ object GameReviewMapper {
             isPositive = response.isPositive == 1,
             createdAt = DateFormatter.stringToDate(response.createdAt),
             updatedAt = response.updatedAt,
-            userId = response.userId,
+            user = UserMapper.fromUserResponse(response.user),
         )
     }
 
@@ -38,7 +39,7 @@ object GameReviewMapper {
             isPositive = response.isPositive,
             createdAt = DateFormatter.stringToDate(response.createdAt),
             updatedAt = response.updatedAt,
-            userId = response.userId
+            user = UserMapper.fromUserResponse(response.user),
         )
     }
 

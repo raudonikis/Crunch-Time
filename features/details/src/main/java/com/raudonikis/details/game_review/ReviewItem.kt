@@ -25,7 +25,7 @@ data class ReviewItem(val review: GameReview) : AbstractBindingItem<ItemReviewBi
     override fun bindView(binding: ItemReviewBinding, payloads: List<Any>) {
         with(binding) {
             textGameTitle.text = review.gameTitle
-            textUserName.text = review.userId.toString()
+            textUserName.text = review.user.name
             textReviewContent.text = review.content
             bindCreationDate(review)
             bindCoverImage(review)

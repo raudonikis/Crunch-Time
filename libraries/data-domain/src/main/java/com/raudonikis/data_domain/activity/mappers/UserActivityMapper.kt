@@ -4,6 +4,7 @@ import com.raudonikis.common.date.DateFormatter
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.user.User
+import com.raudonikis.data_domain.user.mappers.UserMapper
 import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewResponse
@@ -71,15 +72,14 @@ object UserActivityMapper {
      */
     fun onGameReviewUpdate(
         gameReviewPostResponse: GameReviewPostResponse,
-        game: Game,
-        user: User?
+        game: Game
     ): UserActivity {
         return UserActivity(
             gameId = gameReviewPostResponse.gameId,
             action = UserActivityActionMapper.onGameReviewUpdate(
                 gameReviewPostResponse,
                 game,
-                user
+                UserMapper.fromUserResponse(gameReviewPostResponse.user),
             ),
             coverUrl = game.coverUrl,
             createdAt = DateFormatter.stringToDate(gameReviewPostResponse.createdAt),

@@ -1,5 +1,6 @@
 package com.raudonikis.network.game_review
 
+import com.raudonikis.network.auth.UserResponse
 import com.squareup.moshi.Json
 
 data class GameReviewResponse(
@@ -15,16 +16,6 @@ data class GameReviewResponse(
     val updatedAt: String,
     @Json(name = "title")
     val title: String = "",
-    @Json(name = "user_id")
-    val userId: String? = null,
+    @Json(name = "user")
+    val user: UserResponse,
 )
-/**
- * "uuid": "92d76731-bb83-434e-be77-560f363f5bcf",
-"game_id": 2020,
-"content": "Content 2",
-"positive": 1,
-"created_at": "2021-02-28T18:54:29.000000Z",
-"updated_at": "2021-02-28T18:55:02.000000Z",
-"title": "Game review",
-"user_id": null
- */

@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game_review
 
 import android.os.Parcelable
 import com.raudonikis.data_domain.game.models.Game
+import com.raudonikis.data_domain.user.User
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -14,7 +15,7 @@ data class GameReview(
     val isPositive: Boolean,
     val createdAt: Date?,
     val updatedAt: String,
-    val userId: String? = null,
+    val user: User,
 ) : Parcelable {
 
     fun addGameInfo(game: Game): GameReview {

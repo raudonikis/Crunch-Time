@@ -7,7 +7,6 @@ import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_review.mappers.GameReviewInfoMapper
-import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewRequestBody
@@ -19,7 +18,6 @@ import javax.inject.Inject
 class GameReviewUseCase @Inject constructor(
     private val gamesApi: GamesApi,
     private val userActivityDao: UserActivityDao,
-    private val userPreferences: UserPreferences,
 ) {
 
     /**
@@ -57,8 +55,7 @@ class GameReviewUseCase @Inject constructor(
         }.toOutcome().onSuccess { gameReviewPostResponse ->
             val newMyActivity = UserActivityMapper.onGameReviewUpdate(
                 gameReviewPostResponse,
-                game,
-                userPreferences.currentUser
+                game
             )
             userActivityDao.addNewMyActivity(newMyActivity)
         }
