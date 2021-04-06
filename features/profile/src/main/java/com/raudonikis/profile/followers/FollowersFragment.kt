@@ -70,6 +70,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.userUnfollowEvent
             .onEach { onUserUnfollowEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     /**

@@ -7,7 +7,7 @@ data class GameReviewPostResponse(
     @Json(name = "game_id")
     val gameId: Long,
     @Json(name = "content")
-    val content: String,
+    val content: String? = null,
     @Json(name = "positive")
     val isPositive: Boolean,
     @Json(name = "created_at")

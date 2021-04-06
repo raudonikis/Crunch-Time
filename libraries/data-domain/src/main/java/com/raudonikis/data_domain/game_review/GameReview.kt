@@ -11,7 +11,7 @@ data class GameReview(
     val gameId: Long,
     val gameTitle: String = "",
     val gameCoverUrl: String? = null,
-    val content: String = "",
+    val content: String? = null,
     val isPositive: Boolean,
     val createdAt: Date?,
     val updatedAt: String,
