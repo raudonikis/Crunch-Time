@@ -7,5 +7,5 @@ object BottomNavigationRouter {
         R.navigation.navigation_profile,
         R.navigation.navigation_settings
     )
-    val homeDestination = R.navigation.navigation_discover
+    val homeDestination = R.id.navigation_discover
 }
