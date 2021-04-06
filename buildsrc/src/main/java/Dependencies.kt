@@ -86,6 +86,7 @@ object Modules {
         const val profile = ":features:profile"
         const val details = ":features:details"
         const val login = ":features:login"
+        const val settings = ":features:settings"
         const val bottomNavigation = ":features:bottomnavigation"
     }
 }
