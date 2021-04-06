@@ -1,3 +1,4 @@
+include(":features:settings")
 include(":libraries:core")
 include(":features:activity")
 include(":features:profile")
