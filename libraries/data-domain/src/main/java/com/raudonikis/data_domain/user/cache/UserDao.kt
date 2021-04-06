@@ -19,5 +19,6 @@ interface UserDao {
     fun getFollowingUsers(): Flow<Outcome<List<User>>>
     fun setFollowingUsersOutcome(outcome: Outcome<List<User>>)
     fun addNewFollowingUser(user: User)
+    fun removeFollowingUser(user: User)
     suspend fun updateFollowingUsers(followingUsers: List<User>)
 }

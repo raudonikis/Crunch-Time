@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/outlinedButtonTextColor</item>
         <item name="strokeColor">@color/buttonStrokeColor</item>
-<!--        <item name="rippleColor">@color/black</item>-->
+        <!--        <item name="rippleColor">@color/black</item>-->
         <item name="iconTint">@color/buttonIconColor</item>
+    </style>
+
+    <style name="Button.Negative" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?colorError</item>
     </style>
 </resources>

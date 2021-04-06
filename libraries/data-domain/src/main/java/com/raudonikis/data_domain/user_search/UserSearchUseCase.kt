@@ -24,7 +24,7 @@ class UserSearchUseCase @Inject constructor(
             safeNetworkResponse {
                 gamesApi.searchUsers(name)
                     .map {
-                        UserMapper.fromUserSearchResponseList(it)
+                        UserMapper.fromUserResponseList(it)
                     }
             }
         }.toOutcome().also { outcome ->

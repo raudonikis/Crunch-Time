@@ -2,7 +2,8 @@ package com.raudonikis.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.raudonikis.activity.followers.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserUnfollowEvent
 import com.raudonikis.activity.news_feed.NewsFeedState
 import com.raudonikis.activity.user_search.UserSearchState
 import com.raudonikis.data_domain.news_feed.NewsFeedUseCase
@@ -27,6 +28,7 @@ class UserActivityViewModel @Inject constructor(
     private val _userActivityState: MutableStateFlow<UserActivityState> =
         MutableStateFlow(UserActivityState.NEWS_FEED)
     private val _userFollowEvent: MutableSharedFlow<UserFollowEvent> = MutableSharedFlow()
+    private val _userUnfollowEvent: MutableSharedFlow<UserUnfollowEvent> = MutableSharedFlow()
 
     /**
      * User search
@@ -57,6 +59,7 @@ class UserActivityViewModel @Inject constructor(
             }
         }
     val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
+    val userUnfollowEvent: Flow<UserUnfollowEvent> = _userUnfollowEvent
 
     init {
         updateNewsFeed()
@@ -109,6 +112,15 @@ class UserActivityViewModel @Inject constructor(
             userFollowUseCase.followUser(user)
                 .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
                 .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
+        }
+    }
+
+    fun onUnfollowButtonClicked(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userUnfollowEvent.emit(UserUnfollowEvent.LOADING)
+            userFollowUseCase.unfollowUser(user)
+                .onSuccess { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
+                .onFailure { _userUnfollowEvent.emit(UserUnfollowEvent.FAILURE) }
         }
     }
 }

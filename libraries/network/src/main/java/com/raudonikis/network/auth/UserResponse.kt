@@ -9,4 +9,6 @@ data class UserResponse(
     val name: String,
     @Json(name = "email")
     val email: String,
+    @Json(name = "is_followed")
+    val isFollowed: Boolean,
 )

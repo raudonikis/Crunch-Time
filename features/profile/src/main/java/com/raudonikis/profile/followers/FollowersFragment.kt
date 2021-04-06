@@ -9,7 +9,11 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.onViewClick
+import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
+import com.raudonikis.common_ui.follow.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserUnfollowEvent
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.common_ui.user_item.UserItem
 import com.raudonikis.common_ui.user_item.UserItemMapper
@@ -61,6 +65,11 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             FollowerType.FOLLOWER -> {
             }
         }
+        viewModel.userFollowEvent
+            .onEach { onUserFollowEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.userUnfollowEvent
+            .onEach { onUserUnfollowEvent(it) }
     }
 
     /**
@@ -75,6 +84,12 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
                     R.dimen.spacing_small
                 )
             )
+            followersAdapter.onViewClick(R.id.button_follow) {
+                viewModel.onFollowButtonClicked(it.user)
+            }
+            followersAdapter.onViewClick(R.id.button_unfollow) {
+                viewModel.onUnfollowButtonClicked(it.user)
+            }
         }
     }
 
@@ -83,5 +98,33 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             .onSuccess { followers ->
                 followersItemAdapter.update(UserItemMapper.fromUserList(followers))
             }
+    }
+
+    private fun onUserFollowEvent(event: UserFollowEvent) {
+        when (event) {
+            //todo maybe disable follow functionality when loading
+            UserFollowEvent.FAILURE -> {
+                showShortSnackbar("Follow failure")
+            }
+            UserFollowEvent.SUCCESS -> {
+                showShortSnackbar("Follow success")
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun onUserUnfollowEvent(event: UserUnfollowEvent) {
+        when (event) {
+            //todo maybe disable follow functionality when loading
+            UserUnfollowEvent.FAILURE -> {
+                showShortSnackbar("Unfollow failure")
+            }
+            UserUnfollowEvent.SUCCESS -> {
+                showShortSnackbar("Unfollow success")
+            }
+            else -> {
+            }
+        }
     }
 }

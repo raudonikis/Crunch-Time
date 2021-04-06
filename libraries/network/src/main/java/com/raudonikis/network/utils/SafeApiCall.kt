@@ -3,7 +3,6 @@ package com.raudonikis.network.utils
 import retrofit2.HttpException
 import timber.log.Timber
 
-
 suspend fun <T> safeNetworkResponse(call: suspend () -> NetworkResponse<T>): NetworkResponse<T> {
     return try {
         call()

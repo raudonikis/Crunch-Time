@@ -77,7 +77,7 @@ interface GamesApi {
      * Users
      */
     @GET("api/v1/user/search")
-    suspend fun searchUsers(@Query("name") name: String): NetworkResponse<List<UserSearchResponse>>
+    suspend fun searchUsers(@Query("name") name: String): NetworkResponse<List<UserResponse>>
 
     @POST("api/v1/user/follow/{uuid}")
     suspend fun followUser(@Path("uuid") uuid: String): NetworkResponse<List<Nothing>>

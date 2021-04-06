@@ -1,4 +1,4 @@
-package com.raudonikis.activity.followers
+package com.raudonikis.common_ui.follow
 
 enum class UserFollowEvent {
     FAILURE,

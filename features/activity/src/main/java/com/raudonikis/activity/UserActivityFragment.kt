@@ -7,7 +7,8 @@ import androidx.fragment.app.viewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.activity.databinding.FragmentActivityBinding
-import com.raudonikis.activity.followers.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserUnfollowEvent
 import com.raudonikis.activity.news_feed.NewsFeedState
 import com.raudonikis.activity.user_search.UserSearchState
 import com.raudonikis.common_ui.user_activity_item.UserActivityItem
@@ -15,12 +16,9 @@ import com.raudonikis.common_ui.user_activity_item.UserActivityItemMapper
 import com.raudonikis.common_ui.user_item.UserItem
 import com.raudonikis.common_ui.user_item.UserItemMapper
 import com.raudonikis.common.Outcome
-import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.*
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
-import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.user.User
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.debounce
@@ -66,6 +64,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.userFollowEvent
             .onEach { onUserFollowEvent(it) }
+            .observeInLifecycle(viewLifecycleOwner)
+        viewModel.userUnfollowEvent
+            .onEach { onUserUnfollowEvent(it) }
             .observeInLifecycle(viewLifecycleOwner)
         binding.layoutHeader.getSearchComponent().asFlow()
             .debounce(1000)
@@ -137,6 +138,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             userSearchAdapter.onViewClick(R.id.button_follow) {
                 viewModel.onFollowButtonClicked(it.user)
             }
+            userSearchAdapter.onViewClick(R.id.button_unfollow) {
+                viewModel.onUnfollowButtonClicked(it.user)
+            }
         }
     }
 
@@ -165,11 +169,26 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
      */
     private fun onUserFollowEvent(event: UserFollowEvent) {
         when (event) {
+            //todo maybe disable follow functionality when loading
             UserFollowEvent.FAILURE -> {
                 showShortSnackbar("Follow failure")
             }
             UserFollowEvent.SUCCESS -> {
                 showShortSnackbar("Follow success")
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun onUserUnfollowEvent(event: UserUnfollowEvent) {
+        when (event) {
+            //todo maybe disable follow functionality when loading
+            UserUnfollowEvent.FAILURE -> {
+                showShortSnackbar("Unfollow failure")
+            }
+            UserUnfollowEvent.SUCCESS -> {
+                showShortSnackbar("Unfollow success")
             }
             else -> {
             }

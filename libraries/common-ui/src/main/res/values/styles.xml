@@ -10,6 +10,7 @@
         <item name="android:colorBackground">@color/backgroundColor</item>
         <item name="colorSurface">@color/surfaceColor</item>
         <item name="colorOnSurface">@color/onSurfaceColor</item>
+        <item name="colorError">@color/errorColor</item>
 
         <!--<color name="primaryColor">#a0c4ff</color>
         <color name="primaryLightColor">#d3f7ff</color>
@@ -70,6 +71,7 @@
         <!-- Chips -->
         <item name="chipStyle">@style/Chip.Action</item>
         <!-- Buttons -->
+        <item name="buttonNegative">@style/Button.Negative</item>
         <!-- Shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationView</item>

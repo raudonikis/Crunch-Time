@@ -3,6 +3,8 @@ package com.raudonikis.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
+import com.raudonikis.common_ui.follow.UserFollowEvent
+import com.raudonikis.common_ui.follow.UserUnfollowEvent
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.usecases.MyActivityUseCase
 import com.raudonikis.data_domain.auth.AuthenticationRepository
@@ -11,6 +13,7 @@ import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
 import com.raudonikis.data_domain.user.User
 import com.raudonikis.data_domain.user.UserPreferences
+import com.raudonikis.data_domain.user_follow.UserFollowUseCase
 import com.raudonikis.data_domain.user_following.UserFollowingUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
@@ -32,6 +35,7 @@ class ProfileViewModel @Inject constructor(
     private val gameCollectionUseCase: GameCollectionUseCase,
     private val userFollowingUseCase: UserFollowingUseCase,
     private val myActivityUseCase: MyActivityUseCase,
+    private val userFollowUseCase: UserFollowUseCase,
 ) : ViewModel() {
 
     /**
@@ -41,6 +45,8 @@ class ProfileViewModel @Inject constructor(
     private val _gameCollectionTypeState: MutableStateFlow<GameCollectionType> =
         MutableStateFlow(GameCollectionType.PLAYED)
     private val _logoutEvent: Channel<LogoutEvent> = Channel()
+    private val _userFollowEvent: MutableSharedFlow<UserFollowEvent> = MutableSharedFlow()
+    private val _userUnfollowEvent: MutableSharedFlow<UserUnfollowEvent> = MutableSharedFlow()
 
     init {
         updateGameCollections()
@@ -61,6 +67,8 @@ class ProfileViewModel @Inject constructor(
             gameCollectionUseCase.getGameCollection(gameCollectionType)
         }
     val logoutEvent: Flow<LogoutEvent> = _logoutEvent.receiveAsFlow()
+    val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
+    val userUnfollowEvent: Flow<UserUnfollowEvent> = _userUnfollowEvent
 
     /**
      * Followers
@@ -128,6 +136,24 @@ class ProfileViewModel @Inject constructor(
                     navigateToLogin()
                 }
                 .onFailure { _logoutEvent.offer(LogoutEvent.FAILURE) }
+        }
+    }
+
+    fun onFollowButtonClicked(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userFollowEvent.emit(UserFollowEvent.LOADING)
+            userFollowUseCase.followUser(user)
+                .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
+                .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
+        }
+    }
+
+    fun onUnfollowButtonClicked(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userUnfollowEvent.emit(UserUnfollowEvent.LOADING)
+            userFollowUseCase.unfollowUser(user)
+                .onSuccess { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
+                .onFailure { _userUnfollowEvent.emit(UserUnfollowEvent.FAILURE) }
         }
     }
 

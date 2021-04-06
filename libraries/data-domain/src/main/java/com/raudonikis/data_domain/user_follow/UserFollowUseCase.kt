@@ -23,4 +23,14 @@ class UserFollowUseCase @Inject constructor(
             userDao.addNewFollowingUser(user)
         }
     }
+
+    suspend fun unfollowUser(user: User): Outcome<List<Nothing>> {
+        return withContext(Dispatchers.IO) {
+            safeNetworkResponse {
+                gamesApi.unfollowUser(user.uuid)
+            }
+        }.toOutcome().onSuccess {
+            userDao.removeFollowingUser(user)
+        }
+    }
 }
