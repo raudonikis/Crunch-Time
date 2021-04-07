@@ -1,5 +1,6 @@
 package com.raudonikis.network.game
 
+import com.raudonikis.network.game_review.GameReviewResponse
 import com.squareup.moshi.Json
 
 data class GameAttributesResponse(
@@ -13,6 +14,8 @@ data class GameAttributesResponse(
     val gameStatus: String,
     @Json(name = "first_release_date")
     val releaseDate: String?,
+    @Json(name = "review")
+    val review: GameReviewResponse?,
 )
 /**
 "attributes": {

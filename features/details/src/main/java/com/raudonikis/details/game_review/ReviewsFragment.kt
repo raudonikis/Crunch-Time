@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.extensions.showIf
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.showShortSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
@@ -102,6 +103,11 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             }
             ReviewState.FAILURE -> {
                 showShortSnackbar("Failed to post review")
+            }
+            ReviewState.ALREADY_PRESENT -> {
+                showLongSnackbar("You have already written a review for this game")
+                writeReviewDialog?.dismiss()
+                writeReviewDialog = null
             }
         }
     }

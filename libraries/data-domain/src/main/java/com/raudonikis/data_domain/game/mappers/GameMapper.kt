@@ -1,11 +1,11 @@
 package com.raudonikis.data_domain.game.mappers
 
-import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
 import com.raudonikis.data_domain.game_review.GameReview
+import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_video.mappers.GameVideoMapper
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_search.GameSearchResponse
@@ -26,7 +26,6 @@ object GameMapper {
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.genres),
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.screenshots),
             status = GameStatus.fromString(response.gameStatus),
-            isUpdateNeeded = true
         )
     }
 
@@ -51,6 +50,7 @@ object GameMapper {
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.relations.genres),
             releaseDate = response.attributes.releaseDate ?: "",
             status = GameStatus.fromString(response.attributes.gameStatus),
+            gameReviewInfo = GameReviewInfo(isReviewPresent = response.attributes.review != null)
         )
     }
 
@@ -97,17 +97,4 @@ object GameMapper {
             )
         )
     }
-
-    /**
-     * From [UserActivity] to [Game]
-     */
-    /*fun fromUserActivity(userActivity: UserActivity): Game {
-        return Game(
-            id = userActivity.gameId,
-            name = userActivity.name,
-            status = userActivity.status,
-            coverUrl = userActivity.coverUrl,
-            isUpdateNeeded = true,
-        )
-    }*/
 }

@@ -79,7 +79,7 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch {
             gameDetailsUseCase.getGameDetails(currentGame.value)
                 .onSuccess {
-                    onGameUpdated(it)
+                    onGameUpdated(it.copy(gameReviewInfo = currentGame.value.gameReviewInfo))
                     _detailsState.value = DetailsState.DetailsUpdateSuccess
                 }
                 .onFailure {

@@ -8,4 +8,5 @@ data class GameReviewInfo(
     val positiveCount: Int = 0,
     val negativeCount: Int = 0,
     val reviews: List<GameReview> = listOf(),
+    val isReviewPresent: Boolean = false,
 ) : Parcelable

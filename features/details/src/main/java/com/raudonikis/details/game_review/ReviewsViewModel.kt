@@ -44,6 +44,10 @@ class ReviewsViewModel @Inject constructor(
     fun postReview(rating: GameRating, comment: String) {
         val game = _currentGame.value
         _writeReviewState.value = ReviewState.LOADING
+        if (game.gameReviewInfo.isReviewPresent) {
+            _writeReviewState.value = ReviewState.ALREADY_PRESENT
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
             gameReviewUseCase.postReview(rating, comment, game)
                 .onSuccess {

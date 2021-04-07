@@ -73,7 +73,6 @@ private fun FragmentDetailsBinding.bindGameWallpaper(game: Game) {
         Glide
             .with(root)
             .load(game.screenshots.first().url.prefixHttps())
-            .placeholder(R.drawable.game_placeholder)
             .centerCrop()
             .into(imageWallpaper)
     }
