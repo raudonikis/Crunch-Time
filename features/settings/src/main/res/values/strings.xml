@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_settings">Settings</string>
+    <string name="hint_theme">Theme</string>
+    <string-array name="theme_selection">
+        <item>Dark theme</item>
+        <item>Light theme</item>
+        <item>System default</item>
+    </string-array>
+
+    <string-array name="theme_selection_values" translatable="false">
+        <item>dark</item>
+        <item>light</item>
+        <item>default</item>
+    </string-array>
+</resources>
