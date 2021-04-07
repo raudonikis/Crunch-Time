@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="?spacingNormal"
-    android:backgroundTint="@color/imagePlaceholderColor"
+    android:backgroundTint="@color/imagePlaceholderColor_2dp"
     android:elevation="0dp"
     app:cardCornerRadius="?spacingNormal"
     app:cardElevation="0dp">

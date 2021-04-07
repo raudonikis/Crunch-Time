@@ -23,16 +23,19 @@
     <color name="onSurfaceColor">@color/black</color>
     <color name="onSurfaceColor_highEmphasis">@color/black</color>
     <color name="onSurfaceColor_mediumEmphasis">@color/black</color>
-    <color name="onSurfaceColor_disabled">@color/gray</color>
+    <color name="onSurfaceColor_disabled">@color/gray_300</color>
     <color name="onErrorColor">@color/white</color>
 
     <!-- Custom colors -->
     <color name="headerColor">@color/primaryColor</color>
     <color name="searchColor">@color/white</color>
-    <color name="imagePlaceholderColor">@color/gray</color>
+    <color name="imagePlaceholderColor_1dp">@color/gray_400</color>
+    <color name="imagePlaceholderColor_2dp">@color/gray_200</color>
     <color name="dialogColor">@color/white</color>
-    <color name="reviewColor">@color/gray</color>
-    <color name="chipColor">@color/gray</color>
+    <color name="chipColor">@color/gray_300</color>
+    <!-- Review -->
+    <color name="reviewColor">@color/gray_400</color>
+    <color name="reviewItemColor">@color/gray_200</color>
     <!-- Buttons -->
     <color name="buttonIconColor">@color/black</color>
     <color name="buttonStrokeColor">@color/black</color>
@@ -45,7 +48,7 @@
     <!-- Gray -->
     <color name="gray_100">#F3F3F3</color>
     <color name="gray_200">#e5e5e5</color>
-    <color name="gray">#d3d3d3</color>
+    <color name="gray_300">#d3d3d3</color>
     <color name="gray_400">#CACACA</color>
     <color name="gray_500">#B4B3B3</color>
     <color name="gray_600">#9F9F9F</color>

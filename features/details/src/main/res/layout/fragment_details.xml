@@ -25,8 +25,8 @@
             android:id="@+id/image_wallpaper"
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_wallpaper_height"
+            android:background="@color/imagePlaceholderColor_1dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/game_placeholder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -211,12 +211,12 @@
             android:layout_marginTop="?spacingNormal"
             android:orientation="horizontal"
             android:overScrollMode="ifContentScrolls"
+            android:paddingBottom="?spacingSmall"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_screenshots"
             tools:itemCount="2"
-            android:paddingBottom="?spacingSmall"
             tools:listitem="@layout/item_screenshot" />
 
         <androidx.constraintlayout.widget.Guideline

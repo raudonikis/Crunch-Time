@@ -22,10 +22,13 @@
     <!-- Custom colors -->
     <color name="headerColor">@color/surfaceColorDark_4dp</color>
     <color name="searchColor">@color/surfaceColorDark_6dp</color>
-    <color name="imagePlaceholderColor">@color/surfaceColorDark_1dp</color>
+    <color name="imagePlaceholderColor_1dp">@color/surfaceColorDark_1dp</color>
+    <color name="imagePlaceholderColor_2dp">@color/surfaceColorDark_2dp</color>
     <color name="dialogColor">@color/surfaceColorDark_24dp</color>
-    <color name="reviewColor">@color/surfaceColorDark</color>
     <color name="chipColor">@color/surfaceColorDark_1dp</color>
+    <!-- Review -->
+    <color name="reviewColor">@color/surfaceColorDark_1dp</color>
+    <color name="reviewItemColor">@color/surfaceColorDark_2dp</color>
     <!-- Buttons -->
     <color name="buttonIconColor">@color/onSurfaceColor</color>
     <color name="buttonStrokeColor">@color/onSurfaceColor</color>
