@@ -74,7 +74,7 @@
         <item name="buttonNegative">@style/Button.Negative</item>
         <!-- Shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
-        <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
+        <!-- Snackbars -->
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

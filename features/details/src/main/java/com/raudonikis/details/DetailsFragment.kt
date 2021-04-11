@@ -13,6 +13,7 @@ import com.raudonikis.common.extensions.enable
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.raudonikis.details.game_status.GameStatusSelectDialogFragment
@@ -103,13 +104,12 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             is DetailsState.StatusUpdateSuccess -> {
                 binding.progressGameStatus.hide()
                 binding.buttonChangeStatus.enable()
-                Toast.makeText(requireContext(), "Status successfully updated", Toast.LENGTH_LONG)
-                    .show()
+                showLongSnackbar("Status successfully updated")
             }
             is DetailsState.StatusUpdateFailure -> {
                 binding.progressGameStatus.hide()
                 binding.buttonChangeStatus.enable()
-                Toast.makeText(requireContext(), "Status update failed", Toast.LENGTH_LONG).show()
+                showLongSnackbar("Status update failed")
             }
             is DetailsState.DetailsUpdating -> {
                 binding.progressUpdatingDetails.show()

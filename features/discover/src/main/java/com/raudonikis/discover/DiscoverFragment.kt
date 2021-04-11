@@ -145,13 +145,11 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
                 }
                     .onFailure {
-                        showLongSnackbar("Popular games failed")
+                        showLongSnackbar("Failed to load popular games")
                     }
                     .onEmpty {
-                        showLongSnackbar("Popular games empty")
                     }
                     .onLoading {
-                        showShortSnackbar("Popular games loading")
                     }
             }
         }
