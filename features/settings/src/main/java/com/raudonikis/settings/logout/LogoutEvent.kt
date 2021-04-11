@@ -1,4 +1,4 @@
-package com.raudonikis.profile.logout
+package com.raudonikis.settings.logout
 
 enum class LogoutEvent {
     IN_PROGRESS,

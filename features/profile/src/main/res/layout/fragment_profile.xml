@@ -39,19 +39,6 @@
             tools:text="raudonikiss@gmail.com" />
 
         <Button
-            android:id="@+id/button_logout"
-            style="@style/Button.Outlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?spacingSmall"
-            android:layout_marginEnd="?spacingNormal"
-            android:text="@string/button_logout"
-            app:icon="@drawable/ic_logout"
-            app:layout_constraintBottom_toBottomOf="@id/text_user_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_user_name" />
-
-        <Button
             android:id="@+id/button_following"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

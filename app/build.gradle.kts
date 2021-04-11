@@ -43,6 +43,7 @@ dependencies {
     implementation(project(Modules.Libraries.navigation))
     implementation(project(Modules.Features.bottomNavigation))
     implementation(project(Modules.Features.login))
+    implementation(project(Modules.Features.settings))
     // Hilt
     implementation(Dependencies.hilt)
     implementation(Dependencies.hiltLifecycle)

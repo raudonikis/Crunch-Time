@@ -7,7 +7,6 @@ import com.raudonikis.common_ui.follow.UserFollowEvent
 import com.raudonikis.common_ui.follow.UserUnfollowEvent
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.usecases.MyActivityUseCase
-import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
@@ -16,12 +15,9 @@ import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user_follow.UserFollowUseCase
 import com.raudonikis.data_domain.user_following.UserFollowingUseCase
 import com.raudonikis.navigation.NavigationDispatcher
-import com.raudonikis.navigation.NavigationGraph
 import com.raudonikis.profile.followers.FollowerType
-import com.raudonikis.profile.logout.LogoutEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,7 +26,6 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val userPreferences: UserPreferences,
-    private val authenticationRepository: AuthenticationRepository,
     // Use cases
     private val gameCollectionUseCase: GameCollectionUseCase,
     private val userFollowingUseCase: UserFollowingUseCase,
@@ -44,7 +39,6 @@ class ProfileViewModel @Inject constructor(
     private val _userState: MutableStateFlow<Outcome<User>> = MutableStateFlow(Outcome.empty())
     private val _gameCollectionTypeState: MutableStateFlow<GameCollectionType> =
         MutableStateFlow(GameCollectionType.PLAYED)
-    private val _logoutEvent: Channel<LogoutEvent> = Channel()
     private val _userFollowEvent: MutableSharedFlow<UserFollowEvent> = MutableSharedFlow()
     private val _userUnfollowEvent: MutableSharedFlow<UserUnfollowEvent> = MutableSharedFlow()
 
@@ -66,7 +60,6 @@ class ProfileViewModel @Inject constructor(
         _gameCollectionTypeState.flatMapLatest { gameCollectionType ->
             gameCollectionUseCase.getGameCollection(gameCollectionType)
         }
-    val logoutEvent: Flow<LogoutEvent> = _logoutEvent.receiveAsFlow()
     val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
     val userUnfollowEvent: Flow<UserUnfollowEvent> = _userUnfollowEvent
 
@@ -127,18 +120,6 @@ class ProfileViewModel @Inject constructor(
         _gameCollectionTypeState.value = gameCollectionType
     }
 
-    fun onLogoutClicked() {
-        _logoutEvent.offer(LogoutEvent.IN_PROGRESS)
-        viewModelScope.launch(Dispatchers.IO) {
-            authenticationRepository.logout()
-                .onSuccess {
-                    _logoutEvent.offer(LogoutEvent.SUCCESS)
-                    navigateToLogin()
-                }
-                .onFailure { _logoutEvent.offer(LogoutEvent.FAILURE) }
-        }
-    }
-
     fun onFollowButtonClicked(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             _userFollowEvent.emit(UserFollowEvent.LOADING)
@@ -170,9 +151,5 @@ class ProfileViewModel @Inject constructor(
 
     private fun navigateToFollowing() {
         navigationDispatcher.navigate(ProfileRouter.profileToFollowers(FollowerType.FOLLOWING))
-    }
-
-    private fun navigateToLogin() {
-        navigationDispatcher.navigate(NavigationGraph.Login)
     }
 }
