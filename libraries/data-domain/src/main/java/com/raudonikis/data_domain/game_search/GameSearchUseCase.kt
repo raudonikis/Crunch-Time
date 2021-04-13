@@ -33,7 +33,7 @@ class GameSearchUseCase @Inject constructor(
             }
         }.toOutcome().also { outcome ->
             outcome
-                .onSuccess { games ->
+                .map { games ->
                     if (games.isEmpty()) {
                         gameDao.setGameSearchResultsOutcome(Outcome.empty())
                         return outcome

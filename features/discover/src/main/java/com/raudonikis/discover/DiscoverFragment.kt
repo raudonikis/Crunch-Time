@@ -103,13 +103,18 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             groupSearch.showIf { state is GameSearchState.GameSearch }
             if (state is GameSearchState.GameSearch) {
                 groupSearchLoading.showIf { state.outcome is Outcome.Loading }
-                groupSearchEmpty.showIf { state.outcome is Outcome.Empty }
-                state.outcome.onSuccess {
-                    gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))
-                }
-                    .onFailure {
+                groupSearchEmpty.showIf { state.outcome is Outcome.Empty || state.outcome is Outcome.Failure }
+                state.outcome
+                    .onSuccess {
+                        gameSearchItemAdapter.update(GameItemMapper.fromGameList(it))
+                    }
+                    .onFailure { errorMessage ->
                         gameSearchItemAdapter.clear()
-                        showLongSnackbar("Search failed")
+                        if (errorMessage != null) {
+                            showLongSnackbar(errorMessage)
+                        } else {
+                            showLongSnackbar(R.string.error_search_generic)
+                        }
                     }
                     .onEmpty {
                         gameSearchItemAdapter.clear()
@@ -141,15 +146,16 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             popularGames.showIf { state is PopularGamesState.PopularGames }
             trendingGames.showIf { state is PopularGamesState.PopularGames }
             if (state is PopularGamesState.PopularGames) {
-                state.outcome.onSuccess {
-                    popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
-                }
-                    .onFailure {
-                        showLongSnackbar("Failed to load popular games")
+                state.outcome
+                    .onSuccess {
+                        popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
                     }
-                    .onEmpty {
-                    }
-                    .onLoading {
+                    .onFailure { errorMessage ->
+                        if (errorMessage != null) {
+                            showLongSnackbar(errorMessage)
+                        } else {
+                            showLongSnackbar(R.string.error_popular_games_generic)
+                        }
                     }
             }
         }
