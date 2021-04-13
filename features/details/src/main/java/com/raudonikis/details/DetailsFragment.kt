@@ -52,7 +52,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     /**
      * Set up
      */
-
     private fun setUpViews() {
         with(binding) {
             recyclerScreenshots.adapter = screenshotAdapter

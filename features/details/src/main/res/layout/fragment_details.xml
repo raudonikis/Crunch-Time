@@ -163,16 +163,16 @@
             app:layout_constraintBottom_toBottomOf="@id/button_change_status"
             app:layout_constraintEnd_toStartOf="@id/button_change_status" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/button_change_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorPrimary"
-            android:src="@drawable/ic_add"
+            android:textAllCaps="true"
+            app:icon="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="@id/image_wallpaper"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
-            app:maxImageSize="?spacingMedium" />
+            app:layout_constraintTop_toBottomOf="@id/image_wallpaper" />
 
         <TextView
             android:id="@+id/label_genres"

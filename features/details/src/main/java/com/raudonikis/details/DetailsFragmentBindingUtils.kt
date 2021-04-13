@@ -12,6 +12,7 @@ import com.raudonikis.common.extensions.showIf
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_release_date.GameDateUtils
 import com.raudonikis.data_domain.game_review.GameReviewInfo
+import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
 import com.raudonikis.details.game_screenshot.mappers.ScreenshotItemMapper
@@ -26,9 +27,22 @@ fun FragmentDetailsBinding.bindGame(
     bindGameDescription(context, game)
     bindGameGenres(context, game)
     bindGameItem(game)
+    bindGameStatus(game)
     bindGameWallpaper(game)
     bindGameScreenshots(game, screenshotAdapter)
     bindGameReviewInfo(game.gameReviewInfo, context)
+}
+
+private fun FragmentDetailsBinding.bindGameStatus(game: Game) {
+    when (game.status) {
+        GameStatus.EMPTY -> {
+            buttonChangeStatus.shrink()
+        }
+        else -> {
+            buttonChangeStatus.text = game.status.toString()
+            buttonChangeStatus.extend()
+        }
+    }
 }
 
 private fun FragmentDetailsBinding.bindGameReviewInfo(
