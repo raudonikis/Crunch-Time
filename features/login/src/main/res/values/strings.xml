@@ -19,4 +19,6 @@
     <string name="validation_error_password_not_matching">Passwords must be the same</string>
     <string name="validation_error_username_blank">Username cannot be empty</string>
     <string name="checkbox_remember_me">Remember me</string>
+    <string name="error_login_generic">Login failed</string>
+    <string name="error_login_empty">Login returned empty response</string>
 </resources>

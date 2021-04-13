@@ -91,11 +91,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 if (event.errorMessage != null) {
                     showLongSnackbar(event.errorMessage)
                 } else {
-                    showLongSnackbar("Login failed")
+                    showLongSnackbar(R.string.error_login_generic)
                 }
             }
             is LoginEvent.LoginResponseEmpty -> {
-                showLongSnackbar("Login returned empty response")
+                showLongSnackbar(R.string.error_login_empty)
             }
         }
     }
