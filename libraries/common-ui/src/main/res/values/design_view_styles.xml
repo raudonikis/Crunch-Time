@@ -12,4 +12,10 @@
         <item name="chipBackgroundColor">?colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Button</item>
     </style>
+    <style name="Snackbar.TextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">@color/snackbarTextColor</item>
+    </style>
+    <style name="Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/snackbarColor</item>
+    </style>
 </resources>

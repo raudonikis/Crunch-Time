@@ -26,6 +26,9 @@
     <color name="imagePlaceholderColor_2dp">@color/surfaceColorDark_2dp</color>
     <color name="dialogColor">@color/surfaceColorDark_24dp</color>
     <color name="chipColor">@color/surfaceColorDark_1dp</color>
+    <!-- Snackbar -->
+    <color name="snackbarColor">@color/onSurfaceColor_highEmphasis</color>
+    <color name="snackbarTextColor">@color/onPrimaryColor</color>
     <!-- Review -->
     <color name="reviewColor">@color/surfaceColorDark_1dp</color>
     <color name="reviewItemColor">@color/surfaceColorDark_2dp</color>
