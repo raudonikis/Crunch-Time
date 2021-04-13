@@ -7,10 +7,10 @@ suspend fun <T> safeNetworkResponse(call: suspend () -> NetworkResponse<T>): Net
     return try {
         call()
     } catch (e: HttpException) {
-        Timber.w("Error -> ${e.code()} -> ${e.message()}")
-        NetworkResponse()
+        Timber.w("safeNetworkResponse Error -> ${e.code()} -> ${e.message()}")
+        NetworkResponse(isSuccess = false, error = NetworkErrorResponse(e.code(), e.message()))
     } catch (e: Exception) {
-        Timber.w("Error -> ${e.message}")
-        NetworkResponse()
+        Timber.w("safeNetworkResponse Error -> ${e.message}")
+        NetworkResponse(isSuccess = false, error = NetworkErrorResponse(message = e.message ?: ""))
     }
 }

@@ -64,13 +64,13 @@ class LoginViewModel @Inject constructor(
                     _loginEvent.offer(LoginEvent.LoginSuccess)
                     navigateToBottomNavigation()
                 }
-                .onFailure {
+                .onFailure { errorMessage ->
                     _loginState.value = LoginState.INITIAL
-                    _loginEvent.offer(LoginEvent.LoginFailure)
+                    _loginEvent.offer(LoginEvent.LoginFailure(errorMessage))
                 }
                 .onEmpty {
                     _loginState.value = LoginState.INITIAL
-                    _loginEvent.offer(LoginEvent.LoginFailure)
+                    _loginEvent.offer(LoginEvent.LoginResponseEmpty)
                 }
         }
     }

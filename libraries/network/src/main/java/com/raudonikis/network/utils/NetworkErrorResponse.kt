@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class NetworkErrorResponse(
     @Json(name = "code")
-    val code: Int,
+    val code: Int? = null,
     @Json(name = "message")
-    val message: String
+    val message: String = "",
 )

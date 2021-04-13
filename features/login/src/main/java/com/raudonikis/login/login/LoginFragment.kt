@@ -86,10 +86,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.checkboxRememberMe.isChecked = true
             }
             is LoginEvent.LoginSuccess -> {
-                showShortSnackbar("Login success")
             }
             is LoginEvent.LoginFailure -> {
-                showLongSnackbar("Login failed")
+                if (event.errorMessage != null) {
+                    showLongSnackbar(event.errorMessage)
+                } else {
+                    showLongSnackbar("Login failed")
+                }
+            }
+            is LoginEvent.LoginResponseEmpty -> {
+                showLongSnackbar("Login returned empty response")
             }
         }
     }
@@ -103,6 +109,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.onSignUpClicked()
             }
             buttonLogin.setOnClickListener {
+                hideKeyboard()
                 viewModel.onLoginClicked()
             }
             checkboxRememberMe.setOnCheckedChangeListener { _, isChecked ->
