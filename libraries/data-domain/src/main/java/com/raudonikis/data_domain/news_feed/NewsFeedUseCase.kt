@@ -28,6 +28,12 @@ class NewsFeedUseCase @Inject constructor(
                     }
             }
         }.toOutcome().also { outcome ->
+            outcome.map { userActivities ->
+                if (userActivities.isEmpty()) {
+                    userActivityDao.setNewsFeedOutcome(Outcome.empty())
+                    return outcome
+                }
+            }
             userActivityDao.setNewsFeedOutcome(outcome)
             return outcome
         }

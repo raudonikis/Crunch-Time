@@ -26,22 +26,30 @@
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_news_feed"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="swipe_refresh_news_feed" />
+        app:constraint_referenced_ids="swipe_refresh_news_feed, group_news_feed_empty" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_news_feed_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="text_news_feed_empty, icon_news_feed_empty" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_user_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="recycler_user_search, group_search_empty, group_search_loading" />
+        app:constraint_referenced_ids="recycler_user_search, group_search_empty" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_search_loading"
+        android:id="@+id/group_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="text_loading, animation_search_loading" />
+        app:constraint_referenced_ids="text_loading, animation_loading" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_search_empty"
@@ -88,7 +96,7 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_search_loading"
+        android:id="@+id/animation_loading"
         android:layout_width="200dp"
         android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +116,7 @@
         android:text="@string/label_loading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/animation_search_loading" />
+        app:layout_constraintTop_toBottomOf="@id/animation_loading" />
 
     <ImageView
         android:id="@+id/icon_search_empty"
@@ -130,4 +138,25 @@
         app:layout_constraintEnd_toEndOf="@id/icon_search_empty"
         app:layout_constraintStart_toStartOf="@id/icon_search_empty"
         app:layout_constraintTop_toBottomOf="@id/icon_search_empty" />
+
+    <ImageView
+        android:id="@+id/icon_news_feed_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_game_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_news_feed_empty"
+        style="?textAppearanceBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?spacingNormal"
+        android:text="@string/error_news_feed_empty"
+        app:layout_constraintEnd_toEndOf="@id/icon_news_feed_empty"
+        app:layout_constraintStart_toStartOf="@id/icon_news_feed_empty"
+        app:layout_constraintTop_toBottomOf="@id/icon_news_feed_empty" />
 </androidx.constraintlayout.widget.ConstraintLayout>

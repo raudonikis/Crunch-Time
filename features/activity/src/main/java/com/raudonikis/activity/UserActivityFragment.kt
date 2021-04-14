@@ -99,18 +99,20 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
         with(binding) {
             groupNewsFeed.showIf { state is NewsFeedState.NewsFeed }
             if (state is NewsFeedState.NewsFeed) {
+                groupNewsFeedEmpty.showIf { state.newsFeedOutcome is Outcome.Empty }
+                swipeRefreshNewsFeed.isRefreshing = (state.newsFeedOutcome is Outcome.Loading)
                 state.newsFeedOutcome
                     .onSuccess { newsFeed ->
-                        swipeRefreshNewsFeed.isRefreshing = false
                         newsFeedItemAdapter.update(
-                            UserActivityItemMapper.fromUserActivityList(
-                                newsFeed
-                            )
+                            UserActivityItemMapper.fromUserActivityList(newsFeed)
                         )
                     }
-                    .onFailure {
-                        swipeRefreshNewsFeed.isRefreshing = false
-                        showShortSnackbar("Failure - news feed")
+                    .onFailure { errorMessage ->
+                        if (errorMessage != null) {
+                            showLongSnackbar(errorMessage)
+                        } else {
+                            showLongSnackbar(R.string.error_news_feed_generic)
+                        }
                     }
 
             }
@@ -149,7 +151,7 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
             groupUserSearch.showIf { state is UserSearchState.UserSearch }
             if (state is UserSearchState.UserSearch) {
                 groupSearchEmpty.showIf { state.searchOutcome is Outcome.Empty }
-                groupSearchLoading.showIf { state.searchOutcome is Outcome.Loading }
+                groupLoading.showIf { state.searchOutcome is Outcome.Loading }
                 state.searchOutcome
                     .onSuccess {
                         userSearchItemAdapter.update(UserItemMapper.fromUserList(it))
