@@ -128,7 +128,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
      */
     private fun setUpGameLists() {
         binding.apply {
-            popularGames.setAdapter(popularGamesAdapter)
+            popularGames.apply {
+                setAdapter(popularGamesAdapter)
+                onScrollStateChanged { newState ->
+                    viewModel.persistPopularGamesScrollState(newState)
+                }
+            }
             popularGamesAdapter.onClick {
                 viewModel.onGameClicked(it.game)
             }
@@ -149,6 +154,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 state.outcome
                     .onSuccess {
                         popularGamesItemAdapter.update(GameCoverItemMapper.fromGameList(it))
+                        popularGames.setScrollState(viewModel.popularGamesScrollState)
                     }
                     .onFailure { errorMessage ->
                         if (errorMessage != null) {

@@ -39,6 +39,11 @@ class DiscoverViewModel @Inject constructor(
     var searchJob: Job? = null
 
     /**
+     * Scroll states
+     */
+    var popularGamesScrollState: Int = 0
+
+    /**
      * Observables
      */
     val popularGamesState: Flow<PopularGamesState> = popularGamesUseCase.getPopularGames()
@@ -62,6 +67,10 @@ class DiscoverViewModel @Inject constructor(
 
     init {
         updatePopularGames()
+    }
+
+    fun persistPopularGamesScrollState(popularGamesScrollState: Int) {
+        this.popularGamesScrollState = popularGamesScrollState
     }
 
     /**

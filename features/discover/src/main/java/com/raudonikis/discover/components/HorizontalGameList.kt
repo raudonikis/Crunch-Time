@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.raudonikis.common_ui.item_decorations.HorizontalPaddingItemDecoration
@@ -42,5 +44,20 @@ class HorizontalGameList(context: Context, attributeSet: AttributeSet) :
 
     fun setTitle(title: String?) {
         binding.title.text = title
+    }
+
+    fun onScrollStateChanged(listener: (newState: Int) -> Unit) {
+        binding.recyclerGames.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    listener((binding.recyclerGames.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition())
+                }
+            }
+        })
+    }
+
+    fun setScrollState(scrollState: Int) {
+        binding.recyclerGames.scrollToPosition(scrollState)
     }
 }
