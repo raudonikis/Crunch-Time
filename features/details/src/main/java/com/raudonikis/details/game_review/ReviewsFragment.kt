@@ -116,8 +116,12 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         detailsViewModel.onGameUpdated(game)
         val reviews = ReviewItemMapper.fromGameReviewList(game.gameReviewInfo.reviews)
         reviewsItemAdapter.update(reviews)
-        binding.textReviewCount.text =
-            getString(R.string.label_review_count, game.gameReviewInfo.reviews.size)
+        val reviewCountText = if (game.gameReviewInfo.reviews.size == 1) {
+            getString(R.string.label_review_count_singular, game.gameReviewInfo.reviews.size)
+        } else {
+            getString(R.string.label_review_count_plural, game.gameReviewInfo.reviews.size)
+        }
+        binding.textReviewCount.text = reviewCountText
         binding.groupFailure.showIf { reviews.isEmpty() }
     }
 }
