@@ -19,12 +19,15 @@
         <action
             android:id="@+id/action_detailsFragment_to_reviewsFragment"
             app:destination="@id/reviewsFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_screenshotFragment"
+            app:destination="@id/screenshotFragment" />
     </fragment>
     <fragment
         android:id="@+id/dealsFragment"
         android:name="com.raudonikis.details.game_deal.DealsFragment"
         android:label="DealsFragment"
-        tools:layout="@layout/fragment_deals" >
+        tools:layout="@layout/fragment_deals">
         <argument
             android:name="game"
             app:argType="com.raudonikis.data_domain.game.models.Game" />
@@ -33,9 +36,18 @@
         android:id="@+id/reviewsFragment"
         android:name="com.raudonikis.details.game_review.ReviewsFragment"
         android:label="ReviewsFragment"
-        tools:layout="@layout/fragment_reviews" >
+        tools:layout="@layout/fragment_reviews">
         <argument
             android:name="game"
             app:argType="com.raudonikis.data_domain.game.models.Game" />
+    </fragment>
+    <fragment
+        android:id="@+id/screenshotFragment"
+        android:name="com.raudonikis.details.full_image.ScreenshotFragment"
+        android:label="FullImageFragment"
+        tools:layout="@layout/fragment_screenshot" >
+        <argument
+            android:name="screenshotPosition"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -86,8 +86,8 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     R.dimen.spacing_small
                 )
             )
-            gameSearchAdapter.onClick {
-                viewModel.onGameClicked(it.game)
+            gameSearchAdapter.onClick { gameItem ->
+                viewModel.onGameClicked(gameItem.game)
             }
             layoutHeader.getSearchComponent().apply {
                 setSearchQuery(viewModel.searchQuery)
@@ -134,12 +134,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                     viewModel.persistPopularGamesScrollState(newState)
                 }
             }
-            popularGamesAdapter.onClick {
-                viewModel.onGameClicked(it.game)
+            popularGamesAdapter.onClick { gameItem ->
+                viewModel.onGameClicked(gameItem.game)
             }
             trendingGames.setAdapter(trendingGamesAdapter)
-            trendingGamesAdapter.onClick {
-                viewModel.onGameClicked(it.game)
+            trendingGamesAdapter.onClick { gameItem ->
+                viewModel.onGameClicked(gameItem.game)
             }
             val gameItems = GameCoverItemMapper.fromGameList(testGames)
             trendingGamesItemAdapter.update(gameItems)

@@ -55,8 +55,8 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
     private fun setUpDeals() {
         with(binding) {
             recyclerDeals.adapter = dealsAdapter.apply {
-                onClick {
-                    viewModel.onDealClicked(it.deal)
+                onClick { dealItem ->
+                    viewModel.onDealClicked(dealItem.deal)
                 }
             }
             recyclerDeals.addItemDecoration(

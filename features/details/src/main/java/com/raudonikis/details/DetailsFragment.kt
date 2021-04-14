@@ -13,6 +13,7 @@ import com.raudonikis.common.extensions.enable
 import com.raudonikis.common.extensions.hide
 import com.raudonikis.common.extensions.show
 import com.raudonikis.common_ui.extensions.observeInLifecycle
+import com.raudonikis.common_ui.extensions.onClick
 import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.details.databinding.FragmentDetailsBinding
 import com.raudonikis.details.game_screenshot.ScreenshotItem
@@ -55,6 +56,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun setUpViews() {
         with(binding) {
             recyclerScreenshots.adapter = screenshotAdapter
+            screenshotAdapter.onClick { _, position ->
+                viewModel.onScreenshotClicked(position)
+            }
         }
     }
 

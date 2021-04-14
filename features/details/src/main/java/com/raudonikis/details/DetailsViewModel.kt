@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.usecases.GameDetailsUseCase
 import com.raudonikis.data_domain.game_review.usecases.GameReviewUseCase
+import com.raudonikis.data_domain.game_screenshot.GameScreenshot
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.usecases.GameStatusUseCase
 import com.raudonikis.navigation.NavigationDispatcher
@@ -107,6 +108,13 @@ class DetailsViewModel @Inject constructor(
     }
 
     /**
+     * Screenshot
+     */
+    fun getScreenshotAtPosition(position: Int): GameScreenshot? {
+        return _currentGame.value.screenshots.getOrNull(position)
+    }
+
+    /**
      * Events
      */
     fun onDealsButtonClicked() {
@@ -125,6 +133,10 @@ class DetailsViewModel @Inject constructor(
         updateGameStatus(GameStatus.EMPTY)
     }
 
+    fun onScreenshotClicked(screenshotPosition: Int) {
+        navigateToScreenshot(screenshotPosition)
+    }
+
     /**
      * Navigation
      */
@@ -136,5 +148,9 @@ class DetailsViewModel @Inject constructor(
         navigationDispatcher.navigate(
             DetailsRouter.fromDetailsToReviews(_currentGame.value)
         )
+    }
+
+    private fun navigateToScreenshot(screenshotPosition: Int) {
+        navigationDispatcher.navigate(DetailsRouter.fromDetailsToScreenshot(screenshotPosition))
     }
 }

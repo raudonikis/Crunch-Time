@@ -15,6 +15,13 @@ fun <ITEM : GenericItem> FastAdapter<ITEM>.onClick(f: (ITEM) -> Unit) {
     }
 }
 
+fun <ITEM : GenericItem> FastAdapter<ITEM>.onClick(f: (ITEM, position: Int) -> Unit) {
+    this.onClickListener = { _, _, item, position ->
+        f(item, position)
+        false
+    }
+}
+
 fun <ITEM : GenericItem> ItemAdapter<ITEM>.update(items: List<ITEM>) {
     this.clear()
     this.add(items)

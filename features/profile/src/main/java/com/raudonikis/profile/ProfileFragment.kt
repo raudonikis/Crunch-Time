@@ -57,8 +57,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
      * Listeners
      */
     private fun setUpListeners() {
-        gameCollectionAdapter.onClick {
-            viewModel.onGameClicked(it.game)
+        gameCollectionAdapter.onClick { gameItem ->
+            viewModel.onGameClicked(gameItem.game)
         }
         with(binding) {
             buttonFollowing.setOnClickListener {

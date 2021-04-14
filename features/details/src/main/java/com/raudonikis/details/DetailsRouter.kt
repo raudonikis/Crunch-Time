@@ -9,4 +9,7 @@ object DetailsRouter {
 
     fun fromDetailsToReviews(game: Game) =
         DetailsFragmentDirections.actionDetailsFragmentToReviewsFragment(game)
+
+    fun fromDetailsToScreenshot(screenshotPosition: Int) =
+        DetailsFragmentDirections.actionDetailsFragmentToScreenshotFragment(screenshotPosition)
 }
