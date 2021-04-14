@@ -73,16 +73,16 @@ class SignUpViewModel @Inject constructor(
             authenticationRepository.register(email, password, passwordConfirm, username)
                 .onSuccess {
                     _signUpState.value = SignUpState.INITIAL
-                    _signUpEvent.offer(SignUpEvent.SUCCESS)
+                    _signUpEvent.offer(SignUpEvent.Success)
                     navigateToBottomNavigation()
                 }
-                .onFailure {
+                .onFailure { errorMessage ->
                     _signUpState.value = SignUpState.INITIAL
-                    _signUpEvent.offer(SignUpEvent.FAILURE)
+                    _signUpEvent.offer(SignUpEvent.Failure(errorMessage))
                 }
                 .onEmpty {
                     _signUpState.value = SignUpState.INITIAL
-                    _signUpEvent.offer(SignUpEvent.FAILURE)
+                    _signUpEvent.offer(SignUpEvent.Empty)
                 }
         }
     }

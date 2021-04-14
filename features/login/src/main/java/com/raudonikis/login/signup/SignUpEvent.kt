@@ -1,6 +1,7 @@
 package com.raudonikis.login.signup
 
-enum class SignUpEvent {
-    SUCCESS,
-    FAILURE
+sealed class SignUpEvent {
+    object Success : SignUpEvent()
+    data class Failure(val errorMessage: String?) : SignUpEvent()
+    object Empty : SignUpEvent()
 }

@@ -21,4 +21,6 @@
     <string name="checkbox_remember_me">Remember me</string>
     <string name="error_login_generic">Login failed</string>
     <string name="error_login_empty">Login returned empty response</string>
+    <string name="error_sign_up_generic">Sign up failed</string>
+    <string name="event_sign_up_success">Sign up success</string>
 </resources>

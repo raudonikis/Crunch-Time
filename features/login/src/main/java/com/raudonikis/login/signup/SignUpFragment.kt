@@ -20,6 +20,7 @@ import com.raudonikis.login.validation.mappers.ValidationErrorMapper
 import com.wada811.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -100,11 +101,18 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private fun onSignUpEvent(event: SignUpEvent) {
         when (event) {
-            SignUpEvent.SUCCESS -> {
-                showShortSnackbar("Sign up success")
+            is SignUpEvent.Success -> {
+                showShortSnackbar(R.string.event_sign_up_success)
             }
-            SignUpEvent.FAILURE -> {
-                showLongSnackbar("Sign up failed")
+            is SignUpEvent.Failure -> {
+                if (event.errorMessage != null) {
+                    showLongSnackbar(event.errorMessage)
+                } else {
+                    showLongSnackbar(R.string.error_sign_up_generic)
+                }
+            }
+            is SignUpEvent.Empty -> {
+                Timber.w("SignUpEvent.Empty should never happen")
             }
         }
     }
