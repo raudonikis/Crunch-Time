@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
         MutableStateFlow(PasswordState.Initial)
     private val _loginState: MutableStateFlow<LoginState> =
         MutableStateFlow(LoginState.INITIAL)
-    private val _loginValidationValidationState: StateFlow<LoginValidationState> =
+    private val _loginValidationState: StateFlow<LoginValidationState> =
         combine(_emailState, _passwordState, _loginState) { email, password, login ->
             when {
                 email.isValid() && password.isValid() && login != LoginState.LOADING -> LoginValidationState.ENABLED
@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
     val emailState: Flow<EmailState> = _emailState
     val passwordState: Flow<PasswordState> = _passwordState
     val loginState: Flow<LoginState> = _loginState
-    val loginValidationValidationState: Flow<LoginValidationState> = _loginValidationValidationState
+    val loginValidationState: Flow<LoginValidationState> = _loginValidationState
     val loginEvent: Flow<LoginEvent> = _loginEvent.receiveAsFlow()
 
     /**
@@ -60,7 +60,6 @@ class LoginViewModel @Inject constructor(
             val password = _passwordState.value.getCurrentPassword()
             authenticationRepository.login(email, password)
                 .onSuccess {
-                    _loginState.value = LoginState.INITIAL
                     _loginEvent.offer(LoginEvent.LoginSuccess)
                     navigateToBottomNavigation()
                 }
@@ -107,7 +106,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onLoginClicked() {
-        if (_loginValidationValidationState.value == LoginValidationState.ENABLED) {
+        if (_loginValidationState.value == LoginValidationState.ENABLED) {
             login()
         }
     }

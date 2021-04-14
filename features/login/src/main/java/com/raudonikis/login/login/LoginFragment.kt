@@ -41,7 +41,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Observers
      */
     private fun setUpObservers() {
-        viewModel.loginValidationValidationState
+        viewModel.loginValidationState
             .onEach { onLoginValidationState(it) }
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.loginEvent
