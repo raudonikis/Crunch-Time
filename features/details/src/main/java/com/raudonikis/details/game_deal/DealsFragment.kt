@@ -3,8 +3,7 @@ package com.raudonikis.details.game_deal
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.raudonikis.common.Outcome
@@ -15,6 +14,7 @@ import com.raudonikis.common_ui.extensions.showLongSnackbar
 import com.raudonikis.common_ui.extensions.update
 import com.raudonikis.common_ui.item_decorations.VerticalPaddingItemDecoration
 import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.details.DetailsViewModel
 import com.raudonikis.details.R
 import com.raudonikis.details.databinding.FragmentDealsBinding
 import com.raudonikis.details.game_deal.mappers.DealItemMapper
@@ -25,9 +25,8 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class DealsFragment : Fragment(R.layout.fragment_deals) {
 
-    private val viewModel: DealsViewModel by viewModels()
+    private val viewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.navigation_details)
     private val binding: FragmentDealsBinding by viewBinding()
-    private val args: DealsFragmentArgs by navArgs()
 
     /**
      * Deals
@@ -42,11 +41,6 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
         super.onViewCreated(view, savedInstanceState)
         setUpDeals()
         setUpObservers()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.onCreate(args.game)
     }
 
     /**

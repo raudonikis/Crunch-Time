@@ -4,8 +4,8 @@ import com.raudonikis.data_domain.game.models.Game
 
 object DetailsRouter {
 
-    fun fromDetailsToDeals(game: Game) =
-        DetailsFragmentDirections.actionDetailsFragmentToDealsFragment(game)
+    fun fromDetailsToDeals() =
+        DetailsFragmentDirections.actionDetailsFragmentToDealsFragment()
 
     fun fromDetailsToReviews(game: Game) =
         DetailsFragmentDirections.actionDetailsFragmentToReviewsFragment(game)

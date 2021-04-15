@@ -1,9 +1,14 @@
 package com.raudonikis.details
 
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game.usecases.GameDetailsUseCase
+import com.raudonikis.data_domain.game_deal.GameDeal
+import com.raudonikis.data_domain.game_deal.usecases.GameDealsUseCase
 import com.raudonikis.data_domain.game_review.usecases.GameReviewUseCase
 import com.raudonikis.data_domain.game_screenshot.GameScreenshot
 import com.raudonikis.data_domain.game_status.GameStatus
@@ -11,8 +16,8 @@ import com.raudonikis.data_domain.game_status.usecases.GameStatusUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,20 +29,26 @@ class DetailsViewModel @Inject constructor(
     private val gameStatusUseCase: GameStatusUseCase,
     private val gameReviewUseCase: GameReviewUseCase,
     private val gameDetailsUseCase: GameDetailsUseCase,
+    private val gameDealsUseCase: GameDealsUseCase,
 ) : ViewModel() {
 
     /**
      * States
      */
-    private val _detailsState: MutableStateFlow<DetailsState> =
-        MutableStateFlow(DetailsState.Initial)
+    private val _detailsState: MutableSharedFlow<DetailsState> =
+        MutableSharedFlow()
+    private val _dealsState: MutableStateFlow<Outcome<List<GameDeal>>> =
+        MutableStateFlow(Outcome.empty())
     private val _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
+    private val _errorEvent: Channel<String> = Channel()
 
     /**
      * Observables
      */
-    val detailsState: StateFlow<DetailsState> = _detailsState
-    val currentGame: StateFlow<Game> = _currentGame
+    val detailsState: Flow<DetailsState> = _detailsState
+    val currentGame: Flow<Game> = _currentGame
+    val dealsState: Flow<Outcome<List<GameDeal>>> = _dealsState
+    val errorEvent: Flow<String> = _errorEvent.receiveAsFlow()
 
     /**
      * Initialisation
@@ -54,40 +65,40 @@ class DetailsViewModel @Inject constructor(
      * Details functionality
      */
     fun updateGameStatus(status: GameStatus) {
-        if (status == currentGame.value.status) {
-            _detailsState.value = DetailsState.StatusUpdateNotNeeded
-            return
-        }
-        _detailsState.value = DetailsState.StatusUpdating
         viewModelScope.launch(Dispatchers.IO) {
-            val updatedGame = currentGame.value.copy(status = status)
+            if (status == _currentGame.value.status) {
+                _detailsState.emit(DetailsState.StatusUpdateNotNeeded)
+                return@launch
+            }
+            _detailsState.emit(DetailsState.StatusUpdating)
+            val updatedGame = _currentGame.value.copy(status = status)
             gameStatusUseCase.updateGameStatus(updatedGame)
                 .onSuccess {
                     onGameUpdated(_currentGame.value.copy(status = status))
-                    _detailsState.value = DetailsState.StatusUpdateSuccess
+                    _detailsState.emit(DetailsState.StatusUpdateSuccess)
                 }
                 .onFailure {
-                    _detailsState.value = DetailsState.StatusUpdateFailure
+                    _detailsState.emit(DetailsState.StatusUpdateFailure)
                 }
                 .onEmpty {
-                    _detailsState.value = DetailsState.StatusUpdateFailure
+                    _detailsState.emit(DetailsState.StatusUpdateFailure)
                 }
         }
     }
 
     private fun updateGameDetails() {
-        _detailsState.value = DetailsState.DetailsUpdating
         viewModelScope.launch {
-            gameDetailsUseCase.getGameDetails(currentGame.value)
+            _detailsState.emit(DetailsState.DetailsUpdating)
+            gameDetailsUseCase.getGameDetails(_currentGame.value)
                 .onSuccess {
-                    onGameUpdated(it.copy(gameReviewInfo = currentGame.value.gameReviewInfo))
-                    _detailsState.value = DetailsState.DetailsUpdateSuccess
+                    onGameUpdated(it.copy(gameReviewInfo = _currentGame.value.gameReviewInfo))
+                    _detailsState.emit(DetailsState.DetailsUpdateSuccess)
                 }
                 .onFailure {
-                    _detailsState.value = DetailsState.DetailsUpdateFailure
+                    _detailsState.emit(DetailsState.DetailsUpdateFailure)
                 }
                 .onEmpty {
-                    _detailsState.value = DetailsState.DetailsUpdateFailure
+                    _detailsState.emit(DetailsState.DetailsUpdateFailure)
                 }
         }
     }
@@ -107,6 +118,10 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+    fun getCurrentGameStatus(): GameStatus {
+        return _currentGame.value.status
+    }
+
     /**
      * Screenshot
      */
@@ -115,9 +130,24 @@ class DetailsViewModel @Inject constructor(
     }
 
     /**
+     * Deals
+     */
+    private fun updateDeals() {
+        _dealsState.value = Outcome.loading()
+        viewModelScope.launch(Dispatchers.IO) {
+            gameDealsUseCase.searchGameDeals(_currentGame.value).also { outcome ->
+                _dealsState.value = outcome
+            }.onFailure { error ->
+                error?.let { _errorEvent.offer(error) }
+            }
+        }
+    }
+
+    /**
      * Events
      */
     fun onDealsButtonClicked() {
+        updateDeals()
         navigateToDeals()
     }
 
@@ -137,20 +167,28 @@ class DetailsViewModel @Inject constructor(
         navigateToScreenshot(screenshotPosition)
     }
 
+    fun onDealClicked(deal: GameDeal) {
+        deal.url?.let { url ->
+            navigateToDealUri(url.toUri())
+        }
+    }
+
     /**
      * Navigation
      */
     private fun navigateToDeals() {
-        navigationDispatcher.navigate(DetailsRouter.fromDetailsToDeals(_currentGame.value))
+        navigationDispatcher.navigate(DetailsRouter.fromDetailsToDeals())
     }
 
     private fun navigateToReviews() {
-        navigationDispatcher.navigate(
-            DetailsRouter.fromDetailsToReviews(_currentGame.value)
-        )
+        navigationDispatcher.navigate(DetailsRouter.fromDetailsToReviews(_currentGame.value))
     }
 
     private fun navigateToScreenshot(screenshotPosition: Int) {
         navigationDispatcher.navigate(DetailsRouter.fromDetailsToScreenshot(screenshotPosition))
+    }
+
+    private fun navigateToDealUri(dealUri: Uri) {
+        navigationDispatcher.navigate(dealUri)
     }
 }

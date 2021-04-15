@@ -2,7 +2,6 @@ package com.raudonikis.details
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
@@ -77,7 +76,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         binding.apply {
             buttonChangeStatus.setOnClickListener {
                 GameStatusSelectDialogFragment().apply {
-                    setGameStatus(viewModel.currentGame.value.status)
+                    setGameStatus(viewModel.getCurrentGameStatus())
                     setOnUpdateClicked { viewModel.updateGameStatus(it) }
                     setOnDeleteClicked { viewModel.onGameStatusDeleteClicked() }
                 }.show(parentFragmentManager, GameStatusSelectDialogFragment.TAG_GAME_STATUS_UPDATE)
