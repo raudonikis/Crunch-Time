@@ -22,6 +22,7 @@ dependencies {
     api(Dependencies.fastAdapter)
     api(Dependencies.fastAdapterViewBinding)
     api(Dependencies.swipeToRefresh)
+    api(Dependencies.photoView)
     // Animations
     api(Dependencies.lottie)
 }

@@ -29,7 +29,7 @@ class ScreenshotFragment : Fragment(R.layout.fragment_screenshot) {
                 .with(this)
                 .load(gameScreenshot.url.prefixHttps())
                 .fitCenter()
-                .into(binding.imageScreenshot)
+                .into(binding.photoScreenshot)
         }
     }
 }
