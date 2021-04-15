@@ -2,6 +2,7 @@ package com.raudonikis.data_domain.game.mappers
 
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_genre.mappers.GameGenreMapper
+import com.raudonikis.data_domain.game_platform.GamePlatformMapper
 import com.raudonikis.data_domain.game_review.GameReview
 import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
@@ -24,6 +25,7 @@ object GameMapper {
             coverUrl = response.cover?.url,
             releaseDate = response.releaseDate,
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.genres),
+            gamePlatforms = GamePlatformMapper.fromGamePlatformResponseList(response.platforms),
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.screenshots),
             status = GameStatus.fromString(response.gameStatus),
         )
@@ -48,6 +50,7 @@ object GameMapper {
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.relations.screenshots),
             videos = GameVideoMapper.fromGameVideResponseList(response.relations.videos),
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.relations.genres),
+            gamePlatforms = GamePlatformMapper.fromGamePlatformResponseList(response.relations.platforms),
             releaseDate = response.attributes.releaseDate ?: "",
             status = GameStatus.fromString(response.attributes.gameStatus),
             gameReviewInfo = GameReviewInfo(isReviewPresent = response.attributes.review != null)
@@ -66,6 +69,7 @@ object GameMapper {
             screenshots = GameScreenshotMapper.fromScreenshotResponseList(response.screenshots),
             videos = GameVideoMapper.fromGameVideResponseList(response.videos),
             gameGenres = GameGenreMapper.fromGameGenreResponseList(response.genres),
+            gamePlatforms = GamePlatformMapper.fromGamePlatformResponseList(response.platforms),
             releaseDate = response.releaseDate ?: "",
             status = GameStatus.fromString(response.gameStatus),
         )

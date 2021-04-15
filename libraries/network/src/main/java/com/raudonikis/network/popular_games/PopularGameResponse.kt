@@ -2,6 +2,7 @@ package com.raudonikis.network.popular_games
 
 import com.raudonikis.network.game.GameCoverResponse
 import com.raudonikis.network.game_genre.GameGenreResponse
+import com.raudonikis.network.game_platform.GamePlatformResponse
 import com.raudonikis.network.game_screenshot.GameScreenshotResponse
 import com.raudonikis.network.game_video.GameVideoResponse
 import com.squareup.moshi.Json
@@ -25,6 +26,8 @@ data class PopularGameResponse(
     val videos: List<GameVideoResponse> = listOf(),
     @Json(name = "genres")
     val genres: List<GameGenreResponse> = listOf(),
+    @Json(name = "platforms")
+    val platforms: List<GamePlatformResponse> = listOf(),
 )
 
 /**

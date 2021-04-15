@@ -68,7 +68,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             .observeInLifecycle(viewLifecycleOwner)
         viewModel.currentGame
             .onEach { game ->
-                binding.bindGame(requireContext(), game, screenshotItemAdapter)
+                binding.bindGame(game, screenshotItemAdapter)
             }
             .observeInLifecycle(viewLifecycleOwner)
     }

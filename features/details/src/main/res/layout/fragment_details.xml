@@ -196,6 +196,26 @@
             app:layout_constraintTop_toBottomOf="@id/label_genres" />
 
         <TextView
+            android:id="@+id/label_platforms"
+            style="@style/TextAppearance.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Platforms"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_platforms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:orientation="horizontal"
+            app:chipSpacing="?spacingSmall"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/label_platforms" />
+
+        <TextView
             android:id="@+id/label_screenshots"
             style="@style/TextAppearance.Headline3"
             android:layout_width="wrap_content"
@@ -203,7 +223,7 @@
             android:layout_marginTop="?spacingSmall"
             android:text="@string/label_screenshots"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
+            app:layout_constraintTop_toBottomOf="@id/chips_platforms" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_screenshots"
