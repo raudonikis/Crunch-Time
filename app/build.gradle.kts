@@ -41,6 +41,7 @@ dependencies {
     implementation(project(Modules.Libraries.core))
     implementation(project(Modules.Libraries.commonUi))
     implementation(project(Modules.Libraries.navigation))
+    implementation(project(Modules.Libraries.data))
     implementation(project(Modules.Features.bottomNavigation))
     implementation(project(Modules.Features.login))
     implementation(project(Modules.Features.settings))

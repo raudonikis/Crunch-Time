@@ -16,4 +16,6 @@ dependencies {
     api(Dependencies.timber)
     // Lifecycle
     api(Dependencies.lifecycle)
+    // JWT token
+    api(Dependencies.jwtToken)
 }
