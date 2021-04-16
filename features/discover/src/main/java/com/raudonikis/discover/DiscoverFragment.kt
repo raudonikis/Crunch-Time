@@ -102,6 +102,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         with(binding) {
             groupSearch.showIf { state is GameSearchState.GameSearch }
             if (state is GameSearchState.GameSearch) {
+                recyclerGameSearch.showIf { state.outcome is Outcome.Success }
                 groupSearchLoading.showIf { state.outcome is Outcome.Loading }
                 groupSearchEmpty.showIf { state.outcome is Outcome.Empty || state.outcome is Outcome.Failure }
                 state.outcome
