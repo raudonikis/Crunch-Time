@@ -19,6 +19,9 @@ internal class GamesApiInterceptor @Inject constructor(
         get() = mapOf()
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        if (!authPreferences.isUserAuthenticated()) {
+            authPreferences.logout()
+        }
         with(addHeaders(chain.request())) {
             addQueries(url)
                 .also { url ->

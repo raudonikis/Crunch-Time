@@ -28,7 +28,6 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(GamesApiConstants.BASE_URL)
             .client(okHttpClient)
-//            .addCallAdapterFactory(networkResponseAdapterFactory)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(moshiConverterFactory)
             .build()

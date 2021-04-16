@@ -4,11 +4,16 @@ import android.content.SharedPreferences
 import com.auth0.jwt.JWT
 import com.raudonikis.common.extensions.get
 import com.raudonikis.common.extensions.put
+import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.navigation.NavigationGraph
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-class AuthPreferences @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class AuthPreferences @Inject constructor(
+    private val sharedPreferences: SharedPreferences,
+    private val navigationDispatcher: NavigationDispatcher,
+) {
 
     var accessToken: String
         get() = sharedPreferences.get(KEY_ACCESS_TOKEN, "")
@@ -28,6 +33,13 @@ class AuthPreferences @Inject constructor(private val sharedPreferences: SharedP
             Timber.w("Could not decode the JWT token -> ${e.message}")
             false
         }
+    }
+
+    /**
+     * Navigation
+     */
+    fun logout() {
+        navigationDispatcher.navigate(NavigationGraph.Login)
     }
 
     companion object {
