@@ -27,7 +27,7 @@ class AuthenticationRepository @Inject constructor(
                 gamesApi.logout()
             }
         }.toOutcome().onSuccess {
-            clearUserData()
+            authPreferences.clearUserData()
         }
     }
 
@@ -63,9 +63,5 @@ class AuthenticationRepository @Inject constructor(
                     userPreferences.currentUser = UserMapper.fromUserResponse(response.user)
                 }
         }
-    }
-
-    private fun clearUserData() {
-        authPreferences.accessToken = ""
     }
 }

@@ -35,10 +35,15 @@ class AuthPreferences @Inject constructor(
         }
     }
 
+    fun clearUserData() {
+        accessToken = ""
+    }
+
     /**
      * Navigation
      */
     fun logout() {
+        clearUserData()
         navigationDispatcher.navigate(NavigationGraph.Login)
     }
 
