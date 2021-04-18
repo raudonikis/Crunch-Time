@@ -7,17 +7,22 @@ import java.util.*
 
 object GameDateUtils {
 
-    private fun fromStringToDate(dateString: String): Date? {
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val dateParser
+        get() = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    val dateFormatter
+        get() = DateFormat.getDateInstance()
+
+    fun fromStringToDate(dateString: String): Date? {
         return try {
-            format.parse(dateString)
+            dateParser.parse(dateString)
         } catch (e: Exception) {
             null
         }
     }
 
-    private fun fromDateToFormattedString(date: Date): String {
-        return DateFormat.getDateInstance().format(date)
+    fun fromDateToFormattedString(date: Date): String {
+        return dateFormatter.format(date)
     }
 
     fun fromStringToFormattedString(dateString: String): String {

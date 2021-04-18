@@ -15,4 +15,7 @@ dependencies {
     // DI
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)
+    // Testing
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
 }
