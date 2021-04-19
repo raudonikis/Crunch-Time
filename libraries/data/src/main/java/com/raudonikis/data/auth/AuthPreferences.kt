@@ -1,13 +1,12 @@
 package com.raudonikis.data.auth
 
 import android.content.SharedPreferences
-import com.auth0.jwt.JWT
+import com.auth0.android.jwt.JWT
 import com.raudonikis.common.extensions.get
 import com.raudonikis.common.extensions.put
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class AuthPreferences @Inject constructor(
@@ -23,12 +22,8 @@ class AuthPreferences @Inject constructor(
 
     fun isUserAuthenticated(): Boolean {
         return try {
-            val jwt = JWT.decode(accessToken)
-            when {
-                jwt.expiresAt == null -> false
-                jwt.expiresAt.after(Date()) -> true
-                else -> false
-            }
+            val jwt = JWT(accessToken)
+            !jwt.isExpired(10)
         } catch (e: Exception) {
             Timber.w("Could not decode the JWT token -> ${e.message}")
             false

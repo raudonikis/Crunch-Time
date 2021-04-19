@@ -63,7 +63,7 @@ object Versions {
     const val leakCanary = "2.6"
 
     // JWT token
-    const val jwtToken = "3.15.0"
+    const val jwtToken = "2.0.0"
 }
 
 object Releases {
@@ -175,5 +175,5 @@ object Dependencies {
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
 
     // JWT token
-    const val jwtToken = "com.auth0:java-jwt:${Versions.jwtToken}"
+    const val jwtToken = "com.auth0.android:jwtdecode:${Versions.jwtToken}"
 }
