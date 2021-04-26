@@ -6,6 +6,7 @@ import org.junit.Test
 class MyActivityUseCaseTest {
 
     private lateinit var myActivityUseCase: MyActivityUseCase
+    private var i = 1
 
     @Before
     fun setup() {
