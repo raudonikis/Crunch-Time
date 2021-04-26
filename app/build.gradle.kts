@@ -32,6 +32,7 @@ android {
     }
     lintOptions {
         isCheckReleaseBuilds = false
+        isAbortOnError = false
     }
     buildFeatures.viewBinding = true
 }
