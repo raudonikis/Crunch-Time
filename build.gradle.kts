@@ -64,3 +64,9 @@ fun BaseExtension.applyAndroidCommons() {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+tasks.register("runOnGitHub") {
+    dependsOn("app:test")
+    group = "custom"
+    description = "$ ./gradlew runOnGitHub # runs on GitHub Action"
+}
