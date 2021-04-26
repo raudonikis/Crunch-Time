@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/navigation_login">
+
+    <include
+        android:id="@+id/navigation_login"
+        app:graph="@navigation/navigation_login" />
+
+    <action
+        android:id="@+id/action_global_navigation_login"
+        app:destination="@id/navigation_login"
+        app:popUpTo="@id/navigation_main"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/bottomNavigationFragment"
+        android:name="com.raudonikis.bottomnavigation.BottomNavigationFragment"
+        android:label="BottomNavigationFragment"
+        tools:layout="@layout/fragment_bottom_navigation" />
+
+    <action
+        android:id="@+id/action_global_bottomNavigationFragment_inclusive"
+        app:destination="@id/bottomNavigationFragment"
+        app:popUpTo="@id/navigation_main"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_bottomNavigationFragment"
+        app:destination="@id/bottomNavigationFragment" />
+</navigation>

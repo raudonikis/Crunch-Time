@@ -10,6 +10,31 @@ fun View.hide() {
     visibility = View.GONE
 }
 
+fun View.toggleVisibility() {
+    when (visibility) {
+        View.VISIBLE -> this.hide()
+        else -> this.show()
+    }
+}
+
+fun View.disable() {
+    alpha = .3f
+    isClickable = false
+}
+
+fun View.enable() {
+    alpha = 1f
+    isClickable = true
+}
+
+fun View.enableIf(condition: () -> Boolean) {
+    if (condition()) {
+        enable()
+    } else {
+        disable()
+    }
+}
+
 fun View.showIf(condition: () -> Boolean) {
     when (condition()) {
         true -> show()

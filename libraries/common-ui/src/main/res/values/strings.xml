@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bakalauras</string>
+    <string name="hint_search">Search...</string>
+    <string name="buton_follow">Follow</string>
+    <string name="label_loading">Loading...</string>
+    <string name="title_followers">Followers</string>
+    <string name="title_following">Following</string>
+    <string name="error_no_search_results">No results found.</string>
+    <string name="buton_unfollow">Unfollow</string>
+</resources>

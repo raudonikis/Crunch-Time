@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Game_Wallpaper -->
+    <dimen name="game_wallpaper_height">200dp</dimen>
+    <!-- Game_Cover -->
+    <dimen name="game_cover_start_guideline">140dp</dimen>
+    <dimen name="game_cover_height">160dp</dimen>
+    <dimen name="game_cover_width">120dp</dimen>
+</resources>

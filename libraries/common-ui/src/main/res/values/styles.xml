@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/headerColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorBackground">@color/backgroundColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+        <item name="colorError">@color/errorColor</item>
+
+        <!--<color name="primaryColor">#a0c4ff</color>
+        <color name="primaryLightColor">#d3f7ff</color>
+        <color name="primaryDarkColor">#6e94cc</color>
+        <color name="secondaryColor">@color/green</color>
+        <color name="secondaryLightColor">@color/green_light</color>
+        <color name="secondaryDarkColor">@color/green_dark</color>
+        <color name="primaryTextColor">@color/black</color>
+        <color name="secondaryTextColor">@color/black</color>-->
+
+        <item name="colorAccent">@color/secondaryColor</item>
+        <!-- Text Size -->
+        <item name="textSizeTiny">@dimen/text_size_tiny</item>
+        <item name="textSizeSmall">@dimen/text_size_small</item>
+        <item name="textSizeNormal">@dimen/text_size_normal</item>
+        <item name="textSizeNormalExtended">@dimen/text_size_normal_extended</item>
+        <item name="textSizeMedium">@dimen/text_size_medium</item>
+        <item name="textSizeLarge">@dimen/text_size_large</item>
+        <item name="textSizeHuge">@dimen/text_size_huge</item>
+        <!-- Spacing -->
+        <item name="spacingTiny">@dimen/spacing_tiny</item>
+        <item name="spacingSmall">@dimen/spacing_small</item>
+        <item name="spacingSmallExtended">@dimen/spacing_small_extended</item>
+        <item name="spacingNormal">@dimen/spacing_normal</item>
+        <item name="spacingNormalExtended">@dimen/spacing_normal_extended</item>
+        <item name="spacingMedium">@dimen/spacing_medium</item>
+        <item name="spacingMediumExtended">@dimen/spacing_medium_extended</item>
+        <item name="spacingLarge">@dimen/spacing_large</item>
+        <item name="spacingLargeExtended">@dimen/spacing_large_extended</item>
+        <item name="spacingHuge">@dimen/spacing_huge</item>
+        <!-- Text styles -->
+        <item name="android:textAppearance">@style/TextAppearance</item>
+        <item name="android:textViewStyle">@style/TextAppearance</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Headline1</item>
+        <item name="textAppearanceHeadline1Inverted">@style/TextAppearance.Headline1.Inverted</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Headline2</item>
+        <item name="textAppearanceHeadline2Inverted">@style/TextAppearance.Headline2.Inverted</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Headline3</item>
+        <item name="textAppearanceHeadline3Inverted">@style/TextAppearance.Headline3.Inverted</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Headline4</item>
+        <item name="textAppearanceHeadline4Inverted">@style/TextAppearance.Headline4.Inverted</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline5Inverted">@style/TextAppearance.Headline5.Inverted</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
+        <item name="textAppearanceHeadline6Inverted">@style/TextAppearance.Headline6.Inverted</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Button</item>
+        <item name="textAppearanceButtonPrimary">@style/TextAppearance.Button.Primary</item>
+        <item name="textAppearanceButtonNegative">@style/TextAppearance.Button.Negative</item>
+        <item name="textAppearanceButtonInverted">@style/TextAppearance.Button.Inverted</item>
+        <item name="textAppearanceBody">@style/TextAppearance.Body</item>
+        <item name="textAppearanceBodyInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Body.Small</item>
+        <item name="textAppearanceBodySmallInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceBodyTiny">@style/TextAppearance.Body</item>
+        <item name="textAppearanceBodyTinyInverted">@style/TextAppearance.Body.Inverted</item>
+        <item name="textAppearanceAction">@style/TextAppearance.Action</item>
+        <item name="textAppearanceSecondary">@style/TextAppearance.Secondary</item>
+        <!-- Chips -->
+        <item name="chipStyle">@style/Chip.Action</item>
+        <!-- Buttons -->
+        <item name="buttonNegative">@style/Button.Negative</item>
+        <!-- Shapes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+        <!-- Snackbar -->
+        <item name="snackbarStyle">@style/Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/Snackbar.TextView</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+</resources>

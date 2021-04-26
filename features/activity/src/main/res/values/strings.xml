@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_search_users">Search users...</string>
+    <string name="error_news_feed_empty">No activity yet.</string>
+    <string name="error_news_feed_generic">News feed could not be loaded</string>
+</resources>

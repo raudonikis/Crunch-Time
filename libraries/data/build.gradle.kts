@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     implementation(project(Modules.Libraries.common))
+    implementation(project(Modules.Libraries.navigation))
     // DI
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)

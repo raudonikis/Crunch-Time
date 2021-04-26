@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progress_updating_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_wallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/game_wallpaper_height"
+            android:background="@color/imagePlaceholderColor_1dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_cover_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/game_cover_start_guideline" />
+
+        <com.raudonikis.common_ui.components.GameItemLayout
+            android:id="@+id/game_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/guideline_cover_top" />
+
+        <TextView
+            android:id="@+id/label_title"
+            style="?textAppearanceHeadline4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingTiny"
+            android:maxLines="2"
+            app:autoSizeMaxTextSize="@dimen/text_size_normal"
+            app:autoSizeMinTextSize="@dimen/text_size_tiny"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/game_item"
+            app:layout_constraintTop_toBottomOf="@id/label_developer"
+            tools:text="Game title" />
+
+        <TextView
+            android:id="@+id/text_release_date"
+            style="?textAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingTiny"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/label_title"
+            app:layout_constraintTop_toBottomOf="@id/label_title"
+            tools:text="2017, February 28" />
+
+        <TextView
+            android:id="@+id/rating_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingTiny"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/ic_like"
+            app:drawableTint="?colorOnSurface"
+            app:layout_constraintStart_toStartOf="@id/label_title"
+            app:layout_constraintTop_toBottomOf="@id/text_release_date"
+            tools:text="514" />
+
+        <TextView
+            android:id="@+id/rating_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingTiny"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/ic_dislike"
+            app:drawableTint="?colorOnSurface"
+            app:layout_constraintStart_toEndOf="@id/rating_like"
+            app:layout_constraintTop_toTopOf="@id/rating_like"
+            tools:text="12" />
+
+        <TextView
+            android:id="@+id/label_developer"
+            style="?textAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Developer"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/label_title"
+            app:layout_constraintTop_toBottomOf="@id/image_wallpaper"
+            tools:text="Guerilla Games" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_details_with_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="button_deals, button_reviews,game_item" />
+
+        <Button
+            android:id="@+id/button_deals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/button_deals"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/game_item"
+            app:layout_goneMarginTop="?spacingSmall" />
+
+        <Button
+            android:id="@+id/button_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingSmall"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/button_reviews_placeholder"
+            app:layout_constraintStart_toEndOf="@id/button_deals"
+            app:layout_constraintTop_toBottomOf="@id/game_item"
+            app:layout_goneMarginStart="?spacingSmall" />
+
+        <TextView
+            android:id="@+id/text_description"
+            style="?textAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/button_deals"
+            tools:text="..." />
+
+        <TextView
+            android:id="@+id/text_read_more"
+            style="?textAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_read_more"
+            android:textColor="?colorAccent"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+        <ProgressBar
+            android:id="@+id/progress_game_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/button_change_status"
+            app:layout_constraintEnd_toStartOf="@id/button_change_status" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/button_change_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorPrimary"
+            android:textAllCaps="true"
+            app:icon="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@id/image_wallpaper"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toBottomOf="@id/image_wallpaper" />
+
+        <TextView
+            android:id="@+id/label_genres"
+            style="@style/TextAppearance.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/label_genres"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/text_read_more" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:orientation="horizontal"
+            app:chipSpacing="?spacingSmall"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/label_genres" />
+
+        <TextView
+            android:id="@+id/label_platforms"
+            style="@style/TextAppearance.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="Platforms"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/chips_genres" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_platforms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:orientation="horizontal"
+            app:chipSpacing="?spacingSmall"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/label_platforms" />
+
+        <TextView
+            android:id="@+id/label_screenshots"
+            style="@style/TextAppearance.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/label_screenshots"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/chips_platforms" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_screenshots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingNormal"
+            android:orientation="horizontal"
+            android:overScrollMode="ifContentScrolls"
+            android:paddingBottom="?spacingSmall"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_screenshots"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_screenshot" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="?spacingNormal" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="?spacingNormal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

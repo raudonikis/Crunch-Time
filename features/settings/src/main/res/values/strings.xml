@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_settings">Settings</string>
+    <string name="hint_theme">Theme</string>
+    <string-array name="theme_selection">
+        <item>System default</item>
+        <item>Dark theme</item>
+        <item>Light theme</item>
+    </string-array>
+</resources>

@@ -1,6 +1,6 @@
 package com.raudonikis.navigation
 
 sealed class NavigationGraph {
-    object Home : NavigationGraph()
-    object Dashboard : NavigationGraph()
+    data class BottomNavigation(val inclusive: Boolean = false) : NavigationGraph()
+    object Login: NavigationGraph()
 }

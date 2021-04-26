@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_read_more">read more...</string>
+    <string name="action_read_less">read less...</string>
+    <string name="label_genres">Genres</string>
+    <string name="label_screenshots">Screenshots</string>
+    <string name="label_videos">Videos</string>
+    <string name="label_review_count_singular">%1$d review</string>
+    <string name="label_review_count_plural">%1$d reviews</string>
+    <string name="label_price">€%1$d</string>
+    <string name="button_reviews">Reviews(%1$d)</string>
+    <string name="error_no_deals">No deals available.</string>
+    <string name="button_write_review">Write a review</string>
+    <string name="error_no_reviews">No reviews yet.</string>
+    <string name="button_deals">Deals</string>
+    <string name="button_reviews_placeholder">Reviews</string>
+    <string name="button_update">Update</string>
+    <string name="dialog_title_game_status">Update game status</string>
+    <string name="button_delete">Delete</string>
+</resources>

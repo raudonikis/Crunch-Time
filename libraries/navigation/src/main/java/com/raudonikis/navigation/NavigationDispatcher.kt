@@ -1,39 +1,32 @@
 package com.raudonikis.navigation
 
+import android.net.Uri
 import androidx.navigation.NavDirections
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class NavigationDispatcher @Inject constructor() {
-    private val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
-    private val navigationCommands = MutableSharedFlow<NavigationCommand>()
+    private val navigationCommands = Channel<NavigationCommand>(Channel.BUFFERED)
 
-    fun getNavigationCommands(): SharedFlow<NavigationCommand> = navigationCommands
+    fun getNavigationCommands(): Flow<NavigationCommand> = navigationCommands.receiveAsFlow()
 
     fun navigate(destination: NavDirections) {
-        coroutineScope.launch {
-            navigationCommands.emit(NavigationCommand.To(destination))
-        }
+        navigationCommands.offer(NavigationCommand.To(destination))
     }
 
     fun navigate(graph: NavigationGraph) {
-        coroutineScope.launch {
-            navigationCommands.emit(NavigationCommand.ToGraph(graph))
-        }
+        navigationCommands.offer(NavigationCommand.ToGraph(graph))
     }
 
-    // TODO : fun navigate(uri: Uri) {}
+    fun navigate(uri: Uri) {
+        navigationCommands.offer(NavigationCommand.ToUri(uri))
+    }
 
     fun navigateBack() {
-        coroutineScope.launch {
-            navigationCommands.emit(NavigationCommand.Back)
-        }
+        navigationCommands.offer(NavigationCommand.Back)
     }
 }

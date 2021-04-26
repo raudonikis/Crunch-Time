@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_sign_up">Sign up</string>
+    <string name="label_no_account">Don\'t have an account?</string>
+    <string name="action_login">Login</string>
+    <string name="title_login">Login</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_email">E-mail</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="label_have_account">Already have an account?</string>
+    <string name="button_login">Login</string>
+    <string name="validation_error_email_bad_format">Invalid email format</string>
+    <string name="validation_error_email_blank">Email cannot be empty</string>
+    <string name="validation_error_password_blank">Password cannot be empty</string>
+    <string name="validation_error_password_too_short">Password must contain at least 6 characters</string>
+    <string name="validation_error_password_not_matching">Passwords must be the same</string>
+    <string name="validation_error_username_blank">Username cannot be empty</string>
+    <string name="checkbox_remember_me">Remember me</string>
+    <string name="error_login_generic">Login failed</string>
+    <string name="error_login_empty">Login returned empty response</string>
+    <string name="error_sign_up_generic">Sign up failed</string>
+    <string name="event_sign_up_success">Sign up success</string>
+</resources>

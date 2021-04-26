@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backgrounds -->
+    <color name="background">@color/gray_100</color>
+    <color name="background_divider">@color/gray_300</color>
+    <!-- Text -->
+    <color name="text_primary">@color/black</color>
+    <color name="text_primary_inverted">@color/white</color>
+    <color name="text_action">@color/blue</color>
+    <color name="text_secondary">@color/gray_600</color>
+    <!-- Game status -->
+    <color name="game_status_want">@color/blue_light.8</color>
+    <color name="game_status_played">@color/orange.8</color>
+    <color name="game_status_playing">@color/green.8</color>
+    <!-- Reviews -->
+    <color name="background_review">@color/gray_100</color>
+</resources>

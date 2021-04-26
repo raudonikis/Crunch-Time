@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.raudonikis.common_ui.components.HeaderLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="Profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_user_name"
+            style="?textAppearanceBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_header"
+            tools:text="raudonikiss" />
+
+        <TextView
+            android:id="@+id/text_user_email"
+            style="?textAppearanceSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_user_name"
+            tools:text="raudonikiss@gmail.com" />
+
+        <Button
+            android:id="@+id/button_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/button_following_placeholder"
+            app:layout_constraintEnd_toStartOf="@+id/button_followers"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_user_email" />
+
+        <Button
+            android:id="@+id/button_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingSmall"
+            android:text="@string/button_followers_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_following"
+            app:layout_constraintTop_toBottomOf="@id/text_user_email" />
+
+        <TextView
+            android:id="@+id/title_collection"
+            style="?textAppearanceHeadline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            android:text="@string/label_collections"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_following" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_collections"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_collection"
+            app:tabMode="scrollable">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_game_collection_played" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_game_collection_playing" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_game_collection_want" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_game_collection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_collections"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_game_cover" />
+
+        <TextView
+            android:id="@+id/title_my_activity"
+            style="?textAppearanceHeadline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            android:text="@string/label_my_activity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_game_collection" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_my_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="?spacingNormal"
+            android:layout_marginTop="?spacingNormal"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_my_activity"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_user_activity" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_profile"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.raudonikis.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_gameCollectionFragment"
+            app:destination="@id/gameCollectionFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_navigation_details"
+            app:destination="@id/navigation_details">
+            <argument
+                android:name="game"
+                app:argType="com.raudonikis.data_domain.game.models.Game" />
+        </action>
+        <action
+            android:id="@+id/action_profileFragment_to_followersFragment"
+            app:destination="@id/followersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameCollectionFragment"
+        android:name="com.raudonikis.profile.collection.GameCollectionFragment"
+        android:label="GameCollectionFragment"
+        tools:layout="@layout/fragment_game_collection">
+        <argument
+            android:name="gameStatus"
+            app:argType="com.raudonikis.data_domain.game_status.GameStatus" />
+        <action
+            android:id="@+id/action_gameCollectionFragment_to_navigation_details"
+            app:destination="@id/navigation_details">
+            <argument
+                android:name="game"
+                app:argType="com.raudonikis.data_domain.game.models.Game" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/navigation_details" />
+    <fragment
+        android:id="@+id/followersFragment"
+        android:name="com.raudonikis.profile.followers.FollowersFragment"
+        android:label="FollowersFragment"
+        tools:layout="@layout/fragment_followers" >
+        <argument
+            android:name="followerType"
+            app:argType="com.raudonikis.profile.followers.FollowerType" />
+    </fragment>
+</navigation>

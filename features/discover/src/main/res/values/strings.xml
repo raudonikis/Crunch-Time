@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_view_all">View all</string>
+    <string name="title_discover">Discover</string>
+    <string name="hint_search_games">Search games...</string>
+    <string name="error_search_generic">Search failed</string>
+    <string name="error_popular_games_generic">Failed to load popular games</string>
+</resources>
