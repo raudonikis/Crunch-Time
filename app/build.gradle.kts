@@ -4,6 +4,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.36.0"
     kotlin("android")
     kotlin("kapt")
+    id("org.nosphere.gradle.github.actions") version "1.2.0"
 }
 
 apply {
