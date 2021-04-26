@@ -11,18 +11,19 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
-    implementation(project(Modules.Libraries.core))
-    implementation(project(Modules.Libraries.commonUi))
-    implementation(project(Modules.Libraries.navigation))
-    implementation(project(Modules.Libraries.data))
-    implementation(project(Modules.Libraries.dataDomain))
+    implementation(project(":libraries:common"))
+    implementation(project(":libraries:common-ui"))
+    implementation(project(":libraries:data-domain"))
+    implementation(project(":libraries:navigation"))
+    implementation(project(":libraries:core"))
+    implementation(project(":libraries:data"))
     // Hilt
-    implementation(Dependencies.hilt)
-    implementation(Dependencies.hiltLifecycle)
-    kapt(Dependencies.hiltCompiler)
-    kapt(Dependencies.hiltLifecycleCompiler)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
     // Testing
-    testImplementation(Dependencies.jUnit)
-    testImplementation(Dependencies.jUnitTest)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }

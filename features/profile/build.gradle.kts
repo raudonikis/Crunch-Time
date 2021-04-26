@@ -11,17 +11,15 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
-    implementation(project(Modules.Libraries.commonUi))
-    implementation(project(Modules.Libraries.navigation))
-    implementation(project(Modules.Libraries.dataDomain))
-    implementation(project(Modules.Features.details))
+    implementation(project(":libraries:common"))
+    implementation(project(":libraries:common-ui"))
+    implementation(project(":libraries:navigation"))
+    implementation(project(":libraries:data-domain"))
+    implementation(project(":features:details"))
     // Hilt
-    implementation(Dependencies.hilt)
-    implementation(Dependencies.hiltLifecycle)
-    implementation(Dependencies.hiltNavigation)
-    kapt(Dependencies.hiltCompiler)
-    kapt(Dependencies.hiltLifecycleCompiler)
-    // Images
-    kapt(Dependencies.glideAnnotation)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0-beta01")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
 }

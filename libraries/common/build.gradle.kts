@@ -6,16 +6,16 @@ plugins {
 dependencies {
     api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // Kotlin
-    api(Dependencies.kotlinStdLib)
-    api(Dependencies.ktxCore)
-    api(Dependencies.kotlinCoroutines)
+    api("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
+    api("androidx.core:core-ktx:1.3.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
     // Support
-    api(Dependencies.appCompat)
-    api(Dependencies.preferences)
+    api("androidx.appcompat:appcompat:1.2.0")
+    api("androidx.preference:preference:1.1.1")
     // Logging
-    api(Dependencies.timber)
+    api("com.jakewharton.timber:timber:4.7.1")
     // Lifecycle
-    api(Dependencies.lifecycle)
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     // JWT token
-    api(Dependencies.jwtToken)
+    api("com.auth0.android:jwtdecode:2.0.0")
 }

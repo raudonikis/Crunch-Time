@@ -6,13 +6,13 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
-    implementation(project(Modules.Libraries.navigation))
+    implementation(project(":libraries:common"))
+    implementation(project(":libraries:navigation"))
     // DI
-    implementation(Dependencies.hilt)
-    kapt(Dependencies.hiltCompiler)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
     // Room database
-    api(Dependencies.room)
-    api(Dependencies.roomExtensions)
-    kapt(Dependencies.roomCompiler)
+    api("androidx.room:room-runtime:2.2.6")
+    api("androidx.room:room-ktx:2.2.6")
+    kapt("androidx.room:room-compiler:2.2.6")
 }

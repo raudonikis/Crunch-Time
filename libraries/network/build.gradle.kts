@@ -5,17 +5,16 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
-    implementation(project(Modules.Libraries.data))
+    implementation(project(":libraries:common"))
+    implementation(project(":libraries:data"))
     // Networking
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.moshi)
-    implementation(Dependencies.moshiConverter)
-    implementation(Dependencies.moshiAdapters)
-    implementation(Dependencies.scalarsConverter)
-    implementation(Dependencies.okHttp)
-//    api(Dependencies.networkResponseAdapter)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi-adapters:1.11.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     // Hilt
-    implementation(Dependencies.hilt)
-    kapt(Dependencies.hiltCompiler)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
 }

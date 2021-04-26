@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
+    implementation(project(":libraries:common"))
     // Hilt
-    implementation(Dependencies.hilt)
-    kapt(Dependencies.hiltCompiler)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
 }
