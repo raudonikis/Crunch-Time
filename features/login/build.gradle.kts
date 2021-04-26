@@ -22,4 +22,7 @@ dependencies {
     implementation(Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
+    // Testing
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
 }
