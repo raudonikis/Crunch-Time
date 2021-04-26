@@ -11,13 +11,11 @@ apply {
 }
 
 android {
-
     defaultConfig {
-        applicationId = Releases.applicationId
-        versionCode = Releases.versionCode
-        versionName = Releases.versionName
+        applicationId = "com.raudonikis.androidskeleton"
+        versionCode = 1
+        versionName = "1.0"
     }
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -37,23 +35,21 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.Libraries.common))
-    implementation(project(Modules.Libraries.core))
-    implementation(project(Modules.Libraries.commonUi))
-    implementation(project(Modules.Libraries.navigation))
-    implementation(project(Modules.Libraries.data))
-    implementation(project(Modules.Features.bottomNavigation))
-    implementation(project(Modules.Features.login))
-    implementation(project(Modules.Features.settings))
+    implementation(project(":libraries:common"))
+    implementation(project(":libraries:core"))
+    implementation(project(":libraries:common-ui"))
+    implementation(project(":libraries:navigation"))
+    implementation(project(":libraries:data"))
+    implementation(project(":features:bottomnavigation"))
+    implementation(project(":features:login"))
+    implementation(project(":features:settings"))
     // Hilt
-    implementation(Dependencies.hilt)
-    implementation(Dependencies.hiltLifecycle)
-    kapt(Dependencies.hiltCompiler)
-    kapt(Dependencies.hiltLifecycleCompiler)
+    implementation("com.google.dagger:hilt-android:2.33-beta")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt("com.google.dagger:hilt-android-compiler:2.33-beta")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
     // Testing
-    testImplementation(Dependencies.jUnit)
-    androidTestImplementation(Dependencies.jUnitTest)
-    androidTestImplementation(Dependencies.espresso)
-    // Quality
-//    debugImplementation(Dependencies.leakCanary)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
