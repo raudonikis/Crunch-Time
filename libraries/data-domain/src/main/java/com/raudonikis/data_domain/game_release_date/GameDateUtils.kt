@@ -21,7 +21,7 @@ object GameDateUtils {
         }
     }
 
-    fun fromDateToFormattedString(date: Date): String {
+    private fun fromDateToFormattedString(date: Date): String {
         return dateFormatter.format(date)
     }
 

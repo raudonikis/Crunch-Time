@@ -70,18 +70,4 @@ class GameDateUtilsTest {
         // Assert
         assertEquals(result?.time, expected)
     }
-
-    @Test
-    fun `from date to formatted string, correct format, returns correct string`() {
-        // Assemble
-        val date = Calendar.getInstance().apply {
-            set(2020, 11, 23, 0, 0, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
-        // Act
-        val result = GameDateUtils.fromDateToFormattedString(date)
-        val expected = "2020-12-23"
-        // Assert
-        assertEquals(result, expected)
-    }
 }
