@@ -56,6 +56,9 @@ fun BaseExtension.applyAndroidCommons() {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        isAbortOnError = false
+    }
 }
 
 tasks.register("clean", Delete::class) {
