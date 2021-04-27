@@ -18,4 +18,9 @@ dependencies {
     api(Dependencies.lifecycle)
     // JWT token
     api(Dependencies.jwtToken)
+    // Testing
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
 }
