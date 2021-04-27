@@ -1,11 +1,13 @@
 package com.raudonikis.data_domain.game_search
 
 import com.raudonikis.common.Outcome
+import com.raudonikis.core.providers.di.IODispatcher
 import com.raudonikis.data_domain.game.cache.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.safeNetworkResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -14,6 +16,8 @@ import javax.inject.Inject
 class GameSearchUseCase @Inject constructor(
     private val gameDao: GameDao,
     private val gamesApi: GamesApi,
+    @IODispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) {
 
     fun getGameSearchResults(): Flow<Outcome<List<Game>>> = gameDao.getGameSearchResults()
@@ -24,7 +28,7 @@ class GameSearchUseCase @Inject constructor(
      */
     suspend fun search(name: String): Outcome<List<Game>> {
         gameDao.setGameSearchResultsOutcome(Outcome.loading())
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             safeNetworkResponse {
                 gamesApi.search(name)
                     .map {
@@ -32,13 +36,6 @@ class GameSearchUseCase @Inject constructor(
                     }
             }
         }.toOutcome().also { outcome ->
-            outcome
-                .map { games ->
-                    if (games.isEmpty()) {
-                        gameDao.setGameSearchResultsOutcome(Outcome.empty())
-                        return outcome
-                    }
-                }
             gameDao.setGameSearchResultsOutcome(outcome)
             return outcome
         }
