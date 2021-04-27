@@ -1,6 +1,7 @@
 package com.raudonikis.data_domain.game_review.usecases
 
 import com.raudonikis.common.Outcome
+import com.raudonikis.core.providers.di.IODispatcher
 import com.raudonikis.data_domain.activity.cache.UserActivityDao
 import com.raudonikis.data_domain.activity.mappers.UserActivityMapper
 import com.raudonikis.data_domain.game.models.Game
@@ -12,6 +13,7 @@ import com.raudonikis.network.GamesApi
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewRequestBody
 import com.raudonikis.network.utils.safeNetworkResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,6 +22,8 @@ class GameReviewUseCase @Inject constructor(
     private val gamesApi: GamesApi,
     private val userActivityDao: UserActivityDao,
     private val userPreferences: UserPreferences,
+    @IODispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) {
 
     /**
@@ -27,11 +31,15 @@ class GameReviewUseCase @Inject constructor(
      * @return [GameReviewInfo]
      */
     suspend fun getGameReviewInfo(game: Game): Outcome<GameReviewInfo> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             safeNetworkResponse {
                 gamesApi.getGameReviewInfo(game.id)
                     .map { response ->
-                        GameReviewInfoMapper.fromGameReviewInfoResponseWithGameInfo(response, game, userPreferences.currentUser)
+                        GameReviewInfoMapper.fromGameReviewInfoResponseWithGameInfo(
+                            response,
+                            game,
+                            userPreferences.currentUser
+                        )
                     }
             }
         }.toOutcome()
@@ -45,7 +53,7 @@ class GameReviewUseCase @Inject constructor(
         comment: String,
         game: Game
     ): Outcome<GameReviewPostResponse> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val reviewBody = GameReviewRequestBody(
                 content = comment,
                 isPositive = rating == GameRating.UP_VOTED,
