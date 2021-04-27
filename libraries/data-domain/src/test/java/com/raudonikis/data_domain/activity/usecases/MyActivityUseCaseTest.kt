@@ -90,7 +90,7 @@ class MyActivityUseCaseTest {
         val getUserActivityResponse =
             NetworkResponse<List<UserActivityResponse>>(isSuccess = true, data = listOf())
         coEvery { gamesApi.getUserActivity() } returns getUserActivityResponse
-        val expectedResult = Outcome.success(listOf<UserActivity>())
+        val expectedResult = Outcome.empty()
         //Act
         myActivityUseCase.updateMyUserActivity()
         //Assert

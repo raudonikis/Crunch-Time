@@ -80,9 +80,9 @@ class GameCollectionUseCaseTest {
             //Assemble
             coEvery { gamesApi.getGameCollection() } returns NetworkResponse(
                 isSuccess = true,
-                data = listOf<GameResponse>()
+                data = listOf()
             )
-            val expectedResult = Outcome.success(listOf<Game>())
+            val expectedResult = Outcome.empty()
             //Act
             gameCollectionUseCase.updateGameCollection()
             //Assert
