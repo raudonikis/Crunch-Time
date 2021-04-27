@@ -57,38 +57,38 @@ class NewsFeedUseCaseTest {
     }
 
     @Test
-    fun `getNewsFeed, when gamesApi throws exception, returns failure`() =
+    fun `updateNewsFeed, when gamesApi throws exception, returns failure`() =
         runBlockingTest {
             //Assemble
             coEvery { gamesApi.getNewsFeed() } throws Exception("error")
             val expectedResult = Outcome.failure(message = "error")
             //Act
-            val result = newsFeedUseCase.getNewsFeed()
+            val result = newsFeedUseCase.updateNewsFeed()
             //Assert
             assertEquals(expectedResult, result)
         }
 
     @Test
-    fun `getNewsFeed, calls getNewsFeed from gamesApi`() =
+    fun `updateNewsFeed, calls getNewsFeed from gamesApi`() =
         runBlockingTest {
             //Assemble
             //Act
-            newsFeedUseCase.getNewsFeed()
+            newsFeedUseCase.updateNewsFeed()
             //Assert
             coVerify { gamesApi.getNewsFeed() }
         }
 
     @Test
-    fun `getNewsFeed, sets Loading state, then sets Result state`() =
+    fun `updateNewsFeed, sets Loading state, then sets Result state`() =
         runBlockingTest {
             //Assemble
-            coEvery { gamesApi.search(any()) } returns NetworkResponse(
+            coEvery { gamesApi.getNewsFeed() } returns NetworkResponse(
                 isSuccess = true,
                 data = listOf()
             )
             val expectedResult = Outcome.empty()
             //Act
-            newsFeedUseCase.getNewsFeed()
+            newsFeedUseCase.updateNewsFeed()
             //Assert
             verifySequence {
                 userActivityDao.setNewsFeedOutcome(Outcome.loading())
