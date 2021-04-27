@@ -45,6 +45,18 @@ class NetworkResponseTest {
     }
 
     @Test
+    fun `toOutcome, is success with empty list, returns Outcome_Empty`() {
+        //Assemble
+        val data = listOf<String>()
+        val networkResponse = NetworkResponse(isSuccess = true, data = data)
+        val expectedResult = Outcome.empty()
+        //Act
+        val result = networkResponse.toOutcome()
+        //Assert
+        assertEquals(expectedResult, result)
+    }
+
+    @Test
     fun `toOutcome, is success with data, returns Outcome_Success`() {
         //Assemble
         val data = "some data"

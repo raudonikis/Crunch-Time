@@ -52,8 +52,9 @@ data class NetworkResponse<T>(
 
     fun toOutcome(): Outcome<T> {
         return when {
-            isSuccess && data != null -> Outcome.success(data)
             isSuccess && data == null -> Outcome.empty()
+            isSuccess && data is List<*> && data.isEmpty() -> Outcome.empty()
+            isSuccess && data != null -> Outcome.success(data)
             else -> Outcome.failure(error?.message)
         }
     }
