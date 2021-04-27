@@ -18,4 +18,9 @@ dependencies {
     // Hilt
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)
+    // Testing
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
 }

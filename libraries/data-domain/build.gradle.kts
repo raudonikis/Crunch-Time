@@ -18,4 +18,6 @@ dependencies {
     // Testing
     testImplementation(Dependencies.jUnit)
     testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
 }

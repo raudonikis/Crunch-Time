@@ -46,12 +46,13 @@ object Versions {
     // Kotlin
     const val ktxCore = "1.3.2"
     const val kotlin = "1.4.20"
-    const val coroutines = "1.4.2"
+    const val coroutines = "1.4.3"
 
     // Testing
     const val jUnit = "4.13.2"
     const val jUnitTest = "1.1.2"
     const val espresso = "3.3.0"
+    const val mockk = "1.11.0"
 
     // Sdk
     const val compileSdk = 30
@@ -170,6 +171,8 @@ object Dependencies {
     const val jUnit = "junit:junit:${Versions.jUnit}"
     const val jUnitTest = "androidx.test.ext:junit:${Versions.jUnitTest}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 
     // Quality
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
