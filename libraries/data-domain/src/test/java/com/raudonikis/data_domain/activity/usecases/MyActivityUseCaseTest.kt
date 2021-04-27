@@ -121,19 +121,4 @@ class MyActivityUseCaseTest {
             //Assert
             verify { userActivityDao.setMyUserActivityOutcome(expectedResult) }
         }
-
-    @Test
-    fun `updateMyUserActivity, returns mapped data`() =
-        runBlockingTest {
-            //Assemble
-            coEvery { gamesApi.getUserActivity() } returns NetworkResponse(
-                isSuccess = true,
-                data = null
-            )
-            val expectedResult: Outcome<List<UserActivity>> = Outcome.empty()
-            //Act
-            val result = myActivityUseCase.updateMyUserActivity()
-            //Assert
-            assertEquals(expectedResult, result)
-        }
 }

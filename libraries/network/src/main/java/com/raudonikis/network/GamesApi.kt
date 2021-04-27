@@ -36,6 +36,9 @@ interface GamesApi {
         @Body status: GameStatusRequestBody,
     ): NetworkResponse<GameStatusResponse>
 
+    @GET("api/v1/idk")
+    suspend fun getGameCollection(): NetworkResponse<List<GameResponse>>
+
     /**
      * Reviews
      */

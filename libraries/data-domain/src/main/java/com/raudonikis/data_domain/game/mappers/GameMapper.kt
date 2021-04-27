@@ -83,6 +83,13 @@ object GameMapper {
     }
 
     /**
+     * From List<[GameResponse]> to List<[Game]>
+     */
+    fun fromGameResponseList(responses: List<GameResponse>): List<Game> {
+        return responses.map { fromGameResponse(it) }
+    }
+
+    /**
      * Add a new [GameReview] to a [Game]
      */
     fun addGameReview(game: Game, gameReview: GameReview): Game {
