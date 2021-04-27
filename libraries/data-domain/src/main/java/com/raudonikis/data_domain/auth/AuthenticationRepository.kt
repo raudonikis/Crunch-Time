@@ -1,6 +1,7 @@
 package com.raudonikis.data_domain.auth
 
 import com.raudonikis.common.Outcome
+import com.raudonikis.core.providers.di.IODispatcher
 import com.raudonikis.data.auth.AuthPreferences
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user.mappers.UserMapper
@@ -10,6 +11,7 @@ import com.raudonikis.network.auth.login.LoginResponse
 import com.raudonikis.network.auth.register.RegisterRequestBody
 import com.raudonikis.network.auth.register.RegisterResponse
 import com.raudonikis.network.utils.safeNetworkResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -19,20 +21,24 @@ class AuthenticationRepository @Inject constructor(
     private val gamesApi: GamesApi,
     private val userPreferences: UserPreferences,
     private val authPreferences: AuthPreferences,
+    @IODispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) {
 
     suspend fun logout(): Outcome<List<Nothing>> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             safeNetworkResponse {
                 gamesApi.logout()
             }
-        }.toOutcome().onSuccess {
-            authPreferences.clearUserData()
+        }.toOutcome().also { outcome ->
+            if (outcome is Outcome.Empty || outcome is Outcome.Success) {
+                authPreferences.clearUserData()
+            }
         }
     }
 
     suspend fun login(email: String, password: String): Outcome<LoginResponse> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val loginBody = LoginRequestBody(email, password)
             safeNetworkResponse {
                 gamesApi.login(loginBody)
@@ -53,7 +59,7 @@ class AuthenticationRepository @Inject constructor(
         passwordConfirmation: String,
         name: String
     ): Outcome<RegisterResponse> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val registerBody = RegisterRequestBody(email, password, passwordConfirmation, name)
             safeNetworkResponse {
                 gamesApi.register(registerBody)
