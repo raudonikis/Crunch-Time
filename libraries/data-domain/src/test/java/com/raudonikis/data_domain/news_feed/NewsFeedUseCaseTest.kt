@@ -84,8 +84,7 @@ class NewsFeedUseCaseTest {
             //Assemble
             coEvery { gamesApi.getNewsFeed() } returns NetworkResponse(
                 isSuccess = true,
-                data = listOf()
-            )
+                data = listOf())
             val expectedResult = Outcome.empty()
             //Act
             newsFeedUseCase.updateNewsFeed()
