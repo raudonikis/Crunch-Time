@@ -30,10 +30,8 @@ class AuthenticationRepository @Inject constructor(
             safeNetworkResponse {
                 gamesApi.logout()
             }
-        }.toOutcome().also { outcome ->
-            if (outcome is Outcome.Empty || outcome is Outcome.Success) {
-                authPreferences.clearUserData()
-            }
+        }.toOutcome().onSuccessOrEmpty {
+            authPreferences.clearUserData()
         }
     }
 

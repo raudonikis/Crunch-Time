@@ -24,6 +24,13 @@ sealed class Outcome<out T> {
         return this
     }
 
+    inline fun onSuccessOrEmpty(f: () -> Unit): Outcome<T> {
+        if (this is Empty || this is Success) {
+            f()
+        }
+        return this
+    }
+
     inline fun onLoading(f: () -> Unit): Outcome<T> {
         if (this is Loading) {
             f()

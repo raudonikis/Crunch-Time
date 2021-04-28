@@ -1,3 +1,4 @@
+include(":libraries:common-testing")
 include(":features:settings")
 include(":libraries:core")
 include(":features:activity")

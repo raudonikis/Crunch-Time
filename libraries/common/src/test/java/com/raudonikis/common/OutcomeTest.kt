@@ -163,6 +163,58 @@ class OutcomeTest {
     }
 
     @Test
+    fun `onSuccessOrEmpty, is failure, does not call lambda`() {
+        //Assemble
+        val outcome = Outcome.failure()
+        val testFunction: () -> Unit = spyk()
+        //Act
+        outcome.onSuccessOrEmpty {
+            testFunction()
+        }
+        //Assert
+        verify(exactly = 0) { testFunction() }
+    }
+
+    @Test
+    fun `onSuccessOrEmpty, is empty, calls lambda`() {
+        //Assemble
+        val outcome = Outcome.empty()
+        val testFunction: () -> Unit = spyk()
+        //Act
+        outcome.onSuccessOrEmpty {
+            testFunction()
+        }
+        //Assert
+        verify { testFunction() }
+    }
+
+    @Test
+    fun `onSuccessOrEmpty, is success, calls lambda`() {
+        //Assemble
+        val outcome = Outcome.success("data")
+        val testFunction: () -> Unit = spyk()
+        //Act
+        outcome.onSuccessOrEmpty {
+            testFunction()
+        }
+        //Assert
+        verify { testFunction() }
+    }
+
+    @Test
+    fun `onSuccessOrEmpty, is loading, does not call lambda`() {
+        //Assemble
+        val outcome = Outcome.loading()
+        val testFunction: () -> Unit = spyk()
+        //Act
+        outcome.onSuccessOrEmpty {
+            testFunction()
+        }
+        //Assert
+        verify(exactly = 0) { testFunction() }
+    }
+
+    @Test
     fun `onLoading, is failure, does not call lambda`() {
         //Assemble
         val outcome = Outcome.failure()
