@@ -12,6 +12,9 @@ import com.raudonikis.login.validation.EmailState
 import com.raudonikis.login.validation.PasswordState
 import com.raudonikis.login.validation.ValidationUtils
 import com.raudonikis.navigation.NavigationDispatcher
+import com.raudonikis.navigation.NavigationGraph
+import com.raudonikis.network.auth.UserResponse
+import com.raudonikis.network.auth.login.LoginResponse
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -142,6 +145,57 @@ class LoginViewModelTest {
         }
         //Assert
         coVerify { authenticationRepository.login(any(), any()) }
+    }
+
+    @Test
+    fun `onLoginClicked, if login success, navigates to bottomNavigation`() = runBlockingTest {
+        //Assemble
+        coEvery { authenticationRepository.login(any(), any()) } returns Outcome.success(
+            LoginResponse(
+                UserResponse(
+                    "", "", "", false
+                ), ""
+            )
+        )
+        //Act
+        sut.loginValidationState.test {
+            sut.onEmailChanged("email@email.com")
+            sut.onPasswordChanged("password")
+            sut.onLoginClicked()
+            cancelAndIgnoreRemainingEvents()
+        }
+        //Assert
+        verify { navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true)) }
+    }
+
+    @Test
+    fun `onLoginClicked, if login empty, does not navigate to bottomNavigation`() = runBlockingTest {
+        //Assemble
+        coEvery { authenticationRepository.login(any(), any()) } returns Outcome.empty()
+        //Act
+        sut.loginValidationState.test {
+            sut.onEmailChanged("email@email.com")
+            sut.onPasswordChanged("password")
+            sut.onLoginClicked()
+            cancelAndIgnoreRemainingEvents()
+        }
+        //Assert
+        verify(exactly = 0) { navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true)) }
+    }
+
+    @Test
+    fun `onLoginClicked, if login failure, does not navigate to bottomNavigation`() = runBlockingTest {
+        //Assemble
+        coEvery { authenticationRepository.login(any(), any()) } returns Outcome.failure()
+        //Act
+        sut.loginValidationState.test {
+            sut.onEmailChanged("email@email.com")
+            sut.onPasswordChanged("password")
+            sut.onLoginClicked()
+            cancelAndIgnoreRemainingEvents()
+        }
+        //Assert
+        verify(exactly = 0) { navigationDispatcher.navigate(NavigationGraph.BottomNavigation(true)) }
     }
 
     @Test
