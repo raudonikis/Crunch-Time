@@ -51,9 +51,10 @@ dependencies {
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
     // Testing
+    testImplementation(project(Modules.Libraries.commonTesting))
     testImplementation(Dependencies.jUnit)
-    androidTestImplementation(Dependencies.jUnitTest)
-    androidTestImplementation(Dependencies.espresso)
-    // Quality
-//    debugImplementation(Dependencies.leakCanary)
+    testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.turbine)
 }
