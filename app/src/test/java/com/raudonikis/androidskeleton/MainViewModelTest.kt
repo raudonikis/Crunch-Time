@@ -1,5 +1,6 @@
 package com.raudonikis.androidskeleton
 
+import com.raudonikis.common_testing.MainCoroutineRule
 import com.raudonikis.data.auth.AuthPreferences
 import com.raudonikis.navigation.NavigationDispatcher
 import com.raudonikis.navigation.NavigationGraph
@@ -8,9 +9,12 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class MainViewModelTest {
 
     private lateinit var sut: MainViewModel
@@ -23,6 +27,9 @@ class MainViewModelTest {
 
     @RelaxedMockK
     private lateinit var authPreferences: AuthPreferences
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     @Before
     fun setup() {

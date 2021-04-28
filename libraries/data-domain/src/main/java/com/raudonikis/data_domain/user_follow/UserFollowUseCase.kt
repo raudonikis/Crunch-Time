@@ -23,10 +23,8 @@ class UserFollowUseCase @Inject constructor(
             safeNetworkResponse {
                 gamesApi.followUser(user.uuid)
             }
-        }.toOutcome().also { outcome ->
-            if (outcome is Outcome.Success || outcome is Outcome.Empty) {
-                userDao.addNewFollowingUser(user)
-            }
+        }.toOutcome().onSuccessOrEmpty {
+            userDao.addNewFollowingUser(user)
         }
     }
 
@@ -35,10 +33,8 @@ class UserFollowUseCase @Inject constructor(
             safeNetworkResponse {
                 gamesApi.unfollowUser(user.uuid)
             }
-        }.toOutcome().also { outcome ->
-            if (outcome is Outcome.Success || outcome is Outcome.Empty) {
-                userDao.removeFollowingUser(user)
-            }
+        }.toOutcome().onSuccessOrEmpty {
+            userDao.removeFollowingUser(user)
         }
     }
 }
