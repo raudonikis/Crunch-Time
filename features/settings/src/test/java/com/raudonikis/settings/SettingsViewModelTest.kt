@@ -14,7 +14,6 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -39,8 +38,6 @@ class SettingsViewModelTest {
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
-
-    private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setup() {

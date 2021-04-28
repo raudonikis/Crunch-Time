@@ -2,6 +2,7 @@ package com.raudonikis.login.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.raudonikis.core.providers.CoroutineDispatcherProvider
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.auth.AuthenticationRepository
 import com.raudonikis.login.LoginRouter
@@ -21,6 +22,7 @@ class LoginViewModel @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val authenticationRepository: AuthenticationRepository,
     private val userPreferences: UserPreferences,
+    private val dispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
 
     /**
@@ -44,18 +46,18 @@ class LoginViewModel @Inject constructor(
     /**
      * Observables
      */
-    val emailState: Flow<EmailState> = _emailState
-    val passwordState: Flow<PasswordState> = _passwordState
-    val loginState: Flow<LoginState> = _loginState
-    val loginValidationState: Flow<LoginValidationState> = _loginValidationState
+    val emailState: StateFlow<EmailState> = _emailState
+    val passwordState: StateFlow<PasswordState> = _passwordState
+    val loginState: StateFlow<LoginState> = _loginState
+    val loginValidationState: StateFlow<LoginValidationState> = _loginValidationState
     val loginEvent: Flow<LoginEvent> = _loginEvent.receiveAsFlow()
 
     /**
      * Login
      */
-    private fun login() {
+     private fun login() {
         _loginState.value = LoginState.LOADING
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcherProvider.mainDispatcher) {
             val email = _emailState.value.getCurrentEmail()
             val password = _passwordState.value.getCurrentPassword()
             authenticationRepository.login(email, password)
@@ -106,7 +108,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onLoginClicked() {
-        if (_loginValidationState.value == LoginValidationState.ENABLED) {
+        if (loginValidationState.value == LoginValidationState.ENABLED) {
             login()
         }
     }
