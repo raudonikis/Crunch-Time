@@ -24,4 +24,11 @@ dependencies {
     kapt(Dependencies.hiltLifecycleCompiler)
     // Images
     kapt(Dependencies.glideAnnotation)
+    // Testing
+    testImplementation(project(Modules.Libraries.commonTesting))
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.turbine)
 }

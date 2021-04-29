@@ -53,6 +53,7 @@ object Versions {
     const val jUnitTest = "1.1.2"
     const val espresso = "3.3.0"
     const val mockk = "1.11.0"
+    const val turbine = "0.4.1"
 
     // Sdk
     const val compileSdk = 30
@@ -77,8 +78,9 @@ object Modules {
     object Libraries {
         const val network = ":libraries:network"
         const val common = ":libraries:common"
-        const val core = ":libraries:core"
         const val commonUi = ":libraries:common-ui"
+        const val commonTesting = ":libraries:common-testing"
+        const val core = ":libraries:core"
         const val data = ":libraries:data"
         const val dataDomain = ":libraries:data-domain"
         const val navigation = ":libraries:navigation"
@@ -173,6 +175,7 @@ object Dependencies {
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+    const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     // Quality
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"

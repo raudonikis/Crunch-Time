@@ -21,4 +21,11 @@ dependencies {
     implementation(Dependencies.hiltNavigation)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
+    // Testing
+    testImplementation(project(Modules.Libraries.commonTesting))
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.jUnitTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.turbine)
 }

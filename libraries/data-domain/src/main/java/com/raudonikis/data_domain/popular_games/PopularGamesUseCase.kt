@@ -1,11 +1,13 @@
 package com.raudonikis.data_domain.popular_games
 
 import com.raudonikis.common.Outcome
+import com.raudonikis.core.providers.di.IODispatcher
 import com.raudonikis.data_domain.game.cache.GameDao
 import com.raudonikis.data_domain.game.mappers.GameMapper
 import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.safeNetworkResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -14,6 +16,8 @@ import javax.inject.Inject
 class PopularGamesUseCase @Inject constructor(
     private val gameDao: GameDao,
     private val gamesApi: GamesApi,
+    @IODispatcher
+    private val ioDispatcher: CoroutineDispatcher
 ) {
 
     fun getPopularGames(): Flow<Outcome<List<Game>>> = gameDao.getPopularGames()
@@ -24,7 +28,7 @@ class PopularGamesUseCase @Inject constructor(
      */
     suspend fun updatePopularGames(): Outcome<List<Game>> {
         gameDao.setPopularGamesOutcome(Outcome.loading())
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             safeNetworkResponse {
                 gamesApi.getPopularGames()
                     .map { GameMapper.fromPopularGameResponseList(it) }

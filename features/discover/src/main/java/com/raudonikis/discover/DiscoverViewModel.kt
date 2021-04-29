@@ -11,9 +11,7 @@ import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +34,7 @@ class DiscoverViewModel @Inject constructor(
      */
     var searchQuery: String = ""
         private set
-    var searchJob: Job? = null
+    private var searchJob: Job? = null
 
     /**
      * Scroll states
@@ -46,7 +44,7 @@ class DiscoverViewModel @Inject constructor(
     /**
      * Observables
      */
-    val popularGamesState: Flow<PopularGamesState> = popularGamesUseCase.getPopularGames()
+    val popularGamesState: StateFlow<PopularGamesState> = popularGamesUseCase.getPopularGames()
         .combine(_discoverState) { popularGamesState, discoverState ->
             when (discoverState) {
                 DiscoverState.DISCOVER -> {
@@ -54,8 +52,8 @@ class DiscoverViewModel @Inject constructor(
                 }
                 else -> PopularGamesState.Disabled
             }
-        }
-    val gameSearchState: Flow<GameSearchState> = gameSearchUseCase.getGameSearchResults()
+        }.stateIn(viewModelScope, SharingStarted.Lazily, PopularGamesState.Disabled)
+    val gameSearchState: StateFlow<GameSearchState> = gameSearchUseCase.getGameSearchResults()
         .combine(_discoverState) { gameSearchState, discoverState ->
             when (discoverState) {
                 DiscoverState.SEARCH -> {
@@ -63,7 +61,7 @@ class DiscoverViewModel @Inject constructor(
                 }
                 else -> GameSearchState.Disabled
             }
-        }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, GameSearchState.Disabled)
 
     init {
         updatePopularGames()
@@ -85,7 +83,7 @@ class DiscoverViewModel @Inject constructor(
             return
         }
         _discoverState.value = DiscoverState.SEARCH
-        searchJob = viewModelScope.launch(Dispatchers.IO) {
+        searchJob = viewModelScope.launch {
             gameSearchUseCase.search(query)
         }
     }

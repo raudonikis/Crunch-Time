@@ -1,5 +1,6 @@
 package com.raudonikis.core.providers.di
 
+import com.raudonikis.core.providers.CoroutineDispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,8 +13,17 @@ import kotlinx.coroutines.Dispatchers
 object CoroutinesModule {
 
     @Provides
+    fun provideCoroutineDispatcherProvider(): CoroutineDispatcherProvider {
+        return CoroutineDispatcherProvider(
+            ioDispatcher = Dispatchers.IO,
+            mainDispatcher = Dispatchers.Main,
+            defaultDispatcher = Dispatchers.Default
+        )
+    }
+
+    @Provides
     @IODispatcher
-    fun provideIODispatcher(): CoroutineDispatcher {
-        return Dispatchers.IO
+    fun provideIODispatcher(coroutineDispatcherProvider: CoroutineDispatcherProvider): CoroutineDispatcher {
+        return coroutineDispatcherProvider.ioDispatcher
     }
 }

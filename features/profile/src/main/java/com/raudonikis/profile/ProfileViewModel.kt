@@ -54,7 +54,7 @@ class ProfileViewModel @Inject constructor(
      */
     val myActivityState: Flow<Outcome<List<UserActivity>>> = myActivityUseCase.getMyUserActivity()
     val followingUsersState: Flow<Outcome<List<User>>> = userFollowingUseCase.getFollowingUsers()
-    val userState: Flow<Outcome<User>> = _userState
+    val userState: StateFlow<Outcome<User>> = _userState
     val gameCollectionTypeState: StateFlow<GameCollectionType> = _gameCollectionTypeState
     val gameCollection: Flow<Outcome<List<Game>>> =
         _gameCollectionTypeState.flatMapLatest { gameCollectionType ->
@@ -121,19 +121,19 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onFollowButtonClicked(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _userFollowEvent.emit(UserFollowEvent.LOADING)
             userFollowUseCase.followUser(user)
-                .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
+                .onSuccessOrEmpty { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
                 .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
         }
     }
 
     fun onUnfollowButtonClicked(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _userUnfollowEvent.emit(UserUnfollowEvent.LOADING)
             userFollowUseCase.unfollowUser(user)
-                .onSuccess { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
+                .onSuccessOrEmpty { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
                 .onFailure { _userUnfollowEvent.emit(UserUnfollowEvent.FAILURE) }
         }
     }

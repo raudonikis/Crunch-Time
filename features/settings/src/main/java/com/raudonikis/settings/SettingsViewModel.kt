@@ -41,9 +41,9 @@ class SettingsViewModel @Inject constructor(
      */
     fun onLogoutClicked() {
         _logoutEvent.offer(LogoutEvent.IN_PROGRESS)
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             authenticationRepository.logout()
-                .onSuccess {
+                .onSuccessOrEmpty {
                     _logoutEvent.offer(LogoutEvent.SUCCESS)
                     navigateToLogin()
                 }

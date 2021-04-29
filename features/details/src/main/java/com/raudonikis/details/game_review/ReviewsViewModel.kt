@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,8 +29,8 @@ class ReviewsViewModel @Inject constructor(
     /**
      * Observables
      */
-    val writeReviewState: Flow<ReviewState> = _writeReviewState
-    val currentGame: Flow<Game> = _currentGame
+    val writeReviewState: StateFlow<ReviewState> = _writeReviewState
+    val currentGame: StateFlow<Game> = _currentGame
 
     /**
      * Initialisation
@@ -48,7 +49,7 @@ class ReviewsViewModel @Inject constructor(
             _writeReviewState.value = ReviewState.ALREADY_PRESENT
             return
         }
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             gameReviewUseCase.postReview(rating, comment, game)
                 .onSuccess {
                     val gameReview =

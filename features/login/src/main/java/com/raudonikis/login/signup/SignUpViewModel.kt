@@ -54,17 +54,17 @@ class SignUpViewModel @Inject constructor(
     /**
      * Observables
      */
-    val emailState: Flow<EmailState> = _emailState
-    val passwordState: Flow<PasswordState> = _passwordState
-    val passwordConfirmState: Flow<PasswordState> = _passwordConfirmState
-    val usernameState: Flow<UsernameState> = _usernameState
-    val signUpState: Flow<SignUpState> = _signUpState
+    val emailState: StateFlow<EmailState> = _emailState
+    val passwordState: StateFlow<PasswordState> = _passwordState
+    val passwordConfirmState: StateFlow<PasswordState> = _passwordConfirmState
+    val usernameState: StateFlow<UsernameState> = _usernameState
+    val signUpState: StateFlow<SignUpState> = _signUpState
     val signUpEvent: Flow<SignUpEvent> = _signUpEvent.receiveAsFlow()
-    val signUpValidationState: Flow<SignUpValidationState> = _signUpValidationState
+    val signUpValidationState: StateFlow<SignUpValidationState> = _signUpValidationState
 
 
     private fun signUp() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _signUpState.value = SignUpState.LOADING
             val email = _emailState.value.getCurrentEmail()
             val password = _passwordState.value.getCurrentPassword()

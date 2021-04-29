@@ -40,7 +40,7 @@ class UserActivityViewModel @Inject constructor(
     /**
      * Observables
      */
-    val userSearchState: Flow<UserSearchState> = userSearchUseCase.getUserSearchResults()
+    val userSearchState: StateFlow<UserSearchState> = userSearchUseCase.getUserSearchResults()
         .combine(_userActivityState) { userSearchState, userActivityState ->
             when (userActivityState) {
                 UserActivityState.USER_SEARCH -> {
@@ -48,8 +48,8 @@ class UserActivityViewModel @Inject constructor(
                 }
                 else -> UserSearchState.Disabled
             }
-        }
-    val newsFeedState: Flow<NewsFeedState> =
+        }.stateIn(viewModelScope, SharingStarted.Lazily, UserSearchState.Disabled)
+    val newsFeedState: StateFlow<NewsFeedState> =
         newsFeedUseCase.getNewsFeed().combine(_userActivityState) { newsFeed, userActivityState ->
             when (userActivityState) {
                 UserActivityState.NEWS_FEED -> {
@@ -57,7 +57,7 @@ class UserActivityViewModel @Inject constructor(
                 }
                 else -> NewsFeedState.Disabled
             }
-        }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, NewsFeedState.Disabled)
     val userFollowEvent: Flow<UserFollowEvent> = _userFollowEvent
     val userUnfollowEvent: Flow<UserUnfollowEvent> = _userUnfollowEvent
 
@@ -69,7 +69,7 @@ class UserActivityViewModel @Inject constructor(
      * News feed
      */
     private fun updateNewsFeed() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             newsFeedUseCase.updateNewsFeed()
         }
     }
@@ -85,7 +85,7 @@ class UserActivityViewModel @Inject constructor(
             return
         }
         _userActivityState.value = UserActivityState.USER_SEARCH
-        userSearchJob = viewModelScope.launch(Dispatchers.IO) {
+        userSearchJob = viewModelScope.launch {
             userSearchUseCase.searchUsers(name)
         }
     }
@@ -101,25 +101,25 @@ class UserActivityViewModel @Inject constructor(
     }
 
     fun onNewsFeedRefresh() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             newsFeedUseCase.updateNewsFeed()
         }
     }
 
     fun onFollowButtonClicked(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _userFollowEvent.emit(UserFollowEvent.LOADING)
             userFollowUseCase.followUser(user)
-                .onSuccess { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
+                .onSuccessOrEmpty { _userFollowEvent.emit(UserFollowEvent.SUCCESS) }
                 .onFailure { _userFollowEvent.emit(UserFollowEvent.FAILURE) }
         }
     }
 
     fun onUnfollowButtonClicked(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _userUnfollowEvent.emit(UserUnfollowEvent.LOADING)
             userFollowUseCase.unfollowUser(user)
-                .onSuccess { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
+                .onSuccessOrEmpty { _userUnfollowEvent.emit(UserUnfollowEvent.SUCCESS) }
                 .onFailure { _userUnfollowEvent.emit(UserUnfollowEvent.FAILURE) }
         }
     }

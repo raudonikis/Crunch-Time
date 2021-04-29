@@ -2,11 +2,6 @@ package com.raudonikis.data_domain.news_feed
 
 import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.cache.UserActivityDao
-import com.raudonikis.data_domain.activity.models.UserActivity
-import com.raudonikis.data_domain.game.cache.GameDao
-import com.raudonikis.data_domain.game.models.Game
-import com.raudonikis.data_domain.game_status.usecases.GameStatusUseCase
-import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.NetworkResponse
 import io.mockk.*
