@@ -1,7 +1,5 @@
 package com.raudonikis.details
 
-import android.net.Uri
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raudonikis.common.Outcome
@@ -15,7 +13,6 @@ import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_status.usecases.GameStatusUseCase
 import com.raudonikis.navigation.NavigationDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -65,7 +62,7 @@ class DetailsViewModel @Inject constructor(
      * Details functionality
      */
     fun updateGameStatus(status: GameStatus) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             if (status == _currentGame.value.status) {
                 _detailsState.emit(DetailsState.StatusUpdateNotNeeded)
                 return@launch

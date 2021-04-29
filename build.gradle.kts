@@ -66,7 +66,7 @@ tasks.register("clean", Delete::class) {
 }
 
 tasks.register("runOnGitHub") {
-    dependsOn("app:test")
+    dependsOn(tasks.withType(Test::class.java))
     group = "custom"
     description = "$ ./gradlew runOnGitHub # runs on GitHub Action"
 }
