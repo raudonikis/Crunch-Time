@@ -46,7 +46,7 @@ class DetailsViewModel @Inject constructor(
      * Observables
      */
     val detailsState: Flow<DetailsState> = _detailsState
-    val currentGame: Flow<Game> = _currentGame
+    val currentGame: StateFlow<Game> = _currentGame
     val dealsState: Flow<Outcome<List<GameDeal>>> = _dealsState
     val errorEvent: Flow<String> = _errorEvent.receiveAsFlow()
 
@@ -104,7 +104,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun updateGameReviewInfo() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             gameReviewUseCase.getGameReviewInfo(_currentGame.value)
                 .onSuccess {
                     onGameUpdated(_currentGame.value.copy(gameReviewInfo = it))
@@ -134,7 +134,7 @@ class DetailsViewModel @Inject constructor(
      */
     private fun updateDeals() {
         _dealsState.value = Outcome.loading()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             gameDealsUseCase.searchGameDeals(_currentGame.value).also { outcome ->
                 _dealsState.value = outcome
             }.onFailure { error ->
@@ -169,7 +169,7 @@ class DetailsViewModel @Inject constructor(
 
     fun onDealClicked(deal: GameDeal) {
         deal.url?.let { url ->
-            navigateToDealUri(url.toUri())
+            navigateToDealUri(url)
         }
     }
 
@@ -188,7 +188,7 @@ class DetailsViewModel @Inject constructor(
         navigationDispatcher.navigate(DetailsRouter.fromDetailsToScreenshot(screenshotPosition))
     }
 
-    private fun navigateToDealUri(dealUri: Uri) {
-        navigationDispatcher.navigate(dealUri)
+    private fun navigateToDealUri(dealUrl: String) {
+        navigationDispatcher.navigate(dealUrl)
     }
 }

@@ -1,6 +1,6 @@
 package com.raudonikis.navigation
 
-import android.net.Uri
+import androidx.core.net.toUri
 import androidx.navigation.NavDirections
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +22,8 @@ class NavigationDispatcher @Inject constructor() {
         navigationCommands.offer(NavigationCommand.ToGraph(graph))
     }
 
-    fun navigate(uri: Uri) {
-        navigationCommands.offer(NavigationCommand.ToUri(uri))
+    fun navigate(uriString: String) {
+        navigationCommands.offer(NavigationCommand.ToUri(uriString.toUri()))
     }
 
     fun navigateBack() {
