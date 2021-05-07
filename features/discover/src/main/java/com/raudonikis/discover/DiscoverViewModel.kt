@@ -94,7 +94,7 @@ class DiscoverViewModel @Inject constructor(
     }
 
     /**
-     * Popular/Trending games
+     * Popular games
      */
     private fun updatePopularGames() {
         viewModelScope.launch(Dispatchers.IO) {

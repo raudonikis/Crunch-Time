@@ -18,7 +18,7 @@
         android:id="@+id/group_discover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="popular_games, trending_games" />
+        app:constraint_referenced_ids="popular_games" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_search_loading"
@@ -75,17 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_header" />
-
-    <com.raudonikis.discover.components.HorizontalGameList
-        android:id="@+id/trending_games"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="?spacingNormal"
-        android:layout_marginTop="?spacingNormal"
-        app:hgl_title="Trending games"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/popular_games" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading_search"

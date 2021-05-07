@@ -5,6 +5,6 @@
     <!--<item
         android:height="500dp"
         android:width="500dp"
-        android:drawable="@drawable/app_icon"
+        android:drawable="?"
         android:gravity="center" />-->
 </layer-list>

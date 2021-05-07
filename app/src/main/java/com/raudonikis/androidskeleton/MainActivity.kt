@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.raudonikis.androidskeleton.databinding.ActivityMainBinding
 import com.raudonikis.bottomnavigation.NavigationHandler
 import com.raudonikis.common_ui.extensions.observeInLifecycle
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun setUpNavigation() {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
         lifecycleScope.launchWhenCreated {
             navigationHandler.setUpNavigation(navController, onIntent = {
                 startActivity(it)

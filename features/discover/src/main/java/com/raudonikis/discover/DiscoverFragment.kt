@@ -36,12 +36,6 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private val popularGamesAdapter = FastAdapter.with(popularGamesItemAdapter)
 
     /**
-     * Trending games
-     */
-    private val trendingGamesItemAdapter = ItemAdapter<GameCoverItem>()
-    private val trendingGamesAdapter = FastAdapter.with(trendingGamesItemAdapter)
-
-    /**
      * Game search results
      */
     private val gameSearchItemAdapter = ItemAdapter<GameItem>()
@@ -138,19 +132,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             popularGamesAdapter.onClick { gameItem ->
                 viewModel.onGameClicked(gameItem.game)
             }
-            trendingGames.setAdapter(trendingGamesAdapter)
-            trendingGamesAdapter.onClick { gameItem ->
-                viewModel.onGameClicked(gameItem.game)
-            }
-            val gameItems = GameCoverItemMapper.fromGameList(testGames)
-            trendingGamesItemAdapter.update(gameItems)
         }
     }
 
     private fun updatePopularGamesState(state: PopularGamesState) {
         with(binding) {
             popularGames.showIf { state is PopularGamesState.PopularGames }
-            trendingGames.showIf { state is PopularGamesState.PopularGames }
             if (state is PopularGamesState.PopularGames) {
                 state.outcome
                     .onSuccess {

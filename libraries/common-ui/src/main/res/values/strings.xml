@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bakalauras</string>
+    <string name="app_name">Crunch Time</string>
     <string name="hint_search">Search...</string>
     <string name="buton_follow">Follow</string>
     <string name="label_loading">Loading...</string>
