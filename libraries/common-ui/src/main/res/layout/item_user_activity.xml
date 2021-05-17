@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="?spacingTiny"
             android:layout_marginTop="?spacingSmall"
-            android:text="2 weeks ago"
+            tools:text="2 weeks ago"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_action" />
 
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/game_placeholder"
+                android:background="@color/imagePlaceholderColor_2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -56,26 +56,34 @@ class GameDaoImpl @Inject constructor() : GameDao {
     /**
      * Game status
      */
-    override suspend fun updateGameStatus(id: Long, gameStatus: GameStatus) {
+    override suspend fun updateGameStatus(game: Game) {
         popularGames.value =
-            GameStatusUtils.updateGameStatusForGames(popularGames.value, id, gameStatus)
+            GameStatusUtils.updateGameStatusForGames(popularGames.value, game)
         gameSearchResults.value =
-            GameStatusUtils.updateGameStatusForGames(gameSearchResults.value, id, gameStatus)
+            GameStatusUtils.updateGameStatusForGames(gameSearchResults.value, game)
+        gameCollection.value =
+            GameStatusUtils.updateOrAddGameStatusForGames(gameCollection.value, game)
     }
 
     override fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>> {
         return chooseGameCollection(gameCollectionType)
     }
 
-    override fun setGameCollectionOutcome(
-        outcome: Outcome<List<Game>>
-    ) {
+    override fun setGameCollectionOutcome(outcome: Outcome<List<Game>>) {
         gameCollection.value = outcome
     }
 
-    override suspend fun updateGameCollection(
-        games: List<Game>
-    ) {
+    override fun updateGameCollectionOutcome(outcome: Outcome<List<Game>>) {
+        gameCollection.value.onSuccess { currentGames ->
+            outcome.onSuccess { newGames ->
+                gameCollection.value = Outcome.success(currentGames + newGames)
+            }
+            return
+        }
+        gameCollection.value = outcome
+    }
+
+    override suspend fun updateGameCollection(games: List<Game>) {
         gameCollection.value = Outcome.success(games)
     }
 

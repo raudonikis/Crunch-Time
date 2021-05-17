@@ -24,7 +24,7 @@ class MyActivityUseCase @Inject constructor(
     fun getMyUserActivity(): Flow<Outcome<List<UserActivity>>> = userActivityDao.getMyUserActivity()
         .map { outcome ->
             outcome.map { list ->
-                list.subList(0, ACTIVITY_HISTORY_SIZE)
+                list.take(ACTIVITY_HISTORY_SIZE).sortedByDescending { it.createdAt?.time }
             }
         }
 

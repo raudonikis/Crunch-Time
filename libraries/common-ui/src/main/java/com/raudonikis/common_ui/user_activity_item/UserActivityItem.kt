@@ -49,11 +49,11 @@ class UserActivityItem(val userActivity: UserActivity) :
     }
 
     private fun ItemUserActivityBinding.bindGameCover(coverUrl: String?) {
+        imageGameCover.setImageDrawable(null)
         coverUrl?.let { url ->
             Glide
                 .with(root)
                 .load(url.prefixHttps())
-                .placeholder(R.drawable.game_placeholder)
                 .centerCrop()
                 .into(imageGameCover)
         }

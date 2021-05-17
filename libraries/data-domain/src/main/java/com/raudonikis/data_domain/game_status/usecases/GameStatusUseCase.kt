@@ -38,7 +38,7 @@ class GameStatusUseCase @Inject constructor(
             }
         }.toOutcome().also { outcome ->
             outcome.onSuccess { gameStatusResponse ->
-                gameDao.updateGameStatus(game.id, game.status)
+                gameDao.updateGameStatus(game)
                 val newMyActivity = UserActivityMapper.onGameStatusUpdate(
                     gameStatusResponse,
                     game,

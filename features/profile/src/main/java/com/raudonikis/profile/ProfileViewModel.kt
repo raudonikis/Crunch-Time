@@ -67,7 +67,7 @@ class ProfileViewModel @Inject constructor(
      * Followers
      */
     private fun updateFollowingUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             userFollowingUseCase.updateFollowingUsers()
         }
     }
@@ -85,8 +85,8 @@ class ProfileViewModel @Inject constructor(
      * Game collection
      */
     private fun updateGameCollections() {
-        viewModelScope.launch(Dispatchers.IO) {
-            gameCollectionUseCase.updateGameCollection()
+        viewModelScope.launch {
+            gameCollectionUseCase.updateAllGameCollections()
         }
     }
 
@@ -94,7 +94,7 @@ class ProfileViewModel @Inject constructor(
      * My activity
      */
     private fun updateMyActivity() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             myActivityUseCase.updateMyUserActivity()
         }
     }

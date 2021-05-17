@@ -4,6 +4,7 @@ import com.raudonikis.common.Outcome
 import com.raudonikis.data_domain.activity.models.UserActivity
 import com.raudonikis.data_domain.activity.models.UserActivityAction
 import com.raudonikis.data_domain.game.models.Game
+import timber.log.Timber
 
 object GameStatusUtils {
 
@@ -12,18 +13,36 @@ object GameStatusUtils {
      */
     fun updateGameStatusForGames(
         outcome: Outcome<List<Game>>,
-        id: Long,
-        gameStatus: GameStatus
+        updatedGame: Game,
     ): Outcome<List<Game>> {
         return outcome.map { games ->
             games.map { game ->
-                if (game.id == id) {
-                    game.copy(status = gameStatus)
+                if (game.id == updatedGame.id) {
+                    game.copy(status = updatedGame.status)
                 } else {
                     game
                 }
             }
         }
+    }
+
+    /**
+     * Updates the [GameStatus] for games with the same [id]
+     */
+    fun updateOrAddGameStatusForGames(
+        outcome: Outcome<List<Game>>,
+        updatedGame: Game,
+    ): Outcome<List<Game>> {
+        outcome.onSuccess { games ->
+            val exists = games.any { it.id == updatedGame.id }
+            Timber.d("game exists? -> $exists")
+            return if (exists) {
+                updateGameStatusForGames(outcome, updatedGame)
+            } else {
+                Outcome.success(games + updatedGame)
+            }
+        }
+        return Outcome.success(listOf(updatedGame))
     }
 
     /**

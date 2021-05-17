@@ -9,6 +9,7 @@ import com.raudonikis.network.activity.UserActivityResponse
 import com.raudonikis.network.game_review.GameReviewPostResponse
 import com.raudonikis.network.game_review.GameReviewResponse
 import com.raudonikis.network.game_status.GameStatusResponse
+import java.util.*
 
 object UserActivityMapper {
 
@@ -63,7 +64,7 @@ object UserActivityMapper {
             gameId = gameStatusResponse.gameId,
             action = UserActivityActionMapper.onGameStatusUpdate(gameStatusResponse, game, user),
             coverUrl = game.coverUrl,
-            createdAt = DateFormatter.stringToDate(gameStatusResponse.createdAt),
+            createdAt = Date(System.currentTimeMillis()),
         )
     }
 

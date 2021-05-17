@@ -9,6 +9,8 @@ import com.raudonikis.data_domain.game.models.GameCollectionType
 import com.raudonikis.network.GamesApi
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,18 +25,19 @@ class GameCollectionUseCase @Inject constructor(
     fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>> =
         gameDao.getGameCollection(gameCollectionType)
 
-    suspend fun updateGameCollection(): Outcome<List<Game>> {
+    suspend fun updateAllGameCollections(): List<Outcome<List<Game>>> {
         gameDao.setGameCollectionOutcome(Outcome.loading())
-        withContext(ioDispatcher) {
-            safeNetworkResponse {
-                gamesApi.getGameCollection()
-                    .map {
-                        GameMapper.fromGameResponseList(it)
+        return withContext(ioDispatcher) {
+            GameCollectionType.values().map { type ->
+                async {
+                    safeNetworkResponse {
+                        gamesApi.getGameCollection(type.toString())
+                            .map {
+                                GameMapper.fromGameSearchResponseList(it)
+                            }
                     }
-            }
-        }.toOutcome().also { outcome ->
-            gameDao.setGameCollectionOutcome(outcome)
-            return outcome
+                }
+            }.awaitAll().map { it.toOutcome().also { gameDao.updateGameCollectionOutcome(it) } }
         }
     }
 }

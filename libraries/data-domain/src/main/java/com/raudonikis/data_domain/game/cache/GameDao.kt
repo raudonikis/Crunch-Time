@@ -25,12 +25,13 @@ interface GameDao {
     /**
      * Game status
      */
-    suspend fun updateGameStatus(id: Long, gameStatus: GameStatus)
+    suspend fun updateGameStatus(game: Game)
 
     /**
      * Game collections
      */
     fun getGameCollection(gameCollectionType: GameCollectionType): Flow<Outcome<List<Game>>>
     fun setGameCollectionOutcome(outcome: Outcome<List<Game>>)
+    fun updateGameCollectionOutcome(outcome: Outcome<List<Game>>)
     suspend fun updateGameCollection(games: List<Game>)
 }
