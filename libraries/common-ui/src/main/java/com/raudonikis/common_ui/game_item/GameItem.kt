@@ -25,6 +25,7 @@ class GameItem(val game: Game) : AbstractBindingItem<ItemGameBinding>() {
             gameDescription.text = game.description
             textGameCoverPlaceholder.text = game.name
             textGameCoverPlaceholder.showIf { game.coverUrl == null }
+            gameStatus.setGameStatus(game.status)
             game.coverUrl?.let { url ->
                 Glide
                     .with(root)

@@ -9,6 +9,6 @@
         android:id="@+id/activity_image"
         android:layout_width="120dp"
         android:layout_height="160dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/game_placeholder" />
+        android:background="@color/imagePlaceholderColor_2dp"
+        android:scaleType="centerCrop" />
 </androidx.cardview.widget.CardView>

@@ -37,7 +37,6 @@ class GameItemLayout(context: Context, attributeSet: AttributeSet) :
             Glide
                 .with(binding.root)
                 .load(url.prefixHttps())
-                .placeholder(R.drawable.game_placeholder)
                 .centerCrop()
                 .into(binding.imageGameCover)
             binding.textImagePlaceholder.hide()

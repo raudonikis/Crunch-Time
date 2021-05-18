@@ -21,7 +21,11 @@ class UserPreferences @Inject constructor(
         get() {
             val jsonAdapter = moshi.adapter(User::class.java)
             sharedPreferences.get(KEY_CURRENT_USER, "").also {
-                return jsonAdapter.fromJson(it)
+                return try {
+                    jsonAdapter.fromJson(it)
+                } catch (e: Exception) {
+                    null
+                }
             }
         }
         set(value) {
