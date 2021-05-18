@@ -40,4 +40,8 @@ class GameCollectionUseCase @Inject constructor(
             }.awaitAll().map { it.toOutcome().also { gameDao.updateGameCollectionOutcome(it) } }
         }
     }
+
+    fun deleteGameCollections() {
+        gameDao.setGameCollectionOutcome(Outcome.empty())
+    }
 }

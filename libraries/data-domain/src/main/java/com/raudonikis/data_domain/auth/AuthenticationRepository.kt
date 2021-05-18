@@ -3,6 +3,8 @@ package com.raudonikis.data_domain.auth
 import com.raudonikis.common.Outcome
 import com.raudonikis.core.providers.di.IODispatcher
 import com.raudonikis.data.auth.AuthPreferences
+import com.raudonikis.data_domain.activity.usecases.MyActivityUseCase
+import com.raudonikis.data_domain.game_collection.GameCollectionUseCase
 import com.raudonikis.data_domain.user.UserPreferences
 import com.raudonikis.data_domain.user.mappers.UserMapper
 import com.raudonikis.network.GamesApi
@@ -12,7 +14,6 @@ import com.raudonikis.network.auth.register.RegisterRequestBody
 import com.raudonikis.network.auth.register.RegisterResponse
 import com.raudonikis.network.utils.safeNetworkResponse
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,6 +22,8 @@ class AuthenticationRepository @Inject constructor(
     private val gamesApi: GamesApi,
     private val userPreferences: UserPreferences,
     private val authPreferences: AuthPreferences,
+    private val myActivityUseCase: MyActivityUseCase,
+    private val gameCollectionUseCase: GameCollectionUseCase,
     @IODispatcher
     private val ioDispatcher: CoroutineDispatcher,
 ) {
@@ -32,6 +35,8 @@ class AuthenticationRepository @Inject constructor(
             }
         }.toOutcome().onSuccessOrEmpty {
             authPreferences.clearUserData()
+            myActivityUseCase.deleteMyActivity()
+            gameCollectionUseCase.deleteGameCollections()
         }
     }
 

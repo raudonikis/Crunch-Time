@@ -50,17 +50,21 @@ class UserDaoImpl @Inject constructor() : UserDao {
     }
 
     override fun addNewFollowingUser(user: User) {
-        followingUsersState.value = followingUsersState.value.map { users ->
-            users.plus(user.copy(isFollowed = true))
-        }
         updateSearchResults(user.copy(isFollowed = true))
+        followingUsersState.value.onSuccess {
+            followingUsersState.value = followingUsersState.value.map { users ->
+                users.plus(user.copy(isFollowed = true))
+            }
+            return
+        }
+        followingUsersState.value = Outcome.success(listOf(user))
     }
 
     override fun removeFollowingUser(user: User) {
+        updateSearchResults(user.copy(isFollowed = false))
         followingUsersState.value = followingUsersState.value.map { users ->
             users.minus(user)
         }
-        updateSearchResults(user.copy(isFollowed = false))
     }
 
     override suspend fun updateFollowingUsers(followingUsers: List<User>) {

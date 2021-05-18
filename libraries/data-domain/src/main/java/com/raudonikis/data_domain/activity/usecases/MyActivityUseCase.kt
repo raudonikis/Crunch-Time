@@ -42,6 +42,10 @@ class MyActivityUseCase @Inject constructor(
         }
     }
 
+    fun deleteMyActivity() {
+        userActivityDao.setMyUserActivityOutcome(Outcome.empty())
+    }
+
     companion object {
         private const val ACTIVITY_HISTORY_SIZE = 20
 

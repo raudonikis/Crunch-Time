@@ -64,9 +64,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             buttonFollowing.setOnClickListener {
                 viewModel.onFollowingClicked()
             }
-            buttonFollowers.setOnClickListener {
-                viewModel.onFollowersClicked()
-            }
             tabLayoutCollections.onTabSelected { position ->
                 val gameCollectionType = GameCollectionTypeMapper.fromGameCollectionTab(position)
                 viewModel.onGameCollectionTabSwitched(gameCollectionType)
@@ -96,7 +93,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         state
             .onSuccess {
                 myActivityItemAdapter.update(UserActivityItemMapper.fromUserActivityList(it))
+                return
             }
+        myActivityItemAdapter.update(listOf())
     }
 
     /**
