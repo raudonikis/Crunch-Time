@@ -54,7 +54,7 @@ object SerializationModule {
             )
             .withSubtype(
                 UserActivityResponse.UserActivityGameRatedResponse::class.java,
-                UserActivityResponse.ACTION_GAME_RANKED
+                UserActivityResponse.ACTION_REVIEW_CREATED
             )
             .withSubtype(
                 UserActivityResponse.UserActivityListCreatedResponse::class.java,

@@ -7,10 +7,8 @@ import com.raudonikis.data_domain.game.models.Game
 import com.raudonikis.data_domain.game_rating.GameRating
 import com.raudonikis.data_domain.game_review.mappers.GameReviewMapper
 import com.raudonikis.data_domain.game_review.usecases.GameReviewUseCase
-import com.raudonikis.network.game_review.GameReviewRequestBody
+import com.raudonikis.data_domain.user.UserPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,6 +18,7 @@ import javax.inject.Inject
 class ReviewsViewModel @Inject constructor(
     // Use cases
     private val gameReviewUseCase: GameReviewUseCase,
+    private val userPreferences: UserPreferences,
 ) : ViewModel() {
 
     private var _currentGame: MutableStateFlow<Game> = MutableStateFlow(Game())
@@ -54,7 +53,7 @@ class ReviewsViewModel @Inject constructor(
                 .onSuccess {
                     val gameReview =
                         GameReviewMapper.fromGameReviewPostResponse(it).addGameInfo(game)
-                    _currentGame.value = GameMapper.addGameReview(game, gameReview)
+                    _currentGame.value = GameMapper.addGameReview(game, gameReview, userPreferences.currentUser)
                     _writeReviewState.value = ReviewState.SUCCESS
                 }
                 .onFailure {

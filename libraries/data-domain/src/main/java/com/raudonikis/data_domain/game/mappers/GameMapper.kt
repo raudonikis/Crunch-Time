@@ -8,6 +8,7 @@ import com.raudonikis.data_domain.game_review.GameReviewInfo
 import com.raudonikis.data_domain.game_screenshot.mappers.GameScreenshotMapper
 import com.raudonikis.data_domain.game_status.GameStatus
 import com.raudonikis.data_domain.game_video.mappers.GameVideoMapper
+import com.raudonikis.data_domain.user.User
 import com.raudonikis.network.game.GameResponse
 import com.raudonikis.network.game_search.GameSearchResponse
 import com.raudonikis.network.popular_games.PopularGameResponse
@@ -92,7 +93,7 @@ object GameMapper {
     /**
      * Add a new [GameReview] to a [Game]
      */
-    fun addGameReview(game: Game, gameReview: GameReview): Game {
+    fun addGameReview(game: Game, gameReview: GameReview, user: User?): Game {
         var positiveCount = game.gameReviewInfo.positiveCount
         var negativeCount = game.gameReviewInfo.negativeCount
         if (gameReview.isPositive) {
@@ -100,12 +101,20 @@ object GameMapper {
         } else {
             negativeCount++
         }
+        val reviews = game.gameReviewInfo.reviews.plus(gameReview)
         return game.copy(
             gameReviewInfo = game.gameReviewInfo.copy(
                 positiveCount = positiveCount,
                 negativeCount = negativeCount,
-                reviews = game.gameReviewInfo.reviews.plus(gameReview)
+                reviews = reviews,
+                isReviewPresent = isReviewPresent(reviews, user)
             )
         )
+    }
+
+    private fun isReviewPresent(reviews: List<GameReview>, user: User?): Boolean {
+        return reviews.any { review ->
+            review.user.uuid == user?.uuid
+        }
     }
 }

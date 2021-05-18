@@ -52,7 +52,7 @@ sealed class UserActivityResponse {
         const val LABEL_ACTION = "action"
         const val ACTION_GAME_STATUS_UPDATED = "game_status_updated"
         const val ACTION_LIST_CREATED = "list_created"
-        const val ACTION_GAME_RANKED = "???" //todo
+        const val ACTION_REVIEW_CREATED = "review_created"
     }
 }
 

@@ -26,9 +26,9 @@ object UserActivityActionMapper {
             }
             is UserActivityResponse.UserActivityGameRatedResponse -> {
                 UserActivityAction.ActionGameRated(
-                    title = response.data.name,
-                    rating = GameRating.UP_VOTED,
-                    user = response.data.name,
+                    title = response.data.gameTitle ?: "",
+                    rating = GameRatingMapper.fromActionGameRatedResponse(response.data),
+                    user = response.data.userName,
                 )
             }
             is UserActivityResponse.UserActivityListCreatedResponse -> {
