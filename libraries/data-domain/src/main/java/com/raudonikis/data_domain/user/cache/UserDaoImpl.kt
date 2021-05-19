@@ -63,7 +63,7 @@ class UserDaoImpl @Inject constructor() : UserDao {
     override fun removeFollowingUser(user: User) {
         updateSearchResults(user.copy(isFollowed = false))
         followingUsersState.value = followingUsersState.value.map { users ->
-            users.minus(user)
+            users.filter { it.uuid != user.uuid }
         }
     }
 

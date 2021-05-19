@@ -114,6 +114,9 @@ class UserActivityFragment : Fragment(R.layout.fragment_activity) {
                             showLongSnackbar(R.string.error_news_feed_generic)
                         }
                     }
+                    .onEmpty {
+                        newsFeedItemAdapter.update(listOf())
+                    }
 
             }
         }
