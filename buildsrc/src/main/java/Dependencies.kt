@@ -45,7 +45,7 @@ object Versions {
 
     // Kotlin
     const val ktxCore = "1.3.2"
-    const val kotlin = "1.4.20"
+    const val kotlin = "1.5.21"
     const val coroutines = "1.4.3"
 
     // Testing
@@ -182,4 +182,17 @@ object Dependencies {
 
     // JWT token
     const val jwtToken = "com.auth0.android:jwtdecode:${Versions.jwtToken}"
+
+    // Jetpack Compose
+    private const val compose_version = "1.0.0-rc02"
+    const val compose = "androidx.compose.ui:ui:$compose_version"
+    const val composeTooling = "androidx.compose.ui:ui-tooling:$compose_version"
+    const val composeFoundation = "androidx.compose.foundation:foundation:$compose_version"
+    const val composeMaterial = "androidx.compose.material:material:$compose_version"
+    const val composeMaterialIconsCore = "androidx.compose.material:material-icons-core:$compose_version"
+    const val composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:$compose_version"
+    const val composeLivedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
+    // Jetpack Compose - UI Tests
+    const val composeUiTest = "androidx.compose.ui:ui-test-junit4:$compose_version"
+
 }

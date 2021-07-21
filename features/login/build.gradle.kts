@@ -7,7 +7,15 @@ plugins {
 }
 
 android {
-    buildFeatures.viewBinding = true
+    buildFeatures {
+        viewBinding = true
+        // Enables Jetpack Compose for this module
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.0.0-rc02"
+    }
 }
 
 dependencies {
@@ -22,6 +30,14 @@ dependencies {
     implementation(Dependencies.hiltLifecycle)
     kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltLifecycleCompiler)
+    // Compose
+    implementation(Dependencies.compose)
+    implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.composeMaterialIconsCore)
+    implementation(Dependencies.composeMaterialIconsExtended)
+    implementation(Dependencies.composeTooling)
+    implementation(Dependencies.composeLivedata)
     // Testing
     testImplementation(project(Modules.Libraries.commonTesting))
     testImplementation(Dependencies.jUnit)
@@ -29,4 +45,6 @@ dependencies {
     testImplementation(Dependencies.mockk)
     testImplementation(Dependencies.coroutinesTest)
     testImplementation(Dependencies.turbine)
+    // UI Testing
+    androidTestImplementation(Dependencies.composeUiTest)
 }
