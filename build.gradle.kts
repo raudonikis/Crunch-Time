@@ -1,4 +1,3 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.android.build.gradle.BaseExtension
 
@@ -9,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.2")
+        classpath("com.android.tools.build:gradle:4.2.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
         // Hilt
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.33-beta")
