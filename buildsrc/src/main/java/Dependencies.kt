@@ -18,7 +18,7 @@ object Versions {
     const val lifecycle = "2.3.0"
 
     // DI
-    const val hilt = "2.33-beta"
+    const val hilt = "2.38.1"
     const val hiltAndroidx = "1.0.0-beta01"
     const val hiltLifecycle = "1.0.0-alpha03"
 
@@ -35,7 +35,7 @@ object Versions {
     const val room = "2.2.5"
 
     // Navigation
-    const val navigation = "2.3.3"
+    const val navigation = "2.3.5"
 
     // Support
     const val appCompat = "1.2.0"
@@ -184,7 +184,7 @@ object Dependencies {
     const val jwtToken = "com.auth0.android:jwtdecode:${Versions.jwtToken}"
 
     // Jetpack Compose
-    private const val compose_version = "1.0.0-rc02"
+    const val compose_version = "1.0.0"
     const val compose = "androidx.compose.ui:ui:$compose_version"
     const val composeTooling = "androidx.compose.ui:ui-tooling:$compose_version"
     const val composeFoundation = "androidx.compose.foundation:foundation:$compose_version"
@@ -192,6 +192,8 @@ object Dependencies {
     const val composeMaterialIconsCore = "androidx.compose.material:material-icons-core:$compose_version"
     const val composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:$compose_version"
     const val composeLivedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
+    const val composeThemeAdapter = "com.google.android.material:compose-theme-adapter:$compose_version"
+
     // Jetpack Compose - UI Tests
     const val composeUiTest = "androidx.compose.ui:ui-test-junit4:$compose_version"
 

@@ -2,33 +2,28 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.android.build.gradle.BaseExtension
 
 buildscript {
-    val kotlin_version by extra("1.4.20")
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
-        // Hilt
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.33-beta")
-        // Navigation
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3")
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath("com.android.tools.build:gradle:7.0.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}")
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven(url = "https://jitpack.io")
     }
 }
 
 subprojects {
-    tasks.withType<KotlinCompile>() {
+    tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
